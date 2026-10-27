@@ -1,7 +1,7 @@
 # 04 — Technical reference v2 (3 October 2026)
 
-**Status:** active reference, v2.1. It covers verified model facts, the tensor contract, hardware, the cost model, upstream tooling, correctness tests and the preserved pre-registered predictions. It contains **no plan or sequencing**; that lives in `02_PHYSLOOP_PLAN.md`.
-- **Verification dates.** Every number was verified on 2026-10-03 (`research/2026-10-03-verification/`). Corrections from the 2026-10-25 verification (`research/2026-10-25-teacher-to-thor/verification.md`) are marked "(corrected 2026-10-25)" inline, and new facts are in §9.
+**Status:** active reference, v2.2 (2026-10-27). It covers verified model facts, the tensor contract, hardware, the cost model, upstream tooling, correctness tests and the preserved pre-registered predictions. It contains **no plan or sequencing**; that lives in `02_PHYSLOOP_PLAN.md`.
+- **Verification dates.** Every number was verified on 2026-10-03 (`research/2026-10-03-verification/`). Corrections from the 2026-10-25 verification (`research/2026-10-25-teacher-to-thor/verification.md`) are marked "(corrected 2026-10-25)" inline, and new facts are in §9. Corrections from the 2026-10-27 verification (`research/2026-10-27-role-alignment/verification.md`) are marked "(corrected 2026-10-27)", and new facts are in §10.
 - **Archived versions.** v2 (2026-10-03) is archived unchanged. v1, the 22 September "post-training engine" core plan, is archived too; its predictions are reproduced verbatim in §7.
 
 ## 1. Model facts (cite the card/config for released checkpoints, the paper for the research model)
@@ -32,7 +32,7 @@ Card scores use a different protocol from the paper and are **not comparable** w
 | Training trajectory tokens | 128 = 64 × 2 | `num_bins 3000`; used in training only, while inference decodes through the expert |
 | `trajectory` | `[B, 64, 3+9]` | Position (x, y, z) + rotation matrix |
 | Decoder | AR1 Eq. 5 | Heading integrated exactly, position by the trapezoid rule; forward Euler would add 0.60 m of error on a 6.4 s arc |
-| AlpaGym RL (as shipped) | Expert only, VLM frozen, 5 SDE steps, trajectory-level clipped ratio | `sde_type="cps"` raises NotImplementedError. Default preset: 8 policy steps, `distance_to_gt` reward |
+| AlpaGym RL (as shipped) | Expert only, VLM frozen, 5 SDE steps (`inference_step`). **(Corrected 2026-10-27)** The ratio is a per-step-row geometric mean: exp of the mean of T × 64 × 2 per-element log-ratios, each clamped to ±5, then clipped to [0.8, 1.2]. The KL is a closed-form per-transition Gaussian KL, off by default (`kl_beta: 0.0`), not k3 | `sde_type="cps"` raises NotImplementedError. Default preset: 8 policy steps, `distance_to_gt` reward. **(2026-10-27)** The shipped defaults (`n_generation: 1`) give zero advantage, so the trainer skips the optimizer step. NVIDIA's experiment presets use `n_generation` 2–6, train at 5 Hz over 4.4 s with policy input 320 × 512, and skip traffic |
 
 ## 3. Hardware (official datasheets; dense; derived values marked)
 
@@ -76,7 +76,7 @@ The crossover is B* = b·F_peak / (2·BW). Below B* the operator is memory-bound
 
 Lessons:
 - **v1 was right by accident.** Its 490 ms total holds, but its split was wrong in all three stages.
-- **Quantization is a small lever here.** FlashDrive's 717 → 151 ms comes mostly from streaming KV reuse, speculative reasoning, adaptive steps and CUDA graphs. W4A8 removes only 24.6 ms; end to end it is worth 1.16× once the other optimizations are applied.
+- **Quantization is a small lever here.** FlashDrive's 717 → 151 ms comes mostly from streaming KV reuse, speculative reasoning, adaptive steps and CUDA graphs. The "adaptive steps" are a fixed velocity-reuse schedule, in which 4 of 8 steps reuse the previous velocity (corrected 2026-10-27). W4A8 removes only 24.6 ms; end to end it is worth 1.16× once the other optimizations are applied.
 - **AR1's 99 ms is not the released model.** It implies 1.75 ms/token, 5× below the BF16 bandwidth bound, so it does not describe the released 10B model.
 
 **Batched, B = 32:**
@@ -86,9 +86,9 @@ Lessons:
 
 **Thor decode floor** (273 GB/s): Alpamayo 1.5 in BF16 = 15.17 GB/token → **55.6 ms/token**. A 3B student needs 22 ms in BF16 and **11.0 ms** in FP8. A 0.1 s budget therefore allows only a few reasoning tokens (inference).
 
-**AlpaSim sweep cost.** FlashDrive measured 463 ms (optimized) to 1,150 ms (baseline) per rollout step, covering inference, trajectory optimization and rendering. One sweep is 441 scenes × 3 seeds × 200 steps, so it takes **34–85 GPU-hours single-stream**. That is an upper bound, and S2's measurement replaces it.
+**AlpaSim sweep cost.** FlashDrive measured 463 ms (optimized) to 1,150 ms (baseline) per rollout step, covering inference, trajectory optimization and rendering. One sweep is 441 scenes × 3 seeds × 200 steps, so it takes **34–85 GPU-hours single-stream**. On `e2e_challenge` the three repeats are unseeded replicates (corrected 2026-10-27). That is an upper bound, and S2's measurement replaces it.
 
-**Renderer.** NuRec's "100 FPS at 1080p on an RTX 6000 Pro" does not say whether it counts aggregate or per-camera frames, so it means 25 or 150 ticks/s at 4 cameras. 1080p has 11.25× the pixels of 320×576, and Alpamayo drivers reject images smaller than 320×576.
+**Renderer.** NuRec's "100 FPS at 1080p on an RTX 6000 Pro" does not say whether it counts aggregate or per-camera frames, so it means 25 or 150 ticks/s at 4 cameras. 1080p has 11.25× the pixels of 320×576, and Alpamayo drivers reject images smaller than 320×576. (2026-10-27, from L3, unverified: the check exists in AlpaSim's driver `base.py`, but the Alpamayo 1.5 path may not call it. No 320×576 camera preset exists. NVIDIA's topologies give the renderer 1 of 8 GPUs (Alpamayo 1.5 evaluation, `main`) or 4 of 8 (challenge), so any gain from rendering at model resolution is Amdahl-bounded.)
 
 **Balance equation (RL):** N_gen · g ≈ N_train · t.
 
@@ -96,22 +96,20 @@ Lessons:
 
 | Repo | Facts that constrain the plan |
 |---|---|
-| **AlpaSim** (`NVlabs/alpasim`) | gRPC microservices: runtime hub, renderer (default NRE-GA 26.04), driver, controller (linear MPC; nonlinear MPC on the challenge), physics, optional CAT-K traffic (disabled by default; its seed is unused). Seeds: `RolloutSpec.random_seed` on `main`, re-added by external PR #149 on 2026-08-17; `DriveSessionRequest.random_seed` on `e2e_challenge`. Ships `results-summary.json`, Prometheus telemetry (default since 2026-06-30), the 1,761/441 split (PR #167) and Drive-IRT. **Lacks** a paired verdict, stratification, test–retest, agreement tables and a monitor implementation (the `safety_monitor_safe` hook exists); still true on 2026-10-25. About 11 external merges, with no CLA. **Corrected 2026-10-25:** there has been no external merge since #149 (2026-08-17), and no `main` sync since 2026-08-11. Issue #207: one SHA does not pin the environment (`uv.lock` is gitignored). Issue #208: `n_sim_steps` is clipped silently and not recorded |
-| **AlpaGym** (`NVlabs/alpagym`) | First public commit 2026-06-16. Code-frozen mirror since 2026-07-08. Expert RL runs on unmerged recipes PR #18. Zero external PRs; DCO plus two internal reviewers. Opt-in `perf/` module parses AlpaSim telemetry. Needs 2 GPUs with ≥ 40 GB each |
-| **alpamayo-recipes** | ModelOpt 0.43 PTQ: `fp8` model-wide except `patch_embed`; `nvfp4` (also skips `action_in_proj` trunk.0); `w4a8_nvfp4_fp8`; AutoQuant (default 4.8 bits; the 6.5-bit example is about 9 GB). Open-loop minADE only; no accuracy or latency numbers published. Alpamayo 2 Super SFT recipe (2026-09-30). Pins: torch 2.8.0, vLLM 0.11.0, transformers 4.57.1, ModelOpt 0.43.0. **Corrected 2026-10-25:**
-- the distillation recipe exists as **open, unmerged PR #42** (no weights; ≥ 128 H100s recommended);
-- PR #45 adds DRIVE AGX Thor inference for the 2B students;
-- the reasoning-reward sign fix #40 landed on 2026-10-06 |
-| **Challenge** (`e2e_challenge`) | Score = 0 on an at-fault collision (front or lateral; rear is never at fault), off-road, or `left_corridor_laterally` ≥ 4 m; otherwise min(progress / 0.8, 1). Close-encounter has no scorer; stall, oscillation and red-light have no scorer anywhere. 16 GiB hard limit, 0.1 s target, images ≤ 40 GiB, no outbound network |
-| **Drive-IRT** (`kesai-labs/drive-irt`) | Zero-and-one-inflated Beta IRT with per-item discrimination, fitted by variational inference. Its 95% intervals are variational and exclude seed and scene variance. Needs ≥ 6 subjects (otherwise falls back to a plain average). No license; no external validation |
+| **AlpaSim** (`NVlabs/alpasim`) | gRPC microservices: runtime hub, renderer (default NRE-GA 26.04), driver, controller (linear MPC; nonlinear MPC on the challenge), physics, optional CAT-K traffic (disabled by default; its seed is unused). Seeds: `RolloutSpec.random_seed` on `main`, re-added by external PR #149 on 2026-08-17; `DriveSessionRequest.random_seed` on `e2e_challenge`. Ships `results-summary.json`, Prometheus telemetry (default since 2026-06-30), the 1,761/441 split (PR #167) and Drive-IRT. **Lacks** a paired verdict, stratification, test–retest, agreement tables and a monitor implementation (the `safety_monitor_safe` hook exists); still true on 2026-10-25. About 11 external merges, with no CLA. **Corrected 2026-10-25:** there has been no external merge since #149 (2026-08-17), and no `main` sync since 2026-08-11. **Corrected 2026-10-27:**<br>• **Merges.** The no-merge claim holds for `main` only. On `e2e_challenge`, four PRs from accounts without collaborator status merged between 08-24 and 08-31, including #167, from an OPTED co-author. `main`'s last commit is 2026-08-18; `e2e_challenge`'s is 2026-10-20.<br>• **Seeds.** The `e2e_challenge` Alpamayo driver ignores the session seed. `main` reseeds only with `force_determinism: true`.<br>• **Traffic.** `e2e_challenge` has no CAT-K.<br>• **Run methods.** SLURM (Pyxis) and docker-compose on both branches; `SLURM_ENROOT` and MPS on `main`. There is no Kubernetes path (#72).<br>• **The driver.** It installs alpamayo1.5 from git with no rev, runs eager at `max_batch_size: 1`, and never enables PR #36's expert CUDA graph.<br>• **#224** closed on 10-23: disclosure at NVIDIA's next release. Issue #207: one SHA does not pin the environment (`uv.lock` is gitignored). Issue #208: `n_sim_steps` is clipped silently and not recorded |
+| **AlpaGym** (`NVlabs/alpagym`) | First public commit 2026-06-16. Code-frozen mirror since 2026-07-08. Expert RL runs on unmerged recipes PR #18. Zero external PRs; DCO plus two internal reviewers. Opt-in `perf/` module parses AlpaSim telemetry. Needs 2 GPUs with ≥ 40 GB each.<br>• **(Corrected 2026-10-27) Not frozen.** "Code-frozen" is true of `main` only: last commit 2026-07-21, last code change 2026-07-08. NVIDIA's public branches carry commits to 2026-09-03.<br>• **Built on cosmos-rl** (pinned `d2a2c57`).<br>• **Slurm presets ship:** one node with 8 GPUs (1 policy / 3 rollout / 4 AlpaSim) or 4 GPUs (1/2/1); 3-node and 5-node presets. They are "not expected to run out of the box".<br>• **Rewards** come only from AlpaSim aggregated metrics or distance-to-GT |
+| **alpamayo-recipes** | ModelOpt 0.43 PTQ: `fp8` model-wide except `patch_embed`; `nvfp4` (also skips `action_in_proj` trunk.0); `w4a8_nvfp4_fp8`; AutoQuant (default 4.8 bits; the 6.5-bit example is about 9 GB). Open-loop minADE only; no accuracy or latency numbers published. Alpamayo 2 Super SFT recipe (2026-09-30). Pins: torch 2.8.0, vLLM 0.11.0, transformers 4.57.1, ModelOpt 0.43.0. **Corrected 2026-10-25:**<br>• the distillation recipe exists as **open, unmerged PR #42** (no weights; ≥ 128 H100s recommended);<br>• PR #45 adds DRIVE AGX Thor inference for the 2B students;<br>• the reasoning-reward sign fix #40 landed on 2026-10-06.<br>**(2026-10-27):**<br>• **PR #42.** Only its stage 1 needs ≥ 128 H100s; stages 2 (expert SFT, 1,200 steps) and 3 (DRaFT, < 200 steps) each fit one 8 × H100 node.<br>• **PR #44** (open) is NVIDIA's training-efficiency measurement chapter: GPU-hours from the mean wall clock; MFU, HFU and OFU; stall. It cites 1.77 s/step for a 2B stage-1 reference run on 128 GPUs.<br>• **PR #45** deploys 5 flow steps with fixed noise.<br>• **ModelOpt** 0.47.0 is current and adds an Alpamayo QAD example |
+| **Challenge** (`e2e_challenge`) | Score = 0 on an at-fault collision (front or lateral; rear is never at fault), off-road, or `left_corridor_laterally` ≥ 4 m; otherwise min(progress / 0.8, 1). Close-encounter has no scorer; stall, oscillation and red-light have no scorer anywhere. 16 GiB hard limit, 0.1 s target, images ≤ 40 GiB, no outbound network.<br>**(2026-10-27):**<br>• **The corridor fix.** A stationary ground-truth tail produced false corridor exits (#198), fixed in #215 (10-20); the leaderboard was recomputed on 10-22.<br>• **The EC2 production topology** `8gpu_32rollouts` runs 16 driver replicas, 4 per GPU on GPUs 4–7. It renders unharmonized, and NVIDIA plans the Harmonizer for the final reruns (#222).<br>• **Traffic** is log replay; there is no CAT-K on this branch |
+| **Drive-IRT** (`kesai-labs/drive-irt`) | Zero-and-one-inflated Beta IRT with per-item discrimination, fitted by variational inference. Its 95% intervals are variational and exclude seed and scene variance. Needs ≥ 6 subjects (otherwise falls back to a plain average). No license; no external validation. **(2026-10-27)** It has a single commit (`82ddd5a4`, "Release v0.0.1", 2026-08-12), the one the challenge pins. The challenge ships 8 reference subjects (441 scenes × 3 unseeded rollouts) |
 
 ## 6. Correctness tests (carried over from v1, still valid)
 
 | Test | Catches | Pass condition |
 |---|---|---|
-| Determinism and negative control | Non-reproducible environment; false blocks | A seeded replay matches the offline scorer; a bit-identical re-export is never flagged |
+| Determinism and negative control | Non-reproducible environment; false blocks | A seeded replay matches the offline scorer; a bit-identical re-export is never flagged. **(2026-10-27)** A seeded replay needs a driver that consumes the seed: `main` with `force_determinism: true`, or a port. On `e2e_challenge`, a same-policy re-run bounds the run-to-run noise instead |
 | Known-answer statistics | Wrong tails, one- vs two-sided confusion | The S1 known-answer suite (`02` §3) |
-| Log-prob parity | Rollout vs learner numerics | KL(train ‖ infer) < 1e-3 nats on tokens; per-step Gaussian log-density parity within 1e-4 on Flow-SDE |
+| Log-prob parity | Rollout vs learner numerics | KL(train ‖ infer) < 1e-3 nats on tokens; per-step Gaussian log-density parity within 1e-4 on Flow-SDE. **(2026-10-27)** In AlpaGym: at the first step, with `allowed_outdated_steps = 0` and `mu_iterations = 1`, the geometric-mean ratio equals 1 within Huy's tolerance |
+| Speed-up equivalence (2026-10-27) | A faster path that changes what is measured | A numerics-preserving change (the expert CUDA graph, driver replicas) is bitwise identical on every compared tick. A numerics-changing one (batching, FP8) passes P-009's ladder plus a paired closed-loop verdict on the same checkpoint |
 | Sync-equivalence | Scheduler and staleness bugs | Async at k = 0 reproduces the synchronous reward curve within 3-seed noise |
 | Overfit one scenario / one batch | Reward, mask and advantage bugs | Reward reaches its ceiling in < 50 steps; loss at init matches theory |
 | Gradient dependency | Batch leakage | ∂loss_i / ∂input_j = 0 for i ≠ j |
@@ -124,9 +122,9 @@ Lessons:
 These predictions were written before any run. They are kept unchanged. Their stage tags were re-mapped to plan v4 on 2026-10-25; the quoted text is untouched. A premise note records where the verification changed an assumption. Reconcile each one against measurement when its experiment runs (`02` stage in brackets).
 
 **Headline predictions.** Text as written:
-1. "Open-loop: the stock recipe (4 policy + 1 vLLM GPU) is training-bound on vision-token backprop, so the rollout GPU idles ≥30%. Closed-loop: the stock 2-GPU AlpaGym loop leaves the trainer idle ≥40%, because per-tick policy inference cannot batch across time and the renderer sits inside the loop." *[S2 telemetry, optional]*
+1. "Open-loop: the stock recipe (4 policy + 1 vLLM GPU) is training-bound on vision-token backprop, so the rollout GPU idles ≥30%. Closed-loop: the stock 2-GPU AlpaGym loop leaves the trainer idle ≥40%, because per-tick policy inference cannot batch across time and the renderer sits inside the loop." *[S2 telemetry, optional; v4.1: reconciled in S4 from AlpaGym's `perf` telemetry]*
 2. "Batching the action expert across ≥16 parallel environments cuts per-sample action latency ≥4× before it flattens (expert at 54 FLOP/byte, ~5× below the Blackwell BF16 ridge of 281)." *[S2, optional]* Premise note: 54 FLOP/byte is π0's modeled intensity. Alpamayo's expert crosses into compute-bound at B* ≈ 4.4 samples.
-3. "Async partial rollouts with ≤2 policy-versions of staleness retain ≥95% of synchronous GRPO's final closed-loop score." *[not scheduled]* Premise note: AlpaGym already runs staleness up to 4.
+3. "Async partial rollouts with ≤2 policy-versions of staleness retain ≥95% of synchronous GRPO's final closed-loop score." *[not scheduled]* Premise note: AlpaGym already runs staleness up to 4. Premise note (2026-10-27, L2): AlpaGym's trainer keeps the freshest batch and only warns about stale rollouts; the dropping happens in cosmos-rl's dispatcher (verified on cosmos-rl `main`, not at AlpaGym's pin). Prefetch requires `dp_shard_size == 1`, and NVIDIA's test run switches prefetch off.
 4. "NVFP4 on the VLM plus FP8 on the expert degrade minADE and closed-loop collision rate by ≤1% relative to BF16." *[S6]*
 5. "RL through the flow expert lowers AlpaSim close-encounter rate ≥15% relative within 200 GPU-h, and the token-only recipe measurably shifts the expert's conditioning (KL between pre- and post-RL VLM inputs to the expert grows with RL steps)." *[S4, S5]* Premise note: the challenge has no close-encounter scorer, and AlpaGym trains only the expert.
 
@@ -134,10 +132,10 @@ These predictions were written before any run. They are kept unchanged. Their st
 
 | # | Experiment | Variable | Prediction | Kill signal | Stage / premise note |
 |---|---|---|---|---|---|
-| E1 | Profile stock loops | open-loop recipe vs 2-GPU AlpaGym | open-loop: rollout GPU idle ≥30%; AlpaGym: trainer idle ≥40%, policy prefill largest stage | both balanced within 15% → throughput thesis weaker | S2 telemetry (optional). AlpaGym's default is an 8-policy-step preset, not 200 ticks |
-| E2 | Policy batch curve | B ∈ {1,4,8,16,32,64} | per-sample expert latency ≥4× lower by B=16; E2E 2.3–2.8×, plateau by B=32 | <1.5× at B=32 → prefill dominates; move KV reuse first | S2 (optional) |
+| E1 | Profile stock loops | open-loop recipe vs 2-GPU AlpaGym | open-loop: rollout GPU idle ≥30%; AlpaGym: trainer idle ≥40%, policy prefill largest stage | both balanced within 15% → throughput thesis weaker | S2 telemetry (optional). AlpaGym's default is an 8-policy-step preset, not 200 ticks. v4.1: S4, `perf.enabled=true` |
+| E2 | Policy batch curve | B ∈ {1,4,8,16,32,64} | per-sample expert latency ≥4× lower by B=16; E2E 2.3–2.8×, plateau by B=32 | <1.5× at B=32 → prefill dominates; move KV reuse first | S2 (optional). Premise note (2026-10-27): batching across rollouts changes the per-session random streams, so it needs per-sample generators, P-009's ladder and a paired verdict (P-015) |
 | E3 | History-frame KV reuse | reuse ViT features/static-token KV for 12 of 16 images | 2.5–3.5× on prefill at B≥16; minADE6 change ≤1% | minADE6 worse >2% → reuse only ViT features | S6, as the prerequisite for any CoC arm (S5); FlashDrive measured +2.7% minADE6 |
-| E4 | Render at model resolution | 1920×1080 vs 576×320 | ≥4× scenarios per renderer GPU; identical policy outputs | <2× → 3DGS cost not pixel-dominated | S2 (optional). An AlpaSim camera-config change, not a PR |
+| E4 | Render at model resolution | 1920×1080 vs 576×320 | ≥4× scenarios per renderer GPU; identical policy outputs | <2× → 3DGS cost not pixel-dominated | S2 (optional). An AlpaSim camera-config change, not a PR. Premise note (2026-10-27): no 320 × 576 camera preset exists, and rendering at model resolution is not the processor's resampling of a 1080p frame. So "identical policy outputs" cannot hold bit for bit; test paired equivalence instead |
 | E5 | RL objective through the deployed path | token GRPO vs Flow-SDE vs DSRL | Flow-SDE: close-encounter −15% relative in 200 GPU-h; token-only improves minADE6 but closed-loop less; drift KL grows | Flow-SDE unstable → DSRL primary | S4 (expert-only, as AlpaGym ships) and S5 (last, as an ablation) |
 | E6 | Staleness sweep | k ∈ {0,1,2,4,8} | k≤2 keeps ≥95% of k=0 score; k=8 loses >10% | k=1 loses >5% → step-level MIS first | Not scheduled |
 | E7 | Precision | BF16 vs FP8 vs NVFP4 on VLM and expert | ≤1% minADE6/close-encounter for FP8 and NVFP4 on the VLM; NVFP4 on the expert costs >1% | >3% on NVFP4-VLM → keep FP8 | S6, on real TensorRT engines. FlashDrive: W4A8 is 1.16× end to end |
@@ -152,6 +150,13 @@ These predictions were written before any run. They are kept unchanged. Their st
 - **Papers:** FlashDrive (arXiv 2608.12932, Tables 1 and 3); VLA-Perf (arXiv 2602.18397, modeled).
 - **NVIDIA docs:** NVIDIA datasheets (H100, B200, RTX PRO 6000 Workstation and Server, Jetson Thor, DRIVE AGX); TensorRT support matrix; NuRec scaling docs.
 - **Full ledger:** `research/2026-10-03-verification/report.md` §10, parts F–H.
+- **2026-10-27 additions:**
+  - `NVlabs/alpamayo1.5` PR #36 (expert CUDA graph);
+  - `NVlabs/alpamayo-recipes` PRs #42, #44, #45;
+  - `nvidia-cosmos/cosmos-rl`;
+  - AlpaSim issues #72, #128, #198, #208, #222, #224;
+  - TacitVLA (arXiv 2610.17540), OPTED (arXiv 2609.20756), ECO (arXiv 2609.31383), arXiv 2610.28184, AD-Memo (arXiv 2609.38641);
+  - the ledger `research/2026-10-27-role-alignment/verification.md`.
 
 ## 9. Facts verified 2026-10-25 (deltas since 2026-10-03)
 
@@ -170,3 +175,24 @@ Full ledger: `research/2026-10-25-teacher-to-thor/verification.md`.
 | Prices (vast.ai, on-demand) | RTX PRO 6000 Workstation $1.00 / $1.60 median; Server $1.24 / $1.47; H100 SXM $1.93 / $2.40; B200 $7.50 / $9.38; B300 $9.01 |
 | Jetson dev kit I/O | No native GMSL. Cameras come through Holoscan Sensor Bridge (QSFP) or USB |
 
+## 10. Facts verified 2026-10-27 (deltas since 2026-10-25)
+
+Full ledger: `research/2026-10-27-role-alignment/verification.md` (independent check of 33 claims: `notes/V_verification.md`).
+
+| Topic | Fact |
+|---|---|
+| Seeds | **`e2e_challenge` @ `e121e591`:** the Alpamayo driver stores `request.random_seed` and never uses it. Sampling (top-p 0.98, temperature 0.6) and flow noise draw from the process-global RNG, and there is no `force_determinism`.<br>**`main` @ `affc2eab`:** the driver reseeds every tick (session seed + inference count) only with `force_determinism: true`; every shipped Alpamayo config sets false.<br>**Elsewhere:** CAT-K ignores its seed. NuRec run-to-run variation is a maintainer's hedged recollection (#128) |
+| Branches | **`e2e_challenge`:** the 441-scene protocol, the post-#215 evaluator, run methods SLURM and docker-compose.<br>**`main`:** the reseed, a 9-field DCGM list (no XID, power, energy or clocks), the `alpasim_*` series, `SLURM_ENROOT`, CUDA MPS, the `optimize-slurm-topology` skill and `8gpu_alpamayo1_5_eval` (2 driver replicas on each of GPUs 0–6). There is no Kubernetes method on either. NRE is a proprietary, intentionally obfuscated container (#72) |
+| Driver | Eager PyTorch at `max_batch_size: 1`; `predict_batch` is a sequential loop; alpamayo1.5 installed from git with no rev and no `uv.lock`.<br>**alpamayo1.5 PR #36** (merged 2026-08-29) adds an opt-in expert CUDA graph that AlpaSim never enables. A PR comment reports 160/160 bitwise-identical evaluations. The body reports −15.5% (10B) and −31.5% (2B) per policy call, one paired AlpaGym sample each, preliminary |
+| S7 mechanisms | External-driver mode (`driver_source=external_static` / `external_dynamic`) and `planner_delay_us` (`DelayBuffer`; default 0 since 2026-03-24), on both branches |
+| Harmonizer | NVIDIA's Cosmos-based enhancer: on in the `e2e_challenge` developer default, off in the competition preset, no flag on `main`. NVIDIA plans to enable it for the final reruns (#222) |
+| AlpaGym | Ratio and KL as in §2 (corrected). The default config does not train. `main` was last changed on 2026-07-21 (code on 07-08); public branches carry commits to 2026-09-03. A 2B Alpamayo policy has been timed inside it (PR #36) |
+| PAI-AV splits | `alpamayo_aligned.parquet` labels all 306,152 clips: train 276,299 / test 28,317 / alpasim 1,536. `alpasim` clips are reserved for AlpaSim closed-loop evaluation. Needs `physical_ai_av` ≥ 0.2.3; revision `39414de6` (public card) |
+| PR #42 | Stage 1 needs ≥ 128 H100s (about 6,290 H100-h at NVIDIA's 1.77 s/step, by inference); stages 2 and 3 each fit one node. Token-level on-policy distillation starts at 75k of 100k steps. `target_action` overrides the logged target. The student VLM, Cosmos-Reason2-2B, is under the NVIDIA Open Model License |
+| PR #45 | Newest frame only; 16 drafted tokens, greedy; 6 candidates × 64 steps; 5 flow steps; fixed noise (`action-noise.bin`). "AM 1.5 Nano / AM 1 Nano" are NVIDIA's names for the **released 10B** checkpoints, not new models |
+| Papers | **TacitVLA** (arXiv 2610.17540): unpaired AlpaSim scores of 46.4 / 52.3 / 52.5 on 441 scenes (± SD over 3 rollouts); 127 vs 269 ms on an H100.<br>**OPTED** (2609.20756): per-scene collisions 10.2% → 23.4%, km per infraction 0.23 → 0.43, two epochs in 17 h on one 8 × H100 node.<br>**ECO** (2609.31383): +123% / +22% from post-processing alone.<br>**arXiv 2610.28184:** a stationary-obstacle failure in Alpamayo 1.5.<br>**AD-Memo** (2609.38641): 2B and 8B Alpamayo 2 checkpoints, not public |
+| Cosmos | Cosmos3-Nano-Sim-Auto (2026-10-20): 16B trainable parameters, OpenMDW-1.1, not gated, for closed-loop policy evaluation. 2.5 fps on one H100 for 4 views at 480p. Not in AlpaSim |
+| Toolchain | TensorRT 11.4 has no JetPack support (a future 11.x is promised). Weak typing is removed in 11; `IPluginV2DynamicExt` has been deprecated since 10.0. ModelOpt 0.47.0 is current (0.48.0rc1 dated 10-19). Holoscan SDK 5.0.0. TensorRT-Edge-LLM v0.11.0, with FP8 ViT attention and an embedding cache since v0.10.1 and media-aware KV reuse since v0.10.0; PR #260 still open. JetPack 7.2.1 is still newest |
+| Cluster stack | NVIDIA acquired SchedMD (Slurm) on 2025-12-15. cosmos-rl v0.4.7 (2026-10-22, "limited maintenance" banner). NeMo-RL v0.7.0 adds PPO and has no flow-matching or VLA path |
+| Prices (vast.ai, 2026-10-27) | RTX PRO 6000 Workstation $1.00 / $1.56 median (33 offers). Server $1.27 / $1.34. H100 SXM $1.79 / $2.40. B200 $6.49 / $10.25. An 8 × H100 node lists at $31.92–36.00/h |
+| Edge | Still not public on 2026-10-27 (HF 401; no NGC model; no NVlabs repo) |

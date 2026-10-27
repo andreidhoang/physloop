@@ -20,11 +20,13 @@
 ## Scope: what this experiment is NOT testing
 
 ## Setup
-- Scenes / strata / seeds (scene list file, minimum stratum size):
+- Scenes / strata / replicates (scene list file, minimum stratum size; replicates per scene; seed mode: seeded with `force_determinism`, or unseeded replicates):
 - Model / checkpoint (hash) and precision:
-- AlpaSim SHA (main and `e2e_challenge`) **and resolved lockfile**, `n_sim_steps` requested and actual, renderer, traffic model (replay / CAT-K), deviation convention (2 m and 4 m), score definition (challenge `scene_score` or card-style km-between-events):
-- Contamination: overlap of the scene list with PAI-AV `splits/alpamayo_aligned.parquet`:
-- Hardware (GPU and edition; for Thor, name Jetson AGX or DRIVE AGX plus JetPack/DriveOS and TensorRT versions; real engine or emulated), GPU-hours, price (date), cost estimate:
+- AlpaSim branch and SHA (`main` and `e2e_challenge`), evaluator SHA, **and resolved lockfile**, `n_sim_steps` requested and actual, renderer image and Harmonizer state, traffic model (replay / CAT-K), deviation convention (2 m and 4 m), score definition (challenge `scene_score` or card-style km-between-events):
+- Run method and topology (docker-compose / SLURM; replicas; concurrency); driver settings (expert CUDA graph on/off, `max_batch_size`, resolved `alpamayo1_5` commit); controller and post-processing identity:
+- Contamination: the `splits/alpamayo_aligned.parquet` label (train / test / alpasim) of every scene's source clip:
+- Interim looks (if any): spending function, K, futility rule (`02` S1):
+- Hardware (GPU and edition; for Thor, name Jetson AGX or DRIVE AGX plus JetPack/DriveOS and TensorRT versions; real engine or emulated), GPU count and scale (one node / multi-node), GPU-hours computed from the **mean** wall clock, price (date), cost estimate:
 - Command(s):
 
 ## Gates

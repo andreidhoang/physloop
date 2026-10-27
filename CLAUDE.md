@@ -12,7 +12,12 @@ You work with Dang Huy on PhysLoop, a standalone project. It builds and measures
 
 PhysLoop is independent of every other project: it takes no hours, budget, deadline or decision from another program (DECISIONS D-009).
 
-**Current state (2026-10-25).** Plan v4 is adopted (D-012), replacing v3 (D-010). The folder holds plans, specifications, verification evidence and Claude context, but **no implementation yet**. The active stage is S1, with D = 2026-10-26. It is in `docs/00_START_HERE.md` under "Where we are", along with the dated KC-E check on 2026-10-31.
+**Current state (2026-10-27).** Plan v4.1 is adopted (D-015). It amends v4 (D-012, which replaced v3) with three things (`02` §0.1, `05` §3):
+- corrections;
+- savings;
+- one-node evidence for the target role, NVIDIA's JR2010863, inside the existing stages.
+
+The folder holds plans, specifications, verification evidence and Claude context, but **no implementation yet**. The active stage is S1, with D = 2026-10-26. It is in `docs/00_START_HERE.md` under "Where we are", along with the dated KC-E check on 2026-10-31.
 
 ## Before you touch code, every session
 1. Read `DOC_AUTHORITY.md`, then `docs/00_START_HERE.md` in full.
@@ -23,22 +28,35 @@ PhysLoop is independent of every other project: it takes no hours, budget, deadl
 `/reread` performs steps 1–4. The command texts are in `context/claude-instructions/commands/`.
 
 ## How we work (non-negotiable)
-- **Evaluation before model claims.** No result is reported without seeds, git hash, config, manifest, AlpaSim SHA(s), scene list and deviation convention.
+- **Evaluation before model claims.** No result is reported without replicates and seed mode, git hash, config, manifest, AlpaSim SHA(s), scene list and deviation convention.
 - **One variable per experiment.** The prediction is written before the run, never after, and only once the mechanism has been derived.
 - **A number that beats its prediction is investigated as a possible bug** before it is celebrated.
 - **Negative results are kept,** together with the mechanism that explains the miss.
-- **Reuse NVIDIA's open pieces** (AlpaSim, alpamayo-recipes including the distillation PR #42, AlpaGym, AlpaJudge, Drive-IRT). Build only what `02` §2 marks as open; never race NVIDIA to an artifact it is about to ship. Upstream contributions go to AlpaSim, which accepts outside PRs although none has merged since 2026-08-17. AlpaGym accepts none.
+- **Reuse NVIDIA's open pieces.** They include:
+  - AlpaSim, with its Slurm run methods, external-driver mode and `planner_delay_us` delay;
+  - alpamayo-recipes, including the distillation PR #42 and its one-node stage-2 trainer;
+  - AlpaGym, with its presets and `perf` telemetry;
+  - AlpaJudge and Drive-IRT;
+  - the expert CUDA graph (alpamayo1.5 PR #36);
+  - the measurement definitions in recipes PR #44.
+
+  Build only what `02` §2 marks as open; never race NVIDIA to an artifact it is about to ship.
+- **Upstream contributions** go to AlpaSim. It accepts outside PRs, although none has merged on `main` since 2026-08-17; four from non-collaborator accounts merged on `e2e_challenge` from 08-24 to 08-31. Re-check NVIDIA's latest release before any PR (#224), and never compete with an offered PR (#208). AlpaGym accepts none.
 - **Allowed claims** are listed in `02` §6. Never claim:
   - "safe", per-mile rates, human parity, "above human", predictive validity or real-world validation;
   - compliance with any standard or regulation, including UN R[185] and the ADS GTR;
   - shadow mode as validation (it is open-loop);
   - Jetson AGX Thor numbers as DRIVE AGX Thor numbers;
-  - emulated precision as a speed-up.
+  - emulated precision as a speed-up;
+  - unseeded replicates as seeds;
+  - single-node or rented-cluster results as cluster or production scale, or this solo project as industry infrastructure experience.
 - **Statistics defaults:**
   - paired and cluster-adjusted by road;
   - one-sided bounds labelled as one-sided;
   - INSUFFICIENT blocks GO;
-  - out-of-envelope (≥ 4 m) rollouts are reported separately, never silently scored or dropped.
+  - out-of-envelope (≥ 4 m) rollouts are reported separately, never silently scored or dropped;
+  - repeats are unseeded replicates unless the manifest records a seeded mode. On `e2e_challenge`, the Alpamayo driver ignores the session seed;
+  - interim looks follow the pre-registered group-sequential rule from S1, or none are taken.
 - **Gates before action:**
   - no spend without a recorded budget tier (P-005);
   - no hardware purchase without its recorded decision (Jetson AGX Thor: P-002; shadow-mode rig: P-006);
@@ -64,8 +82,10 @@ Run every task through these steps in order. Each step only applies the rules ab
 4. **Check the gates.** Spending needs the recorded budget tier (P-005). Hardware needs P-002 or P-006. Dataset downloads, licence terms (KC-L, KC-L2) and dated checks apply as listed above. Estimate the GPU-hours and cost before any rented run.
 5. **Build.** Write the failing test first. Where `03` §4 gives a known answer, that answer is the test. Then make the smallest change that passes. Change one variable per experiment, and pin the environment (resolved `uv` lockfile).
 6. **Run and record.** Write outputs to `evidence/`, which is append-only and never edited by hand. Each record carries the manifest from `02` §3 S2:
-   - git hash, config, seeds;
-   - AlpaSim SHA(s), resolved lockfile, `n_sim_steps` requested and actual;
+   - git hash, config, replicates and seed mode (`force_determinism`);
+   - AlpaSim branch and SHA(s), evaluator SHA, resolved lockfile, `n_sim_steps` requested and actual;
+   - simulator configuration: Harmonizer state, renderer image, traffic mode, run method and topology;
+   - driver settings: expert graph, batch size, replicas, and the resolved `alpamayo1_5` commit;
    - GPU edition, scene list, score definition, deviation convention.
 
    Every latency number also names its device, with JetPack and TensorRT versions, and says "real engine" or "emulated".
@@ -73,6 +93,7 @@ Run every task through these steps in order. Each step only applies the rules ab
    - A number that beats its prediction, or its roofline bound, is investigated as a bug first.
    - Time GPU work only after warm-up, with device synchronization.
    - Correctness needs more than one loose `allclose`: repeat bitwise and compare against a reference.
+   - A speed-up that should keep numerics must be bitwise identical. One that changes numerics (batching, a lower precision) needs P-009's ladder plus a paired verdict before any verdict sweep uses it.
    - Report ≥ 4 m rollouts separately, and treat INSUFFICIENT as a result.
 8. **Hand back.** Report what changed, the commands that reproduce it, the evidence paths, and what is still unverified. Leave the prediction-vs-measurement reconciliation and the diagnosis to Huy. Commit only when Huy asks.
 

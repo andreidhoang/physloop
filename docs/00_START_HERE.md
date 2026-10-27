@@ -4,7 +4,7 @@
 On the first read, read all of it. Every session, re-read steps 1, 3, 5 and 6.
 
 1. `../DOC_AUTHORITY.md` — 2 minutes. Which document wins.
-2. `01_SYSTEM_DESIGN.md` — the system map, the three system laws, the twelve core concepts.
+2. `01_SYSTEM_DESIGN.md` — the system map, the three system laws, the thirteen core concepts.
 3. `02_PHYSLOOP_PLAN.md` — **the plan**: deliverables G1–G9, stages S1–S8, budget tiers, allowed claims, kill checks, risks, open decisions.
 4. `03_MASTERY_PLAN.md` — the skill pillars, the curriculum for each stage, the mastery gates, skill coverage.
 5. `DECISIONS.md` — what was decided and why. Newest entries are at the bottom.
@@ -12,7 +12,8 @@ On the first read, read all of it. Every session, re-read steps 1, 3, 5 and 6.
 
 Reference, when needed:
 - `04_CORE_PLAN_TECHNICAL.md` — verified model, hardware and cost facts, plus the preserved 22-Sep predictions.
-- `05_ROLE_MAPPING.md` — live NVIDIA postings.
+- `05_ROLE_MAPPING.md` — live NVIDIA postings, and the JR2010863 evidence contract (§3).
+- `research/2026-10-27-role-alignment/` — the seven research lanes, the report, the verification ledger and the arithmetic check behind plan v4.1.
 - `research/2026-10-25-teacher-to-thor/` — the decision input, the review and the verification ledger behind plan v4.
 - `research/2026-10-03-verification/` — the evidence and claim ledger behind plan v3, still valid where not superseded.
 
@@ -33,17 +34,36 @@ Reference, when needed:
 3. If anything changed a decision, append it to `DECISIONS.md`.
 
 ## Where we are (update this block when the stage changes)
-- **Status:** standalone and active (D-009). **Plan v4 adopted on 2026-10-25 (D-012):** the teacher → student → Thor loop, with the gate as its measuring instrument. No implementation exists yet: the folder holds plans, specifications, evidence and Claude context only.
+- **Status:** standalone and active (D-009). **Plan v4.1 adopted on 2026-10-27 (D-015)**, amending v4 (D-012, 2026-10-25): the teacher → student → Thor loop, with the gate as its measuring instrument. v4.1 adds:
+  - corrections: S2 runs unseeded replicates unless a seeded mode is recorded; the contamination rule and the S4 estimator text are fixed;
+  - savings: NVIDIA's expert CUDA graph, PR #42's one-node trainer, AlpaSim's own S7 mechanisms;
+  - one-node evidence for JR2010863 inside the existing stages (`02` §0.1, `05` §3).
+
+  No implementation exists yet: the folder holds plans, specifications, evidence and Claude context only.
 - **Stage:** **S1**, the gate decision core on synthetic truth plus a power analysis. It costs $0, runs on CPU and needs no dataset. v3's D (2026-10-05) passed without S1 starting. **D = 2026-10-26, so KC-1 falls on 2026-11-02.** The day-by-day plan is in `02` §4.
-- **Next output:** the public `physloop-gate` v0, its power tables (including what S3's and S4's gates can certify), and an AlpaSim issue proposing the paired-verdict layer.
-- **Dated check:** **KC-E on 2026-10-31.** Are Alpamayo 2 Edge weights public, and under what license? This decides whether S3 or S4 runs first.
+- **Next output:**
+  - the public `physloop-gate` v0;
+  - its power tables, now with group-sequential boundaries, intersection–union power and the replicate branch, including what S3's and S4's gates can certify;
+  - an AlpaSim issue proposing the paired-verdict layer;
+  - S2's pre-registration: branch, seed mode, Harmonizer state and run method.
+- **Dated check:** **KC-E on 2026-10-31.** Are Alpamayo 2 Edge weights public, and under what license? This decides whether S3 or S4 runs first. Use the release-day capture list in `02` S3. Edge was still not public on 2026-10-27.
 - **Open decisions:**
   - P-002, the Jetson AGX Thor purchase: blocks S6–S7.
   - P-003, weekly hours: re-forecast at KC-1.
   - P-004, the license request to NVIDIA (§3 numbers, §4.6 weights): blocks every public number from S2 on. Sending it early is cheap.
   - P-005, the cloud budget tier: needed before any S2 spend.
   - P-006, the shadow-mode go: blocks S8.
+  - P-012 to P-019, gated v4.1 additions; none blocks S1–S2:
+    - P-012: multi-node;
+    - P-013 and P-014: the traffic and renderer legs;
+    - P-015: the batched driver;
+    - P-016: a third RL arm;
+    - P-017: a PR #42 pilot student;
+    - P-018: a few-step expert;
+    - P-019: one C++ driver for two targets.
 - **Do not:**
   - download PAI-AV or NuRec before S2 starts (license term §8);
-  - start S2 runs before the challenge closes on 2026-10-31 (AlpaSim issue #224);
+  - start S2 runs before the challenge closes on 2026-10-31. NVIDIA ties its withheld simulation choices to its next release (AlpaSim #224), so check for one at S2's start;
+  - start any S2 run before its branch, seed mode, Harmonizer state and run method are pre-registered in `experiments/`;
+  - file an upstream PR without re-checking NVIDIA's latest release, or one that competes with an offered PR (#208);
   - register for the 2026 challenge (it needs an organization email).

@@ -45,7 +45,8 @@ The gate answers one question about the model that actually ships:
 The gate is the balancing loop. Without it, the flywheel optimizes whatever the metric rewards (Goodhart), and RL is the strongest metric-exploiter we own.
 
 ## Status
-- Standalone and active. Plan v4 dated 2026-10-25 (DECISIONS D-012).
+- Standalone and active. Plan v4.1 dated 2026-10-27 (DECISIONS D-015), amending plan v4 of 2026-10-25 (D-012).
+- The target role's line-by-line evidence contract (NVIDIA JR2010863) is `docs/05_ROLE_MAPPING.md` §3.
 - Stage S1: the gate decision core on synthetic truth plus a power analysis. It costs $0 and runs on CPU; D = 2026-10-26.
 - No implementation exists yet.
 

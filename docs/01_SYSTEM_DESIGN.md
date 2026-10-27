@@ -1,6 +1,10 @@
 # 01 — System design (systems-thinking view)
 
-This document is authoritative for the system map and the twelve core concepts. It is v3 (2026-10-25): v2 (2026-10-03) plus the teacher → student → Thor loop of plan v4 (D-012), corrected against `research/2026-10-25-teacher-to-thor/verification.md`. v1 and v2 are in `archive/`. Read this before any code.
+This document is authoritative for the system map and the thirteen core concepts. It is v3.1 (2026-10-27):
+- **v3 (2026-10-25)** added the teacher → student → Thor loop of plan v4 (D-012), corrected against `research/2026-10-25-teacher-to-thor/verification.md`.
+- **v3.1** corrects C2, C4, C5, C6 and C10 against `research/2026-10-27-role-alignment/verification.md`, and adds C13 (D-015).
+
+v1 and v2 are in `archive/`. Read this before any code.
 
 ## 0. The production problem
 
@@ -80,7 +84,7 @@ Three system laws explain why the gate is the leverage point:
 
 A common misconception is that the value lies in the best model. In production, the best model is replaced within months, while the release process lasts years. Waymo publishes its approval framework, not its model (arXiv 2505.09880).
 
-## 3. Ten core concepts (verified 2026-10-03)
+## 3. Core concepts (C1–C10 verified 2026-10-03; C11–C12 added 2026-10-25; C13 added and C2, C4, C5, C6, C10 corrected 2026-10-27)
 
 **C1. The driving VLA has two brains.**
 - **Architecture.** Alpamayo 1.5 (released checkpoint) pairs an ~8.2B VLM with a flow-matching action expert. The VLM is Cosmos-Reason2-8B on a Qwen3-VL architecture. The card lists the expert as 2.3B; the paper says 2B. The VLM writes a Chain-of-Causation trace, and the expert reads the VLM's KV cache to emit 64 waypoints over 6.4 s at 10 Hz.
@@ -94,6 +98,9 @@ A common misconception is that the value lies in the best model. In production, 
 - **Positioning.** NVIDIA positions Alpamayo as a teacher distilled into compact runtime models on DRIVE AGX Thor.
 - **State on 2026-10-25:**
   - **Distillation recipe:** alpamayo-recipes PR #42 (open, 10-20; no weights; ≥ 128 H100s recommended) distills Alpamayo 1 / 1.5 into a Cosmos-Reason2-2B student plus a compact expert. Its result is open-loop: minADE6 0.8875 m vs the teacher's 0.8298 m.
+    - **Corrected 2026-10-27:** the 128-H100 figure is stage 1's alone; stages 2 (expert SFT) and 3 (DRaFT) each fit one 8 × H100 node.
+    - Stage 1 already includes open-loop, token-level on-policy distillation.
+    - The student's action head is trained on logged trajectories, not on teacher actions.
   - **Thor latency:** PR #45 runs such students at 171 ms in FP8 on DRIVE AGX Thor.
   - **Alpamayo 2 Edge** (2B, DRIVE AGX Thor, 10 Hz) was announced on 10-21. Its weights are promised "later this month".
 - **Memory.** Alpamayo 1.5 needs 22.16 GB in BF16 (11.08B parameters) and about 11 GB in FP8. A 3B student needs about 6 GB in BF16.
@@ -111,12 +118,24 @@ A common misconception is that the value lies in the best model. In production, 
 
 **C4. Neural reconstruction.** NuRec rebuilds real scenes with 3D Gaussian Splatting and renders novel views when the ego deviates. AlpaSim wires renderer, traffic (log replay by default; CAT-K optional and unseeded), controller (MPC) and policy over gRPC. Its strength is that the long tail comes from real roads. Its weakness is C5.
 
+**Corrected 2026-10-27:**
+- **Traffic.** CAT-K exists only on `main`, where its sampling ignores the seed. The `e2e_challenge` branch, which carries the 441-scene protocol, has none: its traffic is log replay.
+- **The renderer has a switch.** It can run NVIDIA's Cosmos-based Harmonizer. That is on in the `e2e_challenge` developer default and off in its competition preset, and NVIDIA plans to enable it for the final reruns (#222). The Harmonizer state is therefore part of the protocol.
+- **The renderer is closed.** NRE is a proprietary, intentionally obfuscated container (#72).
+
 **C5. Validity envelope.**
 - **Fidelity loss.** Extrapolated views degrade. On EUVS (ICCV 2025), averaged over 9 methods, translation cuts PSNR by 24.6% and translation plus rotation by 30.6%. NuRec was not among the methods tested. OmniDreams shows NuRec degrading with deviation (Fig. 14).
 - **Conflicting conventions.** The challenge scores a lateral exit of ≥ 4 m as **failure**. NVIDIA's papers instead **exclude** events beyond 4 m.
-- **What we do.** Every rollout carries a validity record: maximum deviation from the log, in bins < 1, 1–2, 2–4 and ≥ 4 m; renderer agreement; and replay-vs-CAT-K agreement. Out-of-envelope results are reported separately: never silently dropped, and never silently scored.
+- **What we do.** Every rollout carries a validity record: maximum deviation from the log, in bins < 1, 1–2, 2–4 and ≥ 4 m. Out-of-envelope results are reported separately: never silently dropped, and never silently scored.
+  - **(Corrected 2026-10-27)** Renderer agreement and replay-vs-CAT-K agreement are not per-rollout fields. They were deferred in plan v4, and CAT-K does not exist on `e2e_challenge`.
+  - Their minimal versions are proposals P-013 and P-014.
+  - Plan v4.1 adds the envelope as a dose–response curve, with NVIDIA's per-clip quality score as a covariate (`02` S2).
 
-**C6. Paired regression statistics.** Both models run the same scenes with the same seeds, and only discordant pairs carry information.
+**C6. Paired regression statistics.** Both models run the same scenes, and only discordant pairs carry information.
+- **Seeds (corrected 2026-10-27).**
+  - On `e2e_challenge` the Alpamayo driver ignores the session seed: its sampling draws from the process-global RNG. So repeats are unseeded replicates, and pairing is by scene.
+  - On `main`, per-tick reseeding works only with `force_determinism: true`.
+  - Sharing seeds (common random numbers) helps only when the seed is consumed: σ_d² = σ_A² + σ_B² − 2ρσ_Aσ_B. S2 measures ρ; it is never assumed.
 - **Worked example.** A fails 30 and B fails 24, with A-fail/B-pass = 12 and B-fail/A-pass = 6. Exact McNemar: P(X ≤ 6 | n = 18, ½) = 31,180 / 262,144 = 0.119, so two-sided p = 0.238. That is not evidence that B is better, and the test has power of only 0.22.
 - **Repairs.**
   - Scenes cluster by road, so use a cluster-adjusted McNemar or a road-level bootstrap.
@@ -143,9 +162,15 @@ A common misconception is that the value lies in the best model. In production, 
 
 **C10. Precision and throughput.**
 - **The expert is memory-bound.** For π0, VLA-Perf models the action expert at an operational intensity of 54 FLOP/byte, against ridges of about 279 (RTX PRO 6000 Workstation, BF16) and about 947 (Jetson AGX Thor). That is a roofline model, not a measurement, and it describes π0, not Alpamayo.
-- **What FlashDrive measured** on Alpamayo 1.5: 717 → 151 ms, mostly from streaming KV reuse, speculative reasoning, adaptive steps and CUDA graphs. W4A8 removed only 24.6 ms. The expert still runs at about 20% of its bandwidth bound (113.9 ms measured vs ≈ 22.3 ms, 8 steps).
+- **What FlashDrive measured** on Alpamayo 1.5: 717 → 151 ms, mostly from streaming KV reuse, speculative reasoning, adaptive steps and CUDA graphs. The "adaptive steps" are a fixed velocity-reuse schedule, in which 4 of 8 steps reuse the previous velocity. Its streaming KV reuse needs expert-only fine-tuning (corrected 2026-10-27). W4A8 removed only 24.6 ms. The expert still runs at about 20% of its bandwidth bound (113.9 ms measured vs ≈ 22.3 ms, 8 steps).
 - **Quantization recipe.** NVIDIA's ModelOpt recipe already quantizes the expert, but publishes open-loop minADE only. The open gap is closed-loop per-format verdicts.
-- **AlpaGym.** It trains only the expert, with the VLM frozen (`cotrain_vlm = False` at the pinned recipes commit). Its rollouts generate no reasoning text, so a reasoning reward cannot move anything there. It accepts no outside PRs and publishes no stage-level throughput. We profile AlpaSim telemetry instead.
+- **AlpaGym.** It trains only the expert, with the VLM frozen (`cotrain_vlm = False` at the pinned recipes commit). Its rollouts generate no reasoning text, so a reasoning reward cannot move anything there. It accepts no outside PRs and publishes no stage-level throughput. We profile AlpaSim telemetry and AlpaGym's own opt-in `perf` telemetry instead.
+- **AlpaGym, corrected 2026-10-27.**
+  - **The ratio** is a per-step-row geometric mean: exp of the mean over T × 64 × 2 per-element log-ratios, clipped at [0.8, 1.2].
+  - **The KL** is a closed-form Gaussian KL, off by default.
+  - **The shipped defaults do not train:** with `n_generation: 1`, every advantage is 0.
+  - **Not frozen.** Its `main` has had no code change since 2026-07-08, but NVIDIA's public branches carry commits to 2026-09-03.
+- **An unused speed-up.** NVIDIA's opt-in expert CUDA graph (alpamayo1.5 PR #36) is merged but never enabled in AlpaSim's driver (C13).
 
 **C11. The Thor latency budget is set by memory bandwidth.** Decoding one token reads every backbone weight once: t_tok ≈ bytes / 273 GB/s.
 - **Teacher.** A 10B FP8 backbone costs about 30 ms per token. Prefill of 2,560 vision tokens alone takes ≈ 99 ms even at 100% of peak. So no 10B configuration reaches 10 Hz.
@@ -160,6 +185,24 @@ A common misconception is that the value lies in the best model. In production, 
 - **What it cannot do:** validate driving quality.
 - **Confound:** the rig's own sensor shift mixes with scene shift, so a within-rig contrast is needed (`02` S8).
 
+**C13. The closed loop is a throughput system** (added 2026-10-27; inferences labelled).
+- **Where the time goes.** Each AlpaSim rollout step runs the renderer, the driver (the policy), the controller and physics over gRPC.
+  - The stock Alpamayo 1.5 driver runs eager PyTorch at batch 1 (`max_batch_size: 1`); no Alpamayo adapter batches across rollouts.
+  - NVIDIA's own 8-GPU Alpamayo 1.5 evaluation topology (`main`) puts two driver replicas on each of GPUs 0–6, and the renderer and physics share GPU 7.
+  - So the policy is probably most of the cost: 73–87.5% of step GPU-time, by inference. S2 measures it.
+- **Every lever has a ceiling.** A lever that speeds up a share f of the step by k gives at most S = 1/((1 − f) + f/k) (Amdahl).
+  - **The expert CUDA graph.** NVIDIA's opt-in expert CUDA graph (alpamayo1.5 PR #36) was reported bitwise-identical in a PR comment. It cut policy-call latency by 15.5% (10B) and 31.5% (2B), in one paired AlpaGym sample each. That is about 11–14% of an Alpamayo 1.5 sweep, by inference.
+  - **Batching across rollouts** can do more, but it changes the random streams, so it needs an equivalence verdict (P-015).
+- **RL adds a second balance.** AlpaGym runs rollout generation and training on separate GPUs, so throughput follows N_gen·g ≈ N_train·t.
+  - NVIDIA's 8-GPU preset splits the node into 1 policy, 3 rollout and 4 AlpaSim GPUs.
+  - In the PR #36 thread, a 10B AlpaGym iteration spent about 75% of its time outside trainer compute when eager, and 58% with graphs. These shares are derived from the PR's own numbers.
+  - So the simulator and the policy's inference, not the optimizer, bound closed-loop RL.
+- **Measure it the way NVIDIA does:**
+  - AlpaSim's full-run seconds per rollout, after 30–45 minutes of stabilization;
+  - GPU-hours from the mean wall clock, never the median (recipes PR #44);
+  - MFU, HFU and OFU.
+- **Why it matters here.** Every cost in `02` is a sweep count × a step time, so a measured profile re-prices the plan. A speed-up proven bitwise-identical is a performance claim the gate can make without changing what it measures.
+
 ## 4. Teach-back (answer before re-reading)
 
 1. Why is "A fails 30, B fails 24 on 441" not enough to release B? Recompute the p-value and the power.
@@ -169,3 +212,6 @@ A common misconception is that the value lies in the best model. In production, 
 5. Why can a ρ < 0.6 kill rule not be decided at n = 10, and what n can decide it?
 6. "RL cut at-fault collisions by 20%" on 441 held-out scenes, with a base rate of 8% and 4% discordance. Is that claim decidable? How many paired scenes would it need?
 7. A 2B student runs at 171 ms with reasoning on DRIVE AGX Thor, yet a 2B model is announced at 10 Hz on the same device. Name three levers that close the gap. Which of them change what the model does in closed loop?
+8. AlpaGym clips a mean log-ratio over 640 elements at [0.8, 1.2]. What band is that on the joint ratio, and what does it leave of the clip's protection?
+9. S2's three repeats per scene come from a driver that ignores its seed. What do test–retest and the negative control measure then, and what must change before seeds can pair two checkpoints?
+10. The driver takes a share f of each step's GPU-time. What is the most any driver-only speed-up can give the sweep, and how would you prove that it did not change the verdict?

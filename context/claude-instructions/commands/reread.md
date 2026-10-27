@@ -7,8 +7,9 @@ Re-read the plan before building. Do these steps in order and report each in 1�
 4. Summarize:
    - (a) the stage (S1–S8) and deliverable (G1–G9) today's work serves;
    - (b) the open experiment file in `experiments/`, or the need to create one;
-   - (c) blockers, including the open proposals P-002 to P-010, and any dated check that is due
-     (for example KC-E, the Alpamayo 2 Edge release check);
+   - (c) blockers, including the open proposals P-002 to P-019, and any dated check that is due
+     (for example KC-E, the Alpamayo 2 Edge release check). Name the stage card's tier for the
+     work: [C] core, [O] optional (only if KC-1's re-forecast allowed it), or [G] gated;
    - (d) the cost of what is proposed, re-priced today, and whether it crosses a gate
      (budget tier, hardware decision, KC-L, KC-L2, dataset download).
 5. If the experiment file has no prediction, ask Huy for the written prediction. Do not write code

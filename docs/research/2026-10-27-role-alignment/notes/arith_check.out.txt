@@ -1,0 +1,69 @@
+== S5(b) flow-step ladder: 1-D Gaussian flow, X0~N(0,1) -> X1~N(2, 0.5^2), uniform Euler (03 S5 exercise) ==
+K=10: output std 0.43078, relative MSE vs exact map 1.92%
+K= 5: output std 0.36923, relative MSE vs exact map 6.84%
+K= 4: output std 0.34054, relative MSE vs exact map 10.17%
+K= 2: output std 0.20000, relative MSE vs exact map 36.00%
+
+== S3 allocation: one replicate on more scenes vs m replicates on fewer (equal precision) ==
+Var(mean) = s^2/(n*m) * [1 + (m-1)*rho]; equal precision => n1 = n*m / (1 + (m-1)*rho) single-replicate scenes
+m=3, rho=0.3 (illustrative): scenes x1.8750, rollouts 0.6250 of 3n -> saving 37.5%
+m=3, rho=0.6 (illustrative): scenes x1.3636, rollouts 0.4545 of 3n -> saving 54.5%
+m=3, rho=0.9 (illustrative): scenes x1.0714, rollouts 0.3571 of 3n -> saving 64.3%
+
+== S1 intersection-union power: overall GO power = product of per-stratum powers (road-disjoint strata) ==
+4 strata at 0.80 each -> overall 0.4096
+2 strata: per-stratum power needed for 0.80 overall = 0.8944
+3 strata: per-stratum power needed for 0.80 overall = 0.9283
+4 strata: per-stratum power needed for 0.80 overall = 0.9457
+6 strata: per-stratum power needed for 0.80 overall = 0.9635
+
+== S2 common random numbers: sd_d^2 = sA^2 + sB^2 - 2*rho*sA*sB; continuous MDE = (z_a+z_b)*sd_d/sqrt(n) ==
+sA=sB=0.4, rho=0.0: sd_d=0.5657 -> one-sided 80% MDE at n=441: 6.70 pp
+sA=sB=0.4, rho=0.5: sd_d=0.4000 -> one-sided 80% MDE at n=441: 4.74 pp
+sA=sB=0.4, rho=0.8: sd_d=0.2530 -> one-sided 80% MDE at n=441: 3.00 pp
+check vs 03 S3 row: sd_d=0.3 -> 3.55 pp; sd_d=0.5 -> 5.92 pp
+
+== S1 group-sequential tables, K=2 equally spaced looks (corr sqrt(1/2)), one-sided ==
+alpha=0.05: OBF z-boundaries 2.3730, 1.6780 (fixed-n 1.6449); Pocock 1.8754, 1.8754
+alpha=0.025: OBF z-boundaries 2.7965, 1.9774 (fixed-n 1.9600); Pocock 2.1783, 2.1783
+
+== S4 GRPO: group-standardized advantages are invariant to a positive affine reward change ==
+[1,0,0,1,1,0,0,0] (03 S4)                -> advantages [-0.7746, 1.29099]
+collision-only group: -10 x3, 0 x5       -> advantages [-1.29099, 0.7746]
+same events at -1                        -> advantages [-1.29099, 0.7746]
+affine 7*r - 3 of the 03 group           -> advantages [-0.7746, 1.29099]
+all-equal group (e.g. n_generation=1, or every rollout scores the same): advantage = 0/0 -> 0 by convention; no gradient
+
+== S4 AlpaGym ratio: clip on the geometric-mean ratio vs the joint ratio (5 SDE steps x 64 waypoints x 2 controls) ==
+mean-ratio bound 0.8 -> joint log-ratio -142.8 (joint ratio e^-142.8)
+mean-ratio bound 1.2 -> joint log-ratio +116.7 (joint ratio e^+116.7)
+gradient of the mean-ratio objective w.r.t. one element's log-prob is scaled by 1/n_el = 1/640 = 0.00156
+
+== S4 KL: closed-form Gaussian KL vs the k3 estimator ==
+KL(N(mu1,s^2)||N(mu2,s^2)) = (mu1-mu2)^2/(2 s^2) = 0.0200 for dmu=0.1, s=0.5
+k3 at r=0.8: r-1-ln r = 0.02314
+k3 at r=1.25: r-1-ln r = 0.02686
+
+== S2/S4 performance: Amdahl bound for one lever, S = 1/((1-f) + f/k) ==
+f=0.5: k=2 -> 1.333x; k=4 -> 1.600x; k->inf -> 2.000x
+f=0.75: k=2 -> 1.600x; k=4 -> 2.286x; k->inf -> 4.000x
+f=0.875: k=2 -> 1.778x; k=4 -> 2.909x; k->inf -> 8.000x
+
+== S5/P-012 scaling: all-reduce bus bandwidth factor busbw = algbw * 2(n-1)/n; strong-scaling efficiency ==
+n= 2: busbw/algbw = 1.0000
+n= 4: busbw/algbw = 1.5000
+n= 8: busbw/algbw = 1.7500
+n=16: busbw/algbw = 1.8750
+E(8) = T1/(8*T8) = 0.7812 for T1=100.0s, T8=16.0s
+
+== S7 delay injection is quantized to the control step (assumes the buffer is read at control ticks) ==
+delay 139 ms at dt=100 ms -> applied 2 ticks late; at 15 m/s the car moves 2.085 m meanwhile
+delay 171 ms at dt=100 ms -> applied 2 ticks late; at 15 m/s the car moves 2.565 m meanwhile
+delay 200 ms at dt=100 ms -> applied 2 ticks late; at 15 m/s the car moves 3.000 m meanwhile
+
+== Costs at the 2026-10-27 price basis (vast.ai on-demand; Lambda/RunPod/Nebius list) ==
+one sweep (single-stream bound): 34.0-84.5 GPU-h -> $34-$132 at RTX PRO 6000 WS $1.00-1.56
+S3 teacher reuse at an illustrative 20% mini-control: saves 27.2-67.6 GPU-h per reused teacher sweep; both formats 54.4-135.2
+S5 one 8xH100 node at $31.92-36.00/h x 24-48 h: $766-$1,728
+PR #42 stage 1 at 1.77 s/step x 100k steps x 128 GPUs = 6,293 H100-h -> $12,146-$15,104 at $1.93-2.40; 10% pilot 629 H100-h
+S4 training 225-450 H100-h at $1.79-2.40 (10-27): $403-$1,080

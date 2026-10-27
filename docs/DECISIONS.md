@@ -199,6 +199,99 @@ text in any doc until that doc is revised.
       the script protects itself: in `is_starred()`, compare `relpath.lower()` with `e.lower()` when
       `sys.platform == "darwin"`.
 
+- **D-015 · 2026-10-27 · Plan v4.1: corrections, savings, and evidence for the target role.**
+  Input: the owner's instruction of 2026-10-27, which said:
+  - optimize the plan so that, finished end to end, it maximizes checkable evidence of exceptional engineering and research skill for NVIDIA's JR2010863 (Senior ML and Simulation Engineer – AV, AV Simulation team);
+  - leave out years, degree and location;
+  - use the 2026 NVIDIA stack.
+
+  Seven read-only research lanes covered upstream changes, RL, simulation quality, statistics, the student and data, the cluster, and Thor (`research/2026-10-27-role-alignment/`, with notes L1–L7, `report.md`, `verification.md` and `notes/arith_check.py`).
+
+  Why:
+  - **The instrument had unmeasured knobs.** Verified 2026-10-27:
+    - on `e2e_challenge`, the Alpamayo driver ignores the session seed, so S2's "seeds" are unseeded replicates;
+    - the Cosmos-based Harmonizer is on or off depending on the config;
+    - `e2e_challenge` has no CAT-K;
+    - the evaluator was fixed mid-challenge (#198/#215);
+    - post-processing alone moved AlpaSim scores by +22% to +123% (ECO).
+  - **v4 stated four things wrongly:**
+    - `alpamayo_aligned` labels every clip, so "exclude it" excludes everything;
+    - AlpaGym's estimator is a per-step-row geometric-mean ratio with a closed-form Gaussian KL, off by default, not a trajectory ratio with k3;
+    - the comfort/jerk arm is not configurable;
+    - AlpaGym's default `n_generation` of 1 trains nothing.
+  - **Upstream moved:**
+    - TacitVLA (NVIDIA, 10-13) published unpaired AlpaSim scores for 2B-backbone research variants;
+    - #224 closed, with disclosure tied to NVIDIA's next release;
+    - PRs from non-collaborator accounts had merged on `e2e_challenge`, among them #167, from an OPTED co-author;
+    - a 2B Alpamayo policy had been timed inside AlpaGym (alpamayo1.5 PR #36);
+    - AlpaGym's public branches moved until 2026-09-03;
+    - S5's list price rose;
+    - the 441-scene protocol and the tooling sit on different AlpaSim branches.
+  - **Savings exist:**
+    - NVIDIA's expert CUDA graph (alpamayo1.5 PR #36, bitwise-checked by NVIDIA);
+    - PR #42's one-node stage-2 trainer as S5's learner;
+    - AlpaSim's own external-driver mode and delay buffer for S7;
+    - reusing S2's teacher sweeps in S3;
+    - a re-scoped KC-E fallback, since a pilot PR #42 student would never reach the recipe's on-policy phase.
+  - **The role's weak lines can be served inside existing stages.** D1, D2, D4, Q4, Q5 and X3 can be measured on one node, on NVIDIA's own presets, run methods and measurement definitions, with no new stage and no new framework.
+
+  What it changes:
+  - **`02` v4 → v4.1** (v4 archived):
+    - §0.1 lists corrections K1–K14, savings V1–V6, the tiers [C] / [O] / [G] and the cut order;
+    - every stage card gains [C] / [O] / [G] items and a Role evidence line;
+    - S2 runs replicates and pre-registers its seed mode, Harmonizer state and run method;
+    - the S2 manifest gains the simulator configuration;
+    - the S4 ★ row and arms are corrected;
+    - KC-E is re-scoped;
+    - §5 prices are re-verified on 10-27;
+    - §6 adds claims rules on replicates and on scale and origin;
+    - §9 adds P-012 to P-019 and the new pre-registered choices.
+  - **Effort.** About 320 h becomes about 370–405 h of [C] work, with up to about 40 h of [O]. KC-1 re-forecasts; the cut order is S8, then [O], then the [C] role items. The corrections are never cut.
+  - **`05` v2.1 → v3** (archived): adds §3, the JR2010863 evidence contract (13 paraphrased lines, v4 vs v4.1 marks, the artifacts that carry each), and refreshes §1 from the 2026-10-27 sweep.
+  - **`03` v3 → v3.1:**
+    - pillar P8, training systems and cluster operations;
+    - curriculum rows S1–S5 and S7 corrected and extended with known answers computed in `notes/arith_check.py`;
+    - §6's coverage and gaps updated.
+  - **`01` v3 → v3.1:** C2, C4, C5, C6 and C10 corrected; C13 added, on the closed loop as a throughput system.
+  - **`04` v2.1 → v2.2:** the AlpaSim and AlpaGym rows corrected; premise notes on E1, E2 and E4; §10 adds the facts verified on 2026-10-27.
+  - **`nano_alpamayo/README.md`:**
+    - the A1 rule is keyed on `alpamayo_aligned`'s labels, with a chunk-aware manifest;
+    - A7 is added: every round reproduces from its manifest;
+    - the learner, the ladder and the CoC-curve steps follow S5.
+  - **`00_START_HERE.md`, `DOC_AUTHORITY.md`, `CLAUDE.md` + `AGENTS.md`** (changed together):
+    - the current state;
+    - the external-merge fact;
+    - the replicate wording in the statistics defaults;
+    - the manifest fields;
+    - two never-claims: unseeded replicates called seeds, and single-node or solo work presented as cluster-scale or industry experience.
+
+  Binding:
+  - no new stage;
+  - AlpaGym is used as shipped;
+  - ★ cores, predictions, tolerances and margins stay Huy's;
+  - P-002, P-004 (KC-L, KC-L2), P-005, P-006 and KC-E are unchanged;
+  - every gated addition is a proposal below.
+
+  Rejected, with reasons in the lane notes:
+  - a Kubernetes path: AlpaSim ships no Kubernetes run method, and NVIDIA had no short-term fix for running its renderer container under Kubernetes without Docker-in-Docker (#72);
+  - a Cosmos3-Nano-Sim-Auto adapter and NuRec-vs-Cosmos ranking: it would race NVIDIA, does not run on the plan's setup, and is INSUFFICIENT at n = 3;
+  - switching S4 to NeMo-RL: it has no flow-matching or VLA path;
+  - fixed IRT scene subsets: they change the estimand;
+  - rare-event acceleration: replay traffic, and an unseeded CAT-K;
+  - confidence sequences for one-shot verdicts: they cost 1.55–1.85× the width;
+  - vLLM or SGLang inside the driver;
+  - FP8 as a sweep speed-up: it changes what is measured;
+  - Holoscan for S7.
+
+  Notes on open proposals, from the 2026-10-27 evidence. The proposals' text is unchanged:
+  - **P-007 is stronger.**
+    - FlashDrive's 113.9 ms expert time already includes CUDA graphs and fusion, so the remaining gap to the bound is on the GPU side.
+    - Split H1 into H1a (CPU launch overhead) and H1b (per-kernel ramp and tail), and run E-K0 with graphs on and off.
+    - A fix speeds up S2–S5's sweeps before it helps on Thor.
+  - **P-008 is stronger.** TensorRT-Edge-LLM already ships three of the items: media-aware KV reuse since v0.10.0; FP8 ViT attention and a ViT-embedding cache since v0.10.1. None is stated as validated for Alpamayo, but building them would race NVIDIA.
+  - **P-009 is adopted in part by this decision.** Its numerical-correctness ladder (iv) is the protocol for any driver change used in a verdict sweep (P-015). Its glass-to-action latency (ii) is what AlpaSim's `planner_delay_us` models in S7. Items (i) and (iii) remain proposals.
+  - **P-010 is weak on its own.** Keep it as P-007's parallelism-starvation (H2) test.
+
 ## Proposals (not decided)
 - P-001 · ~~Submit a gate-vetted FP8 Alpamayo 1.5 to the AlpaSim E2E Closed-Loop Challenge.~~
   **Closed by D-010.** Registration closes 2026-10-18 and requires an organization email.
@@ -337,3 +430,61 @@ text in any doc until that doc is revised.
       here, which would need CLAUDE.md's repo layout updated;
     - its open-source licence (Apache-2.0 or MIT), chosen before submission.
   - Decide before agents scaffold anything for the entry.
+- P-012 · *(proposed 2026-10-27, D-015)* **One multi-node scaling measurement.**
+  - **What it shows.** It is the only multi-node evidence for JR2010863's D1 and Q5. It runs only after the one-node models exist: S4's AlpaGym balance and scaling model, and S5's 1→8-GPU ladder.
+  - **Option A (S5).** S5's FSDP2/DDP trainer on 2 × 8 H100 with InfiniBand for 4–6 h:
+    - measurements: inter-node `nccl-tests`, strong and weak scaling at 8 vs 16 GPUs, a multi-node Slurm launch, and NCCL RAS plus the Flight Recorder on an injected cross-node hang;
+    - cost: 64–96 H100-h, about $300–640. Nebius lists $72/h for 2 × 8 H100 on 10-27. RunPod Instant Clusters cost more if the listed H200 price is per GPU (unconfirmed).
+  - **Option B (S4).** AlpaGym's shipped 3-node preset (`slurm_distributed_1_1_1`, 3 × 8 GPUs) for 2–3 h at steady state, against the one-node 1/3/4 preset:
+    - it validates the S4 model's predicted 3-node speed-up;
+    - cost: about $305–457, plus a $64–96 one-node baseline if that is not already an S4 run. A 2-node run needs a custom topology YAML.
+  - **Predictions** (Huy): inter-node bus bandwidth `____`; the 16- vs 8-GPU (or 3- vs 1-node) efficiency `____`.
+  - **Kill:** if inter-node bus bandwidth is below `____` within 45 minutes, or spend reaches `____`.
+  - **Preconditions:** KC-1 passed; room in the P-005 tier.
+  - **What it cannot show:** behaviour at 100+ GPUs, or production scheduling.
+- P-013 · *(proposed 2026-10-27, D-015)* **A minimal R3: log replay vs CAT-K.**
+  - **Setup:** both arms on one SHA (`main@affc2eab`, or the post-10-31 release), with only the traffic setting changed. Pass the 441 scene IDs explicitly, and score both arms with one evaluator (port the post-#215 corridor scorer, or re-evaluate the logs).
+  - **Runs:** Alpamayo 1.5 BF16, replay × 1 and CAT-K × 3. CAT-K ignores its seed, so it gets repeats.
+  - **Report:** κ, the flip rate per failure type and the paired difference, per deviation bin, each beside S2's replicate κ for the same bin. Rank claims are INSUFFICIENT at n ≤ 3 policies.
+  - **Seeding PR:** a PR that threads the seed into CAT-K is Huy's outward action, and only if NVIDIA's next release lacks it.
+  - **Cost:** 45–113 GPU-h, about $45–180 for one policy.
+  - **Why:** it is the only route to the posting's "traffic models" clause (I2). It also tells S4 whether non-yielding replayed followers make `collision_any` punish legitimate braking.
+  - **Gates:** un-defers v3's R3; needs P-005 and KC-L.
+- P-014 · *(proposed 2026-10-27, D-015)* **A minimal R2/R4 for the renderer, in three tiers:**
+  - (i) **A render-fidelity curve with no novel-view ground truth,** about $4–18:
+    - render the 4 policy cameras at lateral offsets of 0, 1, 2 and 4 m;
+    - project ClipGT obstacle cuboids and report detector recall against the offset;
+    - compute KID against the recorded front-wide video;
+    - Harmonizer off on all 441 scenes, on for a 100-scene subset.
+  - (ii) **A policy-sensitivity probe,** about $3–13: the plan change caused by appearance (Harmonizer off vs on) at matched poses, against the replicate floor.
+  - (iii) **A closed-loop Harmonizer-agreement arm,** about $23–90; up to about $64–323 if the Harmonizer cost scales with pixels:
+    - one flipped-Harmonizer sweep per policy (Alpamayo 1.5 BF16 and FP8), with scene-level κ by bin;
+    - whether S2's BF16-vs-FP8 verdict survives the flip.
+  - **Gates:** un-defers parts of R2 and R4; needs P-005 and KC-L.
+  - **Race risk:** partial. NVIDIA holds Harmonizer-off and Harmonizer-on challenge runs, so re-check the challenge reports in November.
+- P-015 · *(proposed 2026-10-27, D-015)* **A GPU-batched `predict_batch` for the Alpamayo driver** (promoting `04` §7 E2):
+  - **Build:** padded prompts and masks, with a per-sample generator seeded from each session's seed, so per-session random streams survive batching.
+  - **Acceptance:** P-009's ladder (E0a–E1), plus a paired closed-loop verdict of the batched vs unbatched driver on the same checkpoint. That is a known null the gate must not flag, so it doubles as a validity test of the gate.
+  - **Cost:** one equivalence sweep, about $34–132.
+  - **Saving:** −263 to −964 GPU-h on S3–S5, only if Alpamayo's batch speed-up matches published non-Alpamayo analogs (2.26–2.84×). The Amdahl bound for Alpamayo is about 2.0–2.6×, by inference. It does not add to the expert-graph saving.
+  - **Conditional sub-option:** a static KV cache with graphed decode, only if S2's profile shows decode dominates and batching is not adopted.
+- P-016 · *(proposed 2026-10-27, D-015)* **A third S4 arm,** after the S4 pilot. Either:
+  - (a) a Lagrangian collision constraint, where an outer loop updates the collision scale at checkpoint boundaries through config-only restarts (the optimizer reset is recorded); or
+  - (b) reactive CAT-K traffic during training, re-enabled through AlpaGym's AlpaSim override arguments. That this works is unverified.
+
+  Cost per arm: +112–225 H100-h × 3 seeds' worth, about $217–540. Gates: P-005; KC-L2 before releasing any checkpoint.
+- P-017 · *(proposed 2026-10-27, D-015)* **A PR #42 stage-1 pilot student as S3's fallback.** This was v4's KC-E fallback.
+  - **Price** (inference from NVIDIA's own 1.77 s/step at 128 GPUs, recipes PR #44): about 629 H100-h, $1.1–1.5k at $1.79–2.40, for a 10% schedule. The full schedule is about 6,290 H100-h, $11–15k, and collaborator-tier.
+  - **Why the pilot falls short:** it never reaches the recipe's on-policy phase, which starts at step 75,000 of 100,000 in the reproduced config.
+  - **Race risk:** a full-scale run would duplicate NVIDIA's own student, Edge, which is announced.
+  - **Licence:** the student's VLM, Cosmos-Reason2-2B, is under the NVIDIA Open Model License.
+  - Decide only if KC-E fails and the deployment-lever path is judged insufficient.
+- P-018 · *(proposed 2026-10-27, D-015)* **Few-step distillation of the flow expert,** only if S5's ladder shows a cliff above the K that S6's latency budget allows.
+  - **Method:** an expert-only shortcut-model or consistency fine-tune on one node. MeanFlow-style training from scratch is out.
+  - **Cost:** tens of H100-h ($20–150) plus 2–3 sweeps ($68–395).
+  - **Race check:** Edge may already be few-step.
+- P-019 · *(proposed 2026-10-27, D-015)* **One C++ driver for two targets.**
+  - **What:** S6a's runtime (TensorRT C++ engines or the TensorRT-Edge-LLM runtime, plus the C++ `EgodriverService`) is built first on a rented RTX PRO 6000. Edge-LLM lists x86 SM120 as a development platform. It then serves AlpaSim's student sweeps through `driver_source=external_static`.
+  - **Acceptance:** P-009's ladder against the PyTorch driver, plus a paired closed-loop verdict. A cloud FP8 verdict never stands in for the Thor-engine verdict.
+  - **Cost:** one equivalence sweep ($34–132) plus a few GPU-hours.
+  - **Needs:** P-007.
