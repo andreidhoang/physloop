@@ -56,6 +56,26 @@ PhysLoop is independent of every other project: it takes no hours, budget, deadl
   - The manifest, the hooks and the project settings protect themselves. Only Huy unlocks an entry, by commenting it out in his editor.
   - `AGENTS.md` mirrors this contract for Codex. Change both files in the same edit.
 
+## Executing a task
+Run every task through these steps in order. Each step only applies the rules above; none adds a new one.
+1. **Place it.** Name the stage (S1–S8), the deliverable (G1–G9) and the line of the stage card in `02` §3 that the task implements. If no line covers it, the task is outside the current stage: write a proposal in `docs/DECISIONS.md` and stop.
+2. **Check ownership.** Read `.claude/starred-cores.txt` and the stage's ★ list in `02` §3. Is the target a ★ core, a prediction, a tolerance or a diagnosis? Then you may read it, explain it, review it and write failing tests for it, but the core itself is Huy's: describe what is needed and hand it back.
+3. **Check the experiment.** Open `experiments/<date>-<slug>.md`. If it has no written prediction, stop and ask Huy for one.
+4. **Check the gates.** Spending needs the recorded budget tier (P-005). Hardware needs P-002 or P-006. Dataset downloads, licence terms (KC-L, KC-L2) and dated checks apply as listed above. Estimate the GPU-hours and cost before any rented run.
+5. **Build.** Write the failing test first. Where `03` §4 gives a known answer, that answer is the test. Then make the smallest change that passes. Change one variable per experiment, and pin the environment (resolved `uv` lockfile).
+6. **Run and record.** Write outputs to `evidence/`, which is append-only and never edited by hand. Each record carries the manifest from `02` §3 S2:
+   - git hash, config, seeds;
+   - AlpaSim SHA(s), resolved lockfile, `n_sim_steps` requested and actual;
+   - GPU edition, scene list, score definition, deviation convention.
+
+   Every latency number also names its device, with JetPack and TensorRT versions, and says "real engine" or "emulated".
+7. **Verify before reporting.**
+   - A number that beats its prediction, or its roofline bound, is investigated as a bug first.
+   - Time GPU work only after warm-up, with device synchronization.
+   - Correctness needs more than one loose `allclose`: repeat bitwise and compare against a reference.
+   - Report ≥ 4 m rollouts separately, and treat INSUFFICIENT as a result.
+8. **Hand back.** Report what changed, the commands that reproduce it, the evidence paths, and what is still unverified. Leave the prediction-vs-measurement reconciliation and the diagnosis to Huy. Commit only when Huy asks.
+
 ## Repo layout
 Directories are created by the stage that first needs them.
 
