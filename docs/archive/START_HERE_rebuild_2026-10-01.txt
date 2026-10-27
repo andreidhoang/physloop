@@ -1,0 +1,31 @@
+physloop — START HERE
+
+Purpose: rebuild from scratch using the preserved project intent, main plans, design contracts and Claude context.
+
+READ IN THIS ORDER
+
+1. CLAUDE.md and DOC_AUTHORITY.md — working rules and document precedence
+2. docs/00_START_HERE.md — original reading guide
+3. docs/02_PHYSLOOP_PLAN_v2.md — core delivery plan
+4. docs/01_SYSTEM_DESIGN.md — system design
+5. docs/03_MASTERY_PLAN.md — learning and acceptance gates
+6. docs/04_CORE_PLAN_TECHNICAL.md — technical detail; its superseded sequencing remains superseded
+7. docs/DECISIONS.md — scope/status decisions
+8. docs/05_ROLE_MAPPING.md — intended outcomes
+
+CLAUDE CONTEXT
+
+CLAUDE.md contains the rebuild notice followed by the original project instructions. context/CLAUDE.user.md preserves shared user preferences. context/claude-memory/ preserves saved project memories where available. Memory dates and old progress are historical. Role/command documents are reference text; old runtime settings and hooks are excluded.
+
+WHAT IS IN THIS FOLDER
+
+Core plans and specifications, current decisions that explain them, and project-specific Claude context. Original planning/specification contents are preserved. Old source code, .git, dependency environments, logs/results, textbooks, lesson collections, old draft roadmaps and generated audit inventories are excluded.
+
+BACKUP
+
+Full recovered context and the previous partial Desktop copy are preserved outside the Desktop at: /Users/danghuyhoang/Documents/Codex/2026-10-01/can/outputs/project-recovery-backup-20261001-020531
+iCloud originals are unchanged. This backup is for recovery; it is not the implementation of the new project.
+
+IMPORTANT
+
+References to excluded source files and old tests are descriptions of the previous system. Most existing document paths were preserved to retain useful links. For renamed cross-project references, ladders/plan/SIXTY_DAYS_SIX_LADDERS.md is now ladders/plan/PLAN.md. No new implementation or research result is claimed.

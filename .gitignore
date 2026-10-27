@@ -1,0 +1,42 @@
+# OS / editor
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# Python / uv
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+build/
+dist/
+
+# Local agent state (the manifest, hooks and settings.json ARE tracked)
+.claude/settings.local.json
+.claude/starred-guard-backups/
+
+# Secrets
+.env
+.env.*
+
+# Licensed data: PAI-AV / NuRec forbid redistribution (license §4.6). Never commit clips,
+# scenes, auto-labels or anything derived from them.
+data/
+datasets/
+*.usdz
+*.ply
+
+# Weights, engines and large binaries
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.engine
+*.plan
+*.trt

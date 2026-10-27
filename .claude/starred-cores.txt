@@ -1,0 +1,6 @@
+# Starred (★) cores: files only Huy writes. Agents may read, test, explain and review them, never write them.
+# One literal path per line, relative to the repo root. A directory ends with "/" and covers everything under it.
+# Globs (*, ?, [) work for Edit/Write/MultiEdit/NotebookEdit; the Bash checks also cover them through the snapshot.
+# To unlock an entry, comment it out yourself in your editor. Agents cannot edit this file (.claude/hooks/guard_starred.py).
+gate/verdict.py
+gate/stats/
