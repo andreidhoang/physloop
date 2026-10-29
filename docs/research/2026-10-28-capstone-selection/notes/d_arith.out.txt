@@ -1,0 +1,60 @@
+== Ridge points, FLOP/byte (dense peak / DRAM bandwidth)
+  Thor T5000 MAXN        BF16     947  FP8    1894  FP4    3791
+  RTX PRO 6000 WS        BF16     279  FP8     558  FP4    1116
+  RTX PRO 6000 Server    BF16     313  FP8     626  FP4    1252
+  RTX PRO 6000 Max-Q     BF16     245  FP8     490  FP4     980
+  H100 SXM               BF16     295  FP8     591  FP4     n/a
+  B200                   BF16     281  FP8     562  FP4    1125
+  B300 (BW secondary)    BF16     281  FP8     562  FP4    1688
+== Derived clocks and SM counts
+  RTX PRO 6000 WS: boost clock = FP32/(2*cores) = 2.618 GHz; SMs = cores/128 = 188
+  RTX PRO 6000 Max-Q: boost clock = FP32/(2*cores) = 2.286 GHz; SMs = cores/128 = 188
+  Thor: cores/128 = 20 SMs; FP32 = 2560*2*1.575 GHz = 8.064 TF (staff: 8.064), at 1.386 GHz = 7.096 TF (staff: 7.096)
+== Dense tensor FLOP per clock per SM
+  FP8: Thor 16,413  RTX PRO 6000 WS 2,032  ratio 8.1x
+  FP4: Thor 32,857  RTX PRO 6000 WS 4,063  ratio 8.1x
+== Thor peak by power mode (assumes tensor peak scales with SMs x clock; BW unknown below 4 FBPs)
+  MAXN (10 TPC)            scale 1.000: FP4   1035  FP8   517  BF16 258.5 TF; FP8 ridge at 273 GB/s  1894
+  120 W default (10 TPC)   scale 0.880: FP4    911  FP8   455  BF16 227.5 TF; FP8 ridge at 273 GB/s  1667
+  90 W / 70 W (6 TPC)      scale 0.583: FP4    603  FP8   301  BF16 150.7 TF; FP8 ridge at 273 GB/s  1104
+  If GPU DRAM bandwidth scaled with FBPs (3 of 4; UNVERIFIED): 204.8 GB/s
+== Measured vs peak on Thor
+  CUTLASS dense FP4 (forum, CUDA 13.0, 130 W)  875 / 1035 = 84.5%
+  same, best                                   878 / 1035 = 84.8%
+  cuBLAS FP16 (forum, sizes unknown)           130 / 258.5 = 50.3%
+  copy kernel GB/s (forum)                     200 / 273 = 73.3%
+== Qwen3-8B NVFP4 decode bound on Thor (TRT-Edge-LLM table: 47.3 tok/s, batch 1, past KV 2048)
+  non-embedding linear params 6.946 B; lm_head 622.3 M; KV(FP16, 2048) 0.302 GB
+  lm_head NVFP4 + FP8 KV  : 4.408 GB/token -> bound  61.9 tok/s -> measured 47.3 = 76% of bound
+  lm_head FP16 + FP16 KV  : 5.454 GB/token -> bound  50.1 tok/s -> measured 47.3 = 94% of bound
+== Emulating Thor on a proxy (FP8 dense; inference)
+  config                                        FP8 TF   GB/s  L2 MB  ridge  MMA
+  Thor T5000 MAXN                                  517    273   33.6   1894  tcgen05 (sm_110a)
+  RTX PRO 6000 WS, green ctx 24 SMs                128   1792  128.0     71  mma.sync (sm_120a)
+  RTX PRO 6000 WS, green ctx 16 SMs                 85   1792  128.0     47  mma.sync (sm_120a)
+  RTX PRO 6000 Server MIG 1g.24gb                  250    399   32.0    626  mma.sync (sm_120a)
+  B200 green ctx 24 SMs (148 SMs, unverified)      730   8000  126.0     91  tcgen05 (sm_100a)
+  B200 MIG 1g.23gb                                 643   1000   15.8    643  tcgen05 (sm_100a)
+  H100 SXM MIG 1g.10gb                             283    419    6.2    675  wgmma (sm_90a)
+== Working set vs L2 (L2: Thor 32 MiB user-reported; B200 126 MB; H100 50 MB; RTX PRO 6000 128 MB unverified)
+  Thor                             KV(3k tokens, BF16) 0.442 GB =  13.2x L2;  expert 5.0 GB/step =    149x L2
+  H100                             KV(3k tokens, BF16) 0.442 GB =   8.8x L2;  expert 5.0 GB/step =    100x L2
+  B200                             KV(3k tokens, BF16) 0.442 GB =   3.5x L2;  expert 5.0 GB/step =     40x L2
+  RTX PRO 6000 (unverified 128 MB) KV(3k tokens, BF16) 0.442 GB =   3.5x L2;  expert 5.0 GB/step =     39x L2
+  Weights in (33.6 MB, ~126 MB] can stay L2-resident across K flow steps on B200/RTX PRO 6000 but not on Thor:
+  re-read K times from DRAM on Thor vs ~once on the proxy (inference; K = 5-10).
+== Parallelism: CTAs for one M=64 skinny GEMM with 128-wide N tiles
+  N= 2048:  16 CTAs =  8.5% of 188 SMs, 80.0% of Thor's 20 SMs (waves on Thor 0.8)
+  N= 4096:  32 CTAs = 17.0% of 188 SMs, 100.0% of Thor's 20 SMs (waves on Thor 1.6)
+  N=12288:  96 CTAs = 51.1% of 188 SMs, 100.0% of Thor's 20 SMs (waves on Thor 4.8)
+== Little's law, bytes in flight to saturate DRAM (latency is an ASSUMPTION)
+  Thor             lat 500 ns: 0.137 MB in flight =   6.8 KB/SM
+  Thor             lat 800 ns: 0.218 MB in flight =  10.9 KB/SM
+  RTX PRO 6000 WS  lat 500 ns: 0.896 MB in flight =   4.8 KB/SM
+  RTX PRO 6000 WS  lat 800 ns: 1.434 MB in flight =   7.6 KB/SM
+== Launch overhead illustration (kernel count from L7; per-launch cost is an ASSUMPTION)
+  2,880 launches x 2 us = 5.8 ms per tick (budget 100 ms)
+  2,880 launches x 4 us = 11.5 ms per tick (budget 100 ms)
+  2,880 launches x 6 us = 17.3 ms per tick (budget 100 ms)
+== Prices (USD per GPU-hour)
+  Thor dev kit amortized (ASSUMPTION: 2,000 h use, MSRP 5,499, no resale):  2.75

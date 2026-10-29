@@ -1,0 +1,32 @@
+1) Steady-state lag at control step 100 ms (measured from re-typed buffer) vs ceil(d/dt):
+   delay   0 ms -> 0 ticks late (ceil = 0); applied staleness   0 ms; distance at 15 m/s: modeled v*d = 0.000 m, applied v*ticks*dt = 0.000 m
+   delay   1 ms -> 1 ticks late (ceil = 1); applied staleness 100 ms; distance at 15 m/s: modeled v*d = 0.015 m, applied v*ticks*dt = 1.500 m
+   delay  50 ms -> 1 ticks late (ceil = 1); applied staleness 100 ms; distance at 15 m/s: modeled v*d = 0.750 m, applied v*ticks*dt = 1.500 m
+   delay  99 ms -> 1 ticks late (ceil = 1); applied staleness 100 ms; distance at 15 m/s: modeled v*d = 1.485 m, applied v*ticks*dt = 1.500 m
+   delay 100 ms -> 1 ticks late (ceil = 1); applied staleness 100 ms; distance at 15 m/s: modeled v*d = 1.500 m, applied v*ticks*dt = 1.500 m
+   delay 101 ms -> 2 ticks late (ceil = 2); applied staleness 200 ms; distance at 15 m/s: modeled v*d = 1.515 m, applied v*ticks*dt = 3.000 m
+   delay 139 ms -> 2 ticks late (ceil = 2); applied staleness 200 ms; distance at 15 m/s: modeled v*d = 2.085 m, applied v*ticks*dt = 3.000 m
+   delay 171 ms -> 2 ticks late (ceil = 2); applied staleness 200 ms; distance at 15 m/s: modeled v*d = 2.565 m, applied v*ticks*dt = 3.000 m
+   delay 200 ms -> 2 ticks late (ceil = 2); applied staleness 200 ms; distance at 15 m/s: modeled v*d = 3.000 m, applied v*ticks*dt = 3.000 m
+   delay 201 ms -> 3 ticks late (ceil = 3); applied staleness 300 ms; distance at 15 m/s: modeled v*d = 3.015 m, applied v*ticks*dt = 4.500 m
+   delay 250 ms -> 3 ticks late (ceil = 3); applied staleness 300 ms; distance at 15 m/s: modeled v*d = 3.750 m, applied v*ticks*dt = 4.500 m
+   delay 300 ms -> 3 ticks late (ceil = 3); applied staleness 300 ms; distance at 15 m/s: modeled v*d = 4.500 m, applied v*ticks*dt = 4.500 m
+
+2) Applied-plan sequence, plans added at t = 0,100,...,500 ms (no force-GT):
+     0 ms: ['P0', 'P1', 'P2', 'P3', 'P4', 'P5']
+   100 ms: ['P0', 'P0', 'P1', 'P2', 'P3', 'P4']
+   139 ms: ['P0', 'P0', 'P0', 'P1', 'P2', 'P3']
+   171 ms: ['P0', 'P0', 'P0', 'P1', 'P2', 'P3']
+   200 ms: ['P0', 'P0', 'P0', 'P1', 'P2', 'P3']
+
+3) Warm-up with force-GT: 17 GT ticks (force_gt_duration_us 1.7 s, base_config.yaml:277), closed loop from tick 17:
+     0 ms: ticks 17..21 apply ['P17', 'P18', 'P19', 'P20', 'P21']
+   139 ms: ticks 17..21 apply ['GT15', 'GT16', 'P17', 'P18', 'P19']
+   200 ms: ticks 17..21 apply ['GT15', 'GT16', 'P17', 'P18', 'P19']
+   300 ms: ticks 17..21 apply ['GT14', 'GT15', 'GT16', 'P17', 'P18']
+
+4) Same delays at control step 50 ms (policy and controller share dt, event_loop.py:464-487; camera clocks are separate, camera.py:196-210):
+   delay 100 ms -> 2 ticks of 50 ms = 100 ms applied staleness
+   delay 139 ms -> 3 ticks of 50 ms = 150 ms applied staleness
+   delay 171 ms -> 4 ticks of 50 ms = 200 ms applied staleness
+   delay 200 ms -> 4 ticks of 50 ms = 200 ms applied staleness

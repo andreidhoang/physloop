@@ -1,0 +1,68 @@
+==============================================================================
+R1. Paired MDE (pp of scene_score) by stratum size; σ_d assumed; m=3 replicates, ρ=0.6 (03 §4 anchors)
+==============================================================================
+  check anchors: n=441 σ_d=0.3 m=1 -> 3.55 pp (03 §4: 3.55); σ_d=0.5 -> 5.92 (5.92); m=3 ρ=0.6 n_eff/n = 1.3636 (1/1.3636 = 0.7334)
+   scenes | σ_d=0.2: m=1 / m=3 | σ_d=0.3: m=1 / m=3 | σ_d=0.5: m=1 / m=3
+        9 |  16.6 /  14.2 pp |  24.9 /  21.3 pp |  41.4 /  35.5 pp
+       15 |  12.8 /  11.0 pp |  19.3 /  16.5 pp |  32.1 /  27.5 pp
+       30 |   9.1 /   7.8 pp |  13.6 /  11.7 pp |  22.7 /  19.4 pp
+       60 |   6.4 /   5.5 pp |   9.6 /   8.2 pp |  16.1 /  13.7 pp
+      100 |   5.0 /   4.3 pp |   7.5 /   6.4 pp |  12.4 /  10.6 pp
+      150 |   4.1 /   3.5 pp |   6.1 /   5.2 pp |  10.2 /   8.7 pp
+      441 |   2.4 /   2.0 pp |   3.6 /   3.0 pp |   5.9 /   5.1 pp
+  -> a stratum of 9–30 scenes has an MDE of 8–36 pp (m=3) / 9–41 pp (m=1): any sub-10 pp per-tick loss is INSUFFICIENT by construction.
+
+==============================================================================
+R2. Scenes needed per stratum to detect Δ (one-sided 80 %), σ_d assumed; m=3 ρ=0.6
+==============================================================================
+   Δ (pp) | σ_d=0.2: n(m=1) / n(m=3) | σ_d=0.3: n(m=1) / n(m=3) | σ_d=0.5: n(m=1) / n(m=3)
+        3 |    275 /    202 |    618 /    453 |   1717 /   1259
+        5 |     99 /     73 |    223 /    163 |    618 /    453
+       10 |     25 /     18 |     56 /     41 |    155 /    113
+       20 |      6 /      5 |     14 /     10 |     39 /     28
+  -> the 441 split has an unknown dynamic-actor count; the curated pool is 2,202 scenes (local_evaluation README): the only way to power a dynamic stratum is targeted sampling from the pool, not 441×3.
+
+==============================================================================
+R3. If the per-scene outcome is near-binary (collision/off-road → 0), McNemar-type MDE ≈ z·√(ψ/n) with ψ = discordance (assumed)
+==============================================================================
+  n=  15: ψ=0.04:  12.8 pp  ψ=0.10:  20.3 pp  ψ=0.20:  28.7 pp
+  n=  30: ψ=0.04:   9.1 pp  ψ=0.10:  14.4 pp  ψ=0.20:  20.3 pp
+  n=  60: ψ=0.04:   6.4 pp  ψ=0.10:  10.2 pp  ψ=0.20:  14.4 pp
+  n= 100: ψ=0.04:   5.0 pp  ψ=0.10:   7.9 pp  ψ=0.20:  11.1 pp
+  n= 441: ψ=0.04:   2.4 pp  ψ=0.10:   3.7 pp  ψ=0.20:   5.3 pp
+  (approximation; the repo's Connor anchor at ψ=4 pct, n=441 is 2.72 pp, this normal form gives 2.37 pp; ψ = share of scenes whose failure flips between arms)
+
+==============================================================================
+R4. The E2 pilot (100 scenes × 3 reps × {1,2} ticks) seen per stratum
+==============================================================================
+  dynamic-actor share 15 % (15 scenes)     MDE σ_d=0.3:  16.5 pp; σ_d=0.5:  27.5 pp
+  30 % (30 scenes)                         MDE σ_d=0.3:  11.7 pp; σ_d=0.5:  19.4 pp
+  whole pilot (100)                        MDE σ_d=0.3:   6.4 pp; σ_d=0.5:  10.6 pp
+  -> F1's rule 'go if the paired loss at d=2 exceeds the replicate floor on any pre-registered stratum' is a point-estimate screen with ~15–30 pp per-stratum MDE: it cannot distinguish 5 pp from 0.
+
+==============================================================================
+R5. Hours: capacity vs [C] + capstone (02 §3 rows; F1 §6/F9)
+==============================================================================
+  capacity 300–360 h; S2–S7 [C] 306–340 h; capstone +42–62 h
+  net slack = capacity − ([C]+capstone): worst -102 h, best +12 h
+  F1/F9 claims the ~40 h [O] pool 'absorbs most of it'. [O] is NOT inside the 306–340 [C] total (02 §0.1: '[O] adds up to about +40 h'), so cutting [O] frees 0 h of [C] capacity.
+  at 25 h/wk the plan is 102 h over in the worst case and 48 h over in the best; at 30 h/wk: +42 / -12 h
+  02 §3 itself says 370–405 h is '12–16 weeks at 25–30 h/week' -> the 12-week frame already assumes the fast end.
+
+==============================================================================
+R6. Domino and the 'CoC token decides the tick' claim (PR #45: 16 drafted / 17 verified rows, 8.30 accepted per round, greedy)
+==============================================================================
+  serial decode (F3 proxy): 16 tokens × 7.35 ms = 118 ms; with Domino at 8.3 accepted/round: 2 rounds
+    if one verify round ≈ 1.5× a serial token's weight read (17 rows, memory-bound) -> ≈ 22 ms for 16 tokens, ≈ 1.4 ms/token effective (assumption, labelled)
+    if one verify round ≈ 2.5× a serial token's weight read (17 rows, memory-bound) -> ≈ 37 ms for 16 tokens, ≈ 2.3 ms/token effective (assumption, labelled)
+  -> under NVIDIA's deployed decode, the marginal CoC cost is ~1–2.5 ms/token, the same order as the expert step (≤1.7 ms): 'n decides the band, K does not' holds for serial decode only.
+
+==============================================================================
+R7. Thor-in-loop device time for E9 without a DRIVE number: bracket by what is measured on Jetson
+==============================================================================
+  100 scenes × 3 × 200 calls at 100 ms:   1.7 h  (1 tick budget)
+  100 scenes × 3 × 200 calls at 811 ms:  13.5 h  (FlashRT fast 10B (Jetson, MAXN locked))
+  100 scenes × 3 × 200 calls at 3322 ms:  55.4 h  (official BF16 10B (Jetson))
+  -> the Jetson 2B value is unknown until T3; quote the bracket, never 171 ms (DRIVE).
+
+Done.

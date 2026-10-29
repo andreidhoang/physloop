@@ -1,0 +1,12 @@
+12-week window: 2026-11-02 -> 2027-01-25
+All [C] S1-S8: [370, 404] | S2-S7: [306, 340] | S5-S7: [150, 164] | S6+S7: [80, 86]
+  capacity at 25 h/wk = 300 h; slack vs S2-S7 = -40 to -6 h
+  capacity at 30 h/wk = 360 h; slack vs S2-S7 = 20 to 54 h
+Weeks for 370-405 h at 25-30 h/wk: 12.3 to 16.2
+T=2560: prefill 49.5 ms, expert 7.33 ms, decode 4.12 ms/token, tokens in 100 ms = 10.5
+T=2880: prefill 55.7 ms, expert 7.33 ms, decode 4.12 ms/token, tokens in 100 ms = 9.0
+PR #42 compact expert ~50 M params (12*d^2*L estimate) vs 0.5B assumed
+  264600 drive calls x 100 ms = 7.3 h of serial device time per sweep
+  264600 drive calls x 139 ms = 10.2 h of serial device time per sweep
+  264600 drive calls x 171 ms = 12.6 h of serial device time per sweep
+curated scenes 1761+441 = 2202 ; PAI-AV 'alpasim' label = 1536 ; difference = 666

@@ -1,0 +1,18 @@
+FlashDrive Table 1 (RTX PRO 6000), ms
+  streaming       saves  157.5 ms vs sys-opt (30.7%)
+  spec reasoning  saves  112.0 ms vs sys-opt (21.8%)
+  adaptive steps  saves   62.9 ms vs sys-opt (12.3%)
+  sum of individual savings 332.4; 'All above' saves 337.3
+  system opts save 203.6 ms (28.4%); W4A8 saves 24.6 ms; Hz 1.39 -> 6.61
+FlashDrive Table 2 Jetson Thor: 1 sample 4.0 x; 6 samples 9.59 x; 1-sample Hz 1.06
+PR #45 DRIVE AGX Thor: FP8 Hz 5.84  FP16 Hz 4.53  FP8/FP16 speed-up 1.289  cut to 100 ms 71.2 ms = 41.6%
+Edge-LLM v0.10.0 Qwen3-VL-2B Jetson AGX Thor: NVFP4 decode ms/token 7.35  INT4AWQ 7.39  runtime NVFP4 BS1 6.58
+  16 CoC tokens, no speculation, at 136 tok/s: 117.6 ms; prefill 2048 tok NVFP4 28.0 ms -> 3006 tok linear: 41.1 ms
+  decode bound ~5.72 ms/token (body 0.70 GB, LM head 0.62 GB, KV 0.235 GB) -> measured/bound efficiency 78%
+FlashRT PR #229 / docs, Jetson AGX Thor MAXN, Alpamayo 1.5-10B
+  balanced FP8 expert: 12.61 ms/step; bound weights-only 8.35, +BF16 KV 9.97 -> 66%-79% of bound
+  bf16 expert: 21.30 ms/step; bound weights-only 16.70, +BF16 KV 18.32 -> 78%-86% of bound
+  balanced W4A8 decode: 22.1 ms/token; bound ~16.6 ms -> 75%
+  bf16 decode: 67.4 ms/token; bound ~61.7 ms -> 92%
+  official 3322 ms -> Hz 0.3 ; fast 811 -> 1.23 ; streaming best 345 -> 2.9
+Edge-LLM release intervals (days): 07-23->08-12 20 ; 08-12->09-03 22 ; 09-03->09-29 26 ; 09-29->10-28 29

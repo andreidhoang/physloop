@@ -1,0 +1,227 @@
+==============================================================================
+F0. Tension 1 — expert efficiency: sm_120 (FlashDrive-derived) vs Jetson (FlashRT stage times)
+==============================================================================
+  RTX PRO 6000 WS, BF16 teacher expert: bound 2.79 ms/step (5.0 GB/1.792 TB/s) -> 8 steps 22.3 ms; FlashDrive sys-opt action 113.9 ms -> 19.6% of bound; baseline row 192.9 -> 11.6% [04 §4, P-007]
+  Jetson AGX Thor, FlashRT balanced FP8 expert: 12.60 ms/step reported; bound weights-only 8.35 ms, +BF16 KV(3k) 9.97 ms -> 66%–79% of bound [A-Q4.6]
+  -> Different device, precision and kernels; both inferred. For the Thor question Track A wins (target device).
+     The '20%' premise of P-007 is an sm_120/FlashDrive derivation; it is a sweep-cost question, not a Thor lever.
+
+==============================================================================
+F1. Tension 2 — tick quantization ⌈L/Δt⌉ (AlpaSim DelayBuffer read once per control tick) [E §3.1–3.2; F2 rows 1–2 re-opened]
+==============================================================================
+    L (ms)  ticks  applied ms   v*L (m)  applied (m)
+         0      0           0     0.000        0.000
+         1      1         100     0.015        1.500
+        50      1         100     0.750        1.500
+        99      1         100     1.485        1.500
+       100      1         100     1.500        1.500
+       101      2         200     1.515        3.000
+       139      2         200     2.085        3.000
+       171      2         200     2.565        3.000
+       200      2         200     3.000        3.000
+       201      3         300     3.015        4.500
+       300      3         300     4.500        4.500
+       345      4         400     5.175        6.000
+       500      5         500     7.500        7.500
+       811      9         900    12.165       13.500
+      3322     34        3400    49.830       51.000
+  -> 139 ms is SIMULATED as 200 ms of plan staleness (3.0 m at 15 m/s); 2.085 m is the physical distance during 139 ms.
+     Track E (code at named commits, identical on main and e2e_challenge) wins over the S7 card / 03 §4 text.
+  Bench2Drive-Robust uses floor (SIM_RATE inferred 20 Hz, F2 row 14): 100 ms -> floor(100*20/1000) = 2 ticks of 50 ms = 100 ms applied;
+     AlpaSim: 100 ms -> 1 tick of 100 ms = 100 ms applied; 139 ms -> 2 ticks = 200 ms applied. Compare in applied-staleness seconds, never nominal ms.
+
+==============================================================================
+F2. Tension 3 — 2B decode: bound vs Edge-LLM's measured 7.35 ms/token on Jetson AGX Thor (Qwen3-VL-2B proxy)
+==============================================================================
+  C11/03 §4 style: 2.0B @ 4.5 bpp, no head split, no KV       1.12 GB ->  4.12 ms/token (100% of 273 GB/s); measured 7.35 ->   56% of bound
+  NVFP4 body (4.5 bpp) + NVFP4 head + BF16 KV @2,048          1.20 GB ->  4.40 ms/token (100% of 273 GB/s); measured 7.35 ->   60% of bound
+  NVFP4 body (4.5 bpp) + FP16 head + BF16 KV @2,048           1.65 GB ->  6.04 ms/token (100% of 273 GB/s); measured 7.35 ->   82% of bound
+  NVFP4 body (4.5 bpp) + FP16 head + BF16 KV @3,006           1.76 GB ->  6.44 ms/token (100% of 273 GB/s); measured 7.35 ->   88% of bound
+  -> Measured (reported) is the planning figure; the bound is a floor whose efficiency reading depends on the unstated LM-head precision [A-X.2].
+
+==============================================================================
+F3. Student per-stage bounds and measured proxies on Jetson AGX Thor; L(n) under SERIAL decode (proposed structure; the latency model is ★)
+==============================================================================
+  prefill 3006 rows, MAXN: 8.47 TFLOP linear + 2.07 TFLOP attention -> FP8 bound 20.4 ms; NVFP4-linear bound 12.2 ms
+  prefill 3006 rows, 120 W: 8.47 TFLOP linear + 2.07 TFLOP attention -> FP8 bound 23.2 ms; NVFP4-linear bound 13.9 ms
+  prefill measured proxy (Edge-LLM NVFP4, 2,048 rows 28.0 ms, linear scaling): 41.1 ms  [A-Q1.10; power mode unstated]
+  ViT measured proxy (FP16 ViT, 265 tokens 11.4 ms, linear): newest 4 frames (720 tok) 31.0 ms; all 16 frames (2880 tok) 123.9 ms
+  expert step bound, FP8 weights at 0.116e9 (L5 1.3i): +BF16 KV 1.69 ms/step (K=5 8.4 ms); +FP8 KV 1.06 ms/step (K=5 5.3 ms)
+  expert step bound, FP8 weights at 0.050e9 (E §7.7): +BF16 KV 1.45 ms/step (K=5 7.2 ms); +FP8 KV 0.81 ms/step (K=5 4.1 ms)
+  expert step FLOPs (M=384): 354 GFLOP -> 0.68 ms at 517 TFLOPS: memory-bound (bytes dominate)
+  weights 116 M FP8 = 111 MiB > 32 MiB L2 -> re-read from DRAM every step on Thor [D-DT9, D-F4.3]
+
+  L(n) = ViT + prefill + n·decode + K·expert + host (ms); 'bound' at 100% of peak, 'proxy' from Edge-LLM's measured Qwen3-VL-2B on Jetson:
+  bound: ViT excluded (cached) + prefill FP8 bound + expert K=5 bound + host 10
+      L0 =   38.8 ms at n = 0 (1 tick); per token 4.81 ms; L crosses 100 ms at n = 12.7, 200 ms at n = 33.5; n=16: 116 ms (2 ticks)
+  proxy: ViT newest-4 + prefill proxy + expert K=5 bound + host 10
+      L0 =   90.5 ms at n = 0 (1 tick); per token 7.35 ms; L crosses 100 ms at n =  1.3, 200 ms at n = 14.9; n=16: 208 ms (3 ticks)
+  proxy: ViT newest-4 + prefill proxy + expert K=5 at 2x bound + host 10
+      L0 =   98.9 ms at n = 0 (1 tick); per token 7.35 ms; L crosses 100 ms at n =  0.1, 200 ms at n = 13.7; n=16: 217 ms (3 ticks)
+  proxy: ViT all-16 + prefill proxy + expert K=5 bound + host 10
+      L0 =  183.4 ms at n = 0 (2 tick); per token 7.35 ms; L crosses 100 ms at n =  0.0, 200 ms at n =  2.3; n=16: 301 ms (4 ticks)
+  -> Under SERIAL decode the marginal term is the CoC token (7.35 ms measured, 3.5–6.4 ms bound), not the expert step (≤ 1.7 ms bound). See F14 for Domino.
+  PR #45 on DRIVE AGX Thor (reported, never Jetson): FP8 171.2 ms = 2 ticks; FP16 220.6 ms = 3 ticks; cut needed to reach 100 ms: 71.2 ms = 41.6%
+
+==============================================================================
+F4. Teacher (Alpamayo 1.5-10B) tick positions on each device (reported latencies -> ticks)
+==============================================================================
+  Jetson official BF16 (FlashRT baseline arm)                 3322.0 ms -> 34 ticks late at Δt = 100 ms
+  Jetson FlashRT fast                                          811.0 ms ->  9 ticks late at Δt = 100 ms
+  Jetson FlashRT streaming (fine-tuned weights, 8 steps)       345.0 ms ->  4 ticks late at Δt = 100 ms
+  RTX PRO 6000 FlashDrive baseline                             716.9 ms ->  8 ticks late at Δt = 100 ms
+  RTX PRO 6000 FlashDrive sys-opt                              513.3 ms ->  6 ticks late at Δt = 100 ms
+  RTX PRO 6000 FlashDrive all+W4A8                             151.4 ms ->  2 ticks late at Δt = 100 ms
+  Jetson balanced: 16 CoC tokens = 354 ms; K 10->5 saves 63 ms; fast 811 -> no-CoC ≈ 478 ms (5 ticks); K=5 ≈ 748 ms (8 ticks)
+  -> On Jetson the 10B sits at 8–9 ticks; its levers move whole ticks only far from the 1–2-tick regime that the 2B question lives in.
+
+==============================================================================
+F5. Sweep costs and Thor-in-loop device time (steps x s/step; prices DR1 2026-10-28; s/step is FlashDrive's 10B figure incl. rendering, ±2x until S2's profile)
+==============================================================================
+  one sweep: 264,600 steps -> 34.0–84.5 GPU-h -> $34–$124 on RTX PRO 6000 WS
+  whole-set curve, 3 new arms {1,2,3 ticks} + S2's 0 arm: 102–254 GPU-h -> $102–$373; with the expert graph (-11.3..-13.6% [L7-2]): 91–219 GPU-h
+  Thor-in-loop serial device time (Jetson bracket; no DRIVE number is used; the 2B Jetson value is unknown until T3):
+    per full sweep at 100 ms/call:   7.3 h; per 100-scene x 3 subset:   1.7 h  (1-tick budget)
+    per full sweep at 811 ms/call:  59.6 h; per 100-scene x 3 subset:  13.5 h  (FlashRT fast, 10B, Jetson MAXN locked [A-Q4.3])
+    per full sweep at 3322 ms/call: 244.2 h; per 100-scene x 3 subset:  55.4 h  (official BF16, 10B, Jetson [A-Q4.3])
+
+==============================================================================
+F6. Paired MDE, whole set (continuous scene_score; one-sided α = 0.05, power 0.8) [03 §4 S3]
+==============================================================================
+  n = 100 scenes, σ_d = 0.3: MDE  7.46 pp (1 replicate); with 3 replicates at ρ = 0.6 (n_eff = 136)  6.39 pp
+  n = 100 scenes, σ_d = 0.5: MDE 12.43 pp (1 replicate); with 3 replicates at ρ = 0.6 (n_eff = 136) 10.65 pp
+  n = 441 scenes, σ_d = 0.3: MDE  3.55 pp (1 replicate); with 3 replicates at ρ = 0.6 (n_eff = 601)  3.04 pp
+  n = 441 scenes, σ_d = 0.5: MDE  5.92 pp (1 replicate); with 3 replicates at ρ = 0.6 (n_eff = 601)  5.07 pp
+
+==============================================================================
+F7. Batched bitwise driver (P-015 re-cut): Amdahl with invariance cost
+==============================================================================
+  f = 0.730, batch s = 2.0: saving 36.5%/sweep; with invariant kernels at 1.34x: s' = 1.49 -> 24.1%/sweep
+  f = 0.730, batch s = 2.0: saving 36.5%/sweep; with invariant kernels at 1.62x: s' = 1.23 -> 13.9%/sweep
+  f = 0.730, batch s = 2.6: saving 44.9%/sweep; with invariant kernels at 1.34x: s' = 1.94 -> 35.4%/sweep
+  f = 0.730, batch s = 2.6: saving 44.9%/sweep; with invariant kernels at 1.62x: s' = 1.60 -> 27.5%/sweep
+  f = 0.875, batch s = 2.0: saving 43.8%/sweep; with invariant kernels at 1.34x: s' = 1.49 -> 28.9%/sweep
+  f = 0.875, batch s = 2.0: saving 43.8%/sweep; with invariant kernels at 1.62x: s' = 1.23 -> 16.6%/sweep
+  f = 0.875, batch s = 2.6: saving 53.8%/sweep; with invariant kernels at 1.34x: s' = 1.94 -> 42.4%/sweep
+  f = 0.875, batch s = 2.6: saving 53.8%/sweep; with invariant kernels at 1.62x: s' = 1.60 -> 33.0%/sweep
+  equivalence sweep (non-invariant arm, one known-null pair): 34–85 GPU-h -> $34–$124
+  saving on S3–S5 (21–22 sweeps, only if all run), invariant, worst: 99–258 GPU-h -> $99–$379
+  saving on S3–S5 (21–22 sweeps, only if all run), non-invariant, best: 385–1001 GPU-h -> $385–$1472
+  Batching bound (04 §4, L7-4): per-sample ≈ 253–276 ms vs 513–717 ms at B = 1 -> s ≈ 2.0–2.6 (inference, teacher on RTX PRO 6000; unmeasured).
+
+==============================================================================
+F8. Jetson artifact: J/tick bound, proxy choices, purchase economics
+==============================================================================
+  J/tick upper bound at a 100 ms tick: 120 W mode -> 12 J; 130 W TDP -> 13 J; 70 W mode -> 7 J  (module power x tick; measured J/tick needs tegrastats/INA) [D-DT3]
+  Thor dev kit amortized over 2,000 h (assumption): $2.75/h vs RTX PRO 6000 WS $1.0–$1.47/h [D-DT5, D-DR1]
+  B200 (tcgen05 ISA proxy) $7.5–$8.75/h: 10 h of ISA validation = $75–$88; RTX PRO 6000 MIG 24 GB (bandwidth-side proxy) $0.5–$0.69/h [D-F4.9]
+  Thor FP8 ridge 1894 FLOP/B vs RTX PRO 6000 WS 558: an operator at 300–900 FLOP/B is compute-bound on the proxy, memory-bound on Thor [D-F4.2]
+  skinny GEMM M = 384, N tiles of 128: N = 2,048 -> 16 CTAs = 8.5% of 188 SMs vs 80% of 20 SMs [D-F4.1]
+
+==============================================================================
+F9. Calendar and hours (11-02 -> 01-25) [E §5, 02 §3] — corrected per F2 fix 1 ([O] is outside the [C] total)
+==============================================================================
+    E0–E5 harness, CPU tests, positive control, targeted sampling                  +8–10 h
+    P-021 sub-tick/trace-driven DelayBuffer + command-FIFO option (AlpaSim PR)     +8–12 h
+    #1 floor: eval-driver port of AlpaGym-style batching (L7-4) + invariance arm   +16–22 h
+    #3 x86 SM120 runtime (L7-6, was [G]; deferrable)                               +12–20 h
+  capacity 300–360 h; S2–S7 [C] 306–340 h; capstone +44–64 h
+  net slack = capacity − ([C] + capstone): worst -104 h, best +10 h
+  at 25 h/week: 50–104 h over; at 30 h/week: -10–+44 h over
+  [O] items (~40 h) sit outside the [C] total (02 §0.1), so cutting them frees 0 h of [C] capacity; S8 (40 h) is outside the window.
+    displaceable [C] role item: L2-1 S4 scaling model + multi-config sweep (D1)                        12–18 h
+    displaceable [C] role item: L6-6 S5 scaling and resiliency ladder (D4)                             10–14 h
+    displaceable [C] role item: L5-5 manifest-driven pipeline metrics (D2)                             8–12 h
+    displaceable [C] role item: L6-3 DCGM + goodput dashboard (D4)                                     8–11 h
+    displaceable [C] role item: L6-2 NVIDIA-style throughput measurement (D4, D2)                      6–8 h
+    displaceable [C] role item: defer #3's x86 half (the capstone's own deferrable item)               12–20 h
+  named displaceable pool: 56–83 h -> covers the 30 h/week overrun; at 25 h/week the window must also extend by 0–2 weeks (02 §3 itself says 370–405 h is 12–16 weeks)
+
+==============================================================================
+F10. Candidate scoring (1–5 on the brief's nine criteria): F1 columns and FINAL columns after the red-team rulings; equal and weighted
+==============================================================================
+  candidate                                                                                                F1 eq  F1 wt FIN eq FIN wt     AV   Gap Small   Win Behav Legib Upstr  Role  Cost
+  K22 COMPOSITE: eval-driver bitwise batching (floor) + latency instrument layer + P-021; curve conditional    40   53.0     40   53.0      4     3     5     4     5     4     5     5     5
+  K2  Bitwise-invariant batched eval driver (P-015 re-cut; ports AlpaGym-style batching)                      40   53.5     39   52.0      4     3     5     4     5     4     4     5     5
+  K14 AlpaSim sub-tick/trace-driven DelayBuffer + command-FIFO option (PR)                                    39   52.5     37   49.5      4     4     5     3     3     4     5     4     5
+  K1  Score-per-tick latency-cost curve (S7 injection re-cut; S5(b)/(c) as lever arms)                        42   56.0     34   44.0      5     3     3     3     3     5     4     4     4
+  K21 Deployment-lever verdicts at a fixed tick band (S5(b)/(c) + FlashDrive levers, merged)                  35   46.0     34   44.5      5     3     4     3     3     5     3     4     4
+  K11 S7 as written (constant arms + HIL + C++ server; P-002)                                                 37   49.0     34   44.0      5     3     3     3     3     5     4     5     3
+  K4  S5(c) CoC-budget curve as written                                                                       34   45.0     33   43.5      5     4     3     3     3     5     3     4     3
+  K5  S5(b) flow-step ladder as written                                                                       35   47.0     33   44.0      4     3     5     3     3     4     3     3     5
+  K15 Per-lever paired closed-loop re-run of FlashDrive's public bundle on 1.5                                34   45.5     33   44.0      4     3     5     3     3     4     3     4     4
+  K8  P-007 expert diagnosis E-K0 (sm_120)                                                                    31   41.5     31   41.5      3     2     4     3     5     3     3     3     5
+  K7  S6 G6 per-format closed-loop verdict on real Jetson engines                                             31   41.5     30   40.0      4     4     2     3     4     4     3     4     2
+  K16 DART visual-token pruning closed-loop verdict                                                           30   40.0     30   40.0      3     3     4     3     3     4     3     3     4
+  K10 P-019 one C++ driver for two targets, as written                                                        29   38.5     29   38.5      4     3     3     3     3     3     3     4     3
+  K3  Jetson AGX Thor measurement artifact + C++ driver (S6/P-019/P-008 merged)                               33   44.5     28   36.5      4     3     2     3     4     4     3     3     2
+  K18 Proxy-to-Thor transfer study                                                                            29   39.0     27   36.0      3     4     2     3     3     4     3     3     2
+  K13 sm_110 flow-expert kernel (tcgen05/TMEM)                                                                26   34.5     26   34.5      4     3     2     2     4     3     3     3     2
+  K19 Speculative-CoC paired closed-loop verdict on the student                                               26   34.0     26   34.0      4     2     3     3     3     3     2     3     3
+  K6  S6 as written: 2B at 10 Hz on Jetson with a behaviour-preserving win                                    25   32.0     25   32.0      5     2     2     2     3     4     2     3     2
+  K9  P-018 few-step expert distillation                                                                      24   31.5     24   31.5      3     2     3     3     2     3     2     3     3
+  K20 Previous-tick warm start of the flow sampler                                                            23   31.0     23   31.0      3     3     3     2     2     3     2     2     3
+  K12 S8 HCMC shadow-mode OOD set                                                                             23   31.5     21   28.5      3     4     1     2     3     3     2     2     1
+  K17 Edge-LLM action-runner + KV-reuse runtime                                                               21   27.0     21   27.0      4     1     2     2     3     3     1     3     2
+  Changes F1 -> FINAL (red-team fixes 3, 4, 7, 8 accepted or partly accepted): Behaviour neutral (3) for measurement studies; K1 Gap 4->3 (2601.07393, B2D-Robust),
+  Small 5->3 (dynamic strata INSUFFICIENT on 441x3; sub-tick needs P-021), Win 4->3 (comparator, not baseline), Role 5->4 (no I2-perf), Cost 5->4 (KC-L-gated headline);
+  K2 Gap 4->3 (AlpaGym InferenceEngine already batches Alpamayo), Upstr 5->4 (a port of NVIDIA's engine; race), Cost 4->5 (KC-L-free, $38–137);
+  K3 Gap 4->3, Small 3->2 (no rental; device undecided), Behav 5->4 (engines need the ladder), Role 4->3 (no on-device line), Cost 3->2. Rejected: K1 AV 5->4 (criterion 1 is about the deployed stack, not the posting).
+  Merges: K14 -> K22 (P-021); K11, K4, K5, K15 -> K21 or K1's lever arms; K10, K7's device half, K8 (week-1 step) -> K3. Final order after merges: K22 > K21 > K3 under both weightings.
+
+==============================================================================
+F11. FOCUS-path scorecard (same nine criteria; FINAL)
+==============================================================================
+  Path 1 research head (instrument composite with the conditional curve + lever arms)  equal 41  wtd  53.5
+  Path 2 engineering on Jetson AGX Thor (as the measurement artifact; device-gated)    equal 29  wtd  37.5
+  Path 3 shadow mode in HCMC (open-loop)                                               equal 21  wtd  28.5
+
+==============================================================================
+F12. Capstone cloud cost (DR1, 2026-10-28), redesigned pilot per F2 fix 2; ±2x on the s/step basis
+==============================================================================
+    E1 smoke + positive control (20 x 3 x {0,1,2,3,10})     60,000 steps ->   7.7– 19.2 GPU-h -> $8–$28
+    E2 targeted pilot (3 strata x 60 x 3 x {1,2})          216,000 steps ->  27.8– 69.0 GPU-h -> $28–$101
+    E3t targeted curve (3 strata x 163 x 3 x {1,2})        586,800 steps ->  75.5–187.4 GPU-h -> $75–$276
+    E3w whole-set curve (441 x 3 x {1,2,3})                793,800 steps -> 102.1–253.6 GPU-h -> $102–$373
+    E4 command-FIFO interface arm (3 x 60 x 3, d=2)        108,000 steps ->  13.9– 34.5 GPU-h -> $14–$51
+    E5 sub-tick arm (3 x 60 x 3)                           108,000 steps ->  13.9– 34.5 GPU-h -> $14–$51
+    B1 batch curve, timing-only                          $4–$13
+    B3 equivalence sweep (non-invariant arm)             $34–$124
+    x86 SM120 dev                                        $10–$29
+  total with the targeted curve (E3t), no B200: $187–$673; with the optional B200 ISA check ($75–88): $262–$761
+  total with the whole-set curve (E3w) instead: $213–$770; the KC-L-free floor alone (B1 + B3 + E1 on synthetic inputs): $46–$165
+  S5 node, 8 x H100, 24–48 h: vast.ai's one 8-GPU offer $29.33/h -> $704–$1408; list $31.92–$36.0/h -> $766–$1728
+  S4 training 225–450 H100-h at $1.93–$3.14: $434–$1413 (the plan's $403–1,080 used $1.79–2.40)
+  E3w concurrency if stacked on S3's 3–4 sweeps in one week: 1.2–3.5 GPUs continuously (F2 fix 9) -> spread over two weeks: 0.6–1.8
+
+==============================================================================
+F13. Per-stratum power (ported from the red team's R1/R2/R4 with the same 03 §4 anchors; σ_d and ρ are ASSUMED inputs, not predictions)
+==============================================================================
+   scenes | σ_d=0.2: MDE m=1 / m=3 | σ_d=0.3: MDE m=1 / m=3 | σ_d=0.5: MDE m=1 / m=3
+        9 |  16.6 /  14.2 pp |  24.9 /  21.3 pp |  41.4 /  35.5 pp
+       15 |  12.8 /  11.0 pp |  19.3 /  16.5 pp |  32.1 /  27.5 pp
+       30 |   9.1 /   7.8 pp |  13.6 /  11.7 pp |  22.7 /  19.4 pp
+       60 |   6.4 /   5.5 pp |   9.6 /   8.2 pp |  16.1 /  13.7 pp
+      100 |   5.0 /   4.3 pp |   7.5 /   6.4 pp |  12.4 /  10.6 pp
+      163 |   3.9 /   3.3 pp |   5.8 /   5.0 pp |   9.7 /   8.3 pp
+      441 |   2.4 /   2.0 pp |   3.6 /   3.0 pp |   5.9 /   5.1 pp
+   Δ (pp) | σ_d=0.2: n(m=1) / n(m=3) | σ_d=0.3: n(m=1) / n(m=3) | σ_d=0.5: n(m=1) / n(m=3)
+        3 |    275 /    202 |    618 /    453 |   1717 /   1259
+        5 |     99 /     73 |    223 /    163 |    618 /    453
+       10 |     25 /     18 |     56 /     41 |    155 /    113
+       20 |      6 /      5 |     14 /     10 |     39 /     28
+  -> a 9–30-scene stratum has an MDE of 8–36 pp at m=3: a sub-10 pp per-tick loss is INSUFFICIENT by construction on the 441 split.
+     Powering a dynamic-actor stratum for Δ = 5 pp needs 73–453 scenes (σ_d 0.2–0.5, m=3): only targeted sampling from the 2,202-scene curated pool can supply it [F2 row 30].
+     The E2 go/kill rule is therefore a pre-registered power criterion, not a point-estimate screen; a null without a registering positive control is 'not interpretable'.
+
+==============================================================================
+F14. Decode regime and the tick band: serial vs PR #45's Domino (8.30 accepted/round, 16 drafted) — the per-round cost is an ASSUMPTION
+==============================================================================
+  serial: 16 tokens x 7.35 ms = 118 ms (Jetson proxy); Domino: 2 rounds for 16 tokens
+    if one verify round costs 1.5x a serial token's weight read: 22 ms for 16 tokens = 1.4 ms/token effective (assumption)
+    if one verify round costs 2.5x a serial token's weight read: 37 ms for 16 tokens = 2.3 ms/token effective (assumption)
+  expert step bound ≤ 1.69 ms (0.116e9) or 1.45 ms (0.050e9)
+  -> Under serial decode (what Edge-LLM ships for Alpamayo on Jetson today, FP16-only R1) n decides the band; under Domino (NVIDIA's DRIVE path, TRT 11.2 fork)
+     n and K move the band comparably and the student's expert-headroom question is reopened. Both regimes are carried; which one the student runs is a KC-E/T3 fact.
+
+Done.
