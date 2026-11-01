@@ -1,90 +1,49 @@
 # 01 — System design (systems-thinking view)
 
-This document is authoritative for the system map and the thirteen core concepts. It is v3.1 (2026-10-27):
+This document is authoritative for the system map and the thirteen core concepts. It is v3.2 (2026-11-01):
+- **v3.2** aligns the active map to plan v5/D-021 and corrects the operational gate and RL interpretation against the November 1 review. Deferred concepts remain background, not active implementation requirements.
 - **v3 (2026-10-25)** added the teacher → student → Thor loop of plan v4 (D-012), corrected against `research/2026-10-25-teacher-to-thor/verification.md`.
 - **v3.1** corrects C2, C4, C5, C6 and C10 against `research/2026-10-27-role-alignment/verification.md`, and adds C13 (D-015).
 
 v1 and v2 are in `archive/`. Read this before any code.
 
-## 0. The production problem
+## 0. The active research problem
 
-Late 2026: an OEM running NVIDIA DRIVE AV is preparing an OTA update. The new model is smaller and faster than the one it replaces. It was distilled from a large teacher and quantized for DRIVE AGX Thor. Before release, someone has to answer one question:
+Plan v5 (D-021) makes closed-loop action-policy post-training the primary research path. A policy can increase its training return without improving held-out driving: its reward may measure a different event, exploration may supply no useful alternatives, or simulation artifacts may supply shortcuts. These are candidate mechanisms to test, not failures already measured in PhysLoop.
 
-> Does the new model drive worse than the old one? If so, in which situations?
-
-This is no longer hypothetical. On 2026-10-21 NVIDIA announced Alpamayo 2 Edge, a 2B model for DRIVE AGX Thor at 10 Hz. A day earlier, a public pull request put up a recipe that distills Alpamayo 1 / 1.5 into a ~2B student (alpamayo-recipes PR #42, unmerged). Both report open-loop error and latency only. Neither says how the student drives in closed loop, or where it is worse than its teacher.
-
-The open stack (Alpamayo, AlpaSim, AlpaGym) cannot answer it credibly, for two reasons verified on 2026-10-03:
-
-1. **There is no release gate.** AlpaSim aggregates descriptive per-rollout statistics. The 2026 challenge adds Drive-IRT, which ranks a panel of six or more policies. Nothing compares checkpoint B to checkpoint A with paired, stratified confidence.
-2. **The instrument is unstable and unvalidated.**
-   - NVIDIA's own Alpamayo 1.5 card moved its AlpaSim score from 0.81 to 1.37 on 2026-08-07, with unchanged weights.
-   - The challenge cannot separate teams #2–#5.
-   - The only published sim-to-road coefficient (Sim2Val, ρ > 0.9) is per-episode and single-policy, over kinematic metrics.
-   - No multi-policy study shows that AlpaSim rankings are reliable or that they converge with any independent reference.
+The first question is when the shipped Alpamayo 1.5 expert update improves independent outcomes and, when transfer fails, whether one demonstrated correction changes it. Privileged-teacher imitation and on-policy correction are credible alternatives; direct RL is not assumed universally cheapest. See [the primary-source review](research/2026-11-01-rl-direction-review/report.md).
 
 ## 1. Goal and vision
 
-**Goal:** an open release gate for the Alpamayo teacher → student path. It must:
-- (a) measure regression with paired, cluster-adjusted statistics;
-- (b) know its own validity envelope;
-- (c) be validated as an instrument. Plan v4 keeps two kinds of evidence: reliability across seeds, and the known-order ladders that the student pipeline produces (flow steps, bit-widths, reasoning budget). Renderer and traffic agreement and cross-paradigm convergence are deferred. Predictive validity against on-road outcomes is out of reach without fleet data, so we never claim it (`02` §6).
+**Goal:** a reproducible, bounded S4/G9 research conclusion supported by S1/S2's paired, stratified, road-aware gate. Start with the continuous action expert; visual/language weights remain frozen. Distinguish training correctness, measured learning, checkpoint improvement and a training-method conclusion.
 
-**The headline application (plan v4).** Use the gate on the full teacher → Thor-student path:
-- NVIDIA's own 2B student vs its 10B teacher in closed loop;
-- closed-loop RL of the teacher;
-- on-policy correction of the student, and its reasoning-budget curve;
-- serving on Jetson AGX Thor with hardware-in-the-loop;
-- optionally, shadow mode in Ho Chi Minh City.
+The active path is S1 → S2 → S4. Student comparison/correction, runtime-reasoning curves, Thor/HIL and shadow mode are deferred extensions. The earlier teacher-to-Thor architecture remains historical in the v4.1 plan archive. Nothing here claims a production release, fleet deployment or real-world validation.
 
-The gate is the instrument. The loop is what it measures.
+## 2. The active system map
 
-**Vision (3–7 years).** In physical AI, the rate of progress is set by how fast and how credibly the "fix → measure → release" loop runs, not by model size. Models change weekly, but the measuring instrument must stay trusted for years. We build the instrument.
-
-## 2. The system map
-
-```
-        ┌──────────────────────────────────────────────────────────┐
-        │                REINFORCING LOOP (data flywheel)           │
-        ▼                                                          │
- [fleet-style logs] → [NuRec reconstruction] → [AlpaSim closed-loop]│
-                                                   │               │
-                       [Teacher: Alpamayo 1.5 10B / 2 Super ~34B]  │
-                                   │ distill / RL / quantize       │
-                                   ▼                               │
-                          [Student ≤3B, FP8, Thor]                 │
-                                   ▼                               │
-                    ╔════════════════════════════╗                 │
-                    ║  RELEASE GATE (this repo)   ║ ◄── BALANCING   │
-                    ║  paired + stratified +      ║     LOOP        │
-                    ║  validity + self-validated  ║                 │
-                    ╚════════════════════════════╝                 │
-                                   │ go                            │
-                                   ▼                               │
-                         [release → fleet] ────────────────────────┘
+```mermaid
+flowchart TB
+    T["Allowed training scenes and fixed base checkpoint"] --> R["AlpaGym rollout and expert update"]
+    R --> V["Raw reward vector, versions and attempt ledger"]
+    V --> D["Development diagnosis and checkpoint selection"]
+    D --> X["One registered intervention"]
+    X --> R
+    R --> C["Qualified checkpoint export"]
+    C --> E["Locked confirmation on independent roads"]
+    B["Frozen teacher reference"] --> E
+    E --> G["Paired road-adjusted gate and validity report"]
+    G --> H["Huy interprets the registered result"]
 ```
 
-Plan v4 instantiates the right-hand path for one engineer. Shadow-mode disagreements flow back as new evaluation data, a small version of the reinforcing loop:
+The development loop can change the next hypothesis. Confirmation is not a source of adaptive failure mining while retaining the same confirmatory claim. Training-procedure confirmation also needs fresh training runs after selection or a reviewed selection-aware design; fresh roads alone are insufficient.
 
-```
- [Alpamayo 1.5 10B] ─ closed-loop RL (S4) ─► [teacher] ─ labels ─► [NVIDIA 2B student (Edge)]
-                                                                     │ S3 verdict, S5 correction,
-                                                                     │ CoC-budget curve (gate)
-                                                                     ▼
-                       [Jetson AGX Thor serving, S6] ─► [HIL + latency injection, S7]
-                                                                     ▼
-                       [shadow mode in HCMC, S8: open-loop only] ─► disagreement clips ─► eval set
-```
+Three information boundaries matter. Reward is the optimizer's objective, not the held-out endpoint. Privileged scoring inputs must not enter deployable policy observations. Missing/retried/invalid episodes must remain in the attempt and validity accounting rather than disappear before the final report.
 
-Three system laws explain why the gate is the leverage point:
+These boundaries motivate the measuring instrument without replacing the model-learning question. Agents own its engineering under D-018; Huy owns scientific definitions, model reward/loss/estimator research, predictions and conclusions.
 
-- **Systems optimize what they measure (Goodhart).** RL is the strongest optimizer we own, so it is also the strongest exploiter of a flawed metric. AR1 shows this directly: a reasoning-only reward raised the critic grade from 3.1 to 4.5 while consistency fell (0.62 → 0.53) and ADE worsened.
-- **Information flows have higher leverage than parameters (Meadows).** Knowing what is broken, and when, beats tuning the model.
-- **Every reinforcing loop needs a balancing loop.** Without the gate, a bad release reaches the fleet, generates bad data, and that data returns to training.
+## 3. Core concepts
 
-A common misconception is that the value lies in the best model. In production, the best model is replaced within months, while the release process lasts years. Waymo publishes its approval framework, not its model (arXiv 2505.09880).
-
-## 3. Core concepts (C1–C10 verified 2026-10-03; C11–C12 added 2026-10-25; C13 added and C2, C4, C5, C6, C10 corrected 2026-10-27)
+Historical verification dates remain attached to facts. C6/C8/C9/C10 and the active/deferred interpretation were amended on 2026-11-01. Historical Gaussian power examples are not the operational gate; hardware/serving concepts do not admit deferred work.
 
 **C1. The driving VLA has two brains.**
 - **Architecture.** Alpamayo 1.5 (released checkpoint) pairs an ~8.2B VLM with a flow-matching action expert. The VLM is Cosmos-Reason2-8B on a Qwen3-VL architecture. The card lists the expert as 2.3B; the paper says 2B. The VLM writes a Chain-of-Causation trace, and the expert reads the VLM's KV cache to emit 64 waypoints over 6.4 s at 10 Hz.
@@ -138,7 +97,7 @@ A common misconception is that the value lies in the best model. In production, 
   - Sharing seeds (common random numbers) helps only when the seed is consumed: σ_d² = σ_A² + σ_B² − 2ρσ_Aσ_B. S2 measures ρ; it is never assumed.
 - **Worked example.** A fails 30 and B fails 24, with A-fail/B-pass = 12 and B-fail/A-pass = 6. Exact McNemar: P(X ≤ 6 | n = 18, ½) = 31,180 / 262,144 = 0.119, so two-sided p = 0.238. That is not evidence that B is better, and the test has power of only 0.22.
 - **Repairs.**
-  - Scenes cluster by road, so use a cluster-adjusted McNemar or a road-level bootstrap.
+  - Scenes cluster by road. D-016 operationally uses conservative bounded-road equal-road inference; cluster-adjusted McNemar/bootstrap remain references, not authorization methods.
   - Decide with **paired non-inferiority** against a pre-registered margin.
   - At 441 scenes and 4% discordance, the minimum detectable difference is about 2.7 pp.
   - The rule of three is a **one-sided** bound: 0/441 gives ≤ 0.68% one-sided and 0.83% two-sided.
@@ -151,12 +110,12 @@ A common misconception is that the value lies in the best model. In production, 
 **C8. Measuring the instrument (G3).**
 - **Why not "correlate with an independent reference".** Drive-IRT re-fits the same rollouts the gate scores (reference R0, aggregation robustness), and on-road outcomes are unavailable.
 - **Construct validity instead.** The full protocol runs: reliability → renderer and traffic agreement → known-group dose–response ladders → cross-paradigm convergence on 28–34 checkpoints → a discriminant check → a three-way verdict (archived `02` v3 §2).
-- **What plan v4 keeps** (`02` v4 §2): reliability (S2), plus the known-order ladders the student pipeline produces anyway (S5, S6). The other legs are deferred.
+- **What plan v5 keeps:** reliability and validity records for S2/S4. The student/device ladders and broader agreement/convergence studies are deferred.
 - **Worked example** (5 policies). Gate [1,2,3,4,5] vs reference [2,1,3,5,4]: Σd² = 4, so ρ = 1 − 24/120 = 0.8. Under H0 at n = 5, P(ρ ≥ 0.8) = 8/120. Even at n = 10, an observed 0.8 has a 95% CI of about [0.24, 0.96]. That is why we need n ≈ 28–34.
 - **Prior art.** Pseudo-simulation reports r = 0.89 (Pearson, 83 privileged planners, sim-to-sim against nuPlan). Nothing comparable exists for AlpaSim.
 
 **C9. Guardrail in the loop.** DRIVE AV runs the end-to-end stack in parallel with a classical safety stack built on Halos, in both the L2 Mercedes CLA and the L4-ready S-Class. Scoring the bare model therefore scores something that never ships.
-- **The gate scores model + guardrail.** The guardrail is a TTC / drivable-area monitor behind AlpaSim's `safety_monitor_safe` hook. It is **PhysLoop's own design**: no public source specifies Halos's runtime-monitor logic.
+- **Deferred design: the gate would score model + guardrail.** The guardrail is a TTC / drivable-area monitor behind AlpaSim's `safety_monitor_safe` hook. It is **PhysLoop's own design**: no public source specifies Halos's runtime-monitor logic.
 - **Intervention rate.** The gate reports it as an early regression signal.
 - **Status in plan v4:** G4 is deferred, not dropped. NVIDIA's Alpamayo Stack pairs the reasoning model with policy evaluators, safety monitors and Halos (verified 2026-10-25), so the argument above still holds.
 
@@ -164,12 +123,12 @@ A common misconception is that the value lies in the best model. In production, 
 - **The expert is memory-bound.** For π0, VLA-Perf models the action expert at an operational intensity of 54 FLOP/byte, against ridges of about 279 (RTX PRO 6000 Workstation, BF16) and about 947 (Jetson AGX Thor). That is a roofline model, not a measurement, and it describes π0, not Alpamayo.
 - **What FlashDrive measured** on Alpamayo 1.5: 717 → 151 ms, mostly from streaming KV reuse, speculative reasoning, adaptive steps and CUDA graphs. The "adaptive steps" are a fixed velocity-reuse schedule, in which 4 of 8 steps reuse the previous velocity. Its streaming KV reuse needs expert-only fine-tuning (corrected 2026-10-27). W4A8 removed only 24.6 ms. The expert still runs at about 20% of its bandwidth bound (113.9 ms measured vs ≈ 22.3 ms, 8 steps).
 - **Quantization recipe.** NVIDIA's ModelOpt recipe already quantizes the expert, but publishes open-loop minADE only. The open gap is closed-loop per-format verdicts.
-- **AlpaGym.** It trains only the expert, with the VLM frozen (`cotrain_vlm = False` at the pinned recipes commit). Its rollouts generate no reasoning text, so a reasoning reward cannot move anything there. It accepts no outside PRs and publishes no stage-level throughput. We profile AlpaSim telemetry and AlpaGym's own opt-in `perf` telemetry instead.
-- **AlpaGym, corrected 2026-10-27.**
-  - **The ratio** is a per-step-row geometric mean: exp of the mean over T × 64 × 2 per-element log-ratios, clipped at [0.8, 1.2].
-  - **The KL** is a closed-form Gaussian KL, off by default.
-  - **The shipped defaults do not train:** with `n_generation: 1`, every advantage is 0.
-  - **Not frozen.** Its `main` has had no code change since 2026-07-08, but NVIDIA's public branches carry commits to 2026-09-03.
+- **AlpaGym, re-verified 2026-11-01.** It trains the continuous expert with visual/language weights frozen and skips autoregressive reasoning generation. A group-constant judge score supplies no relative action signal; a candidate/state-dependent judge could affect expert learning, but would not become language-model training. Adapted judge inputs need separate validation.
+  - Its Gaussian log densities are averaged across denoising/action coordinates before the ratio; this geometric-mean surrogate differs from the joint ratio within a replay row. Log difference is clamped before exponentiation, followed by PPO clipping; clipping is not a hard KL guarantee.
+  - The base one-candidate/KL-off zero-gradient case skips the optimizer. The advertised two-GPU smoke uses two candidates, not one.
+  - Online raw metric aggregation differs from offline masks/truncation/derived contact metrics. Normal episode artifacts omit dense metrics; capture is required for the event audit.
+  - A zero-staleness setting does not alone reject stale samples; verify actual versions. Preserve attempts before retry/drop cleanup.
+  - Exact SHAs, release snapshot and source locators are in [the stack audit](research/2026-11-01-rl-direction-review/nvidia-stack.md). Source inspection does not qualify runtime fit or learning.
 - **An unused speed-up.** NVIDIA's opt-in expert CUDA graph (alpamayo1.5 PR #36) is merged but never enabled in AlpaSim's driver (C13).
 
 **C11. The Thor latency budget is set by memory bandwidth.** Decoding one token reads every backbone weight once: t_tok ≈ bytes / 273 GB/s.
@@ -177,7 +136,7 @@ A common misconception is that the value lies in the best model. In production, 
   - Measured on Jetson AGX Thor: official BF16 build 3,322 ms; FlashRT 811–897 ms (PR #229).
 - **Student.** A 2B NVFP4 student costs ≈ 4.1 ms per token. At the bound, about 10 CoC tokens fit in 100 ms. At measured efficiencies (decode ≈ 78%, expert ≈ 20% of bound) only about 3 fit. Streaming reuse of history-frame prefill raises that to ≈ 10–20.
   - Measured: NVIDIA's 2B students run at 171 ms (FP8) on DRIVE AGX Thor.
-- **So:** runtime reasoning is a budget, and the research question is a curve: score vs CoC tokens at fixed latency (`02` §1, S5).
+- **Deferred question:** runtime reasoning is a budget; the score-versus-token curve belongs to a future S5/S6 extension, not the current RL headline.
 - **Sources:** `research/2026-10-25-teacher-to-thor/review.md` §3.1; FlashRT PR #229; recipes PR #45.
 
 **C12. Shadow mode is open-loop.** In shadow mode the student predicts, but the human drives. The student never experiences the consequences of its own errors, so covariate shift, the reason closed-loop evaluation exists (C3), is invisible. Disagreement with the driver belongs to the same metric class as open-loop L2.

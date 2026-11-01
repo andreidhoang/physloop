@@ -1,6 +1,6 @@
-# 04 — Technical reference v2 (3 October 2026)
+# 04 — Technical reference v2.3 (1 November 2026)
 
-**Status:** active reference, v2.2 (2026-10-27). It covers verified model facts, the tensor contract, hardware, the cost model, upstream tooling, correctness tests and the preserved pre-registered predictions. It contains **no plan or sequencing**; that lives in `02_PHYSLOOP_PLAN.md`.
+**Status:** active reference, v2.3 (2026-11-01). Plan v5/D-021 owns scope; student, device and scaling material below is deferred background. The November 1 source audit and corrections in §11 supersede older RL descriptions. It covers verified model facts, the tensor contract, hardware, the cost model, upstream tooling, correctness tests and the preserved pre-registered predictions. It contains **no plan or sequencing**; that lives in `02_PHYSLOOP_PLAN.md`.
 - **Verification dates.** Every number was verified on 2026-10-03 (`research/2026-10-03-verification/`). Corrections from the 2026-10-25 verification (`research/2026-10-25-teacher-to-thor/verification.md`) are marked "(corrected 2026-10-25)" inline, and new facts are in §9. Corrections from the 2026-10-27 verification (`research/2026-10-27-role-alignment/verification.md`) are marked "(corrected 2026-10-27)", and new facts are in §10.
 - **Archived versions.** v2 (2026-10-03) is archived unchanged. v1, the 22 September "post-training engine" core plan, is archived too; its predictions are reproduced verbatim in §7.
 
@@ -32,7 +32,7 @@ Card scores use a different protocol from the paper and are **not comparable** w
 | Training trajectory tokens | 128 = 64 × 2 | `num_bins 3000`; used in training only, while inference decodes through the expert |
 | `trajectory` | `[B, 64, 3+9]` | Position (x, y, z) + rotation matrix |
 | Decoder | AR1 Eq. 5 | Heading integrated exactly, position by the trapezoid rule; forward Euler would add 0.60 m of error on a 6.4 s arc |
-| AlpaGym RL (as shipped) | Expert only, VLM frozen, 5 SDE steps (`inference_step`). **(Corrected 2026-10-27)** The ratio is a per-step-row geometric mean: exp of the mean of T × 64 × 2 per-element log-ratios, each clamped to ±5, then clipped to [0.8, 1.2]. The KL is a closed-form per-transition Gaussian KL, off by default (`kl_beta: 0.0`), not k3 | `sde_type="cps"` raises NotImplementedError. Default preset: 8 policy steps, `distance_to_gt` reward. **(2026-10-27)** The shipped defaults (`n_generation: 1`) give zero advantage, so the trainer skips the optimizer step. NVIDIA's experiment presets use `n_generation` 2–6, train at 5 Hz over 4.4 s with policy input 320 × 512, and skip traffic |
+| AlpaGym RL (pinned path, corrected 2026-11-01) | Expert-only; visual/language weights frozen. Gaussian transition log densities are averaged over non-batch dimensions; the log difference is clamped to ±5, exponentiated and PPO-clipped at 0.8–1.2. This is a geometric-mean surrogate, not the joint ratio within a replay row. Closed-form Gaussian KL is off by default | Base n_generation=1 differs from advertised two-GPU smoke n_generation=2. Exact source pins and tests are in §11; configuration alone does not establish version freshness, runtime fit or learning |
 
 ## 3. Hardware (official datasheets; dense; derived values marked)
 
@@ -102,13 +102,15 @@ Lessons:
 | **Challenge** (`e2e_challenge`) | Score = 0 on an at-fault collision (front or lateral; rear is never at fault), off-road, or `left_corridor_laterally` ≥ 4 m; otherwise min(progress / 0.8, 1). Close-encounter has no scorer; stall, oscillation and red-light have no scorer anywhere. 16 GiB hard limit, 0.1 s target, images ≤ 40 GiB, no outbound network.<br>**(2026-10-27):**<br>• **The corridor fix.** A stationary ground-truth tail produced false corridor exits (#198), fixed in #215 (10-20); the leaderboard was recomputed on 10-22.<br>• **The EC2 production topology** `8gpu_32rollouts` runs 16 driver replicas, 4 per GPU on GPUs 4–7. It renders unharmonized, and NVIDIA plans the Harmonizer for the final reruns (#222).<br>• **Traffic** is log replay; there is no CAT-K on this branch |
 | **Drive-IRT** (`kesai-labs/drive-irt`) | Zero-and-one-inflated Beta IRT with per-item discrimination, fitted by variational inference. Its 95% intervals are variational and exclude seed and scene variance. Needs ≥ 6 subjects (otherwise falls back to a plain average). No license; no external validation. **(2026-10-27)** It has a single commit (`82ddd5a4`, "Release v0.0.1", 2026-08-12), the one the challenge pins. The challenge ships 8 reference subjects (441 scenes × 3 unseeded rollouts) |
 
-## 6. Correctness tests (carried over from v1, still valid)
+## 6. Correctness-test references
+
+The current S1/S2 contracts and November 1 [RL acceptance specification](research/2026-11-01-rl-direction-review/protocol-design.md) own executable requirements. Older candidate tolerances and training-behavior targets below are not automatically adopted S4 thresholds or guarantees.
 
 | Test | Catches | Pass condition |
 |---|---|---|
-| Determinism and negative control | Non-reproducible environment; false blocks | A seeded replay matches the offline scorer; a bit-identical re-export is never flagged. **(2026-10-27)** A seeded replay needs a driver that consumes the seed: `main` with `force_determinism: true`, or a port. On `e2e_challenge`, a same-policy re-run bounds the run-to-run noise instead |
+| Determinism and negative control | Non-reproducible environment; false blocks | Declare replay mode and reconcile scorer outputs; a bit-identical re-export is a negative control whose observed false-alarm behavior must be measured. **(2026-10-27)** A seeded replay needs a driver that consumes the seed: `main` with `force_determinism: true`, or a port. On `e2e_challenge`, a same-policy re-run bounds the run-to-run noise instead |
 | Known-answer statistics | Wrong tails, one- vs two-sided confusion | The S1 known-answer suite (`02` §3) |
-| Log-prob parity | Rollout vs learner numerics | KL(train ‖ infer) < 1e-3 nats on tokens; per-step Gaussian log-density parity within 1e-4 on Flow-SDE. **(2026-10-27)** In AlpaGym: at the first step, with `allowed_outdated_steps = 0` and `mu_iterations = 1`, the geometric-mean ratio equals 1 within Huy's tolerance |
+| Log-prob parity | Rollout vs learner numerics | KL(train ‖ infer) < 1e-3 nats on tokens; per-step Gaussian log-density parity within 1e-4 on Flow-SDE. **Corrected 2026-11-01:** in strict AlpaGym initial replay, actual matching weights/SDE samples/masks/noise and one iteration must give a ratio near 1 within a justified registered tolerance; setting allowed_outdated_steps=0 alone does not enforce this |
 | Speed-up equivalence (2026-10-27) | A faster path that changes what is measured | A numerics-preserving change (the expert CUDA graph, driver replicas) is bitwise identical on every compared tick. A numerics-changing one (batching, FP8) passes P-009's ladder plus a paired closed-loop verdict on the same checkpoint |
 | Sync-equivalence | Scheduler and staleness bugs | Async at k = 0 reproduces the synchronous reward curve within 3-seed noise |
 | Overfit one scenario / one batch | Reward, mask and advantage bugs | Reward reaches its ceiling in < 50 steps; loss at init matches theory |
@@ -196,3 +198,17 @@ Full ledger: `research/2026-10-27-role-alignment/verification.md` (independent c
 | Cluster stack | NVIDIA acquired SchedMD (Slurm) on 2025-12-15. cosmos-rl v0.4.7 (2026-10-22, "limited maintenance" banner). NeMo-RL v0.7.0 adds PPO and has no flow-matching or VLA path |
 | Prices (vast.ai, 2026-10-27) | RTX PRO 6000 Workstation $1.00 / $1.56 median (33 offers). Server $1.27 / $1.34. H100 SXM $1.79 / $2.40. B200 $6.49 / $10.25. An 8 × H100 node lists at $31.92–36.00/h |
 | Edge | Still not public on 2026-10-27 (HF 401; no NGC model; no NVlabs repo) |
+
+## 11. RL facts corrected on 1 November 2026
+
+The [pinned NVIDIA source audit](research/2026-11-01-rl-direction-review/nvidia-stack.md) is the detailed evidence, with exact repository paths and locators. It distinguishes Gym's recipes PR-18 and older simulator dependencies from current main branches.
+
+- Online reward uses raw aggregates; offline processing adds warm-up filtering, incident truncation and derived contact metrics. Contacts/offroad use MAX and progress LAST on the inspected Gym simulator. A capped front/lateral predicate needs a qualified term, not merely two linear weights.
+- Gym's local staleness filter warns on stale kept rollouts; it does not itself enforce a hard zero-lag fence. Actual weight identity and replay parity are required. Retry exhaustion can drop payloads and excess-artifact cleanup can remove diagnostic records, so capture attempted-data lineage independently.
+- The normal episode object has an empty dense-metric dictionary. Event-level reconciliation needs original timestep data captured before discard.
+- The pinned stock zero-reward-gradient/KL-off case skips optimizer.step. Do not generalize to auxiliary losses, nonzero KL or different implementations.
+- The shipped expert adapter skips autoregressive reasoning generation. A frozen judge can train a policy through varying sampled rewards; a constant score within a group cannot rank its expert actions. Neither case implies language-reasoning training.
+- The documented local Gym route uses two GPUs with at least 40 GB each; the separate open-loop VLM/discrete-action recipe documents five 80 GB GPUs. Neither is a proven minimum, and the one-GPU synthetic host result qualifies neither full training path.
+- First-step parity, an engineering update, a behavioral checkpoint result and a training-method result are separate evidence levels. Original paper guarantees do not automatically cover Gym's reduction and asynchronous execution.
+
+The full research comparison is in [the review](research/2026-11-01-rl-direction-review/report.md). No new model performance, hardware forecast or scientific prediction is inserted into the preserved September predictions in §7.

@@ -1,0 +1,84 @@
+{
+  "created_utc": "2026-11-01T12:38:25.825636+00:00",
+  "kind": "source-review documentation integrity; not GPU/model execution",
+  "git_base": "cfce036f87be71fcf9c729fd2b46140ee6394621",
+  "working_tree": "contains pre-existing uncommitted work; file hashes identify the reviewed document snapshot",
+  "checks": {
+    "local_markdown_destinations": {
+      "pass": true,
+      "count": 85,
+      "missing": [],
+      "limit": "Checks destination existence, not remote URLs or heading anchors."
+    },
+    "pre_amendment_archive": {
+      "pass": true,
+      "sha256": "d30751e4467803c8fa0db0c55f830c8f03ed0cf1c9cd2ef5661f4f5d219204d4"
+    },
+    "agent_contract_substance": {
+      "pass": true,
+      "normalization": "Only header/mirror intro, reread command, guarded-tool implementation and mirror-file row are ignored."
+    },
+    "stable_plan_sections": {
+      "pass": true
+    },
+    "adoption_record": {
+      "pass": true
+    },
+    "paper_set_arithmetic": {
+      "pass": true,
+      "av_ledger_entries": 13,
+      "foundation_ledger_entries": 17,
+      "adjacent_studies": 3,
+      "dagger_direct_source": 1,
+      "total": 34,
+      "limit": "Selected sources, not independent replications or citation-count ranking."
+    },
+    "active_s2_rollout_arithmetic": {
+      "pass": true,
+      "full_rollouts_before_diagnostics_retries": 2646
+    },
+    "cost_table_arithmetic": {
+      "pass": true,
+      "limit": "Historical rounded throughput/price scenario; not a current quote or measurement."
+    },
+    "git_diff_whitespace": {
+      "pass": true,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "temporary_draft_removed": {
+      "pass": true
+    }
+  },
+  "files": {
+    "AGENTS.md": "b85ad686b598e084dc53745c25b96e8e467f5b6f9668b712f5876a0f0f38c6f0",
+    "CLAUDE.md": "2bc7c194942909de26cbd7484868beada39b222528687752e1bb13f8a03c1d10",
+    "DOC_AUTHORITY.md": "75ff10588ee9724a8a8a5eb3618d7d30dd000d09da885d3dc31ba5f6545997af",
+    "README.md": "af78322755d7f61bc06f9f09783b620df909458145ba8229aadccce7d364b91d",
+    "docs/00_START_HERE.md": "f01f59850a976290290be92ec62175dc29727881b479da5d7cf098ad186e8b79",
+    "docs/01_SYSTEM_DESIGN.md": "f2e4486b6584dae16646f0e0c8c53afe0af1fe3119ffef83c2f5123dd77b19f3",
+    "docs/02_PHYSLOOP_PLAN.md": "6c34cdfd8d90cc1905923f6670c1d1876aa3533cc75cccd48f4fc8006f394705",
+    "docs/03_MASTERY_PLAN.md": "ecb69fd182eaea6d2b173679360382f53eddc2a065b61d9e808b1d70db44174b",
+    "docs/04_CORE_PLAN_TECHNICAL.md": "51a44190a2e3d763baee103977c399d4b776ffe39137de7cb4e782b087fab369",
+    "docs/05_ROLE_MAPPING.md": "bc765d3a48d207d9a78e98b8297de1790862d36faa4eef0c9c6e186d56f7b77f",
+    "docs/RESEARCH_OPERATING_MODEL.md": "bd8cd4314387948e9b78d96e61e574e049ff8e99e4cc6194af76c79f6b8231bc",
+    "docs/S2_ENGINEERING_SPEC.md": "052b6c8327ed0adcc81cf5775cf0d56d15ecab3eaef296343e9ffa456e5d1db8",
+    "docs/S2_IMPLEMENTATION_PLAN.md": "a1d010ce008d1470caa9cb628867e933a3a6caa86878615ccd55b2d230926ff0",
+    "docs/S2_HANDOFF.md": "4cc448dd40327988b905b771ea147acb95ee4f27aab58320e5a7fb678950e75c",
+    "docs/S2_RENTAL_APPROVAL.md": "dcc4fd03cb2b09d27fbdcb38137fca5cd80b26fcaf54444acf808ec126593746",
+    "docs/research/2026-11-01-rl-research-path-proposal.md": "4c447452add3f98361fa83b2588b4c6cb926367177c30b3968d86fbe92748929",
+    "docs/DECISIONS.md": "57da9e567f481138c98289d1a2132e9b7798f13fc4b34b2c3928e38147380c86",
+    "journal/2026-11-01.md": "1fb6bdce0b09ca12f253f5ac693cc6717d1556abf4deb9e4e6f0f08aa64e7b2d",
+    "docs/archive/02_PHYSLOOP_PLAN_v4.1_2026-11-01.md": "d30751e4467803c8fa0db0c55f830c8f03ed0cf1c9cd2ef5661f4f5d219204d4",
+    "docs/research/2026-11-01-rl-direction-review/adjacent-vla-studies.md": "17effcc0d7b9754cc0882b5cf39229fa6231a731f28ef7761e84ba95b8b2fb4d",
+    "docs/research/2026-11-01-rl-direction-review/av-literature.md": "07ae650168c18eca7a2ede8e7bc11cc4288520a3cb7a1001073d2152cc684784",
+    "docs/research/2026-11-01-rl-direction-review/nvidia-stack.md": "fb355ef93ce6b2fae5f242c2d6129696b148f8a37eb49ce54b2d2759a3edad43",
+    "docs/research/2026-11-01-rl-direction-review/protocol-design.md": "f848d09b37197089772566a99366cafc7a6ef62570723459760d907b9fef043b",
+    "docs/research/2026-11-01-rl-direction-review/report.md": "18c04b4642b7a1a5b7ce24bea8f058d03a42fc83b7b26eee4581a499f1d71095",
+    "docs/research/2026-11-01-rl-direction-review/rl-foundations.md": "13cf9ea634265cf6501c9fec44793284d890482b22616f6cc170a5558332197a",
+    "docs/research/2026-11-01-rl-direction-review/verification.md": "3b21455566e3fcafb91a2569eaa258446fb605abeff3f6f12168f8036f6606ea"
+  },
+  "checker_sha256": "7fb2b509ed9108d70daad62fe5f0f66ac9d4d80a0dcd9f9369805edbd28f9173",
+  "all_pass": true
+}

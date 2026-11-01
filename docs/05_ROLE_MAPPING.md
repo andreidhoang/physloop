@@ -1,6 +1,8 @@
-# 05 — How the deliverables map to live NVIDIA roles (v3, 27 October 2026)
+# 05 — NVIDIA role reference and focused research scope (v3.1, 1 November 2026)
 
-This is a reference document, v3. It replaces v2.1 (archived as `archive/05_ROLE_MAPPING_v2.1_2026-10-25.md`).
+This is a reference document, v3.1. **Plan v5/D-021 now prioritizes S1/S2/S4 and a deep AV RL research contribution.** The broad role coverage below describes the earlier v4.1 scope; it does not require restoring student/device/HIL/cluster work. Current evidence focuses on model-learning mechanisms, measurement and reproducibility on the actually used node. No guarantee of hiring impact follows. Posting facts remain dated October 27, not re-verified by the RL literature review.
+
+Historical v3 basis: It replaces v2.1 (archived as `archive/05_ROLE_MAPPING_v2.1_2026-10-25.md`).
 - **§1–§2** were first read from NVIDIA's Workday career site on 2026-10-03 (`research/2026-10-03-verification/notes/role_skill_demand.md`). §1 is refreshed from a sweep of NVIDIA's AV postings on 2026-10-27.
 - **§3 is new.** It is the line-by-line evidence contract for the target role, JR2010863, under plan v4.1 (`02`, D-015). Its evidence is in `research/2026-10-27-role-alignment/`.
 - **§4–§5** follow plan v4.1's stages.

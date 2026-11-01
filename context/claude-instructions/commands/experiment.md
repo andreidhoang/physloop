@@ -1,6 +1,8 @@
 Create a new experiment design doc from `experiments/TEMPLATE.md` for: $ARGUMENTS
 
 Rules:
+- This command prepares a scientific experiment. Engineering-only preparation may use deterministic
+  requirements and known-answer fixtures under D-018; it must not fill Huy's scientific prediction slots.
 - Name the file `experiments/<YYYY-MM-DD>-<slug>.md`, and name the stage (S1–S8) and deliverable (G1–G9)
   it serves.
 - Fill Hypothesis, Mechanism and Scope from `docs/02_PHYSLOOP_PLAN.md` §3 and `docs/01_SYSTEM_DESIGN.md`.
@@ -9,3 +11,6 @@ Rules:
   re-priced today. State which budget tier it needs.
 - Name the kill criterion explicitly, and fill the Gates section: P-005 budget, P-002/P-006 hardware, KC-L
   publication of numbers, KC-L2 publication of weights or labels.
+- P-005 cash ceilings and P-030 evaluator ownership are adopted under D-018. Record their existing
+  decision references; do not request adoption again. Concrete funding/rental/license approval,
+  scientific registration, listed file locks and dated stage gates remain separate.
