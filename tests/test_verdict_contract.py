@@ -36,9 +36,7 @@ def test_clean_candidate_on_large_strata_is_go(run_verdict):
 
 
 def test_nine_scene_stratum_is_insufficient_and_blocks_go(run_verdict):
-    overall, strata = run_verdict(
-        rows("urban", 432, both=20) + rows("rare", 9), MARGIN
-    )
+    overall, strata = run_verdict(rows("urban", 432, both=20) + rows("rare", 9), MARGIN)
     assert strata["rare"] == "INSUFFICIENT"
     assert overall == "INSUFFICIENT"
 

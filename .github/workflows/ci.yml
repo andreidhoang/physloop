@@ -14,7 +14,7 @@ jobs:
       - run: uv run ruff check gate tests
       - run: uv run pytest -m "not star"
 
-  # Red until the ★ cores exist. It stays required: a known answer that fails must never pass CI.
+  # Core/reference/proof checks; required branch protection is configured separately in GitHub.
   known-answers:
     runs-on: ubuntu-latest
     steps:

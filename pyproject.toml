@@ -6,7 +6,11 @@ requires-python = "==3.12.*"
 dependencies = ["numpy", "scipy"]
 
 [dependency-groups]
-dev = ["pytest", "ruff"]
+dev = [
+    "pytest",
+    "ruff",
+    "shapely==2.1.2",
+]
 
 [build-system]
 requires = ["hatchling"]

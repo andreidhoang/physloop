@@ -29,5 +29,9 @@ def load_core(name):
     module, attr = CORES[name].split(":")
     try:
         return getattr(importlib.import_module(module), attr)
-    except (ImportError, AttributeError) as exc:
+    except ModuleNotFoundError as exc:
+        if not (exc.name == module or module.startswith(exc.name + ".")):
+            raise
+        pytest.fail(f"★ core not written yet: {CORES[name]} ({exc})", pytrace=False)
+    except AttributeError as exc:
         pytest.fail(f"★ core not written yet: {CORES[name]} ({exc})", pytrace=False)

@@ -23,6 +23,14 @@ dist/
 .env
 .env.*
 
+# nsys captures the profiled host's environment. On a rented VM that includes its
+# CONTAINER_API_KEY, Jupyter token and client address. These stay on disk, hashed in evidence/.
+*.nsys-rep
+nsys-*.sqlite
+
+# Full third-party paper text, kept on disk for hash verification only.
+evidence/rl-gap-review-20261101-v1/pinned-source/alpamayo_r1_arxiv_v2.html
+
 # Licensed data: PAI-AV / NuRec forbid redistribution (license §4.6). Never commit clips,
 # scenes, auto-labels or anything derived from them.
 data/

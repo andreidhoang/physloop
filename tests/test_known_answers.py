@@ -84,9 +84,7 @@ def test_replicate_branch_at_three_replicates_and_rho_06(core):
     assert round(100 * (1 - scenes / 3), 1) == 54.5
 
 
-@pytest.mark.parametrize(
-    "alpha, first, second", [(0.025, 2.7965, 1.9774), (0.05, 2.3730, 1.6780)]
-)
+@pytest.mark.parametrize("alpha, first, second", [(0.025, 2.7965, 1.9774), (0.05, 2.3730, 1.6780)])
 def test_obrien_fleming_two_looks(core, alpha, first, second):
     boundaries = core("obrien_fleming")(K=2, alpha=alpha)
     assert list(boundaries) == pytest.approx([first, second], abs=1e-4)
