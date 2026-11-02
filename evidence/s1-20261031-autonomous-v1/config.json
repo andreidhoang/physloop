@@ -1,0 +1,187 @@
+{
+  "alpha": 0.05,
+  "cases": [
+    {
+      "generator": {
+        "p_a": 0.07,
+        "q_minus": 0.02,
+        "q_plus": 0.02,
+        "strata": {
+          "highway": 221,
+          "urban": 220
+        }
+      },
+      "margin": 0.02,
+      "name": "iid_equivalent",
+      "truth": "equal"
+    },
+    {
+      "generator": {
+        "p_a": 0.07,
+        "q_minus": 0.0,
+        "q_plus": 0.0,
+        "strata": {
+          "highway": 221,
+          "urban": 220
+        }
+      },
+      "margin": 0.05,
+      "name": "iid_identical",
+      "truth": "equal"
+    },
+    {
+      "generator": {
+        "p_a": 0.07,
+        "q_minus": 0.02,
+        "q_plus": 0.04,
+        "strata": {
+          "highway": 221,
+          "urban": 220
+        }
+      },
+      "margin": 0.02,
+      "name": "iid_boundary",
+      "truth": "bad"
+    },
+    {
+      "generator": {
+        "p_a": 0.07,
+        "q_minus": 0.02,
+        "q_plus": 0.06,
+        "strata": {
+          "highway": 221,
+          "urban": 220
+        }
+      },
+      "margin": 0.02,
+      "name": "iid_harmful",
+      "truth": "bad"
+    },
+    {
+      "generator": {
+        "p_a": 0.07,
+        "q_minus": 0.02,
+        "q_plus": 0.27,
+        "strata": {
+          "highway": 221,
+          "urban": 220
+        }
+      },
+      "margin": 0.02,
+      "name": "iid_gross",
+      "truth": "bad"
+    },
+    {
+      "generator": {
+        "effects": {
+          "highway": [
+            0.0,
+            0.0
+          ]
+        },
+        "p_a": 0.07,
+        "q_minus": 0.02,
+        "q_plus": 0.04,
+        "strata": {
+          "highway": 221,
+          "urban": 220
+        }
+      },
+      "margin": 0.02,
+      "name": "iid_one_bad",
+      "truth": "bad"
+    },
+    {
+      "generator": {
+        "p_a": 0.07,
+        "q_minus": 0.02,
+        "q_plus": 0.04,
+        "replicate_correlation": 0.6,
+        "replicates": 3,
+        "road_correlation": 0.8,
+        "scenes_per_road": 3,
+        "strata": {
+          "highway": 74,
+          "urban": 73
+        }
+      },
+      "margin": 0.02,
+      "name": "cluster_boundary",
+      "truth": "bad"
+    },
+    {
+      "generator": {
+        "p_a": 0.07,
+        "q_minus": 0.02,
+        "q_plus": 0.06,
+        "replicate_correlation": 0.6,
+        "replicates": 3,
+        "road_correlation": 0.8,
+        "scenes_per_road": 3,
+        "strata": {
+          "highway": 74,
+          "urban": 73
+        }
+      },
+      "margin": 0.02,
+      "name": "cluster_harmful",
+      "truth": "bad"
+    },
+    {
+      "generator": {
+        "effects": {
+          "highway": [
+            0.0,
+            0.0
+          ]
+        },
+        "p_a": 0.07,
+        "q_minus": 0.02,
+        "q_plus": 0.04,
+        "replicate_correlation": 0.6,
+        "replicates": 3,
+        "road_correlation": 0.8,
+        "scenes_per_road": 3,
+        "strata": {
+          "highway": 74,
+          "urban": 73
+        }
+      },
+      "margin": 0.02,
+      "name": "cluster_one_bad",
+      "truth": "bad"
+    },
+    {
+      "generator": {
+        "effects": {
+          "rare": [
+            0.021,
+            0.0
+          ]
+        },
+        "p_a": 0.07,
+        "q_minus": 0.0,
+        "q_plus": 0.0,
+        "strata": {
+          "common": 432,
+          "rare": 9
+        }
+      },
+      "margin": 0.02,
+      "name": "rare_harm",
+      "truth": "bad"
+    }
+  ],
+  "estimand": "equal road / equal scene / equal replicate",
+  "master_seed": 20261031,
+  "qualification": true,
+  "schema_version": 1,
+  "seed_mode": "synthetic_seeded",
+  "sequential_weights": [
+    0.2,
+    0.3,
+    0.5
+  ],
+  "trials": 1000,
+  "wall_clock_cap_seconds": 1800
+}

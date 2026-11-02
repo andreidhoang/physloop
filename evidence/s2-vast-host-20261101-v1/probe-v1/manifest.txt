@@ -1,0 +1,6 @@
+utc_start=2026-11-01T06:55:35Z
+project=physloop-probe-20261101065535-1484
+public_image_tag=nvidia/cuda:12.8.1-devel-ubuntu22.04
+resolved_image_id=sha256:a99a1860ba8e2916e5c3e73b72ec4c4301653a84586e05bfc9a2aa2d58027e97
+utc_end=2026-11-01T06:57:15Z
+script_exit=0

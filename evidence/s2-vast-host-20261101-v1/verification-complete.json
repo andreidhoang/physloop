@@ -1,0 +1,90 @@
+{
+  "at_utc": "2026-11-01T07:30:46.128957+00:00",
+  "git_base": "cfce036f87be71fcf9c729fd2b46140ee6394621",
+  "cpu_test_count": 754,
+  "watchdog_test_count": 26,
+  "results": [
+    {
+      "check": "cpu-tests-final",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-B",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "754 passed in 4.16s"
+      ]
+    },
+    {
+      "check": "shell-vast_s2_host_probe",
+      "command": [
+        "bash",
+        "-n",
+        "scripts/vast_s2_host_probe.sh"
+      ],
+      "exit_code": 0,
+      "summary": []
+    },
+    {
+      "check": "shell-vast_monitor_control",
+      "command": [
+        "bash",
+        "-n",
+        "scripts/vast_monitor_control.sh"
+      ],
+      "exit_code": 0,
+      "summary": []
+    },
+    {
+      "check": "shell-vast_exporter_control",
+      "command": [
+        "bash",
+        "-n",
+        "scripts/vast_exporter_control.sh"
+      ],
+      "exit_code": 0,
+      "summary": []
+    },
+    {
+      "check": "ruff-complete",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "scripts/vast_stop_watchdog.py",
+        "scripts/vast_dcgm_xid_status.py",
+        "tests/test_vast_stop_watchdog.py",
+        "tests/test_vast_nvml_xid_probe.py"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "All checks passed!"
+      ]
+    },
+    {
+      "check": "whitespace",
+      "exit_code": 0
+    },
+    {
+      "check": "dcgm_status_final_ast_equals_executed_v3",
+      "exit_code": 0,
+      "note": "Only unused lint comments were removed after the actual run"
+    },
+    {
+      "check": "cpu_lock_unchanged_since_pre_run",
+      "exit_code": 0
+    }
+  ],
+  "all_passed": true,
+  "real_vm_closed": true
+}

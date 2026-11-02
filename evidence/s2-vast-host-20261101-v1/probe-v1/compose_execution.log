@@ -1,0 +1,52 @@
+ Network physloop-probe-20261101065535-1484_probe  Creating
+ Network physloop-probe-20261101065535-1484_probe  Created
+ Container physloop-probe-20261101065535-1484-client-1  Creating
+ Container physloop-probe-20261101065535-1484-server-1  Creating
+ Container physloop-probe-20261101065535-1484-server-1  Created
+ Container physloop-probe-20261101065535-1484-client-1  Created
+Attaching to client-1, server-1
+server-1  | 
+server-1  | ==========
+server-1  | == CUDA ==
+server-1  | ==========
+server-1  | 
+server-1  | CUDA Version 12.8.1
+server-1  | 
+server-1  | Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+server-1  | 
+server-1  | This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+server-1  | By pulling and using the container, you accept the terms and conditions of this license:
+server-1  | https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+server-1  | 
+server-1  | A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+server-1  | 
+server-1  | WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+server-1  |    Use the NVIDIA Container Toolkit to start this container with GPU support; see
+server-1  |    https://docs.nvidia.com/datacenter/cloud-native/ .
+server-1  | 
+client-1  | 
+client-1  | ==========
+client-1  | == CUDA ==
+client-1  | ==========
+client-1  | 
+client-1  | CUDA Version 12.8.1
+client-1  | 
+client-1  | Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+client-1  | 
+client-1  | This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+client-1  | By pulling and using the container, you accept the terms and conditions of this license:
+client-1  | https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+client-1  | 
+client-1  | A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+client-1  | 
+client-1  | guest_host_pid_namespace=PASS
+client-1  | compose_dns_network_shared_mount=PASS
+client-1  | visible_devices=1 tested_device=0 name=NVIDIA RTX PRO 6000 Blackwell Workstation Edition elements=1048576
+client-1  | cpu_reference_mismatches=0 repeat_bitwise=PASS negative_control_mismatches=1
+[Kclient-1 exited with code 0
+[31m[1mAborting on container exit...[0m
+ Container physloop-probe-20261101065535-1484-client-1  Stopping
+ Container physloop-probe-20261101065535-1484-server-1  Stopping
+ Container physloop-probe-20261101065535-1484-client-1  Stopped
+ Container physloop-probe-20261101065535-1484-server-1  Stopped
+[Kserver-1 exited with code 137

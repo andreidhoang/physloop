@@ -1,0 +1,2 @@
+name, driver_version, power.draw [W], temperature.gpu, clocks.current.sm [MHz], memory.used [MiB]
+NVIDIA RTX PRO 6000 Blackwell Workstation Edition, 580.95.05, 42.72 W, 36, 180 MHz, 0 MiB

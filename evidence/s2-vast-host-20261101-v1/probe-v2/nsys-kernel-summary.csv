@@ -1,0 +1,5 @@
+Generating SQLite file /root/physloop-host-results-v2/nsys-cuda.sqlite from /root/physloop-host-results-v2/nsys-cuda.nsys-rep
+Processing [/root/physloop-host-results-v2/nsys-cuda.sqlite] with [/opt/nvidia/nsight-systems/2025.3.2/host-linux-x64/reports/cuda_gpu_kern_sum.py]... 
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Name
+100.0,7649,3,2549.7,2496.0,2465,2688,120.8,known_answer(unsigned int *)
+

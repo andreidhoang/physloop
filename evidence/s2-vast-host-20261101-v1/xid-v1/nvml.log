@@ -1,0 +1,26 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+NVML XID subscription check only; no DCGM delivery or hardware-health qualification
+operation=nvmlInit_v2 status=NVML_SUCCESS code=0 description=Success
+operation=nvmlDeviceGetHandleByIndex_v2 status=NVML_SUCCESS code=0 description=Success
+operation=nvmlDeviceGetSupportedEventTypes status=NVML_SUCCESS code=0 description=Success
+gpu_index=0 supported_events_mask=0xf19c xid_bit=0x8
+operation=nvmlEventSetCreate status=NVML_SUCCESS code=0 description=Success
+operation=nvmlDeviceRegisterEvents status=NVML_SUCCESS code=0 description=Success
+operation=nvmlEventSetWait_v2_timeout_100ms status=NVML_ERROR_TIMEOUT code=10 description=Timeout
+SUBSCRIPTION_AVAILABLE_DELIVERY_UNVERIFIED; no event received during short wait; not a zero-error result
+operation=nvmlEventSetFree status=NVML_SUCCESS code=0 description=Success
+operation=nvmlShutdown status=NVML_SUCCESS code=0 description=Success

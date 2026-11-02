@@ -1,0 +1,6 @@
+method,assumptions,fixed_planning_vs_operational,k,per_stratum_power,target_overall,overall_power_at_080_per_stratum,per_stratum_power_for_080_overall
+independent_stratum_power_product,independent stratum decisions; disjoint IDs alone do not guarantee independence; GO requires every stratum,fixed_planning,1,0.8,0.8,0.8,0.8
+independent_stratum_power_product,independent stratum decisions; disjoint IDs alone do not guarantee independence; GO requires every stratum,fixed_planning,2,0.8,0.8,0.6400000000000001,0.8944271909999159
+independent_stratum_power_product,independent stratum decisions; disjoint IDs alone do not guarantee independence; GO requires every stratum,fixed_planning,3,0.8,0.8,0.5120000000000001,0.9283177667225558
+independent_stratum_power_product,independent stratum decisions; disjoint IDs alone do not guarantee independence; GO requires every stratum,fixed_planning,4,0.8,0.8,0.40960000000000013,0.9457416090031758
+independent_stratum_power_product,independent stratum decisions; disjoint IDs alone do not guarantee independence; GO requires every stratum,fixed_planning,6,0.8,0.8,0.2621440000000001,0.9634924839989961

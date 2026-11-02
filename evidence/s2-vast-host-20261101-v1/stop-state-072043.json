@@ -1,0 +1,18 @@
+{
+  "at_utc": "2026-11-01T07:20:43.685310+00:00",
+  "instance": {
+    "id": 58628722,
+    "label": "physloop-s2-host-20261101-v1",
+    "actual_status": "exited",
+    "intended_status": "stopped",
+    "next_state": "stopped",
+    "status_msg": "success, running docker.io/vastai/kvm:ubuntu_cli_22.04-2025-11-21",
+    "dph_total": 1.451111111111111,
+    "disk_usage": 0.00045200000749900937,
+    "start_date": 1793515876.9284534,
+    "gpu_name": "RTX PRO 6000 WS",
+    "gpu_ram": 97887,
+    "cpu_cores_effective": 16.0,
+    "cpu_ram": 126400
+  }
+}

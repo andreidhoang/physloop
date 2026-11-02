@@ -1,0 +1,32 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 116B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/nvidia/cuda:12.8.1-devel-ubuntu22.04
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/nvidia/cuda:12.8.1-devel-ubuntu22.04@sha256:a99a1860ba8e2916e5c3e73b72ec4c4301653a84586e05bfc9a2aa2d58027e97
+#4 resolve docker.io/nvidia/cuda:12.8.1-devel-ubuntu22.04@sha256:a99a1860ba8e2916e5c3e73b72ec4c4301653a84586e05bfc9a2aa2d58027e97 0.0s done
+#4 DONE 0.0s
+
+#5 [2/2] RUN test -x /usr/local/cuda/bin/nvcc
+#5 CACHED
+
+#6 exporting to image
+#6 exporting layers done
+#6 exporting manifest sha256:23c648802677b7596f84aabf5d6d97fed88ccd5c43dbce07e1f221b948cd8676 done
+#6 exporting config sha256:e8d8fd11b2f71b24cbf9ad60f0fcae8f2967e77ae0029c08cbdce92ae66b356d done
+#6 exporting attestation manifest sha256:0410a0f0bdf24c744236b966ab64bc3e8a866e485200e77b460438af18ebc2a6 done
+#6 exporting manifest list sha256:d070937e1299ac3a6bcd1009dc23f61d2845123b1af1db80649a656a87b48dae done
+#6 naming to docker.io/library/physloop-probe-20261101070315-5687:build-check done
+#6 unpacking to docker.io/library/physloop-probe-20261101070315-5687:build-check 0.0s done
+#6 DONE 0.1s

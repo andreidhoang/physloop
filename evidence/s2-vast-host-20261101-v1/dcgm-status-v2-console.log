@@ -1,0 +1,5 @@
+raw_status_v2_exit=1
+Traceback (most recent call last):
+  File "/root/physloop-xid-v1/vast_dcgm_xid_status_v2.py", line 25, in <module>
+    value = dcgm_agent.dcgmGetLatestValuesForFields(handle, 0, [230])[0]
+AttributeError: module 'dcgm_agent' has no attribute 'dcgmGetLatestValuesForFields'

@@ -1,0 +1,27 @@
+{
+  "price_check_date": "2026-10-31",
+  "basis": "Existing 136\u2013340 GPU-hour four-sweep estimate; GPU-only; reprice before rental",
+  "spend_authorized": false,
+  "rows": [
+    {
+      "gpu_hours": 136,
+      "rate_per_gpu_hour_usd": 1.8,
+      "compute_cost_usd": 244.8
+    },
+    {
+      "gpu_hours": 136,
+      "rate_per_gpu_hour_usd": 2.49,
+      "compute_cost_usd": 338.64
+    },
+    {
+      "gpu_hours": 340,
+      "rate_per_gpu_hour_usd": 1.8,
+      "compute_cost_usd": 612.0
+    },
+    {
+      "gpu_hours": 340,
+      "rate_per_gpu_hour_usd": 2.49,
+      "compute_cost_usd": 846.6
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+nvcr.io/nvidia/k8s/dcgm-exporter@sha256:804c17f67ab63e8a4dd5301546beefaa104129f833dae4a68f5ff7c4819f471b: Pulling from nvidia/k8s/dcgm-exporter
+2cc7ee286bf3: Pulling fs layer
+218cf840d0d9: Pulling fs layer
+01f0ed68eaba: Pulling fs layer
+3214acf345c0: Pulling fs layer
+88d59a2387a1: Pulling fs layer
+bd8962e29291: Pulling fs layer
+b839dfae01f6: Pulling fs layer
+ebddc55facdc: Pulling fs layer
+7c12895b777b: Pulling fs layer
+97f08c823d26: Pulling fs layer
+dd0d9bfd3bee: Pulling fs layer
+c172f21841df: Pulling fs layer
+cac2ae0193cb: Pulling fs layer
+7cc70dfd88cf: Pulling fs layer
+d6b1b89eccac: Pulling fs layer
+8224d91da70b: Pulling fs layer
+2780920e5dbf: Pulling fs layer
+ed0df3f9ec3c: Pulling fs layer
+f6069939f718: Pulling fs layer
+656047634ac8: Pulling fs layer
+1a4be5562d92: Pulling fs layer
+c58be49ed8af: Pulling fs layer
+6eec2288f04d: Pulling fs layer
+52630fc75a18: Pulling fs layer
+9ad4de8f1423: Pulling fs layer
+58c0c263dc73: Pulling fs layer
+c4bc6f35ff5e: Pulling fs layer
+76174946032b: Pulling fs layer
+f753dc6dae17: Pulling fs layer
+b96fe2995f90: Pulling fs layer
+dd64bf2dd177: Pulling fs layer
+b839dfae01f6: Download complete
+3214acf345c0: Download complete
+ebddc55facdc: Download complete
+2cc7ee286bf3: Download complete
+01f0ed68eaba: Download complete
+dd0d9bfd3bee: Download complete
+c172f21841df: Download complete
+88d59a2387a1: Download complete
+c4bc6f35ff5e: Download complete
+52630fc75a18: Download complete
+2780920e5dbf: Download complete
+c58be49ed8af: Download complete
+f6069939f718: Download complete
+7c12895b777b: Download complete
+dd64bf2dd177: Download complete
+d6b1b89eccac: Download complete
+cac2ae0193cb: Download complete
+218cf840d0d9: Download complete
+bd8962e29291: Download complete
+8224d91da70b: Download complete
+2cc7ee286bf3: Pull complete
+c172f21841df: Pull complete
+218cf840d0d9: Pull complete
+76174946032b: Download complete
+f753dc6dae17: Download complete
+ed0df3f9ec3c: Download complete
+7cc70dfd88cf: Download complete
+9ad4de8f1423: Download complete
+1a4be5562d92: Download complete
+97f08c823d26: Download complete
+3214acf345c0: Pull complete
+52630fc75a18: Pull complete
+2780920e5dbf: Pull complete
+f6069939f718: Pull complete
+7c12895b777b: Pull complete
+d6b1b89eccac: Pull complete
+58c0c263dc73: Download complete
+656047634ac8: Download complete
+b839dfae01f6: Pull complete
+ebddc55facdc: Pull complete
+c4bc6f35ff5e: Pull complete
+dd64bf2dd177: Pull complete
+b96fe2995f90: Download complete
+bd8962e29291: Pull complete
+58c0c263dc73: Pull complete
+b96fe2995f90: Pull complete
+01f0ed68eaba: Pull complete
+dd0d9bfd3bee: Pull complete
+88d59a2387a1: Pull complete
+cac2ae0193cb: Pull complete
+8224d91da70b: Pull complete
+76174946032b: Pull complete
+ed0df3f9ec3c: Pull complete
+7cc70dfd88cf: Pull complete
+9ad4de8f1423: Pull complete
+1a4be5562d92: Pull complete
+656047634ac8: Pull complete
+c58be49ed8af: Pull complete
+6eec2288f04d: Download complete
+6eec2288f04d: Pull complete
+f753dc6dae17: Pull complete
+97f08c823d26: Pull complete
+Digest: sha256:804c17f67ab63e8a4dd5301546beefaa104129f833dae4a68f5ff7c4819f471b
+Status: Downloaded newer image for nvcr.io/nvidia/k8s/dcgm-exporter@sha256:804c17f67ab63e8a4dd5301546beefaa104129f833dae4a68f5ff7c4819f471b
+nvcr.io/nvidia/k8s/dcgm-exporter@sha256:804c17f67ab63e8a4dd5301546beefaa104129f833dae4a68f5ff7c4819f471b

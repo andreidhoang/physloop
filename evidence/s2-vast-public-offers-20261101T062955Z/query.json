@@ -1,0 +1,26 @@
+{
+  "verified": {
+    "eq": true
+  },
+  "rentable": {
+    "eq": true
+  },
+  "vms_enabled": {
+    "eq": true
+  },
+  "gpu_name": {
+    "eq": "RTX PRO 6000 WS"
+  },
+  "num_gpus": {
+    "eq": 1
+  },
+  "type": "on-demand",
+  "allocated_storage": 500,
+  "order": [
+    [
+      "dph_total",
+      "asc"
+    ]
+  ],
+  "limit": 100
+}

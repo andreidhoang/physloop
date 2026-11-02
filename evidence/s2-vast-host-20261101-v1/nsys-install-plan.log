@@ -1,0 +1,50 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  alsa-topology-conf alsa-ucm-conf libasound2 libasound2-data libopengl0
+  libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1
+  libxcb-render-util0 libxcb-shape0 libxcb-util1 libxcb-xinerama0
+  libxcb-xinput0 libxcb-xkb1 libxkbcommon-x11-0
+Suggested packages:
+  libasound2-plugins alsa-utils
+The following NEW packages will be installed:
+  alsa-topology-conf alsa-ucm-conf libasound2 libasound2-data libopengl0
+  libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1
+  libxcb-render-util0 libxcb-shape0 libxcb-util1 libxcb-xinerama0
+  libxcb-xinput0 libxcb-xkb1 libxkbcommon-x11-0 nsight-systems-2025.3.2
+0 upgraded, 17 newly installed, 0 to remove and 294 not upgraded.
+Inst alsa-topology-conf (1.2.5.1-2 Ubuntu:22.04/jammy [all])
+Inst libasound2-data (1.2.6.1-1ubuntu1.2 Ubuntu:22.04/jammy-updates, Ubuntu:22.04/jammy-security [all])
+Inst libasound2 (1.2.6.1-1ubuntu1.2 Ubuntu:22.04/jammy-updates, Ubuntu:22.04/jammy-security [amd64])
+Inst alsa-ucm-conf (1.2.6.3-1ubuntu1.12 Ubuntu:22.04/jammy-updates [all])
+Inst libxcb-shape0 (1.14-3ubuntu3 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-xinerama0 (1.14-3ubuntu3 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-xinput0 (1.14-3ubuntu3 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-xkb1 (1.14-3ubuntu3 Ubuntu:22.04/jammy [amd64])
+Inst libxkbcommon-x11-0 (1.4.0-1 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-icccm4 (0.4.1-1.1build2 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-util1 (0.4.0-1build2 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-image0 (0.4.0-2 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-keysyms1 (0.4.0-1build3 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-render-util0 (0.3.9-1build3 Ubuntu:22.04/jammy [amd64])
+Inst libxcb-cursor0 (0.1.1-4ubuntu1 Ubuntu:22.04/jammy [amd64])
+Inst libopengl0 (1.4.0-1 Ubuntu:22.04/jammy [amd64])
+Inst nsight-systems-2025.3.2 (2025.3.2.474-253236389321v0 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf alsa-topology-conf (1.2.5.1-2 Ubuntu:22.04/jammy [all])
+Conf libasound2-data (1.2.6.1-1ubuntu1.2 Ubuntu:22.04/jammy-updates, Ubuntu:22.04/jammy-security [all])
+Conf libasound2 (1.2.6.1-1ubuntu1.2 Ubuntu:22.04/jammy-updates, Ubuntu:22.04/jammy-security [amd64])
+Conf alsa-ucm-conf (1.2.6.3-1ubuntu1.12 Ubuntu:22.04/jammy-updates [all])
+Conf libxcb-shape0 (1.14-3ubuntu3 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-xinerama0 (1.14-3ubuntu3 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-xinput0 (1.14-3ubuntu3 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-xkb1 (1.14-3ubuntu3 Ubuntu:22.04/jammy [amd64])
+Conf libxkbcommon-x11-0 (1.4.0-1 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-icccm4 (0.4.1-1.1build2 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-util1 (0.4.0-1build2 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-image0 (0.4.0-2 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-keysyms1 (0.4.0-1build3 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-render-util0 (0.3.9-1build3 Ubuntu:22.04/jammy [amd64])
+Conf libxcb-cursor0 (0.1.1-4ubuntu1 Ubuntu:22.04/jammy [amd64])
+Conf libopengl0 (1.4.0-1 Ubuntu:22.04/jammy [amd64])
+Conf nsight-systems-2025.3.2 (2025.3.2.474-253236389321v0 NVIDIA CUDA:developer.download.nvidia.com [amd64])

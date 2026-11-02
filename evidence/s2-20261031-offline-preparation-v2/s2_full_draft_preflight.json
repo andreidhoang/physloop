@@ -1,0 +1,232 @@
+{
+  "schema_version": 2,
+  "phase": "full_sweep",
+  "ready_for_planning": false,
+  "cloud_launch_authorized": false,
+  "attestation_authenticity": "not_verified",
+  "blocking_reasons": [
+    {
+      "code": "not_preregistered",
+      "path": "status",
+      "message": "A draft is not a frozen preregistration."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "registration",
+      "message": "Record Huy's frozen protocol reference."
+    },
+    {
+      "code": "prerequisite_unrecorded",
+      "path": "prerequisites.challenge_closed_verified",
+      "message": "A dated evidence attestation is required."
+    },
+    {
+      "code": "license_unaccepted",
+      "path": "prerequisites.license_acceptance_by_owner",
+      "message": "Dataset-use planning needs a recorded owner license acceptance; publication is separate."
+    },
+    {
+      "code": "host_incompatible",
+      "path": "prerequisites.host_compatibility_verified",
+      "message": "Record full-host access, Docker and NVIDIA runtime compatibility before run planning."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.source.git_hash",
+      "message": "Require a full 40-hex identity."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.source.config_sha256",
+      "message": "Require a full 64-hex identity."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.source.lockfile_sha256",
+      "message": "Require a full 64-hex identity."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.driver.resolved_alpamayo1_5_commit",
+      "message": "Require a full 40-hex identity."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.simulator.renderer_image",
+      "message": "Pin the image by sha256 digest, not tag."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.sampling.target_population",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.sampling.road_independence_justification",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.topology",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.controller_identity",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.postprocessing_identity",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.driver.policy_clock_source",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.n_sim_steps_requested",
+      "message": "Require a positive planned integer."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.rendering_flags",
+      "message": "Record rendering flags explicitly."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.camera_request",
+      "message": "Record the camera request."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.decoded_size",
+      "message": "Record positive [height,width]."
+    },
+    {
+      "code": "sampling_unresolved",
+      "path": "planned.sampling.scene_list",
+      "message": "Supply unique explicit identities."
+    },
+    {
+      "code": "sampling_unresolved",
+      "path": "planned.sampling.road_list",
+      "message": "Supply unique explicit identities."
+    },
+    {
+      "code": "harmonizer_unresolved",
+      "path": "planned.simulator.harmonizer",
+      "message": "Pilot compares off/on; full sweep must freeze one boolean state."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "planned.measurement.experiment_prediction",
+      "message": "Record a frozen owner value and source."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "planned.measurement.margin",
+      "message": "Record a frozen owner value and source."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "planned.measurement.reliability_floor",
+      "message": "Record a frozen owner value and source."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "planned.measurement.noise_floor_prediction",
+      "message": "Record a frozen owner value and source."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "planned.measurement.stabilization_rule",
+      "message": "Record a frozen owner value and source."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "planned.measurement.strata_definition",
+      "message": "Record a frozen owner value and source."
+    },
+    {
+      "code": "invalid_resource",
+      "path": "planned.resources.gpu_count",
+      "message": "Require a finite nonnegative cost input and positive compute quantities."
+    },
+    {
+      "code": "invalid_resource",
+      "path": "planned.resources.rate_per_gpu_hour_usd",
+      "message": "Require a finite nonnegative cost input and positive compute quantities."
+    },
+    {
+      "code": "invalid_resource",
+      "path": "planned.resources.wall_hours_cap",
+      "message": "Require a finite nonnegative cost input and positive compute quantities."
+    },
+    {
+      "code": "invalid_resource",
+      "path": "planned.resources.storage_cap_usd",
+      "message": "Require a finite nonnegative cost input and positive compute quantities."
+    },
+    {
+      "code": "invalid_resource",
+      "path": "planned.resources.egress_cap_usd",
+      "message": "Require a finite nonnegative cost input and positive compute quantities."
+    },
+    {
+      "code": "invalid_resource",
+      "path": "planned.resources.other_cap_usd",
+      "message": "Require a finite nonnegative cost input and positive compute quantities."
+    },
+    {
+      "code": "invalid_resource",
+      "path": "planned.resources",
+      "message": "Record quote date and exact GPU edition."
+    },
+    {
+      "code": "budget_unapproved",
+      "path": "prerequisites.budget_decision_P005",
+      "message": "Explicit owner-approved tier and caps required; filled cost is not approval."
+    },
+    {
+      "code": "full_sweep_unreleased",
+      "path": "prerequisites.full_sweep_release",
+      "message": "Record Huy's post-pilot release, measured forecast reference and remaining stage cap."
+    }
+  ],
+  "warnings": [
+    {
+      "code": "unverified_attestations",
+      "path": "prerequisites",
+      "message": "Manual approval text, evidence references, pins and provider capabilities are not authenticated."
+    },
+    {
+      "code": "not_launch_authorization",
+      "path": "",
+      "message": "Readiness is an offline consistency result; no cloud launch, download or publication is authorized."
+    },
+    {
+      "code": "provisional_upstream",
+      "path": "prerequisites.latest_upstream_release_checked",
+      "message": "No merged post-challenge protocol is attested; future results remain provisional."
+    },
+    {
+      "code": "hours_unrecorded",
+      "path": "prerequisites.hour_reforecast_P003",
+      "message": "Human weekly hours and the remaining schedule cannot be inferred from software delivery."
+    },
+    {
+      "code": "budget_state_unverified",
+      "path": "planned.resources",
+      "message": "Quote availability, freshness, cumulative spend and provider billing are not checked offline."
+    }
+  ],
+  "estimated_total_cost_usd": null,
+  "publication": {
+    "public_numbers_eligible_by_attestation": false,
+    "derived_weights_labels_eligible_by_attestation": false,
+    "publication_authorized": false
+  }
+}

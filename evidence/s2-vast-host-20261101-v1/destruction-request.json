@@ -1,0 +1,13 @@
+{
+  "requested_at_utc": "2026-11-01T07:21:53.395659+00:00",
+  "instance_id": 58628722,
+  "label": "physloop-s2-host-20261101-v1",
+  "pre_delete_status": {
+    "actual_status": "exited",
+    "intended_status": "stopped",
+    "next_state": "stopped"
+  },
+  "guest_evidence_verified": true,
+  "command_returncode": 0,
+  "command_output": "destroying instance 58628722."
+}

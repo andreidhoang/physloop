@@ -1,0 +1,7 @@
+method,assumptions,fixed_planning_vs_operational,psi,n,alpha,target_power,margin
+normal_IID_binary_NI_planning,true risk difference zero; IID paired scenes; variance approximated by discordance psi; not a Tango confidence bound,fixed_planning,0.021,441,0.05,0.8,0.017158306654184635
+normal_IID_binary_NI_planning,true risk difference zero; IID paired scenes; variance approximated by discordance psi; not a Tango confidence bound,fixed_planning,0.021,441,0.025,0.8,0.019332774705823973
+normal_IID_binary_NI_planning,true risk difference zero; IID paired scenes; variance approximated by discordance psi; not a Tango confidence bound,fixed_planning,0.04,441,0.05,0.8,0.023680712957375116
+normal_IID_binary_NI_planning,true risk difference zero; IID paired scenes; variance approximated by discordance psi; not a Tango confidence bound,fixed_planning,0.04,441,0.025,0.8,0.02668176398202828
+normal_IID_binary_NI_planning,true risk difference zero; IID paired scenes; variance approximated by discordance psi; not a Tango confidence bound,fixed_planning,0.08,441,0.05,0.8,0.033489585430984174
+normal_IID_binary_NI_planning,true risk difference zero; IID paired scenes; variance approximated by discordance psi; not a Tango confidence bound,fixed_planning,0.08,441,0.025,0.8,0.03773371249142234

@@ -1,0 +1,9 @@
+{"at_utc": "2026-11-01T07:20:15.257026+00:00", "event": "armed", "instance_id": 58628722, "expected_label": "physloop-s2-host-20261101-v1", "deadline_utc_epoch": 1793517624.861263}
+{"at_utc": "2026-11-01T07:20:28.863172+00:00", "event": "command_error", "operation": "stop", "error": "cli_non_json"}
+{"at_utc": "2026-11-01T07:20:42.943175+00:00", "event": "command_error", "operation": "stop", "error": "cli_non_json"}
+{"at_utc": "2026-11-01T07:20:56.475700+00:00", "event": "command_error", "operation": "stop", "error": "cli_non_json"}
+{"at_utc": "2026-11-01T07:21:10.018886+00:00", "event": "command_error", "operation": "stop", "error": "cli_non_json"}
+{"at_utc": "2026-11-01T07:21:24.722322+00:00", "event": "command_error", "operation": "stop", "error": "cli_non_json"}
+{"at_utc": "2026-11-01T07:21:38.251062+00:00", "event": "command_error", "operation": "stop", "error": "cli_non_json"}
+{"at_utc": "2026-11-01T07:21:52.303673+00:00", "event": "command_error", "operation": "stop", "error": "cli_non_json"}
+{"at_utc": "2026-11-01T07:22:04.275212+00:00", "event": "instance_absent", "instance_id": 58628722}

@@ -1,0 +1,32 @@
+{
+  "creator": 28947867,
+  "id": 1017385013,
+  "images": [
+    {
+      "architecture": "amd64",
+      "features": "",
+      "variant": null,
+      "digest": "sha256:2bd80faf649aa4771cf839681903ccad8cf7047a64f008de35fea78ea21f06d1",
+      "os": "linux",
+      "os_features": "",
+      "os_version": null,
+      "size": 5236597880,
+      "status": "active",
+      "last_pulled": "2026-11-01T06:37:01.994532835Z",
+      "last_pushed": "2026-10-22T02:13:40.993745265Z"
+    }
+  ],
+  "last_updated": "2026-10-22T04:50:48.326879Z",
+  "last_updater": 28809166,
+  "last_updater_username": "antvast",
+  "name": "ubuntu_cli_22.04-2025-11-21",
+  "repository": 24517468,
+  "full_size": 5236597880,
+  "v2": true,
+  "tag_status": "active",
+  "tag_last_pulled": "2026-11-01T06:37:01.994532835Z",
+  "tag_last_pushed": "2026-10-22T04:50:48.326879Z",
+  "media_type": "application/vnd.oci.image.index.v1+json",
+  "content_type": "image",
+  "digest": "sha256:ed1b7ecabade819cf5d575c4398b69e620a311384a6f8eaed8400c441006aa62"
+}

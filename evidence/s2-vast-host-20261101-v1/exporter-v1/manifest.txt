@@ -1,0 +1,6 @@
+utc_start=2026-11-01T07:10:04Z
+exporter_image=nvcr.io/nvidia/k8s/dcgm-exporter@sha256:804c17f67ab63e8a4dd5301546beefaa104129f833dae4a68f5ff7c4819f471b
+mode=embedded; bundled DCGM 4.6.1 with exporter 4.8.4
+load_exit=0
+script_exit=0
+utc_end=2026-11-01T07:10:28Z

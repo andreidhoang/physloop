@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="814" viewBox="0 0 1050 814">
+<rect width="100%" height="100%" fill="white"/>
+<g font-family="sans-serif" font-size="13" fill="#202020">
+<text x="20" y="25" font-size="19">Synthetic gate outcomes by registered cell</text>
+<text x="20" y="48">Green GO · red NO-GO · amber INSUFFICIENT; no real-policy claims</text>
+<text x="20" y="89">cluster_boundary/fixed</text>
+<rect x="300.0" y="75" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="75" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="75" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="89">n=1000</text>
+<text x="20" y="123">cluster_boundary/sequential</text>
+<rect x="300.0" y="109" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="109" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="109" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="123">n=1000</text>
+<text x="20" y="157">cluster_harmful/fixed</text>
+<rect x="300.0" y="143" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="143" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="143" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="157">n=1000</text>
+<text x="20" y="191">cluster_harmful/sequential</text>
+<rect x="300.0" y="177" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="177" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="177" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="191">n=1000</text>
+<text x="20" y="225">cluster_one_bad/fixed</text>
+<rect x="300.0" y="211" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="211" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="211" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="225">n=1000</text>
+<text x="20" y="259">cluster_one_bad/sequential</text>
+<rect x="300.0" y="245" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="245" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="245" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="259">n=1000</text>
+<text x="20" y="293">iid_boundary/fixed</text>
+<rect x="300.0" y="279" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="279" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="279" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="293">n=1000</text>
+<text x="20" y="327">iid_boundary/sequential</text>
+<rect x="300.0" y="313" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="313" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="313" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="327">n=1000</text>
+<text x="20" y="361">iid_equivalent/fixed</text>
+<rect x="300.0" y="347" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="347" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="347" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="361">n=1000</text>
+<text x="20" y="395">iid_equivalent/sequential</text>
+<rect x="300.0" y="381" width="0.6" height="20" fill="#26734d"/>
+<rect x="300.6" y="381" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.6" y="381" width="599.4" height="20" fill="#c69a32"/>
+<text x="915" y="395">n=1000</text>
+<text x="20" y="429">iid_gross/fixed</text>
+<rect x="300.0" y="415" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="415" width="600.0" height="20" fill="#b23b35"/>
+<rect x="900.0" y="415" width="0.0" height="20" fill="#c69a32"/>
+<text x="915" y="429">n=1000</text>
+<text x="20" y="463">iid_gross/sequential</text>
+<rect x="300.0" y="449" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="449" width="599.4" height="20" fill="#b23b35"/>
+<rect x="899.4" y="449" width="0.6" height="20" fill="#c69a32"/>
+<text x="915" y="463">n=1000</text>
+<text x="20" y="497">iid_harmful/fixed</text>
+<rect x="300.0" y="483" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="483" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="483" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="497">n=1000</text>
+<text x="20" y="531">iid_harmful/sequential</text>
+<rect x="300.0" y="517" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="517" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="517" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="531">n=1000</text>
+<text x="20" y="565">iid_identical/fixed</text>
+<rect x="300.0" y="551" width="600.0" height="20" fill="#26734d"/>
+<rect x="900.0" y="551" width="0.0" height="20" fill="#b23b35"/>
+<rect x="900.0" y="551" width="0.0" height="20" fill="#c69a32"/>
+<text x="915" y="565">n=1000</text>
+<text x="20" y="599">iid_identical/sequential</text>
+<rect x="300.0" y="585" width="600.0" height="20" fill="#26734d"/>
+<rect x="900.0" y="585" width="0.0" height="20" fill="#b23b35"/>
+<rect x="900.0" y="585" width="0.0" height="20" fill="#c69a32"/>
+<text x="915" y="599">n=1000</text>
+<text x="20" y="633">iid_one_bad/fixed</text>
+<rect x="300.0" y="619" width="1.8" height="20" fill="#26734d"/>
+<rect x="301.8" y="619" width="0.0" height="20" fill="#b23b35"/>
+<rect x="301.8" y="619" width="598.2" height="20" fill="#c69a32"/>
+<text x="915" y="633">n=1000</text>
+<text x="20" y="667">iid_one_bad/sequential</text>
+<rect x="300.0" y="653" width="1.2" height="20" fill="#26734d"/>
+<rect x="301.2" y="653" width="0.0" height="20" fill="#b23b35"/>
+<rect x="301.2" y="653" width="598.8" height="20" fill="#c69a32"/>
+<text x="915" y="667">n=1000</text>
+<text x="20" y="701">rare_harm/fixed</text>
+<rect x="300.0" y="687" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="687" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="687" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="701">n=1000</text>
+<text x="20" y="735">rare_harm/pooled_fixed</text>
+<rect x="300.0" y="721" width="599.4" height="20" fill="#26734d"/>
+<rect x="899.4" y="721" width="0.0" height="20" fill="#b23b35"/>
+<rect x="899.4" y="721" width="0.6" height="20" fill="#c69a32"/>
+<text x="915" y="735">n=1000</text>
+<text x="20" y="769">rare_harm/sequential</text>
+<rect x="300.0" y="755" width="0.0" height="20" fill="#26734d"/>
+<rect x="300.0" y="755" width="0.0" height="20" fill="#b23b35"/>
+<rect x="300.0" y="755" width="600.0" height="20" fill="#c69a32"/>
+<text x="915" y="769">n=1000</text>
+</g></svg>

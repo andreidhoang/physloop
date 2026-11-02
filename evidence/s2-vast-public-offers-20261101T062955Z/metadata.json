@@ -1,0 +1,7 @@
+{
+  "retrieved_at_utc": "2026-11-01T06:29:56.331389+00:00",
+  "endpoint": "https://console.vast.ai/api/v0/bundles/",
+  "operation": "public unauthenticated offer search; no rental or account mutation",
+  "http_status": 200,
+  "documentation": "https://docs.vast.ai/api-reference/hello-world#3-search-for-gpus"
+}

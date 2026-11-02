@@ -1,0 +1,228 @@
+d93190d50b98ad4699ff40f4f7af50f16a76dac3bb8da1eaaf366d47898ff8df  /tmp/physloop-cuda-keyring.deb
+(Reading database ... 132173 files and directories currently installed.)
+Preparing to unpack /tmp/physloop-cuda-keyring.deb ...
+Unpacking cuda-keyring (1.1-1) over (1.1-1) ...
+Setting up cuda-keyring (1.1-1) ...
+Get:1 https://nvidia.github.io/libnvidia-container/stable/deb/amd64  InRelease [1477 B]
+Get:2 https://download.docker.com/linux/ubuntu jammy InRelease [48.5 kB]
+Get:3 https://nvidia.github.io/libnvidia-container/stable/deb/amd64  Packages [28.0 kB]
+Get:4 https://download.docker.com/linux/ubuntu jammy/stable amd64 Packages [92.3 kB]
+Get:5 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  InRelease [1578 B]
+Get:6 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages [3158 kB]
+Get:7 https://pkgs.tailscale.com/stable/ubuntu jammy InRelease
+Get:8 https://pkgs.tailscale.com/stable/ubuntu jammy/main amd64 Packages [16.7 kB]
+Get:9 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:10 https://pkgs.tailscale.com/stable/ubuntu jammy/main all Packages [351 B]
+Get:11 https://ppa.launchpadcontent.net/graphics-drivers/ppa/ubuntu jammy InRelease [24.3 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:13 https://ppa.launchpadcontent.net/graphics-drivers/ppa/ubuntu jammy/main amd64 Packages [28.6 kB]
+Get:14 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3670 kB]
+Get:15 https://ppa.launchpadcontent.net/graphics-drivers/ppa/ubuntu jammy/main Translation-en [6076 B]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:18 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [511 kB]
+Get:19 http://security.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [14.7 kB]
+Get:20 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6545 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1395 kB]
+Get:22 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [1260 kB]
+Get:23 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 c-n-f Metadata [600 B]
+Get:24 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1055 kB]
+Get:25 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [238 kB]
+Get:26 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [23.2 kB]
+Get:27 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [79.6 kB]
+Get:28 http://security.ubuntu.com/ubuntu jammy-security/multiverse Translation-en [13.7 kB]
+Get:29 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 c-n-f Metadata [544 B]
+Get:30 http://archive.ubuntu.com/ubuntu jammy/main Translation-en [510 kB]
+Get:31 http://archive.ubuntu.com/ubuntu jammy/main amd64 c-n-f Metadata [30.3 kB]
+Get:32 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [129 kB]
+Get:33 http://archive.ubuntu.com/ubuntu jammy/restricted Translation-en [18.6 kB]
+Get:34 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 c-n-f Metadata [488 B]
+Get:35 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
+Get:36 http://archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
+Get:37 http://archive.ubuntu.com/ubuntu jammy/universe amd64 c-n-f Metadata [286 kB]
+Get:38 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
+Get:39 http://archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
+Get:40 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 c-n-f Metadata [8372 B]
+Get:41 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3939 kB]
+Get:42 http://archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [579 kB]
+Get:43 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [20.1 kB]
+Get:44 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6778 kB]
+Get:45 http://archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [1303 kB]
+Get:46 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 c-n-f Metadata [584 B]
+Get:47 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1290 kB]
+Get:48 http://archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [326 kB]
+Get:49 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [30.8 kB]
+Get:50 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.1 kB]
+Get:51 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [16.6 kB]
+Get:52 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [756 B]
+Get:53 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [70.2 kB]
+Get:54 http://archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [11.4 kB]
+Get:55 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 c-n-f Metadata [412 B]
+Get:56 http://archive.ubuntu.com/ubuntu jammy-backports/restricted amd64 c-n-f Metadata [116 B]
+Get:57 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [30.8 kB]
+Get:58 http://archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16.9 kB]
+Get:59 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [676 B]
+Get:60 http://archive.ubuntu.com/ubuntu jammy-backports/multiverse amd64 c-n-f Metadata [116 B]
+Fetched 54.4 MB in 9s (6072 kB/s)
+Reading package lists...
+nsight-compute-2025.3.1:
+  Installed: (none)
+  Candidate: 2025.3.1.4-1
+  Version table:
+     2025.3.1.4-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+datacenter-gpu-manager-4-cuda13:
+  Installed: (none)
+  Candidate: 1:4.7.1-2
+  Version table:
+     1:4.7.1-2 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.7.0-2 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.7.0-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.6.1-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.6.0-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.5.3-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.5.2-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.5.1-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.5.0-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.4.2-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.4.1-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+     1:4.4.0-1 600
+        600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  Packages
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  datacenter-gpu-manager-4-core datacenter-gpu-manager-4-cuda13-cublas
+  datacenter-gpu-manager-4-cuda13-curand
+  datacenter-gpu-manager-4-cuda13-cusparselt
+  datacenter-gpu-manager-4-cuda13-nccl
+  datacenter-gpu-manager-4-cuda13-ubergemm2
+  datacenter-gpu-manager-4-dcgmproftesterkernels
+  datacenter-gpu-manager-4-module-config datacenter-gpu-manager-4-module-diag
+  datacenter-gpu-manager-4-module-health
+  datacenter-gpu-manager-4-module-introspect
+  datacenter-gpu-manager-4-module-nvswitch
+  datacenter-gpu-manager-4-module-policy
+  datacenter-gpu-manager-4-module-sysmon datacenter-gpu-manager-4-proprietary
+  datacenter-gpu-manager-4-proprietary-cuda13 datacenter-gpu-manager-4-python3
+  dcgmi ibverbs-providers libdcgm libevent-core-2.1-7 libevent-pthreads-2.1-7
+  libfabric1 libhwloc-plugins libhwloc15 libibverbs1 libnl-route-3-200
+  libopenmpi3 libpmix2 libpsm-infinipath1 libpsm2-2 librdmacm1 libucx0
+  nv-hostengine ocl-icd-libopencl1
+Suggested packages:
+  libhwloc-contrib-plugins
+The following NEW packages will be installed:
+  datacenter-gpu-manager-4-core datacenter-gpu-manager-4-cuda13
+  datacenter-gpu-manager-4-cuda13-cublas
+  datacenter-gpu-manager-4-cuda13-curand
+  datacenter-gpu-manager-4-cuda13-cusparselt
+  datacenter-gpu-manager-4-cuda13-nccl
+  datacenter-gpu-manager-4-cuda13-ubergemm2
+  datacenter-gpu-manager-4-dcgmproftesterkernels
+  datacenter-gpu-manager-4-module-config datacenter-gpu-manager-4-module-diag
+  datacenter-gpu-manager-4-module-health
+  datacenter-gpu-manager-4-module-introspect
+  datacenter-gpu-manager-4-module-nvswitch
+  datacenter-gpu-manager-4-module-policy
+  datacenter-gpu-manager-4-module-sysmon datacenter-gpu-manager-4-proprietary
+  datacenter-gpu-manager-4-proprietary-cuda13 datacenter-gpu-manager-4-python3
+  dcgmi ibverbs-providers libdcgm libevent-pthreads-2.1-7 libfabric1
+  libhwloc-plugins libhwloc15 libibverbs1 libnl-route-3-200 libopenmpi3
+  libpmix2 libpsm-infinipath1 libpsm2-2 librdmacm1 libucx0
+  nsight-compute-2025.3.1 nv-hostengine ocl-icd-libopencl1
+The following packages will be upgraded:
+  libevent-core-2.1-7
+1 upgraded, 36 newly installed, 0 to remove and 294 not upgraded.
+Inst libdcgm (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst dcgmi (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-dcgmproftesterkernels (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-module-config (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-module-diag (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-module-health (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-module-introspect (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-module-nvswitch (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-module-policy (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-module-sysmon (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst nv-hostengine (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-python3 (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-core (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-cuda13-cublas (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-cuda13-curand (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-cuda13-cusparselt (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-cuda13-nccl (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-cuda13 (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst libevent-core-2.1-7 [2.1.12-stable-1build3] (2.1.12-stable-1ubuntu0.2 Ubuntu:22.04/jammy-updates, Ubuntu:22.04/jammy-security [amd64])
+Inst libevent-pthreads-2.1-7 (2.1.12-stable-1ubuntu0.2 Ubuntu:22.04/jammy-updates, Ubuntu:22.04/jammy-security [amd64])
+Inst libnl-route-3-200 (3.5.0-0.1 Ubuntu:22.04/jammy [amd64])
+Inst libibverbs1 (39.0-1 Ubuntu:22.04/jammy [amd64])
+Inst ibverbs-providers (39.0-1 Ubuntu:22.04/jammy [amd64])
+Inst libpsm-infinipath1 (3.3+20.604758e7-6.1 Ubuntu:22.04/jammy [amd64])
+Inst libpsm2-2 (11.2.185-1 Ubuntu:22.04/jammy [amd64])
+Inst librdmacm1 (39.0-1 Ubuntu:22.04/jammy [amd64])
+Inst libfabric1 (1.11.0-3 Ubuntu:22.04/jammy [amd64])
+Inst libhwloc15 (2.7.0-2ubuntu1 Ubuntu:22.04/jammy-updates [amd64])
+Inst ocl-icd-libopencl1 (2.2.14-3 Ubuntu:22.04/jammy, Ubuntu:22.04/jammy-updates [amd64])
+Inst libhwloc-plugins (2.7.0-2ubuntu1 Ubuntu:22.04/jammy-updates [amd64])
+Inst libpmix2 (4.1.2-2ubuntu1 Ubuntu:22.04/jammy [amd64])
+Inst libucx0 (1.12.1~rc2-1 Ubuntu:22.04/jammy [amd64])
+Inst libopenmpi3 (4.1.2-2ubuntu1 Ubuntu:22.04/jammy [amd64])
+Inst datacenter-gpu-manager-4-cuda13-ubergemm2 (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-proprietary (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst datacenter-gpu-manager-4-proprietary-cuda13 (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Inst nsight-compute-2025.3.1 (2025.3.1.4-1 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf libdcgm (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf dcgmi (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-dcgmproftesterkernels (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-module-config (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-module-diag (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-module-health (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-module-introspect (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-module-nvswitch (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-module-policy (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-module-sysmon (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf nv-hostengine (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-python3 (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-core (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-cuda13-cublas (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-cuda13-curand (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-cuda13-cusparselt (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-cuda13-nccl (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-cuda13 (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf libevent-core-2.1-7 (2.1.12-stable-1ubuntu0.2 Ubuntu:22.04/jammy-updates, Ubuntu:22.04/jammy-security [amd64])
+Conf libevent-pthreads-2.1-7 (2.1.12-stable-1ubuntu0.2 Ubuntu:22.04/jammy-updates, Ubuntu:22.04/jammy-security [amd64])
+Conf libnl-route-3-200 (3.5.0-0.1 Ubuntu:22.04/jammy [amd64])
+Conf libibverbs1 (39.0-1 Ubuntu:22.04/jammy [amd64])
+Conf ibverbs-providers (39.0-1 Ubuntu:22.04/jammy [amd64])
+Conf libpsm-infinipath1 (3.3+20.604758e7-6.1 Ubuntu:22.04/jammy [amd64])
+Conf libpsm2-2 (11.2.185-1 Ubuntu:22.04/jammy [amd64])
+Conf librdmacm1 (39.0-1 Ubuntu:22.04/jammy [amd64])
+Conf libfabric1 (1.11.0-3 Ubuntu:22.04/jammy [amd64])
+Conf libhwloc15 (2.7.0-2ubuntu1 Ubuntu:22.04/jammy-updates [amd64])
+Conf ocl-icd-libopencl1 (2.2.14-3 Ubuntu:22.04/jammy, Ubuntu:22.04/jammy-updates [amd64])
+Conf libhwloc-plugins (2.7.0-2ubuntu1 Ubuntu:22.04/jammy-updates [amd64])
+Conf libpmix2 (4.1.2-2ubuntu1 Ubuntu:22.04/jammy [amd64])
+Conf libucx0 (1.12.1~rc2-1 Ubuntu:22.04/jammy [amd64])
+Conf libopenmpi3 (4.1.2-2ubuntu1 Ubuntu:22.04/jammy [amd64])
+Conf datacenter-gpu-manager-4-cuda13-ubergemm2 (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-proprietary (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf datacenter-gpu-manager-4-proprietary-cuda13 (1:4.7.1-2 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+Conf nsight-compute-2025.3.1 (2025.3.1.4-1 NVIDIA CUDA:developer.download.nvidia.com [amd64])
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0
+  0  4332    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0
+100  4332  100  4332    0     0   1381      0  0:00:03  0:00:03 --:--:--  1382

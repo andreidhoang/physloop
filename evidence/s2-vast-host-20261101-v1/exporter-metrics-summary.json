@@ -1,0 +1,281 @@
+{
+  "DCGM_FI_PROF_PIPE_TENSOR_ACTIVE": [
+    {
+      "sample": 1,
+      "value": 0.0
+    },
+    {
+      "sample": 2,
+      "value": 0.0
+    },
+    {
+      "sample": 3,
+      "value": 0.0
+    },
+    {
+      "sample": 4,
+      "value": 0.462324
+    },
+    {
+      "sample": 5,
+      "value": 0.576561
+    },
+    {
+      "sample": 6,
+      "value": 0.575845
+    },
+    {
+      "sample": 7,
+      "value": 0.576152
+    },
+    {
+      "sample": 8,
+      "value": 0.575311
+    },
+    {
+      "sample": 9,
+      "value": 0.121893
+    },
+    {
+      "sample": 10,
+      "value": 0.0
+    },
+    {
+      "sample": 11,
+      "value": 0.0
+    },
+    {
+      "sample": 12,
+      "value": 0.0
+    },
+    {
+      "sample": 13,
+      "value": 0.0
+    }
+  ],
+  "DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION": [
+    {
+      "sample": 0,
+      "value": 20078.0
+    },
+    {
+      "sample": 1,
+      "value": 105071.0
+    },
+    {
+      "sample": 2,
+      "value": 188109.0
+    },
+    {
+      "sample": 3,
+      "value": 271756.0
+    },
+    {
+      "sample": 4,
+      "value": 679492.0
+    },
+    {
+      "sample": 5,
+      "value": 1132158.0
+    },
+    {
+      "sample": 6,
+      "value": 1585985.0
+    },
+    {
+      "sample": 7,
+      "value": 2041004.0
+    },
+    {
+      "sample": 8,
+      "value": 2496279.0
+    },
+    {
+      "sample": 9,
+      "value": 2639704.0
+    },
+    {
+      "sample": 10,
+      "value": 2737788.0
+    },
+    {
+      "sample": 11,
+      "value": 2810253.0
+    },
+    {
+      "sample": 12,
+      "value": 2866097.0
+    },
+    {
+      "sample": 13,
+      "value": 2920659.0
+    }
+  ],
+  "DCGM_FI_DEV_POWER_USAGE": [
+    {
+      "sample": 0,
+      "value": 52.306
+    },
+    {
+      "sample": 1,
+      "value": 84.117
+    },
+    {
+      "sample": 2,
+      "value": 85.229
+    },
+    {
+      "sample": 3,
+      "value": 84.56
+    },
+    {
+      "sample": 4,
+      "value": 226.031
+    },
+    {
+      "sample": 5,
+      "value": 452.748
+    },
+    {
+      "sample": 6,
+      "value": 454.895
+    },
+    {
+      "sample": 7,
+      "value": 456.214
+    },
+    {
+      "sample": 8,
+      "value": 457.493
+    },
+    {
+      "sample": 9,
+      "value": 335.806
+    },
+    {
+      "sample": 10,
+      "value": 100.22
+    },
+    {
+      "sample": 11,
+      "value": 92.816
+    },
+    {
+      "sample": 12,
+      "value": 60.603
+    },
+    {
+      "sample": 13,
+      "value": 55.702
+    }
+  ],
+  "DCGM_FI_DEV_XID_ERRORS": [],
+  "DCGM_FI_PROF_PCIE_TX_BYTES": [
+    {
+      "sample": 1,
+      "value": 2748400.0
+    },
+    {
+      "sample": 2,
+      "value": 336534.0
+    },
+    {
+      "sample": 3,
+      "value": 486075.0
+    },
+    {
+      "sample": 4,
+      "value": 37930941.0
+    },
+    {
+      "sample": 5,
+      "value": 7494828.0
+    },
+    {
+      "sample": 6,
+      "value": 7492237.0
+    },
+    {
+      "sample": 7,
+      "value": 7477665.0
+    },
+    {
+      "sample": 8,
+      "value": 7480474.0
+    },
+    {
+      "sample": 9,
+      "value": 22350461.0
+    },
+    {
+      "sample": 10,
+      "value": 265763.0
+    },
+    {
+      "sample": 11,
+      "value": 264703.0
+    },
+    {
+      "sample": 12,
+      "value": 271502.0
+    },
+    {
+      "sample": 13,
+      "value": 275183.0
+    }
+  ],
+  "DCGM_FI_PROF_PCIE_RX_BYTES": [
+    {
+      "sample": 1,
+      "value": 2095242.0
+    },
+    {
+      "sample": 2,
+      "value": 159355.0
+    },
+    {
+      "sample": 3,
+      "value": 281274.0
+    },
+    {
+      "sample": 4,
+      "value": 63783010.0
+    },
+    {
+      "sample": 5,
+      "value": 45432353.0
+    },
+    {
+      "sample": 6,
+      "value": 45406846.0
+    },
+    {
+      "sample": 7,
+      "value": 45343014.0
+    },
+    {
+      "sample": 8,
+      "value": 45410199.0
+    },
+    {
+      "sample": 9,
+      "value": 11581850.0
+    },
+    {
+      "sample": 10,
+      "value": 104837.0
+    },
+    {
+      "sample": 11,
+      "value": 104308.0
+    },
+    {
+      "sample": 12,
+      "value": 109544.0
+    },
+    {
+      "sample": 13,
+      "value": 112170.0
+    }
+  ]
+}

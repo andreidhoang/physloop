@@ -1,0 +1,29 @@
+Linux 6.8.0-87-generic x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.5 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+kvm
+0
+               total        used        free      shared  buff/cache   available
+Mem:     104149004288   577007616 99176009728     1171456  4395986944 102632071168
+Swap:              0           0           0
+Filesystem        1B-blocks       Used    Available Use% Mounted on
+/dev/root      166304071680 9986646016 156300648448   7% /
+name, uuid, driver_version, memory.total [MiB], power.limit [W]
+NVIDIA RTX PRO 6000 Blackwell Workstation Edition, GPU-e7664bde-fdf4-a368-400a-7f1d6a3d9f57, 580.95.05, 97887 MiB, 600.00 W
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package datacenter-gpu-manager-4-cuda13
+E: Unable to locate package nsight-compute-2025.3.1
+E: Couldn't find any package by glob 'nsight-compute-2025.3.1'
+E: Couldn't find any package by regex 'nsight-compute-2025.3.1'

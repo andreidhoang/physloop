@@ -1,0 +1,5 @@
+method,assumptions,fixed_planning_vs_operational,sigma_d,n,alpha,target_power,target_margin,mde_n441,n_pairs_for_margin_007
+normal_known_variance_paired_continuous,IID paired continuous scene-score differences; known sigma_d; one-sided alpha=.05; no cluster design effect,fixed_planning,0.1,441,0.05,0.8,0.07,0.011840356478687558,13
+normal_known_variance_paired_continuous,IID paired continuous scene-score differences; known sigma_d; one-sided alpha=.05; no cluster design effect,fixed_planning,0.3,441,0.05,0.8,0.07,0.03552106943606267,114
+normal_known_variance_paired_continuous,IID paired continuous scene-score differences; known sigma_d; one-sided alpha=.05; no cluster design effect,fixed_planning,0.5,441,0.05,0.8,0.07,0.05920178239343779,316
+normal_known_variance_paired_continuous,IID paired continuous scene-score differences; known sigma_d; one-sided alpha=.05; no cluster design effect,fixed_planning,0.8,441,0.05,0.8,0.07,0.09472285182950047,808

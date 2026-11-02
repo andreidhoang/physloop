@@ -1,0 +1,14 @@
+{
+  "id": 58628722,
+  "label": "physloop-s2-host-20261101-v1",
+  "actual_status": "loading",
+  "intended_status": "running",
+  "next_state": "running",
+  "status_msg": "2928981ec1d4: Pull complete",
+  "ssh_host": "ssh7.vast.ai",
+  "ssh_port": 34884,
+  "public_ipaddr": "121.158.120.134",
+  "ports": null,
+  "dph_total": 1.451111111111111,
+  "disk_usage": -1
+}

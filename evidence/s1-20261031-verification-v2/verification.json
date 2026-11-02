@@ -1,0 +1,51 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Users/danghuyhoang/Desktop/physloop/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/Users/danghuyhoang/Desktop/physloop/.venv/bin/ruff",
+        "check",
+        "gate",
+        "tests"
+      ],
+      "returncode": 0
+    }
+  ],
+  "exact_posthoc": {
+    "classification": "post_hoc_diagnostic_not_changed_acceptance",
+    "conclusion": "unusual count retained; source/data replay and aggregate audit found no defect",
+    "count_states": 24531,
+    "expected_errors_per_1000": 0.2673462260734902,
+    "false_go_probability": 0.0002673462260734902,
+    "probability_at_least_three_in_1000": 0.002603310546451363
+  },
+  "installed_wheel_smoke": {
+    "exit_code": 0,
+    "installed_module": "/var/folders/jk/23y_gcc56qg_43vr0br4l82h0000gn/T/physloop-s1-reproduce-rf3h792c/wheel-env/lib/python3.12/site-packages/gate/__init__.py",
+    "isolated_python": true,
+    "result": "GO"
+  },
+  "note": "Independent audit does not establish sampling assumptions for AlpaSim.",
+  "primary_artifacts_verified": 17,
+  "primary_manifest_sha256": "346bf21cccd508cde8803003d61a7f31e98f54fbda3667362d8d69b827a41a70",
+  "regression_counts_recomputed": true,
+  "reproduction_bitwise_matches": {
+    "config.json": true,
+    "outcomes.svg": true,
+    "power_tables.json": true,
+    "trials.jsonl": true
+  },
+  "source_files_verified": 28,
+  "trial_records": 10000
+}

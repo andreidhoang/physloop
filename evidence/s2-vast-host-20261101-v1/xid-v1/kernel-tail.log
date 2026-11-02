@@ -1,0 +1,80 @@
+Nov 01 06:57:03 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 06:57:03 ubuntu kernel: br-fbd49ac80389: port 2(vethc5d1524) entered blocking state
+Nov 01 06:57:03 ubuntu kernel: br-fbd49ac80389: port 2(vethc5d1524) entered disabled state
+Nov 01 06:57:03 ubuntu kernel: vethc5d1524: entered allmulticast mode
+Nov 01 06:57:03 ubuntu kernel: vethc5d1524: entered promiscuous mode
+Nov 01 06:57:03 ubuntu kernel: eth0: renamed from veth4821176
+Nov 01 06:57:03 ubuntu kernel: br-fbd49ac80389: port 2(vethc5d1524) entered blocking state
+Nov 01 06:57:03 ubuntu kernel: br-fbd49ac80389: port 2(vethc5d1524) entered forwarding state
+Nov 01 06:57:04 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 06:57:05 ubuntu kernel: br-fbd49ac80389: port 2(vethc5d1524) entered disabled state
+Nov 01 06:57:05 ubuntu kernel: veth4821176: renamed from eth0
+Nov 01 06:57:05 ubuntu kernel: br-fbd49ac80389: port 2(vethc5d1524) entered disabled state
+Nov 01 06:57:05 ubuntu kernel: vethc5d1524 (unregistering): left allmulticast mode
+Nov 01 06:57:05 ubuntu kernel: vethc5d1524 (unregistering): left promiscuous mode
+Nov 01 06:57:05 ubuntu kernel: br-fbd49ac80389: port 2(vethc5d1524) entered disabled state
+Nov 01 06:57:15 ubuntu kernel: veth4630775: renamed from eth0
+Nov 01 06:57:15 ubuntu kernel: br-fbd49ac80389: port 1(vetha88649a) entered disabled state
+Nov 01 06:57:15 ubuntu kernel: br-fbd49ac80389: port 1(vetha88649a) entered disabled state
+Nov 01 06:57:15 ubuntu kernel: vetha88649a (unregistering): left allmulticast mode
+Nov 01 06:57:15 ubuntu kernel: vetha88649a (unregistering): left promiscuous mode
+Nov 01 06:57:15 ubuntu kernel: br-fbd49ac80389: port 1(vetha88649a) entered disabled state
+Nov 01 06:58:04 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 06:59:22 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 06:59:48 ubuntu kernel: loop3: detected capacity change from 0 to 151600
+Nov 01 06:59:57 ubuntu kernel: loop4: detected capacity change from 0 to 238728
+Nov 01 06:59:57 ubuntu kernel: kauditd_printk_skb: 6 callbacks suppressed
+Nov 01 06:59:57 ubuntu kernel: audit: type=1400 audit(1793516397.923:76): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="/snap/snapd/25577/usr/lib/snapd/snap-confine" pid=4510 comm="apparmor_parser"
+Nov 01 06:59:57 ubuntu kernel: audit: type=1400 audit(1793516397.923:77): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="/snap/snapd/25577/usr/lib/snapd/snap-confine//mount-namespace-capture-helper" pid=4510 comm="apparmor_parser"
+Nov 01 06:59:58 ubuntu kernel: audit: type=1400 audit(1793516398.027:78): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.lxd.lxd" pid=4522 comm="apparmor_parser"
+Nov 01 06:59:58 ubuntu kernel: audit: type=1400 audit(1793516398.052:79): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.lxd.hook.install" pid=4518 comm="apparmor_parser"
+Nov 01 06:59:58 ubuntu kernel: audit: type=1400 audit(1793516398.061:80): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.lxd.daemon" pid=4516 comm="apparmor_parser"
+Nov 01 06:59:58 ubuntu kernel: audit: type=1400 audit(1793516398.076:81): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.lxd.benchmark" pid=4513 comm="apparmor_parser"
+Nov 01 06:59:58 ubuntu kernel: audit: type=1400 audit(1793516398.091:82): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.lxd.lxc" pid=4520 comm="apparmor_parser"
+Nov 01 06:59:58 ubuntu kernel: audit: type=1400 audit(1793516398.098:83): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.lxd.activate" pid=4512 comm="apparmor_parser"
+Nov 01 06:59:58 ubuntu kernel: audit: type=1400 audit(1793516398.098:84): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.lxd.buginfo" pid=4514 comm="apparmor_parser"
+Nov 01 06:59:58 ubuntu kernel: audit: type=1400 audit(1793516398.100:85): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.lxd.hook.remove" pid=4519 comm="apparmor_parser"
+Nov 01 07:00:03 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 1(vethca4e6e4) entered blocking state
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 1(vethca4e6e4) entered disabled state
+Nov 01 07:03:19 ubuntu kernel: vethca4e6e4: entered allmulticast mode
+Nov 01 07:03:19 ubuntu kernel: vethca4e6e4: entered promiscuous mode
+Nov 01 07:03:19 ubuntu kernel: eth0: renamed from veth6e20b3c
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 1(vethca4e6e4) entered blocking state
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 1(vethca4e6e4) entered forwarding state
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 2(vethaff8598) entered blocking state
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 2(vethaff8598) entered disabled state
+Nov 01 07:03:19 ubuntu kernel: vethaff8598: entered allmulticast mode
+Nov 01 07:03:19 ubuntu kernel: vethaff8598: entered promiscuous mode
+Nov 01 07:03:19 ubuntu kernel: eth0: renamed from vethbd1f901
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 2(vethaff8598) entered blocking state
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 2(vethaff8598) entered forwarding state
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 2(vethaff8598) entered disabled state
+Nov 01 07:03:19 ubuntu kernel: vethbd1f901: renamed from eth0
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 2(vethaff8598) entered disabled state
+Nov 01 07:03:19 ubuntu kernel: vethaff8598 (unregistering): left allmulticast mode
+Nov 01 07:03:19 ubuntu kernel: vethaff8598 (unregistering): left promiscuous mode
+Nov 01 07:03:19 ubuntu kernel: br-427f11893934: port 2(vethaff8598) entered disabled state
+Nov 01 07:03:29 ubuntu kernel: br-427f11893934: port 1(vethca4e6e4) entered disabled state
+Nov 01 07:03:29 ubuntu kernel: veth6e20b3c: renamed from eth0
+Nov 01 07:03:29 ubuntu kernel: br-427f11893934: port 1(vethca4e6e4) entered disabled state
+Nov 01 07:03:29 ubuntu kernel: vethca4e6e4 (unregistering): left allmulticast mode
+Nov 01 07:03:29 ubuntu kernel: vethca4e6e4 (unregistering): left promiscuous mode
+Nov 01 07:03:29 ubuntu kernel: br-427f11893934: port 1(vethca4e6e4) entered disabled state
+Nov 01 07:03:30 ubuntu kernel: NVRM: refcntRequestReference_IMPL: Failed to enter state 1 (current state: 0, status: 0x00000056)
+Nov 01 07:03:32 ubuntu kernel: NVRM: refcntRequestReference_IMPL: Failed to enter state 1 (current state: 0, status: 0x00000056)
+Nov 01 07:03:32 ubuntu kernel: NVRM: refcntRequestReference_IMPL: Failed to enter state 1 (current state: 0, status: 0x00000056)
+Nov 01 07:03:32 ubuntu kernel: NVRM: refcntRequestReference_IMPL: Failed to enter state 1 (current state: 0, status: 0x00000056)
+Nov 01 07:03:32 ubuntu kernel: NVRM: refcntRequestReference_IMPL: Failed to enter state 1 (current state: 0, status: 0x00000056)
+Nov 01 07:10:10 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:10:11 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:10:13 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:10:58 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:12:16 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:13:00 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:13:01 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:13:03 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:13:05 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:13:06 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:13:33 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy
+Nov 01 07:14:50 ubuntu kernel: NVRM: kbifInitLtr_GB202: LTR is disabled in the hierarchy

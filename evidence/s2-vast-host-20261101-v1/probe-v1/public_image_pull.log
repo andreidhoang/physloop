@@ -1,0 +1,37 @@
+12.8.1-devel-ubuntu22.04: Pulling from nvidia/cuda
+72ac9ccfda38: Pulling fs layer
+5601308b3ac6: Pulling fs layer
+73389fbd088f: Pulling fs layer
+9cb31e2e37ea: Pulling fs layer
+0264850675f7: Pulling fs layer
+de1d03310308: Pulling fs layer
+b95112eaf283: Pulling fs layer
+6b2035e8b73e: Pulling fs layer
+030ef8250936: Pulling fs layer
+ed71f8f81b33: Pulling fs layer
+c1d2af7fad0f: Pulling fs layer
+b95112eaf283: Download complete
+c1d2af7fad0f: Download complete
+73389fbd088f: Download complete
+ed71f8f81b33: Download complete
+de1d03310308: Download complete
+72ac9ccfda38: Download complete
+5601308b3ac6: Download complete
+9cb31e2e37ea: Download complete
+030ef8250936: Download complete
+9cb31e2e37ea: Pull complete
+b95112eaf283: Pull complete
+73389fbd088f: Pull complete
+72ac9ccfda38: Pull complete
+030ef8250936: Pull complete
+0264850675f7: Download complete
+c1d2af7fad0f: Pull complete
+de1d03310308: Pull complete
+5601308b3ac6: Pull complete
+0264850675f7: Pull complete
+6b2035e8b73e: Download complete
+ed71f8f81b33: Pull complete
+6b2035e8b73e: Pull complete
+Digest: sha256:a99a1860ba8e2916e5c3e73b72ec4c4301653a84586e05bfc9a2aa2d58027e97
+Status: Downloaded newer image for nvidia/cuda:12.8.1-devel-ubuntu22.04
+docker.io/nvidia/cuda:12.8.1-devel-ubuntu22.04

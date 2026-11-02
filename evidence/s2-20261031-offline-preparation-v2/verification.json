@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "scope": "S2 offline preparation only",
+  "created_at": "2026-10-31T10:55:56.755971+00:00",
+  "passed": true,
+  "cloud_spend_usd": 0,
+  "gpu_runs": 0,
+  "licensed_assets_downloaded": false,
+  "cloud_launch_authorized": false,
+  "checks": [
+    {
+      "name": "tests",
+      "command": [
+        "/Users/danghuyhoang/Desktop/physloop/.venv/bin/python3",
+        "-B",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "lint",
+      "command": [
+        "/Users/danghuyhoang/Desktop/physloop/.venv/bin/python3",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "gate",
+        "tests",
+        "scripts"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "diff_whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0
+    }
+  ],
+  "drafts": {
+    "S2_PILOT_DRAFT": {
+      "ready": false,
+      "blocker_count": 31
+    },
+    "S2_FULL_DRAFT": {
+      "ready": false,
+      "blocker_count": 38
+    }
+  },
+  "s1_protected_sources_unchanged": true,
+  "sources_unchanged_during_checks": true,
+  "git_base": "cfce036f87be71fcf9c729fd2b46140ee6394621",
+  "source_sha256": {
+    "docs/00_START_HERE.md": "171b9a77bc8c3f5925b2b9ee3f0adbba98189ae38d6344bb85247dc530350741",
+    "docs/DECISIONS.md": "46d4d3c594599db29b6f60594881e0af2d7bb0b9aed300cc2569f28a05ed1506",
+    "docs/RESEARCH_OPERATING_MODEL.md": "2866c41eb9049e32899f5683daacd2c8f1e0332480a50b193e1290afe6a16e39",
+    "docs/S2_ENGINEERING_SPEC.md": "06ace66559b0b0fb0f6852d24b36e7d191ebf21d3b06c6d89cf25a3306478f96",
+    "docs/S2_IMPLEMENTATION_PLAN.md": "f982b5af6f498d95cbc3cbc14613295e87fe27ebbcc4f3ce09df0163ace99ffd",
+    "docs/research/2026-10-31-s2-models-budget.md": "304b4e9b6ba4a5a1e2ae9c895b9830e3802fa4fc94c9e4baf0ebdc0458cda4bb",
+    "docs/research/2026-10-31-s2-upstream.md": "cf8a8e120dcf186d79815605c4dce3537f598bf5f8059c5fca3a5a550d931c27",
+    "evidence/s1-20261031-autonomous-v1/manifest.json": "346bf21cccd508cde8803003d61a7f31e98f54fbda3667362d8d69b827a41a70",
+    "experiments/2026-10-31-s1-autonomous.md": "3aa319aab90483db3b1d0b7eb36a3882970bc8ec7ca6e6e612965c62dd9949ae",
+    "experiments/2026-10-31-s1-synthetic-truth.md": "74648044287aeb046198f39c7c5c610311abb0685ee01c4c19db18c63971571e",
+    "experiments/2026-10-31-s2-preparation.md": "a661332528394a5f8737c83b9f108ee3173b81ff6f58bdaca2f1e707ae611394",
+    "experiments/S2_FULL_DRAFT.json": "4e0204722784bfc6a7ec4a99e42de37507d6212f533260a2c151aed0f755528f",
+    "experiments/S2_MANIFEST_DRAFT.json": "22bb890e6079a735f39152b67df9782bf0e111dcccf15357c7c27814b26e8706",
+    "experiments/S2_PILOT_DRAFT.json": "f171023e4617b69b234cbc402e73751ca4f6d9a0c506d23be52bcfeb5183ef83",
+    "experiments/TEMPLATE.md": "52a219e28b593d3a18cd16eddfb97aa1639308102d0c31afa266386db6d1a045",
+    "gate/__init__.py": "9e72f09ee92c599dbea388fcfe20f6bcbc18bcfc25af99d41096957d7b861abb",
+    "gate/__main__.py": "a32989e7fe95310056cdaf96801791fddd0b4883d2b2f13d08956c03eafefb1c",
+    "gate/alpasim_adapter.py": "ac6318fd82832d10b8626b49965e7c10b5dfd909772458c2c0c7ed30bb875ba4",
+    "gate/api.py": "c6d83288bc93058ada57e2e11db62a2127510dea915a64e7e836759471cdbec0",
+    "gate/contracts.py": "b5f9eb7598e0d0b4cd3d878d4edda8c2e23d29044a0da8d7c3ad6e09a6897938",
+    "gate/experiment.py": "f2b6c9849ef1414d03e701f696c31108b71c12b6533bf989382274220a8451e9",
+    "gate/power.py": "15cbb8c0bbd3806395454e9e0720998117eacd02fb8e835c5f59f63177c916c1",
+    "gate/s2.py": "b0e0272666914fd831494921fae3da060e4db877eae847de78fa7ea3f43a106f",
+    "gate/s2_preflight.py": "9c3e627a6db2a5cb861d827128a331a1f43f741e29d914e0c63f45645507779c",
+    "gate/sequential.py": "0ac33360cf85faa9439939235eed264d924b623425f0f78419b6a4871b184549",
+    "gate/stats/__init__.py": "5856100fb87a171f0bd4c3534896a43877f8d9d30e240f1d3aebfb46e3c44a9f",
+    "gate/synthetic.py": "8e4c80f0bb4fe08bf1cbd27375222a914d39db7f59b33db5fb545ef98178dde9",
+    "gate/verdict.py": "4a6329414d195719d451b7bd0086e5f5d35a5005b797ab51755112f04c2d5e98",
+    "pyproject.toml": "84ad42082b90df591ec10e80aa4e2de014bc1cfa87ef32c06e2c76b96e1fbff3",
+    "scripts/verify_s1.py": "700fa67ebf947ba1a5e03f7e14f09e8db568daf48de210a32e8801540c1f3963",
+    "scripts/verify_s2.py": "f5465f7fed14e21c96e374b67d25b8583c8a60dbf6b3057b79fccd9d2f285fec",
+    "tests/conftest.py": "22c6185e721078cfd9339fedec9adea712bd6940882ef30445df5bce3c5fc198",
+    "tests/cores.py": "fb511dc6811eb711bb1ce2c0cbff2575136c186fb9b5da75c16b43d91e225f45",
+    "tests/fixtures/alpasim/LICENSE": "50201750cc0542d4656d8d95f002f78357021b7c3c975b53924000b7ddc5a24e",
+    "tests/fixtures/alpasim/README.md": "741ef62456e26c337d876ed6ac7c0f1b03220237a1fee551eb1e308a9e46c3a6",
+    "tests/fixtures/alpasim/ground_truth_20235345.py.txt": "cdc7c9e2a3101b74335ef381f98088fc901f8e264e44f2bf8e89faa27fc45b11",
+    "tests/fixtures/alpasim/ground_truth_e121e591.py.txt": "5bd239cbe30fee33aeff44c86cf43a05da0ec5095068c86f2ef14f4c102c76c4",
+    "tests/fixtures/alpasim/provenance.json": "e0d4156b39747c2a4f3de818900fdf20a0348eba3d63277189e361719eb1809e",
+    "tests/test_alpasim_adapter.py": "75bdee1d43569bba258fa0ddf65866b344ba46c1d925788b0dd305f4a691c227",
+    "tests/test_alpasim_ground_truth_upstream.py": "ecbbe4c0da0851eaff5569f44f94186b574e3404151e4b9256d0e876e29c3e62",
+    "tests/test_api.py": "a6f0d74dffcef6bc54a2e5cffb44502658e3bf6902bce54a5bab795808f871c4",
+    "tests/test_bounds_proof.py": "d1b82ee5e88e851e5dc5939a01d860f5479101b2e1912114f26659e06060a85f",
+    "tests/test_contracts.py": "2a5ff52da78e1128c9f46abeea2afa7f6c17baa2a9681b5794945a15f3005513",
+    "tests/test_experiment.py": "234303e5d5307799f50e51a4874f5cbe5dd291fe12455d13d34282dcd29347a4",
+    "tests/test_gate_engine.py": "26e30044982ca661740b0a3d7fce97f97076aeaa6da5d389d733553e71959de1",
+    "tests/test_harness.py": "cf1f66d537cf8692e88e3c1e050c5234d7f1172b74465b10e1b0c3f1222f2a59",
+    "tests/test_known_answers.py": "8f422de944162a98dd553abf60340dcdc145e37ca71ac8e523dd8fe6abb63fc3",
+    "tests/test_power.py": "1638a94f98b462361738abf728ad0ee5ced5f85b72a12dbf83c3ed52635970e9",
+    "tests/test_s2_cli.py": "4750ae0383e880ec11f4df3abeacec8b31c00722dab6e1ebc90f77089a62f934",
+    "tests/test_s2_preflight.py": "4a068f8aeea28fd20cfe37b755283a2fd9895120ae25b1b9f4eb8c17f7ef42f1",
+    "tests/test_stats_reference.py": "4449a571ae8e738c5ee85219f885d9e28bdea50e10b7111387c3295930c3f001",
+    "tests/test_synthetic.py": "6ebef29e47e9c52b3a9b7f05f312fb5604dc5c3b2304607cc7ec5c126c761124",
+    "tests/test_verdict_contract.py": "a947cb67a51d34e7e6b3ec47df27e8166fcfb0e9dd9e9028ce8a498d8aba1612",
+    "uv.lock": "b2990699e2ed864013ad50db34d832d51558fc28ff61bd8526147f0a90f22757"
+  },
+  "unverified": [
+    "real AlpaSim integration",
+    "sidecar authenticity",
+    "road sampling assumptions",
+    "full evaluator/runtime",
+    "GPU performance/reliability",
+    "license/budget decisions"
+  ]
+}

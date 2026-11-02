@@ -1,0 +1,72 @@
+RUF100 [*] Unused `noqa` directive (non-enabled: `E402`)
+ --> scripts/vast_dcgm_xid_status.py:7:20
+  |
+6 | sys.path.insert(0, "/usr/share/datacenter-gpu-manager-4/bindings/python3")
+7 | import dcgm_agent  # noqa: E402
+  |                    ^^^^^^^^^^^^
+8 | import dcgm_fields  # noqa: E402
+9 | import dcgm_structs  # noqa: E402
+  |
+help: Remove unused `noqa` directive
+  |
+6 | sys.path.insert(0, "/usr/share/datacenter-gpu-manager-4/bindings/python3")
+  - import dcgm_agent  # noqa: E402
+7 + import dcgm_agent
+8 | import dcgm_fields  # noqa: E402
+  |
+
+RUF100 [*] Unused `noqa` directive (non-enabled: `E402`)
+  --> scripts/vast_dcgm_xid_status.py:8:21
+   |
+ 6 | sys.path.insert(0, "/usr/share/datacenter-gpu-manager-4/bindings/python3")
+ 7 | import dcgm_agent  # noqa: E402
+ 8 | import dcgm_fields  # noqa: E402
+   |                     ^^^^^^^^^^^^
+ 9 | import dcgm_structs  # noqa: E402
+10 | import dcgmvalue  # noqa: E402
+   |
+help: Remove unused `noqa` directive
+  |
+7 | import dcgm_agent  # noqa: E402
+  - import dcgm_fields  # noqa: E402
+8 + import dcgm_fields
+9 | import dcgm_structs  # noqa: E402
+  |
+
+RUF100 [*] Unused `noqa` directive (non-enabled: `E402`)
+  --> scripts/vast_dcgm_xid_status.py:9:22
+   |
+ 7 | import dcgm_agent  # noqa: E402
+ 8 | import dcgm_fields  # noqa: E402
+ 9 | import dcgm_structs  # noqa: E402
+   |                      ^^^^^^^^^^^^
+10 | import dcgmvalue  # noqa: E402
+   |
+help: Remove unused `noqa` directive
+   |
+8  | import dcgm_fields  # noqa: E402
+   - import dcgm_structs  # noqa: E402
+9  + import dcgm_structs
+10 | import dcgmvalue  # noqa: E402
+   |
+
+RUF100 [*] Unused `noqa` directive (non-enabled: `E402`)
+  --> scripts/vast_dcgm_xid_status.py:10:19
+   |
+ 8 | import dcgm_fields  # noqa: E402
+ 9 | import dcgm_structs  # noqa: E402
+10 | import dcgmvalue  # noqa: E402
+   |                   ^^^^^^^^^^^^
+11 |
+12 | handle = group = fields = None
+   |
+help: Remove unused `noqa` directive
+   |
+9  | import dcgm_structs  # noqa: E402
+   - import dcgmvalue  # noqa: E402
+10 + import dcgmvalue
+11 |
+   |
+
+Found 4 errors.
+[*] 4 fixable with `--fix`.

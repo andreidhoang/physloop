@@ -1,0 +1,25 @@
+{
+  "id": 58628722,
+  "label": "physloop-s2-host-20261101-v1",
+  "actual_status": "created",
+  "intended_status": "running",
+  "next_state": "running",
+  "status_msg": "success, running docker.io/vastai/kvm:ubuntu_cli_22.04-2025-11-21",
+  "ssh_host": "ssh7.vast.ai",
+  "ssh_port": 34884,
+  "public_ipaddr": "121.158.120.134",
+  "ports": {
+    "22/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "24207"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "24207"
+      }
+    ]
+  },
+  "dph_total": 1.451111111111111,
+  "disk_usage": 0.00045200000749900937
+}

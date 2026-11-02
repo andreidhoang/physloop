@@ -1,0 +1,21 @@
+raw_status_v3_exit=0
+{
+  "field_id": 230,
+  "status": -14,
+  "timestamp": 0,
+  "raw_int64": 9223372036854775792,
+  "status_constants": {
+    "DCGM_ST_OK": 0,
+    "DCGM_ST_NO_DATA": -14,
+    "DCGM_ST_NOT_SUPPORTED": -6,
+    "DCGM_ST_NOT_WATCHED": -16,
+    "DCGM_ST_NO_PERMISSION": -17
+  },
+  "blank_constants": {
+    "DCGM_INT64_BLANK": 9223372036854775792,
+    "DCGM_INT64_NOT_FOUND": 9223372036854775793,
+    "DCGM_INT64_NOT_SUPPORTED": 9223372036854775794,
+    "DCGM_INT64_NOT_PERMISSIONED": 9223372036854775795
+  },
+  "interpretation": "Raw field state only; event delivery remains unverified"
+}

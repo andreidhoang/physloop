@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-01T07:12:57.256263+00:00",
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "-o",
+    "UserKnownHostsFile=/Users/danghuyhoang/Desktop/physloop/evidence/s2-vast-host-20261101-v1/ssh-known-hosts",
+    "-i",
+    "/Users/danghuyhoang/.ssh/id_ed25519",
+    "-p",
+    "24207",
+    "root@121.158.120.134",
+    "set -u; mkdir /root/physloop-xid-v1; cp /root/vast_nvml_xid_probe.cpp /root/physloop-xid-v1/; timeout 60s docker run --rm --name physloop-xid-compile --gpus all --network none --mount type=bind,src=/root/physloop-xid-v1,dst=/probe sha256:a99a1860ba8e2916e5c3e73b72ec4c4301653a84586e05bfc9a2aa2d58027e97 bash -c \"g++ -std=c++17 -I/usr/local/cuda/include /probe/vast_nvml_xid_probe.cpp -L/usr/local/cuda/lib64/stubs -lnvidia-ml -o /probe/nvml_xid_probe\" > /root/physloop-xid-v1/compile.log 2>&1; rc=$?; echo compile_exit=$rc; if test $rc -eq 0; then timeout -k 5s 20s docker run --rm --name physloop-xid-run --gpus all --network none --mount type=bind,src=/root/physloop-xid-v1,dst=/probe sha256:a99a1860ba8e2916e5c3e73b72ec4c4301653a84586e05bfc9a2aa2d58027e97 timeout 10s /probe/nvml_xid_probe > /root/physloop-xid-v1/nvml.log 2>&1; echo nvml_exit=$?; cat /root/physloop-xid-v1/nvml.log; fi; dpkg-query -L datacenter-gpu-manager-4-python3 | grep dcgm_agent.py"
+  ]
+}

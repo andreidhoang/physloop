@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-11-01T06:51:31.938617+00:00",
+  "instances": [
+    {
+      "id": 58628722,
+      "label": "physloop-s2-host-20261101-v1",
+      "actual_status": "loading",
+      "intended_status": "running",
+      "next_state": "running",
+      "status_msg": null,
+      "ssh_host": "ssh7.vast.ai",
+      "ssh_port": 34884,
+      "public_ipaddr": "121.158.120.134",
+      "dph_total": 1.451111111111111,
+      "is_vm": null,
+      "start_date": 1793515876.9284534
+    }
+  ]
+}

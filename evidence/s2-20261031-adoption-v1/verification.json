@@ -1,0 +1,100 @@
+{
+  "recorded_at": "2026-10-31T13:44:07.326454+00:00",
+  "passed": true,
+  "scope": "D018 contracts/cash-cap adoption and rental/license preparation",
+  "contracts_policy_matches": true,
+  "checks": [
+    {
+      "name": "tests",
+      "returncode": 0,
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-B",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ]
+    },
+    {
+      "name": "lint",
+      "returncode": 0,
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "gate",
+        "tests",
+        "scripts"
+      ]
+    },
+    {
+      "name": "diff_whitespace",
+      "returncode": 0,
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    },
+    {
+      "name": "guard_unchanged",
+      "returncode": 0,
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        ".claude"
+      ]
+    }
+  ],
+  "manifests": {
+    "S2_PILOT_DRAFT": {
+      "cash_caps_recorded": true,
+      "ready": false,
+      "blocker_count": 24,
+      "cloud_launch_authorized": false
+    },
+    "S2_FULL_DRAFT": {
+      "cash_caps_recorded": true,
+      "ready": false,
+      "blocker_count": 37,
+      "cloud_launch_authorized": false
+    }
+  },
+  "protected_inference_files_unchanged": {
+    "gate/stats/__init__.py": true,
+    "gate/verdict.py": true
+  },
+  "cash_spent_usd": 0,
+  "licenses_accepted": false,
+  "gpu_rented": false,
+  "browser_observation": "Nebius console redirected to login; no login or form submission; account quote not verified",
+  "source_sha256": {
+    "AGENTS.md": "3af51ffab2ca4fbac89696d7cf660412507093c9c4c683ce02b49d403ddba56b",
+    "CLAUDE.md": "e3854689688fd29eaa27cfd5b67990cc1e1f21e19ddc44affb6cd82088c57f51",
+    "DOC_AUTHORITY.md": "e4445f47f3b3ec650e17a75c99d85a926a86f2ee88dbabf40de181c0e3b0d2be",
+    "docs/DECISIONS.md": "6db135d001343d31cbd22427553ad0da7248bae458f884df051407c353f89e74",
+    "docs/00_START_HERE.md": "1e12f649776d39dd75729076f9127665a74656e68e6966d9af662203c09c0c90",
+    "docs/02_PHYSLOOP_PLAN.md": "d30751e4467803c8fa0db0c55f830c8f03ed0cf1c9cd2ef5661f4f5d219204d4",
+    "docs/03_MASTERY_PLAN.md": "1c5fd013c2c21502317bd27131e01e1972fd73df9962f0024f76d48d976a9d62",
+    "docs/RESEARCH_OPERATING_MODEL.md": "b8bfae55c1069688556d57ea7da41729e66868b3703017da81b633af3caa542e",
+    "docs/S2_RENTAL_APPROVAL.md": "f8f6237fb5a644f35d7d06416f37692bf4a140b1d85dbc901823da75f0a29d0f",
+    "docs/S2_ENGINEERING_SPEC.md": "b2a6a5e414885b0ddbb9a069e21d5c482ce2e18744c1ef249ba24c611c65aa1e",
+    "docs/S2_IMPLEMENTATION_PLAN.md": "a81de60ce9d809db3850fc1b8d85be8b80964ec9dfa59f837c7045a140719201",
+    "docs/S2_HANDOFF.md": "d78315573e0adfc3bb80365eb5a76713048b09063ed3a17cba8d2576d8b5ea71",
+    "gate/s2_preflight.py": "a907d0be46963be550be2abdcf22845ec00f6c0b03ead4c1a9d4bf305d1fdc7a",
+    "tests/test_s2_preflight.py": "c0006d32c2493df71ac6205f4b29445c0f161ee2e95ddd632e6caff92a40fec6",
+    "experiments/S2_PILOT_DRAFT.json": "1fc07dd1749312115300d55a0315214f948144e960a50a1ef3b6506f21895a56",
+    "experiments/S2_FULL_DRAFT.json": "4c07f5ea1c1a3d26e90078bc5005fec46361ee444f16c01ad2cb974bdf011b4a",
+    "docs/research/2026-10-31-s2-license-approval.md": "83fbe15bbc85c5ad8ef831911a1bea840491f3482cfb09b911fdf23861e091bc",
+    "docs/research/2026-10-31-s2-rental-approval.md": "c57ebf0662d83effef72d52e338abd47e73fc39885d1d3fd77c67cc7ff5073ee"
+  }
+}

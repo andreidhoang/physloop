@@ -1,0 +1,16 @@
+Using CPython 3.12.11
+Creating virtual environment at: .venv
+   Building physloop-gate @ file:///private/var/folders/jk/23y_gcc56qg_43vr0br4l82h0000gn/T/physloop-s2-replay-fy3sfkst
+      Built physloop-gate @ file:///private/var/folders/jk/23y_gcc56qg_43vr0br4l82h0000gn/T/physloop-s2-replay-fy3sfkst
+Prepared 1 package in 359ms
+Installed 10 packages in 89ms
+ + iniconfig==2.3.1
+ + numpy==2.5.4
+ + packaging==26.3
+ + physloop-gate==0.0.0 (from file:///private/var/folders/jk/23y_gcc56qg_43vr0br4l82h0000gn/T/physloop-s2-replay-fy3sfkst)
+ + pluggy==1.7.0
+ + pygments==2.21.0
+ + pytest==9.2.0
+ + ruff==0.17.3
+ + scipy==1.18.1
+ + shapely==2.1.2

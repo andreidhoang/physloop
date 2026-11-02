@@ -1,0 +1,21 @@
+{
+  "at_utc": "2026-11-01T07:20:12.864857+00:00",
+  "pid": 42527,
+  "deadline_utc": "2026-11-01T07:20:24.861263+00:00",
+  "source_sha256": "a2dfc536bc9a7ba99ad17c798ddc6c173dba1c761878c97dfbfc398ab652dbd7",
+  "args": [
+    "/Users/danghuyhoang/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/bin/python3.12",
+    "-B",
+    "scripts/vast_stop_watchdog.py",
+    "--instance-id",
+    "58628722",
+    "--expected-label",
+    "physloop-s2-host-20261101-v1",
+    "--deadline-utc",
+    "2026-11-01T07:20:24.861263+00:00",
+    "--events",
+    "evidence/s2-vast-host-20261101-v1/watchdog-live-stop-events.jsonl",
+    "--cli",
+    "/opt/homebrew/bin/vastai"
+  ]
+}

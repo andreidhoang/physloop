@@ -1,0 +1,19 @@
+{
+  "config.json": "ff83bb9bfdc06259161baa13a7b0ef3a5a40bbe95d01dd626cb3b0fdcb85efc0",
+  "manifest.json": "346bf21cccd508cde8803003d61a7f31e98f54fbda3667362d8d69b827a41a70",
+  "outcomes.svg": "2b8b75185a4f4e5b35d05c8e79be41404db75ed949d68a518b05a3de5f1982f3",
+  "power_tables.json": "044f6e265cc144494bf926a3ddc88f678ac1dd55f8a66c4df92cbddba32a6c16",
+  "report.md": "151ed45101d95a054b65b031ca34644ce4fb0c71f9cb7e34a67d388df6efa517",
+  "source.zip": "85ca80ce0f88969a3afbf2a0fd51be993a36c075a00aecc3d73daf0cb9d8be9e",
+  "summary.json": "62398c7fb897c8bc380ba039b9dee238b320d496611f82b7b0f2893359acf8b3",
+  "tables/binary_sample_size.csv": "2177dda736a68a81b978027ac309820928b9c88945d54ca8cc602b6d2b165c75",
+  "tables/continuous_score.csv": "e4a88d8820366694ea00a92e14b88d9f2dedd6c32e85e58ecdea3c11ce347e89",
+  "tables/gaussian_sequential.csv": "03aa110cce2d57ae2e5f2ce7b80a4a6ae84b3a3377de5f420f42e873936775d0",
+  "tables/intersection_union.csv": "3d0517e83fcd6d0fc2cf01bcf2f2b95021916a8a36c350c9848df0323551c677",
+  "tables/noninferiority_margins.csv": "51e577d334a59aa6ac3958db95b9520a96e9d0d673f83dc96c5e896280ba4598",
+  "tables/operational_road_bounds.csv": "33aa7e76c277582a0b51a462693ac1a4bef0253ed3ad4b3ded299247ced0adb8",
+  "tables/rate_ratio_planning.csv": "14e515156d0c170f7b87729a6bd08543d065c0d8458f906d0009b816ebd5228f",
+  "tables/reference_diagnostics.csv": "5766a8edf2b5396aa4f37031db8deedc7bebc5dc692df01ac391a51e018a5815",
+  "tables/replicate_tradeoff.csv": "99e73891ba9f02685cb01f4d0c8917d9911eeacb4d588321df6c6db7f1fd879f",
+  "trials.jsonl": "7111b12bdd68b0f08b765ee51ae4e06f4f0ce95ec79d278056b749dc37f77050"
+}

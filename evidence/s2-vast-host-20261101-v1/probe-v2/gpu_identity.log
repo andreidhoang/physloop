@@ -1,0 +1,2 @@
+index, name, uuid, driver_version, memory.total [MiB], pci.bus_id
+0, NVIDIA RTX PRO 6000 Blackwell Workstation Edition, GPU-e7664bde-fdf4-a368-400a-7f1d6a3d9f57, 580.95.05, 97887 MiB, 00000000:00:07.0

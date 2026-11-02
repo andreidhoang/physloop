@@ -1,0 +1,7 @@
+visible_devices=1 tested_device=0 name=NVIDIA RTX PRO 6000 Blackwell Workstation Edition elements=1048576
+cpu_reference_mismatches=0 repeat_bitwise=PASS negative_control_mismatches=1
+Collecting data...
+Generating '/tmp/nsys-report-2154.qdstrm'
+[1/1] [0%                          ] nsys-cuda.nsys-rep[1/1] [0%                          ] nsys-cuda.nsys-rep[1/1] [5%                          ] nsys-cuda.nsys-rep[1/1] [===23%                      ] nsys-cuda.nsys-rep[1/1] [========41%                 ] nsys-cuda.nsys-rep[1/1] [================68%         ] nsys-cuda.nsys-rep[1/1] [=======================95%  ] nsys-cuda.nsys-rep[1/1] [========================100%] nsys-cuda.nsys-rep[1/1] [========================100%] nsys-cuda.nsys-rep
+Generated:
+	/root/physloop-host-results-v2/nsys-cuda.nsys-rep

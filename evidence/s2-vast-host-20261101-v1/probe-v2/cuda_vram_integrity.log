@@ -1,0 +1,18 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+vram_total_bytes=101971722240 vram_free_before_bytes=101386420224 tested_device=0
+vram_allocated_bytes=76039815168 full_gpu_verification_words=9504976896 cpu_samples=1024
+vram_gpu_mismatches=0 vram_cpu_sample_mismatches=0 vram_free_after_bytes=101386420224 allocation_released=PASS

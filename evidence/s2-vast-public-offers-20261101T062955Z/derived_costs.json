@@ -1,0 +1,20 @@
+[
+  {
+    "offer_id": 56403068,
+    "compute_8h_usd": 11.210666666666667,
+    "storage_8h_usd": 1.1111111111111114,
+    "storage_168h_usd": 23.33333333333334,
+    "base_8h_usd": 12.321777777777777,
+    "base_8h_compute_168h_storage_usd": 34.544000000000004,
+    "excludes": "transfer, taxes, FX and other account charges; assumes quoted storage tariff persists; Vast disk request 500 GB, Nebius proposal 500 GiB differs"
+  },
+  {
+    "offer_id": 58291364,
+    "compute_8h_usd": 19.2,
+    "storage_8h_usd": 1.1111111111111112,
+    "storage_168h_usd": 23.333333333333336,
+    "base_8h_usd": 20.31111111111111,
+    "base_8h_compute_168h_storage_usd": 42.53333333333333,
+    "excludes": "transfer, taxes, FX and other account charges; assumes quoted storage tariff persists; Vast disk request 500 GB, Nebius proposal 500 GiB differs"
+  }
+]

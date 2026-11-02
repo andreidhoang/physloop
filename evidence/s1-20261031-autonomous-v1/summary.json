@@ -1,0 +1,282 @@
+{
+  "calibration_pass": true,
+  "cells": {
+    "cluster_boundary/fixed": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "cluster_boundary/sequential": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "cluster_harmful/fixed": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "cluster_harmful/sequential": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "cluster_one_bad/fixed": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "cluster_one_bad/sequential": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "iid_boundary/fixed": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "iid_boundary/sequential": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "iid_equivalent/fixed": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_NO_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "equal"
+    },
+    "iid_equivalent/sequential": {
+      "any_stratum_insufficient": 999,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "GO": 1,
+        "INSUFFICIENT": 999
+      },
+      "error_type": "false_NO_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "equal"
+    },
+    "iid_gross/fixed": {
+      "any_stratum_insufficient": 4,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "NO-GO": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "iid_gross/sequential": {
+      "any_stratum_insufficient": 390,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1,
+        "NO-GO": 999
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "iid_harmful/fixed": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "iid_harmful/sequential": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "iid_identical/fixed": {
+      "any_stratum_insufficient": 0,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "GO": 1000
+      },
+      "error_type": "false_NO_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "equal"
+    },
+    "iid_identical/sequential": {
+      "any_stratum_insufficient": 0,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "GO": 1000
+      },
+      "error_type": "false_NO_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "equal"
+    },
+    "iid_one_bad/fixed": {
+      "any_stratum_insufficient": 997,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "GO": 3,
+        "INSUFFICIENT": 997
+      },
+      "error_type": "false_GO",
+      "errors": 3,
+      "one_sided_upper": 0.011834534453802153,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "iid_one_bad/sequential": {
+      "any_stratum_insufficient": 998,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "GO": 2,
+        "INSUFFICIENT": 998
+      },
+      "error_type": "false_GO",
+      "errors": 2,
+      "one_sided_upper": 0.010083663306369256,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "rare_harm/fixed": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    },
+    "rare_harm/pooled_fixed": {
+      "any_stratum_insufficient": 1,
+      "counts": {
+        "GO": 999,
+        "INSUFFICIENT": 1
+      },
+      "trials": 1000,
+      "truth": "different_pooled_estimand"
+    },
+    "rare_harm/sequential": {
+      "any_stratum_insufficient": 1000,
+      "confidence_tail": 0.0025,
+      "counts": {
+        "INSUFFICIENT": 1000
+      },
+      "error_type": "false_GO",
+      "errors": 0,
+      "one_sided_upper": 0.005973551516349581,
+      "trials": 1000,
+      "truth": "bad"
+    }
+  },
+  "controls": {
+    "gross_detected": true,
+    "identical_all_go": true,
+    "pooling_exposes_hidden_loss": true,
+    "rare_no_go": true
+  },
+  "elapsed_seconds": 82.98314349981956,
+  "experiment_pass": true,
+  "note": "Not an unconditional correctness proof or authorization to spend in S2.",
+  "predictions": {
+    "PA1_rare_insufficient": true,
+    "PA2_equivalent_insufficient": true,
+    "PA3_pooling": true,
+    "PA4_planning_baselines": {
+      "m3_rho06": 0.10139475518869742,
+      "single_replicate": 0.11840356478687558
+    },
+    "PA5_stratified_insufficient": true,
+    "PA6_controls": true,
+    "PA7_observed_false_go": true
+  },
+  "qualification": true,
+  "simultaneous_family_size": 20,
+  "status": "complete"
+}

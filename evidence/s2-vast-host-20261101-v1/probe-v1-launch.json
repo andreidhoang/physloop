@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-11-01T06:55:33.877135+00:00",
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=15",
+    "-o",
+    "ServerAliveCountMax=3",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "-o",
+    "UserKnownHostsFile=/Users/danghuyhoang/Desktop/physloop/evidence/s2-vast-host-20261101-v1/ssh-known-hosts",
+    "-i",
+    "/Users/danghuyhoang/.ssh/id_ed25519",
+    "-p",
+    "24207",
+    "root@121.158.120.134",
+    "bash /root/physloop-vast-s2-host-probe.sh /root/physloop-host-results-v1"
+  ]
+}

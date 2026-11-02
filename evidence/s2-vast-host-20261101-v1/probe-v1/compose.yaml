@@ -1,0 +1,30 @@
+services:
+  server:
+    image: ${PHYSLOOP_PROBE_IMAGE}
+    pull_policy: never
+    command: ["/probe/known_answer", "server"]
+    volumes: ["${PHYSLOOP_PROBE_WORK}:/probe"]
+    networks: [probe]
+  client:
+    image: ${PHYSLOOP_PROBE_IMAGE}
+    pull_policy: never
+    pid: host
+    command:
+      - bash
+      - -ec
+      - 'test "$$(readlink /proc/self/ns/pid)" = "$$PHYSLOOP_EXPECT_PIDNS"; echo guest_host_pid_namespace=PASS; /probe/known_answer client; /probe/known_answer'
+    environment:
+      PHYSLOOP_EXPECT_PIDNS: ${PHYSLOOP_EXPECT_PIDNS}
+    volumes: ["${PHYSLOOP_PROBE_WORK}:/probe"]
+    networks: [probe]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+networks:
+  probe:
+    driver: bridge
+    internal: true

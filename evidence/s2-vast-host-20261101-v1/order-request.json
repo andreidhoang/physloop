@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-11-01T06:51:15.393026+00:00",
+  "deadline_utc": "2026-11-01T07:51:15.393026+00:00",
+  "args": [
+    "vastai",
+    "--raw",
+    "create",
+    "instance",
+    "56500949",
+    "--image",
+    "docker.io/vastai/kvm:ubuntu_cli_22.04-2025-11-21",
+    "--ssh",
+    "--direct",
+    "--disk",
+    "160",
+    "--cancel-unavail",
+    "--label",
+    "physloop-s2-host-20261101-v1"
+  ],
+  "source_sha256": {
+    "scripts/vast_stop_watchdog.py": "3065940d5e8f257e6a0880069b9ea51c1be67f3be65138819c437e02b8bf2653",
+    "tests/test_vast_stop_watchdog.py": "47099e34e57faa49f010606b1b7798cd57efb63fd80d077dbb1b264c5cf78a75"
+  }
+}

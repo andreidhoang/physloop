@@ -1,0 +1,34 @@
+{
+  "passed": false,
+  "source_archive_sha256": "188fb8b11de58f065a2f1b2277bd6ff18c040c300211a87b06afb2f8d62bb5d6",
+  "source_files_verified": 54,
+  "checkout": "/var/folders/jk/23y_gcc56qg_43vr0br4l82h0000gn/T/physloop-s2-replay-fy3sfkst",
+  "checks": [
+    {
+      "name": "locked_sync",
+      "command": [
+        "uv",
+        "sync",
+        "--frozen"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "tests",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-B",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ],
+      "returncode": 1
+    }
+  ],
+  "scope": "fresh locked CPU checkout, no licensed assets or GPU"
+}

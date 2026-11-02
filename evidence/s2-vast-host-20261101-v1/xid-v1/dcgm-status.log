@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/root/physloop-xid-v1/vast_dcgm_xid_status.py", line 13, in <module>
+    dcgm_agent.dcgmInit()
+  File "/usr/share/datacenter-gpu-manager-4/bindings/python3/dcgm_agent.py", line 67, in wrapper
+    return fn(*newargs, **newkwargs)
+  File "/usr/share/datacenter-gpu-manager-4/bindings/python3/dcgm_agent.py", line 81, in dcgmInit
+    fn = dcgmFP("dcgmInit")
+  File "/usr/share/datacenter-gpu-manager-4/bindings/python3/dcgm_structs.py", line 684, in _dcgmGetFunctionPointer
+    raise DCGMError(DCGM_ST_UNINITIALIZED)
+dcgm_structs.DCGMError_Uninitialized: Object is in an undefined state

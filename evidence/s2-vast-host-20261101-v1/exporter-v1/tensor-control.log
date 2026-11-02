@@ -1,0 +1,23 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+device=0 name=NVIDIA RTX PRO 6000 Blackwell Workstation Edition cublas_version=120804 N=2048 elements=4194304 expected=2048
+tensor_operations=requested_not_independently_confirmed input=FP16 output=FP32 compute=FP32
+warmup_gemms=2 warmup_mismatches=0
+deliberate_corruption_mismatches=1 expected_corruption_mismatches=1
+control_window_start_unix_ms=1793517016684
+control_window_end_unix_ms=1793517021685 submitted_control_gemms=91328 control_window_reached=PASS
+final_mismatches=0 checked_elements=4194304
+SYNTHETIC_GEMM_EXACT_PASS; assess external counter response separately; no performance claim

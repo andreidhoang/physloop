@@ -1,0 +1,2 @@
+{"at_utc": "2026-11-01T06:53:54.375242+00:00", "event": "armed", "instance_id": 58628722, "expected_label": "physloop-s2-host-20261101-v1", "deadline_utc_epoch": 1793519475.393026}
+{"at_utc": "2026-11-01T07:22:06.643508+00:00", "event": "instance_absent", "instance_id": 58628722}

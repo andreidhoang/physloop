@@ -1,0 +1,62 @@
+{
+  "at_utc": "2026-11-01T07:23:01.652672+00:00",
+  "task_rows": [
+    {
+      "amount": 0.6,
+      "description": "Instance 58628722 Charges - 1 day",
+      "end": 1793491200,
+      "items": [
+        {
+          "amount": 0.577,
+          "description": "0.410 hours at $1.407/hour",
+          "end": 1793491200,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1793491200,
+          "type": "gpu"
+        },
+        {
+          "amount": 0.023,
+          "description": "0.516 hours at $0.044/hour",
+          "end": 1793491200,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1793491200,
+          "type": "disk"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (download)",
+          "end": 1793491200,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1793491200,
+          "type": "bwd"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (upload)",
+          "end": 1793491200,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1793491200,
+          "type": "bwu"
+        }
+      ],
+      "metadata": {
+        "label": "physloop-s2-host-20261101-v1"
+      },
+      "source": "instance-58628722",
+      "start": 1793491200,
+      "type": "instance"
+    }
+  ],
+  "more_pages": false,
+  "provider_recorded_task_usd": 0.6,
+  "cash_deposited_this_task_usd": 0,
+  "settlement_finality": "Provider snapshot after destruction; not an assertion of irrevocable final settlement"
+}

@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "source_archive_sha256": "188fb8b11de58f065a2f1b2277bd6ff18c040c300211a87b06afb2f8d62bb5d6",
+  "source_files_verified": 54,
+  "checkout": "/var/folders/jk/23y_gcc56qg_43vr0br4l82h0000gn/T/physloop-s2-git-replay-_8j25ns2",
+  "git_base": "cfce036f87be71fcf9c729fd2b46140ee6394621",
+  "checks": [
+    {
+      "name": "locked_sync",
+      "command": [
+        "uv",
+        "sync",
+        "--frozen"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "tests",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-B",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ],
+      "returncode": 0
+    }
+  ],
+  "prerequisite": "Restore source archive over recorded Git base; tests inspect Git metadata and the protected manifest from the base checkout",
+  "prior_probe": "snapshot-replay-v1 lacked Git metadata/protected manifest; two infrastructure tests failed, preserved without edits",
+  "scope": "separate locked CPU Git checkout; no new commit, licensed assets or GPU"
+}

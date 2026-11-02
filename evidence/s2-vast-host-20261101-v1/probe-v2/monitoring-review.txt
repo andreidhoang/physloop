@@ -1,0 +1,1 @@
+No driver/service changes made. Review actual counter samples and any Nsight results; tool absence does not establish hardware incompatibility. Exporter operation and the complete S2 field set are not tested. N/A is not zero. No scientific S2 admission.

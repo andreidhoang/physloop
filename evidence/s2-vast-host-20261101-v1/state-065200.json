@@ -1,0 +1,21 @@
+{
+  "id": 58628722,
+  "label": "physloop-s2-host-20261101-v1",
+  "actual_status": "loading",
+  "intended_status": "running",
+  "next_state": "running",
+  "status_msg": "2928981ec1d4: Pull complete",
+  "ssh_host": "ssh7.vast.ai",
+  "ssh_port": 34884,
+  "public_ipaddr": "121.158.120.134",
+  "ports": null,
+  "image_uuid": "docker.io/vastai/kvm:ubuntu_cli_22.04-2025-11-21",
+  "image_runtype": "ssh_direc ssh_proxy",
+  "gpu_name": "RTX PRO 6000 WS",
+  "gpu_ram": 97887,
+  "cpu_ram": 126400,
+  "disk_space": 160.0,
+  "disk_usage": -1,
+  "dph_total": 1.451111111111111,
+  "cur_state": "running"
+}

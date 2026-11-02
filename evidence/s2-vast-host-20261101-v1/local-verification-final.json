@@ -1,0 +1,72 @@
+{
+  "at_utc": "2026-11-01T07:25:48.660069+00:00",
+  "results": [
+    {
+      "check": "cpu-tests-final",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-B",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ],
+      "exit_code": 0,
+      "summary": [
+        "754 passed in 4.16s"
+      ]
+    },
+    {
+      "check": "ruff-final",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "scripts/vast_stop_watchdog.py",
+        "scripts/vast_dcgm_xid_status.py",
+        "tests/test_vast_stop_watchdog.py",
+        "tests/test_vast_nvml_xid_probe.py"
+      ],
+      "exit_code": 1,
+      "summary": [
+        "[*] 4 fixable with `--fix`."
+      ]
+    },
+    {
+      "check": "shell-vast_s2_host_probe",
+      "command": [
+        "bash",
+        "-n",
+        "scripts/vast_s2_host_probe.sh"
+      ],
+      "exit_code": 0,
+      "summary": []
+    },
+    {
+      "check": "shell-vast_monitor_control",
+      "command": [
+        "bash",
+        "-n",
+        "scripts/vast_monitor_control.sh"
+      ],
+      "exit_code": 0,
+      "summary": []
+    },
+    {
+      "check": "shell-vast_exporter_control",
+      "command": [
+        "bash",
+        "-n",
+        "scripts/vast_exporter_control.sh"
+      ],
+      "exit_code": 0,
+      "summary": []
+    }
+  ]
+}
