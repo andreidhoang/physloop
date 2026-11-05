@@ -238,17 +238,24 @@ check required compose_execution 90 "${docker[@]}" compose -p "$project" -f "$wo
 
 check diagnostic profiler_policy 10 bash -c 'if test -r /proc/driver/nvidia/params; then grep -E "RmProfilingAdminOnly|RestrictProfiling" /proc/driver/nvidia/params; else echo UNVERIFIED_no_readable_driver_policy; exit 1; fi' || true
 check diagnostic process_capabilities 10 bash -c 'grep -E "^Cap(Eff|Prm|Bnd):" /proc/self/status; test ! -r /proc/sys/kernel/perf_event_paranoid || cat /proc/sys/kernel/perf_event_paranoid' || true
+# nsys stores its target's environment in the report, and a Vast login session carries
+# CONTAINER_API_KEY, JUPYTER_TOKEN and the client address. Monitoring tools get only these
+# variables, set after sudo so its PAM session cannot add /etc/environment back.
 monitor=()
 if [[ $(id -u) != 0 ]] && timeout 5s sudo -n true; then monitor=(sudo -n); fi
+monitor+=(env -i)
+for name in PATH HOME LANG LC_ALL TMPDIR LD_LIBRARY_PATH CUDA_VISIBLE_DEVICES NVIDIA_VISIBLE_DEVICES; do
+    if [[ -n ${!name+set} ]]; then monitor+=("$name=${!name}"); fi
+done
 if command -v nsys >/dev/null; then
-    check diagnostic nsys_version 10 nsys --version || true
-    check diagnostic nsys_environment 15 nsys status -e || true
+    check diagnostic nsys_version 10 "${monitor[@]}" "$(command -v nsys)" --version || true
+    check diagnostic nsys_environment 15 "${monitor[@]}" "$(command -v nsys)" status -e || true
     check diagnostic nsys_cuda_trace 90 "${monitor[@]}" "$(command -v nsys)" profile --sample=none --cpuctxsw=none --trace=cuda,nvtx -o "$out/nsys-cuda" "$work/known_answer" || true
 else
     printf 'UNVERIFIED: nsys is absent; no CUDA/NVTX trace or counter test performed.\n' > "$out/nsys-unverified.log"
 fi
 if command -v ncu >/dev/null; then
-    check diagnostic ncu_version 10 ncu --version || true
+    check diagnostic ncu_version 10 "${monitor[@]}" "$(command -v ncu)" --version || true
     check diagnostic ncu_actual_kernel 90 "${monitor[@]}" "$(command -v ncu)" --set basic --launch-count 1 "$work/known_answer" || true
 else
     printf 'UNVERIFIED: host ncu is absent; hardware counter support is not established, not disproved. Public profiler installation is an operator setup decision.\n' > "$out/ncu-unverified.log"
