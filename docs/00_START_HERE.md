@@ -12,7 +12,7 @@ On the first read, read all of it. Every session, re-read steps 1, 3, 5 and 6.
 
 Reference, when needed:
 - `04_CORE_PLAN_TECHNICAL.md` — verified model, hardware and cost facts, plus the preserved 22-Sep predictions.
-- `05_ROLE_MAPPING.md` — the dated NVIDIA posting reference and prior JR2010863 evidence contract (§3).
+- `05_ROLE_MAPPING.md` — the dated NVIDIA posting reference (re-checked 2026-11-07; evidence in `research/2026-11-07-posting-refresh.md`) and prior JR2010863 evidence contract (§3).
 - `research/2026-10-27-role-alignment/` — the seven research lanes, the report, the verification ledger and the arithmetic check behind plan v4.1.
 - `research/2026-10-25-teacher-to-thor/` — the decision input, the review and the verification ledger behind plan v4.
 - `research/2026-10-03-verification/` — the evidence and claim ledger behind plan v3, still valid where not superseded.

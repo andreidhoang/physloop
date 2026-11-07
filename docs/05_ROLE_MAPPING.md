@@ -1,44 +1,69 @@
-# 05 — NVIDIA role reference and focused research scope (v3.1, 1 November 2026)
+# 05 — NVIDIA role reference and focused research scope (v3.2, 7 November 2026)
 
-This is a reference document, v3.1. **Plan v5/D-021 now prioritizes S1/S2/S4 and a deep AV RL research contribution.** The broad role coverage below describes the earlier v4.1 scope; it does not require restoring student/device/HIL/cluster work. Current evidence focuses on model-learning mechanisms, measurement and reproducibility on the actually used node. No guarantee of hiring impact follows. Posting facts remain dated October 27, not re-verified by the RL literature review.
+This is a reference document, v3.2. **Plan v5/D-021 now prioritizes S1/S2/S4 and a deep AV RL research contribution.** The broad role coverage below describes the earlier v4.1 scope; it does not require restoring student/device/HIL/cluster work. Current evidence focuses on model-learning mechanisms, measurement and reproducibility on the actually used node. No guarantee of hiring impact follows. §1 posting facts were re-checked on 2026-11-07 (`research/2026-11-07-posting-refresh.md`); §2 percentages remain dated 2026-10-03 and the 2026-10-27 posting count was not repeated.
 
 Historical v3 basis: It replaces v2.1 (archived as `archive/05_ROLE_MAPPING_v2.1_2026-10-25.md`).
-- **§1–§2** were first read from NVIDIA's Workday career site on 2026-10-03 (`research/2026-10-03-verification/notes/role_skill_demand.md`). §1 is refreshed from a sweep of NVIDIA's AV postings on 2026-10-27.
+- **§1–§2** were first read from NVIDIA's Workday career site on 2026-10-03 (`research/2026-10-03-verification/notes/role_skill_demand.md`). §1 was refreshed from a sweep of NVIDIA's AV postings on 2026-10-27, then re-checked through NVIDIA's public Workday API on 2026-11-07 (v3.2). §1.1 adds a dated snapshot of the same skill set outside NVIDIA.
 - **§3 is new.** It is the line-by-line evidence contract for the target role, JR2010863, under plan v4.1 (`02`, D-015). Its evidence is in `research/2026-10-27-role-alignment/`.
 - **§4–§5** follow plan v4.1's stages.
 
 The posting lines are paraphrased, never quoted. Postings change, so re-verify a posting before applying to it. Years, degrees and locations are out of scope for the plan by design (`03` §1). They appear in §1 only as the postings print them.
 
-## 1. What NVIDIA is hiring for (refreshed 2026-10-27)
+## 1. What NVIDIA is hiring for (refreshed 2026-10-27; re-checked 2026-11-07)
 
-The 2026-10-27 sweep found 77 AV-titled engineering postings. Interns, Manager and Director roles, and JR2022903 were excluded. Most are platform, system-software, perception, planning or L4-integration roles. The core that matches PhysLoop is listed below, with US base-pay ranges by level. NVIDIA prints the same bands across these postings: L3 152,000–241,500; L4 184,000–287,500; L5 224,000–356,500; L6 272,000–431,250.
+The 2026-10-27 sweep found 77 AV-titled engineering postings. Interns, Manager and Director roles, and JR2022903 were excluded. Most are platform, system-software, perception, planning or L4-integration roles. The core that matches PhysLoop is listed below, with US base-pay ranges by level. NVIDIA prints the same bands across these postings: L3 152,000–241,500; L4 184,000–287,500; L5 224,000–356,500; L6 272,000–431,250. Every posting also says the role is eligible for equity and benefits; none mentions a bonus.
+
+**2026-11-07 re-check.** Every ID in the table was still listed on NVIDIA's public Workday API, with `canApply` true, and the printed bands were unchanged. Most reqs show a common refresh date of 2026-10-30. Every Santa Clara posting says applications are accepted "at least until November 3, 2026". That date has passed, so any of them can close without notice. The full sweep and the count of 77 were not repeated. Evidence and verification levels: `research/2026-11-07-posting-refresh.md`.
 
 | Posting | Title | Location | Base pay (USD) | What it asks for that PhysLoop evidences |
 |---|---|---|---|---|
-| **JR2010863** (target) | Senior Machine Learning and Simulation Engineer – Autonomous Vehicles (AV Simulation team) | Santa Clara | L5 224,000–356,500; **L6 272,000–431,250**; 12+ years | A closed-loop, simulation-based RL framework for end-to-end AV models; measuring and improving simulation quality; RL reward design; reliable GPU-cluster training; closed-loop evaluation of end-to-end models (preferred). §3 maps every line |
-| JR2022179 | Senior Deep Reinforcement Learning Engineer – Autonomous Driving | Santa Clara | 224,000–356,500; 12+ years | Flow-matching and diffusion policies; training on the policy's own rollouts; data flywheels (S4, S5) |
-| JR2019292 | Senior Software Engineer – Autonomous Driving Simulation (AV Simulation team) | Santa Clara | L3–L4; 5 years in the AV industry | Simulation infrastructure on the same team as JR2010863 (S2) |
+| **JR2010863** (target) | Senior Machine Learning and Simulation Engineer – Autonomous Vehicles (AV Simulation team) | Santa Clara | L5 224,000–356,500; **L6 272,000–431,250**; 12+ years | A closed-loop, simulation-based RL framework for end-to-end AV models; measuring and improving simulation quality; RL reward design; reliable GPU-cluster training; closed-loop evaluation of end-to-end models (preferred). §3 maps every line. Full text re-read 2026-11-07: lines unchanged |
+| JR2022179 | Senior Deep Reinforcement Learning Engineer – Autonomous Driving | Santa Clara | 224,000–356,500; 12+ years | Policy gradient (PPO, GRPO) and actor-critic; benchmarking RL against imitation baselines; preferred: flow-matching/diffusion policies, training on the policy's own rollouts and its compounding error, data flywheels (S4). Re-read 2026-11-07 |
+| JR2019292 | Senior Software Engineer – Autonomous Driving Simulation (AV Simulation team) | Santa Clara | L3 152,000–241,500; L4 184,000–287,500; 5+ years in the AV industry | Simulation infrastructure on the same team as JR2010863 (S2). Re-read 2026-11-07 |
 | JR2005596 | Senior Research Scientist – Autonomous Vehicles | Santa Clara | L4 192,000–304,750; L5 224,000–356,500 | Publications *or* research artifacts such as software projects |
-| JR2005597 | Senior Research Engineer – Autonomous Vehicles | Santa Clara | L4 184,000–287,500; L5 224,000–356,500 | RL fine-tuning of multimodal LLMs; simulation infrastructure at scale |
-| JR2025038 | Senior Integration Engineer, End-to-End Model – AV | Santa Clara | L3 152,000–241,500; L4 184,000–287,500 | Regression-performance tooling; quantization, compilation, profiling; C++ and QNX |
-| JR2014651 | Senior Software Engineer, Metrics and Evaluation – AV | Santa Clara / remote (GA, DC, NC, WA) | L4 184,000–287,500; L5 224,000–356,500 | Evaluation products; precision and recall of metrics |
-| JR2020021 | World-model evaluation systems – AV (reposted 2026-10-26) | Santa Clara | L4–L5 | Validation of world-model stacks (S1–S3) |
-| JR2027161 | Deep Learning Senior Engineer, End-to-End Autonomous Driving | Santa Clara / CA remote | L4–L5 | End-to-end models (S3–S6) |
-| JR2028518 | Senior Algorithm Engineer – AV (posted 2026-10-26) | — | not recorded | 10+ years, including 2+ in AV or robotics |
-| JR2024273 | Senior Software Engineer, AV Planner | Santa Clara | 224,000–356,500 | Closed-loop benchmarks; regression prevention; fallback and degraded modes; C/C++ (not re-checked 2026-10-27) |
-| JR2016777 | Senior Software Performance Engineer – AV | Santa Clara | L5 224,000–356,500; L6 272,000–431,250 | Latency and throughput (S6–S7) |
-| JR2016768 | Manager, Deep Learning – AV and Robotics | Santa Clara | L3 224,000–356,500; L4 272,000–431,250 | TensorRT inference toolchains (not re-checked 2026-10-27) |
-| JR2014137 | Lead Safety Architect – AV | Santa Clara / remote | 224,000–356,500 | Safety architecture (not re-checked 2026-10-27) |
+| JR2005597 | Senior Research Engineer – Autonomous Vehicles | Santa Clara | L4 184,000–287,500; L5 224,000–356,500; 10+ years | RL fine-tuning of multimodal LLMs; simulation infrastructure at scale |
+| JR2025038 | Senior Integration Engineer, End-to-End Model – AV | Santa Clara | L3 152,000–241,500; L4 184,000–287,500 | Regression-performance tooling; quantization, compilation, profiling; C++ and QNX (refresh date 2026-11-05) |
+| JR2014651 | Senior Software Engineer, Metrics and Evaluation – AV | Santa Clara / remote (GA, DC, NC, WA) | L4 184,000–287,500; L5 224,000–356,500; 8+ years | Evaluation products; precision and recall of metrics |
+| JR2020021 | Systems Engineer, World Model Evaluation – AV (retitled again by 2026-11-07) | Santa Clara | L4 184,000–287,500; L5 224,000–356,500; 8+ years | Evaluators linking model error to vehicle behavior; measurement uncertainty (S1–S2) |
+| JR2027161 | Deep Learning Senior Engineer, End-to-End Autonomous Driving | Santa Clara / CA remote | L4 184,000–287,500; L5 224,000–356,500; PhD + 4 or MS + 6 years | End-to-end LLM/VLM/VLA systems; generative, imitation and RL methods for planning (S4; S3–S6 deferred). Re-read 2026-11-07 |
+| JR2028518 | Senior Algorithm Engineer – AV | Santa Clara | L4 184,000–287,500; L5 224,000–356,500 | 10+ years, including 2+ in AV or robotics (years from 2026-10-27; pay first recorded 2026-11-07) |
+| JR2024273 | Senior Software Engineer, AV Planner | Santa Clara | 224,000–356,500 | Closed-loop benchmarks; regression prevention; fallback and degraded modes; C/C++ (requirements not re-read since 2026-10-03) |
+| JR2016777 | Senior Software Performance Engineer – AV | Santa Clara | L5 224,000–356,500; L6 272,000–431,250 | Latency and throughput (S6–S7, deferred under v5) |
+| JR2016768 | Manager, Deep Learning – AV and Robotics | Santa Clara | L3 224,000–356,500; L4 272,000–431,250 | TensorRT inference toolchains (requirements not re-read since 2026-10-03) |
+| JR2014137 | Lead Safety Architect – AV | Santa Clara / remote | 224,000–356,500 | Safety architecture (requirements not re-read since 2026-10-03) |
 | JR2023529 | Director, Engineering – AV | Santa Clara | 320,000–488,750 | Classical and learned systems in one production architecture |
-| JR2019758 | Deep Learning Senior Engineer, End-to-End AD | Shanghai / Beijing | not listed | Building LLMs, VLMs or VLAs from scratch; C++ deployment (PhD + 2 years, or MS + 4 years) |
+| JR2019758 | Deep Learning Senior Engineer, End-to-End AD | Shanghai / Beijing | not listed | Same description as JR2027161 at a lower bar: PhD + 2 or MS + 4 years |
+| *New:* JR2029093 | Principal Engineer – AV Simulation and Evaluation | Santa Clara / US remote | 272,000–431,250; 15+ years | Evaluation infrastructure at hundreds of millions of runs per day (posted 2026-11-02; its own "until November 6" window has passed) |
+| *New:* JR2028334 | Senior Software Engineer, AV Analysis Platform | Santa Clara / US remote | 224,000–356,500 | Requirements not read |
+| *New:* JR2029271 | Senior Research Scientist – AV | Singapore | not listed | Same requirements as JR2005596: PhD, 6+ years, top-venue publications (posted 2026-11-03) |
+| *New:* JR2028022 | RL and World Model for Autonomous Simulation Intern 2027 | Shanghai | not listed | PhD students; policy gradient, actor-critic, offline RL |
+
+**Asia and Vietnam (2026-11-07).** No NVIDIA AV, RL or simulation role was open in Vietnam. The closest Ho Chi Minh City roles are JR2001271 (deep-learning performance) and JR2028594 (system software); they are not AV roles and print no pay. Japan listed only a solutions role (JR2015317), and no AV role was found in Taiwan. No Asian posting prints pay.
+
+### 1.1 The same skill set outside NVIDIA (snapshot 2026-11-07)
+
+These postings were collected by a research subagent from public Greenhouse, Lever and Ashby APIs. They were not re-read line by line, and they do not change the target. Pay is printed US base; Waymo adds a discretionary bonus and equity.
+
+| Company | Posting | Base pay (USD) | Relevant requirement |
+|---|---|---|---|
+| Waymo | Research Scientist, RL for Autonomous Planning and World Modeling | 204,000–259,000 | PhD/MS + 3 years; RL and distillation for trajectory planning; world-model post-training and evaluation |
+| Waymo | Staff TLM, ML, Simulator Evaluation | 251,000–310,000 | Evaluation frameworks for simulator and world-model quality |
+| Wayve | Staff/Senior MLE, Reinforcement Learning | not printed | RL beyond behaviour cloning; reward models; evidence across open-loop, closed-loop and on-road |
+| Applied Intuition | Research Engineer – RL, Self-Driving | 126,000–423,000 (one band, all levels) | Self-play RL, VLA post-training, closed-loop RL on neural simulation |
+| Zoox | Manager – Model Evaluation | 237,000–338,000 | Closed-loop validation; statistical release gating |
+| Nuro | Staff/Lead MLE, Behavior and Planning | 235,030–352,290 | World models, RL/IL, diffusion planning; 7+ years |
+| Motional | Senior Engineer, AV Behavior Evaluation | 149,000–198,500 | Statistical metric targets; resimulation analysis; BS + 2 years |
+
+Self-reported total-compensation aggregates from levels.fyi are recorded in the evidence file. They are not offers, and their level names are not verified to match NVIDIA's printed levels.
 
 **Facts that correct v2.1:**
-- **JR2019461** (Senior Research Manager, World Model Evaluation) was **not live** on 2026-10-27.
+- **JR2019461** (Senior Research Manager, World Model Evaluation) was **not live** on 2026-10-27, and was still not listed on 2026-11-07.
 - **New since v2.1:** JR2019292, JR2027161 and JR2028518. JR2020021 was retitled and reposted on 2026-10-26.
+- **New since 2026-10-27:** JR2029093, JR2028334, JR2029271 and JR2028022. JR2020021 now shows a third title, "Systems Engineer, World Model Evaluation – AV"; its URL slug still carries the earlier one.
 - **Where years and degrees sit.** 71 of the 77 postings say "or equivalent experience", but always on the degree line, never in place of years. That is why the plan targets the work, not the screen (`03` §1).
 
 **Facts kept from v2.1:**
-- **No US "Principal … End-to-End" posting is live.** NVIDIA's E2E, VLA and closed-loop-RL hiring is at Senior level (Levels 3–6). JR2010863's L6 band equals the Principal band.
+- **No US "Principal … End-to-End" posting is live** (still true on 2026-11-07). NVIDIA's E2E, VLA and closed-loop-RL hiring is at Senior level (Levels 3–6). JR2010863's L6 band equals the Principal band. The new JR2029093 is a Principal role in simulation and evaluation infrastructure (15+ years), not in end-to-end modelling.
 - **v1's "Role B"** (Principal DL Engineer, E2E AD; closed Oct 2025) lives on only as the China Senior role JR2019758.
 - **JR2010863's simulation duty** includes *measuring* simulation quality. The job-board mirror that v1 cited had dropped that word.
 
@@ -70,6 +95,8 @@ Base: 43 NVIDIA AV postings and 212 postings from 14 competitors.
 **Experience.** 30% of the 2026-10-03 NVIDIA postings (13 of 43) require 12+ years; none of the 212 competitor postings does. Postings treat public evidence as a complement to experience, never as a substitute.
 
 ## 3. JR2010863 evidence contract (plan v4.1)
+
+**2026-11-07 note.** The full JR2010863 text was re-read, and the thirteen paraphrased lines below still match it, including the 12+ years and the pay bands. The "v4.1" marks below were not re-scored for plan v5. v5 defers S3 and S5–S7, so evidence that depended on those stages (Q4 C++, and parts of D2 and D5) is not currently being produced.
 
 **How to read it.** Each line is a paraphrase of the posting with a stable ID. "v4" is the earlier analysis of plan v4 (Full / Partial / None). "v4.1" is the mark once the finished plan delivers its [C] items; [O] and [G] items raise it only if they run. Every artifact is a measurement on NVIDIA's own open stack, made on one rented node unless P-012 runs. None is claimed as industry or production experience (`02` §6).
 
