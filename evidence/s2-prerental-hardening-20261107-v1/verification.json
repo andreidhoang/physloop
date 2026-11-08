@@ -1,0 +1,105 @@
+{
+  "scope": "minimal S2 CPU preparation only",
+  "git_head": "05c439f19f60bbcd8700b32170176e69709ba907",
+  "source_identity": "included source-manifest.json; includes uncommitted changes",
+  "cpu_checks_passed": true,
+  "environment": {
+    "python": "3.12.11",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "matched": true,
+    "packages": {
+      "numpy": {
+        "locked": "2.5.4",
+        "installed": "2.5.4"
+      },
+      "protobuf": {
+        "locked": "7.36.2",
+        "installed": "7.36.2"
+      },
+      "pyarrow": {
+        "locked": "25.0.1",
+        "installed": "25.0.1"
+      },
+      "pytest": {
+        "locked": "9.2.0",
+        "installed": "9.2.0"
+      },
+      "ruff": {
+        "locked": "0.17.3",
+        "installed": "0.17.3"
+      },
+      "scipy": {
+        "locked": "1.18.1",
+        "installed": "1.18.1"
+      },
+      "shapely": {
+        "locked": "2.1.2",
+        "installed": "2.1.2"
+      }
+    },
+    "clean_frozen_sync_verified": false,
+    "declarations": {
+      "matched": true,
+      "issues": [],
+      "frozen_sync_verified": false
+    }
+  },
+  "cpu_handoff_ready": true,
+  "cpu_handoff_ready_scope": "current interpreter and frozen source; clean rebuild separate",
+  "clean_frozen_sync_verified": false,
+  "checks_executed_from_snapshot": true,
+  "snapshot_unchanged": true,
+  "protected_sources_unchanged": true,
+  "checks": [
+    {
+      "name": "demo",
+      "argv": [
+        "/Users/danghuyhoang/Desktop/physloop/.venv/bin/python",
+        "-B",
+        "scripts/rehearse_s2_pilot.py",
+        "--demo-only",
+        "--output",
+        "/Users/danghuyhoang/Desktop/physloop/evidence/s2-prerental-hardening-20261107-v1/demo"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "tests",
+      "argv": [
+        "/Users/danghuyhoang/Desktop/physloop/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "lint",
+      "argv": [
+        "/Users/danghuyhoang/Desktop/physloop/.venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "--no-cache",
+        "gate",
+        "tests",
+        "scripts"
+      ],
+      "returncode": 0
+    }
+  ],
+  "runtime_qualified": false,
+  "cloud_launch_authorized": false,
+  "cloud_spend_usd": 0,
+  "gpu_runs": 0,
+  "remaining": [
+    "fresh frozen environment sync (installed direct versions only checked here)",
+    "registered real scene/order inputs and actual runtime/asset identities",
+    "owner scientific registration, rights/access and concrete rental scope",
+    "actual AlpaSim capture/scorer integration and host/model/renderer fit"
+  ]
+}

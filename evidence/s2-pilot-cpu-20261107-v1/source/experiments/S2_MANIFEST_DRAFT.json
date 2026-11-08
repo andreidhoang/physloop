@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "draft_not_preregistered_not_run_authorization",
+  "stage": "S2",
+  "prerequisites": {
+    "S1_evidence": "evidence/s1-20261031-autonomous-v1/summary.json",
+    "budget_decision_P005": null,
+    "hour_reforecast_P003": null,
+    "challenge_closed_verified": null,
+    "latest_upstream_release_checked": null,
+    "license_acceptance_by_owner": null,
+    "public_numbers_KCL": "blocked_until_written_answer",
+    "derived_weights_labels_KCL2": "blocked_until_written_answer"
+  },
+  "source": {"git_hash": null, "config": null, "resolved_lockfile": null},
+  "sampling": {
+    "target_population": null, "estimand": null, "road_independence_justification": null,
+    "scene_list": null, "road_list": null, "strata": null,
+    "replicates": null, "seed_mode": null, "force_determinism": null,
+    "contamination_split_labels": null
+  },
+  "simulator": {
+    "branch": null, "alpasim_sha": null, "second_alpasim_sha_if_applicable": null,
+    "evaluator_sha": null, "scorer_file_sha": null,
+    "n_sim_steps_requested": null, "n_sim_steps_actual": null,
+    "harmonizer": null, "renderer_image": null, "rendering_flags": null,
+    "traffic_mode": null, "camera_request": null, "decoded_size": null,
+    "run_method": null, "topology": null, "concurrency": null,
+    "replicas": null, "nre_workers": null, "controller_identity": null,
+    "postprocessing_identity": null, "renderer_oom_requeues_per_rollout": null
+  },
+  "driver": {
+    "expert_graph": null, "max_batch_size": null,
+    "resolved_alpamayo1_5_commit": null, "policy_clock_source": null
+  },
+  "measurement": {
+    "score_definition": null, "metric_direction": null, "margin": null,
+    "deviation_convention": null, "interim_looks": null,
+    "stabilization_rule": null, "noise_floor_prediction": null,
+    "reliability_floor": null
+  },
+  "resources": {
+    "gpu_edition": null, "gpu_hours_estimate": null, "price_checked_at": null,
+    "hourly_price": null, "cost_estimate": null, "cost_kill_criterion": null
+  }
+}

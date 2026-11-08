@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-10-31",
+  "repository": "https://github.com/NVlabs/alpasim",
+  "issue": "https://github.com/NVlabs/alpasim/issues/198",
+  "fix": "https://github.com/NVlabs/alpasim/pull/215",
+  "retrieval": "Public GitHub connector fetch_file; no datasets, weights or LFS objects.",
+  "license": "Apache-2.0",
+  "copyright": "Copyright (c) 2025-2026 NVIDIA Corporation",
+  "fixed": {
+    "file": "ground_truth_e121e591.py.txt",
+    "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+    "git_blob_sha": "6dce0f50c79350f6c392ff7f0f028bc5c47de93b",
+    "sha256": "5bd239cbe30fee33aeff44c86cf43a05da0ec5095068c86f2ef14f4c102c76c4",
+    "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/scorers/ground_truth.py"
+  },
+  "before_fix": {
+    "file": "ground_truth_20235345.py.txt",
+    "commit": "20235345d7ea9eed5d5156099cf219cd35b2e4dc",
+    "git_blob_sha": "b420d6af91a6c8ca237bfd64d442113065ca447e",
+    "sha256": "cdc7c9e2a3101b74335ef381f98088fc901f8e264e44f2bf8e89faa27fc45b11",
+    "source_url": "https://github.com/NVlabs/alpasim/blob/20235345d7ea9eed5d5156099cf219cd35b2e4dc/src/eval/src/eval/scorers/ground_truth.py"
+  },
+  "license_file": {
+    "file": "LICENSE",
+    "git_blob_sha": "c6ff73fab08d36444991400fc0aeb8d660f2d098",
+    "sha256": "50201750cc0542d4656d8d95f002f78357021b7c3c975b53924000b7ddc5a24e",
+    "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/LICENSE"
+  }
+}

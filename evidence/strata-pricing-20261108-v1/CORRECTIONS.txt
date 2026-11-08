@@ -1,0 +1,16 @@
+Corrections recorded after independent review (2026-11-08). The outputs here stay as produced.
+
+1. Block G of pricing.txt and guard_size_exact.txt give PER-STRATUM non-inferiority pass rates.
+   The guard needs every gating stratum GO together. With strata drawn independently, the joint
+   rate is the product: four 110-road strata at b = 0.02, margin 0.10 -> 0.84^4 ~ 0.50, not 0.82
+   (reviewer's simulation on the same seeds: 0.490). Re-priced jointly in
+   evidence/strata-pricing-20261108-v2/.
+2. These pass rates are for strata with no effect (delta 0). The guard's cost to the claim depends on
+   each stratum's true effect: improving strata pass far more often. Block A (uniform improvement)
+   shows the cost to the claim directly; v2 adds the case of one flat stratum.
+3. run_pricing.py's docstring says differences between cells "are not noise artefacts". Only the
+   design columns within one cell share rows exactly; cells with the same strata share most draws;
+   different strata configurations do not share rows.
+4. No Monte Carlo intervals are printed in pricing.txt: about +/-0.03 near a rate of 0.5 at 1,000
+   trials (intervals are in pricing.json).
+5. Every rate is an upper bound on the power of a registered claim that adds other guard endpoints.

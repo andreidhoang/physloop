@@ -1,0 +1,13 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "/tmp/physloop-env-retry-20261107-v2/library_file_transfer.py",
+    "materialize",
+    "/tmp/physloop-env-retry-20261107-v2/uv-macos-aarch64-5ce34500.zip"
+  ],
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "library file transfer failed: download failed\n",
+  "elapsed_seconds": 0.144
+}

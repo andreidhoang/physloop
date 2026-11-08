@@ -1,0 +1,399 @@
+[
+ {
+  "classification": "assumption_not_measurement",
+  "rule_id": "intersection_union_upper_below_zero_v0",
+  "interval_method": "clopper_pearson_two_sided_0.95",
+  "trials": 1000,
+  "seed": 20261108,
+  "scenario": {
+   "strata": {
+    "a": 441
+   },
+   "scenes_per_road": 1,
+   "replicates": 1,
+   "p_a": 0.08,
+   "q_plus": 0.0,
+   "q_minus": 0.03,
+   "road_correlation": 0.0,
+   "replicate_correlation": 0.0,
+   "margin": 0.05,
+   "alpha": 0.05,
+   "delta_min": 0.016,
+   "guards": []
+  },
+  "outcomes": {
+   "IMPROVEMENT_SUPPORTED": {
+    "count": 845,
+    "rate": 0.845,
+    "interval": [
+     0.8210585051133449,
+     0.8668890872440326
+    ]
+   },
+   "GUARD_NOT_CERTIFIED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "MEANINGFUL_IMPROVEMENT_RULED_OUT": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "INSUFFICIENT": {
+    "count": 155,
+    "rate": 0.155,
+    "interval": [
+     0.13311091275596743,
+     0.17894149488665514
+    ]
+   },
+   "REGRESSION_FLAGGED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   }
+  },
+  "name": "R441_b0_net3.0pp"
+ },
+ {
+  "classification": "assumption_not_measurement",
+  "rule_id": "intersection_union_upper_below_zero_v0",
+  "interval_method": "clopper_pearson_two_sided_0.95",
+  "trials": 1000,
+  "seed": 20261108,
+  "scenario": {
+   "strata": {
+    "a": 441
+   },
+   "scenes_per_road": 1,
+   "replicates": 1,
+   "p_a": 0.08,
+   "q_plus": 0.0,
+   "q_minus": 0.016,
+   "road_correlation": 0.0,
+   "replicate_correlation": 0.0,
+   "margin": 0.05,
+   "alpha": 0.05,
+   "delta_min": 0.016,
+   "guards": []
+  },
+  "outcomes": {
+   "IMPROVEMENT_SUPPORTED": {
+    "count": 180,
+    "rate": 0.18,
+    "interval": [
+     0.15665810167101404,
+     0.2052424940277865
+    ]
+   },
+   "GUARD_NOT_CERTIFIED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "MEANINGFUL_IMPROVEMENT_RULED_OUT": {
+    "count": 6,
+    "rate": 0.006,
+    "interval": [
+     0.002204982485151377,
+     0.013013423270974496
+    ]
+   },
+   "INSUFFICIENT": {
+    "count": 814,
+    "rate": 0.814,
+    "interval": [
+     0.7884716407300623,
+     0.8376640223583917
+    ]
+   },
+   "REGRESSION_FLAGGED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   }
+  },
+  "name": "R441_b0_net1.6pp_target"
+ },
+ {
+  "classification": "assumption_not_measurement",
+  "rule_id": "intersection_union_upper_below_zero_v0",
+  "interval_method": "clopper_pearson_two_sided_0.95",
+  "trials": 1000,
+  "seed": 20261108,
+  "scenario": {
+   "strata": {
+    "a": 441
+   },
+   "scenes_per_road": 1,
+   "replicates": 1,
+   "p_a": 0.15,
+   "q_plus": 0.05,
+   "q_minus": 0.145,
+   "road_correlation": 0.0,
+   "replicate_correlation": 0.0,
+   "margin": 0.05,
+   "alpha": 0.05,
+   "delta_min": 0.016,
+   "guards": []
+  },
+  "outcomes": {
+   "IMPROVEMENT_SUPPORTED": {
+    "count": 836,
+    "rate": 0.836,
+    "interval": [
+     0.8115686724739015,
+     0.8584337235456381
+    ]
+   },
+   "GUARD_NOT_CERTIFIED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "MEANINGFUL_IMPROVEMENT_RULED_OUT": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "INSUFFICIENT": {
+    "count": 164,
+    "rate": 0.164,
+    "interval": [
+     0.1415662764543619,
+     0.18843132752609845
+    ]
+   },
+   "REGRESSION_FLAGGED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   }
+  },
+  "name": "R441_b5_net9.5pp"
+ },
+ {
+  "classification": "assumption_not_measurement",
+  "rule_id": "intersection_union_upper_below_zero_v0",
+  "interval_method": "clopper_pearson_two_sided_0.95",
+  "trials": 1000,
+  "seed": 20261108,
+  "scenario": {
+   "strata": {
+    "a": 441
+   },
+   "scenes_per_road": 1,
+   "replicates": 1,
+   "p_a": 0.08,
+   "q_plus": 0.05,
+   "q_minus": 0.05,
+   "road_correlation": 0.0,
+   "replicate_correlation": 0.0,
+   "margin": 0.05,
+   "alpha": 0.05,
+   "delta_min": 0.016,
+   "guards": []
+  },
+  "outcomes": {
+   "IMPROVEMENT_SUPPORTED": {
+    "count": 1,
+    "rate": 0.001,
+    "interval": [
+     2.5317487491294065e-05,
+     0.005558924279826672
+    ]
+   },
+   "GUARD_NOT_CERTIFIED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "MEANINGFUL_IMPROVEMENT_RULED_OUT": {
+    "count": 9,
+    "rate": 0.009,
+    "interval": [
+     0.004123395660342473,
+     0.017015783069894586
+    ]
+   },
+   "INSUFFICIENT": {
+    "count": 990,
+    "rate": 0.99,
+    "interval": [
+     0.9816867569448875,
+     0.9951944893089507
+    ]
+   },
+   "REGRESSION_FLAGGED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   }
+  },
+  "name": "R441_null_b5"
+ },
+ {
+  "classification": "assumption_not_measurement",
+  "rule_id": "intersection_union_upper_below_zero_v0",
+  "interval_method": "clopper_pearson_two_sided_0.95",
+  "trials": 1000,
+  "seed": 20261108,
+  "scenario": {
+   "strata": {
+    "a": 441
+   },
+   "scenes_per_road": 1,
+   "replicates": 1,
+   "p_a": 0.08,
+   "q_plus": 0.0,
+   "q_minus": 0.0,
+   "road_correlation": 0.0,
+   "replicate_correlation": 0.0,
+   "margin": 0.05,
+   "alpha": 0.05,
+   "delta_min": 0.016,
+   "guards": []
+  },
+  "outcomes": {
+   "IMPROVEMENT_SUPPORTED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "GUARD_NOT_CERTIFIED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "MEANINGFUL_IMPROVEMENT_RULED_OUT": {
+    "count": 1000,
+    "rate": 1.0,
+    "interval": [
+     0.9963179161031344,
+     1.0
+    ]
+   },
+   "INSUFFICIENT": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "REGRESSION_FLAGGED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   }
+  },
+  "name": "R441_null_b0"
+ },
+ {
+  "classification": "assumption_not_measurement",
+  "rule_id": "intersection_union_upper_below_zero_v0",
+  "interval_method": "clopper_pearson_two_sided_0.95",
+  "trials": 1000,
+  "seed": 20261108,
+  "scenario": {
+   "strata": {
+    "a": 220,
+    "b": 221
+   },
+   "scenes_per_road": 1,
+   "replicates": 1,
+   "p_a": 0.08,
+   "q_plus": 0.0,
+   "q_minus": 0.03,
+   "road_correlation": 0.0,
+   "replicate_correlation": 0.0,
+   "margin": 0.05,
+   "alpha": 0.05,
+   "delta_min": 0.016,
+   "guards": []
+  },
+  "outcomes": {
+   "IMPROVEMENT_SUPPORTED": {
+    "count": 19,
+    "rate": 0.019,
+    "interval": [
+     0.011477036993100948,
+     0.0295124016250978
+    ]
+   },
+   "GUARD_NOT_CERTIFIED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "MEANINGFUL_IMPROVEMENT_RULED_OUT": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   },
+   "INSUFFICIENT": {
+    "count": 981,
+    "rate": 0.981,
+    "interval": [
+     0.9704875983749022,
+     0.988522963006899
+    ]
+   },
+   "REGRESSION_FLAGGED": {
+    "count": 0,
+    "rate": 0.0,
+    "interval": [
+     0.0,
+     0.0036820838968656708
+    ]
+   }
+  },
+  "name": "two_strata_220_each_b0_net3pp"
+ }
+]

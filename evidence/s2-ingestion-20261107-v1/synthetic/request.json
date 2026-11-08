@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "synthetic_source_contract_v1",
+  "evaluator_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+  "schedule": [
+    {
+      "job_id": "job",
+      "phase": "synthetic",
+      "arm": "A",
+      "policy_id": "teacher",
+      "scene_id": "scene",
+      "road_id": "road",
+      "stratum": "urban",
+      "replicate_id": 0,
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requested_steps": 3
+    }
+  ],
+  "schedule_request": null,
+  "events": {
+    "path": "events.json",
+    "sha256": "66f6f510e26facbb115e21dc8176720625d0b19c0a6c1123fae4e29ee7ab27d1",
+    "size_bytes": 458
+  },
+  "batches": [
+    {
+      "arm": "A",
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "summary": {
+        "path": "summary.json",
+        "sha256": "6573050f4f4e62598c44b70c10d94dcaeb7307d8c8fe432ab7651e83ea5dfd2b",
+        "size_bytes": 830
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "attempt_id": "attempt",
+      "metrics": {
+        "path": "metrics.parquet",
+        "sha256": "160f513a941cdbbe2252b72620081d9ab4e6e703a30467e1c6a5be1212d4ff7d",
+        "size_bytes": 2825
+      },
+      "trace": {
+        "path": "trace.json",
+        "sha256": "429c3c0dc9c2ed3772d2fa253542a00738054368552e7fb3c899cf2dcc68f531",
+        "size_bytes": 805
+      },
+      "completion": {
+        "path": "_complete",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    }
+  ]
+}

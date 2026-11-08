@@ -1,0 +1,31 @@
+KILLED  S1 agg drops guard_strata
+KILLED  S2 dup strata accepted
+KILLED  S7 empty strata accepted
+KILLED  S3 guard subset
+KILLED  S4 guard superset
+KILLED  S5 guard_strata ignored
+KILLED  S6 records primary strata
+KILLED  N1 paired-observation check off
+KILLED  N2 guard worse flag wrong
+KILLED  N3 any_guard flag constant
+KILLED  N4 agg drops guard margin
+KILLED  N6 agg drops primary metric
+KILLED  P1 guard at primary margin
+KILLED  P2 drops BELOW_MIN
+KILLED  P3 guard_go at primary margin
+KILLED  P4 guard_go counts joint
+KILLED  N5 joint counts one stratum
+KILLED  P5 rate off by one
+KILLED  P6 guard rate off by one
+KILLED  P7 effects dropped (design)
+KILLED  P8 pooled first stratum
+KILLED  P9 label check removed
+KILLED  P10 paired seeds (design)
+KILLED  P11 label uniqueness off
+KILLED  G1 gating subset check off
+KILLED  G2 guards_go ignores gating
+KILLED  G3 gating ignored
+KILLED  G4 agg drops gating
+SURVIVED G5 runner gating check off
+KILLED  G6 runner gating uses all strata
+survivors: ['G5 runner gating check off']

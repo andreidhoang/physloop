@@ -1,0 +1,4 @@
+Produced on 2026-11-08 with the pre-review candidate rule (RULE_ID intersection_union_upper_below_zero_v0),
+whose source was not archived here. An independent review then found labelling, validation and seeding
+defects (no level-alpha validity bug). Superseded by evidence/superiority-rule-20261108-v2/, which carries
+the reviewed v1 source, tests and a fresh power run. Kept unedited as history.

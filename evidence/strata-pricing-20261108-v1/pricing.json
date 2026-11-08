@@ -1,0 +1,4722 @@
+{
+ "block_A_uniform": [
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.0,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.02,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 20,
+       "INSUFFICIENT": 980
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 20,
+       "INSUFFICIENT": 980
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 20,
+       "INSUFFICIENT": 980
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 20,
+       "INSUFFICIENT": 980
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 0.913
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.0,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 7,
+       "INSUFFICIENT": 993
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 7,
+       "INSUFFICIENT": 993
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 7,
+       "INSUFFICIENT": 993
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 7,
+       "INSUFFICIENT": 993
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 0.344
+     },
+     "0.1": {
+      "all": 0.994
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.016,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.016,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.188,
+      "improvement_interval": [
+       0.16423072340131875,
+       0.21362154016312895
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 188,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 7,
+       "INSUFFICIENT": 805
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.188,
+      "improvement_interval": [
+       0.16423072340131875,
+       0.21362154016312895
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 188,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 7,
+       "INSUFFICIENT": 805
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.188,
+      "improvement_interval": [
+       0.16423072340131875,
+       0.21362154016312895
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 188,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 7,
+       "INSUFFICIENT": 805
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.188,
+      "improvement_interval": [
+       0.16423072340131875,
+       0.21362154016312895
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 188,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 7,
+       "INSUFFICIENT": 805
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 1.0
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.016,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.036000000000000004,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.014,
+      "improvement_interval": [
+       0.007674501565020781,
+       0.023378156010314503
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 14,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 2,
+       "INSUFFICIENT": 984
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.014,
+      "improvement_interval": [
+       0.007674501565020781,
+       0.023378156010314503
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 14,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 2,
+       "INSUFFICIENT": 984
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.014,
+      "improvement_interval": [
+       0.007674501565020781,
+       0.023378156010314503
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 14,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 2,
+       "INSUFFICIENT": 984
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.014,
+      "improvement_interval": [
+       0.007674501565020781,
+       0.023378156010314503
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 14,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 2,
+       "INSUFFICIENT": 984
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 0.976
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.016,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.066,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.004,
+      "improvement_interval": [
+       0.0010909079877259717,
+       0.010209664683929871
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 4,
+       "INSUFFICIENT": 996
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.004,
+      "improvement_interval": [
+       0.0010909079877259717,
+       0.010209664683929871
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 4,
+       "INSUFFICIENT": 996
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.004,
+      "improvement_interval": [
+       0.0010909079877259717,
+       0.010209664683929871
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 4,
+       "INSUFFICIENT": 996
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.004,
+      "improvement_interval": [
+       0.0010909079877259717,
+       0.010209664683929871
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 4,
+       "INSUFFICIENT": 996
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 0.657
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.03,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.03,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.85,
+      "improvement_interval": [
+       0.8263418714329641,
+       0.8715751888838272
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 850,
+       "INSUFFICIENT": 150
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.85,
+      "improvement_interval": [
+       0.8263418714329641,
+       0.8715751888838272
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 850,
+       "INSUFFICIENT": 150
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.85,
+      "improvement_interval": [
+       0.8263418714329641,
+       0.8715751888838272
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 850,
+       "INSUFFICIENT": 150
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.85,
+      "improvement_interval": [
+       0.8263418714329641,
+       0.8715751888838272
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 850,
+       "INSUFFICIENT": 150
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 1.0
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.03,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.109,
+      "improvement_interval": [
+       0.09035814767691941,
+       0.1299783653429351
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 109,
+       "INSUFFICIENT": 891
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.109,
+      "improvement_interval": [
+       0.09035814767691941,
+       0.1299783653429351
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 109,
+       "INSUFFICIENT": 891
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.109,
+      "improvement_interval": [
+       0.09035814767691941,
+       0.1299783653429351
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 109,
+       "INSUFFICIENT": 891
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.109,
+      "improvement_interval": [
+       0.09035814767691941,
+       0.1299783653429351
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 109,
+       "INSUFFICIENT": 891
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 0.997
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.03,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.08,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.027,
+      "improvement_interval": [
+       0.01786690592524968,
+       0.03904174680597016
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 27,
+       "INSUFFICIENT": 973
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.027,
+      "improvement_interval": [
+       0.01786690592524968,
+       0.03904174680597016
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 27,
+       "INSUFFICIENT": 973
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.027,
+      "improvement_interval": [
+       0.01786690592524968,
+       0.03904174680597016
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 27,
+       "INSUFFICIENT": 973
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.027,
+      "improvement_interval": [
+       0.01786690592524968,
+       0.03904174680597016
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 27,
+       "INSUFFICIENT": 973
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 0.821
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.05,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 1.0
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "delta": 0.05,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.07,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.45,
+      "improvement_interval": [
+       0.4188517096799509,
+       0.4814434666234065
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 450,
+       "INSUFFICIENT": 550
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.45,
+      "improvement_interval": [
+       0.4188517096799509,
+       0.4814434666234065
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 450,
+       "INSUFFICIENT": 550
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.45,
+      "improvement_interval": [
+       0.4188517096799509,
+       0.4814434666234065
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 450,
+       "INSUFFICIENT": 550
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.45,
+      "improvement_interval": [
+       0.4188517096799509,
+       0.4814434666234065
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 450,
+       "INSUFFICIENT": 550
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 1.0
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.0,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.02,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 27,
+       "INSUFFICIENT": 973
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 27,
+       "INSUFFICIENT": 973
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 27,
+       "INSUFFICIENT": 973
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.44,
+      "s2": 0.467
+     },
+     "0.1": {
+      "s1": 0.999,
+      "s2": 0.999
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.0,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 8,
+       "INSUFFICIENT": 992
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 8,
+       "INSUFFICIENT": 992
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 8,
+       "INSUFFICIENT": 992
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.083,
+      "s2": 0.092
+     },
+     "0.1": {
+      "s1": 0.821,
+      "s2": 0.8
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.016,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.016,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.166,
+      "improvement_interval": [
+       0.14344866158413716,
+       0.19053678854188003
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 166,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 10,
+       "INSUFFICIENT": 824
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.166,
+      "improvement_interval": [
+       0.14344866158413716,
+       0.19053678854188003
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 166,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 10,
+       "INSUFFICIENT": 824
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.166,
+      "improvement_interval": [
+       0.14344866158413716,
+       0.19053678854188003
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 166,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 10,
+       "INSUFFICIENT": 824
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 1.0,
+      "s2": 1.0
+     },
+     "0.1": {
+      "s1": 1.0,
+      "s2": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.016,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.036000000000000004,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.013,
+      "improvement_interval": [
+       0.006939617502851476,
+       0.022127803636778486
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 13,
+       "INSUFFICIENT": 987
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.013,
+      "improvement_interval": [
+       0.006939617502851476,
+       0.022127803636778486
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 13,
+       "INSUFFICIENT": 987
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.013,
+      "improvement_interval": [
+       0.006939617502851476,
+       0.022127803636778486
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 13,
+       "INSUFFICIENT": 987
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.627,
+      "s2": 0.627
+     },
+     "0.1": {
+      "s1": 1.0,
+      "s2": 0.996
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.016,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.066,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.002,
+      "improvement_interval": [
+       0.00024230111687723193,
+       0.007205838911457497
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 2,
+       "INSUFFICIENT": 998
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.002,
+      "improvement_interval": [
+       0.00024230111687723193,
+       0.007205838911457497
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 2,
+       "INSUFFICIENT": 998
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.002,
+      "improvement_interval": [
+       0.00024230111687723193,
+       0.007205838911457497
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 2,
+       "INSUFFICIENT": 998
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.207,
+      "s2": 0.204
+     },
+     "0.1": {
+      "s1": 0.911,
+      "s2": 0.896
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.03,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.03,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.018,
+      "improvement_interval": [
+       0.010701947929414707,
+       0.028299041249019177
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 18,
+       "INSUFFICIENT": 982
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.872,
+      "improvement_interval": [
+       0.8496940714251291,
+       0.8920877586688023
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 872,
+       "INSUFFICIENT": 128
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.872,
+      "improvement_interval": [
+       0.8496940714251291,
+       0.8920877586688023
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 872,
+       "INSUFFICIENT": 128
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.872,
+      "improvement_interval": [
+       0.8496940714251291,
+       0.8920877586688023
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 872,
+       "INSUFFICIENT": 128
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 1.0,
+      "s2": 1.0
+     },
+     "0.1": {
+      "s1": 1.0,
+      "s2": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.03,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.081,
+      "improvement_interval": [
+       0.06484353970849498,
+       0.09967169896848728
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 81,
+       "INSUFFICIENT": 919
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.081,
+      "improvement_interval": [
+       0.06484353970849498,
+       0.09967169896848728
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 81,
+       "INSUFFICIENT": 919
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.081,
+      "improvement_interval": [
+       0.06484353970849498,
+       0.09967169896848728
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 81,
+       "INSUFFICIENT": 919
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.788,
+      "s2": 0.809
+     },
+     "0.1": {
+      "s1": 0.999,
+      "s2": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.03,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.08,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.027,
+      "improvement_interval": [
+       0.01786690592524968,
+       0.03904174680597016
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 27,
+       "INSUFFICIENT": 973
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.026,
+      "improvement_interval": [
+       0.017052786345629425,
+       0.037865122478921445
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 26,
+       "GUARD_NOT_CERTIFIED": 1,
+       "INSUFFICIENT": 973
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.027,
+      "improvement_interval": [
+       0.01786690592524968,
+       0.03904174680597016
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 27,
+       "INSUFFICIENT": 973
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.375,
+      "s2": 0.357
+     },
+     "0.1": {
+      "s1": 0.954,
+      "s2": 0.954
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.05,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.433,
+      "improvement_interval": [
+       0.40202574232341415,
+       0.46436982694107715
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 433,
+       "INSUFFICIENT": 567
+      }
+     },
+     "pooled": {
+      "improvement_rate": 1.0,
+      "improvement_interval": [
+       0.9963179161031344,
+       1.0
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1000
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 1.0,
+      "improvement_interval": [
+       0.9963179161031344,
+       1.0
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1000
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 1.0,
+      "improvement_interval": [
+       0.9963179161031344,
+       1.0
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1000
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 1.0,
+      "s2": 1.0
+     },
+     "0.1": {
+      "s1": 1.0,
+      "s2": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "2 strata (220/221)",
+   "delta": 0.05,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 220,
+      "s2": 221
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.07,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.014,
+      "improvement_interval": [
+       0.007674501565020781,
+       0.023378156010314503
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 14,
+       "INSUFFICIENT": 986
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.458,
+      "improvement_interval": [
+       0.42678239407149376,
+       0.4894655464270633
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 458,
+       "INSUFFICIENT": 542
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.454,
+      "improvement_interval": [
+       0.42281604972039893,
+       0.4854555081333787
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 454,
+       "GUARD_NOT_CERTIFIED": 4,
+       "INSUFFICIENT": 542
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.458,
+      "improvement_interval": [
+       0.42678239407149376,
+       0.4894655464270633
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 458,
+       "INSUFFICIENT": 542
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.915,
+      "s2": 0.931
+     },
+     "0.1": {
+      "s1": 1.0,
+      "s2": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.0,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.02,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 21,
+       "INSUFFICIENT": 979
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 21,
+       "INSUFFICIENT": 979
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 21,
+       "INSUFFICIENT": 979
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.124,
+      "s2": 0.13,
+      "s3": 0.139,
+      "s4": 0.119
+     },
+     "0.1": {
+      "s1": 0.834,
+      "s2": 0.837,
+      "s3": 0.848,
+      "s4": 0.828
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.0,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 3,
+       "INSUFFICIENT": 997
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 3,
+       "INSUFFICIENT": 997
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 3,
+       "INSUFFICIENT": 997
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.019,
+      "s2": 0.03,
+      "s3": 0.034,
+      "s4": 0.031
+     },
+     "0.1": {
+      "s1": 0.343,
+      "s2": 0.352,
+      "s3": 0.389,
+      "s4": 0.357
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.016,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.016,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.156,
+      "improvement_interval": [
+       0.13404912388910883,
+       0.17999718498898643
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 156,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 9,
+       "INSUFFICIENT": 835
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.156,
+      "improvement_interval": [
+       0.13404912388910883,
+       0.17999718498898643
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 156,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 9,
+       "INSUFFICIENT": 835
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.156,
+      "improvement_interval": [
+       0.13404912388910883,
+       0.17999718498898643
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 156,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 9,
+       "INSUFFICIENT": 835
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 1.0,
+      "s2": 1.0,
+      "s3": 1.0,
+      "s4": 1.0
+     },
+     "0.1": {
+      "s1": 1.0,
+      "s2": 1.0,
+      "s3": 1.0,
+      "s4": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.016,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.036000000000000004,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.01,
+      "improvement_interval": [
+       0.004805510691049309,
+       0.01831324305511245
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 10,
+       "INSUFFICIENT": 990
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.003,
+      "improvement_interval": [
+       0.0006190999316495713,
+       0.008742023238478303
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 3,
+       "GUARD_NOT_CERTIFIED": 7,
+       "INSUFFICIENT": 990
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.01,
+      "improvement_interval": [
+       0.004805510691049309,
+       0.01831324305511245
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 10,
+       "INSUFFICIENT": 990
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.194,
+      "s2": 0.193,
+      "s3": 0.198,
+      "s4": 0.203
+     },
+     "0.1": {
+      "s1": 0.881,
+      "s2": 0.875,
+      "s3": 0.866,
+      "s4": 0.899
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.016,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.066,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.005,
+      "improvement_interval": [
+       0.0016254195175627604,
+       0.011629470559812147
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 5,
+       "INSUFFICIENT": 995
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 5,
+       "INSUFFICIENT": 995
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.002,
+      "improvement_interval": [
+       0.00024230111687723193,
+       0.007205838911457497
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 2,
+       "GUARD_NOT_CERTIFIED": 3,
+       "INSUFFICIENT": 995
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.039,
+      "s2": 0.059,
+      "s3": 0.071,
+      "s4": 0.058
+     },
+     "0.1": {
+      "s1": 0.44,
+      "s2": 0.459,
+      "s3": 0.467,
+      "s4": 0.462
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.03,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.03,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.85,
+      "improvement_interval": [
+       0.8263418714329641,
+       0.8715751888838272
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 850,
+       "INSUFFICIENT": 150
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.85,
+      "improvement_interval": [
+       0.8263418714329641,
+       0.8715751888838272
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 850,
+       "INSUFFICIENT": 150
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.85,
+      "improvement_interval": [
+       0.8263418714329641,
+       0.8715751888838272
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 850,
+       "INSUFFICIENT": 150
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 1.0,
+      "s2": 1.0,
+      "s3": 1.0,
+      "s4": 1.0
+     },
+     "0.1": {
+      "s1": 1.0,
+      "s2": 1.0,
+      "s3": 1.0,
+      "s4": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.03,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.104,
+      "improvement_interval": [
+       0.08576782262563759,
+       0.12460015656989851
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 104,
+       "INSUFFICIENT": 896
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.009,
+      "improvement_interval": [
+       0.004123395660342473,
+       0.017015783069894586
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 9,
+       "GUARD_NOT_CERTIFIED": 95,
+       "INSUFFICIENT": 896
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.104,
+      "improvement_interval": [
+       0.08576782262563759,
+       0.12460015656989851
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 104,
+       "INSUFFICIENT": 896
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.284,
+      "s2": 0.283,
+      "s3": 0.295,
+      "s4": 0.309
+     },
+     "0.1": {
+      "s1": 0.902,
+      "s2": 0.909,
+      "s3": 0.916,
+      "s4": 0.911
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.03,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.08,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.032,
+      "improvement_interval": [
+       0.02198884960564242,
+       0.04487590283500928
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 32,
+       "INSUFFICIENT": 968
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 32,
+       "INSUFFICIENT": 968
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.018,
+      "improvement_interval": [
+       0.010701947929414707,
+       0.028299041249019177
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 18,
+       "GUARD_NOT_CERTIFIED": 14,
+       "INSUFFICIENT": 968
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.089,
+      "s2": 0.083,
+      "s3": 0.103,
+      "s4": 0.1
+     },
+     "0.1": {
+      "s1": 0.519,
+      "s2": 0.532,
+      "s3": 0.546,
+      "s4": 0.557
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.05,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 1.0,
+      "improvement_interval": [
+       0.9963179161031344,
+       1.0
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1000
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 1.0,
+      "improvement_interval": [
+       0.9963179161031344,
+       1.0
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1000
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 1.0,
+      "improvement_interval": [
+       0.9963179161031344,
+       1.0
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1000
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 1.0,
+      "s2": 1.0,
+      "s3": 1.0,
+      "s4": 1.0
+     },
+     "0.1": {
+      "s1": 1.0,
+      "s2": 1.0,
+      "s3": 1.0,
+      "s4": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "delta": 0.05,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.07,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.468,
+      "improvement_interval": [
+       0.4367069965439357,
+       0.49948190470920345
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 468,
+       "INSUFFICIENT": 532
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.031,
+      "improvement_interval": [
+       0.021158171970208632,
+       0.043715085006238906
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 31,
+       "GUARD_NOT_CERTIFIED": 437,
+       "INSUFFICIENT": 532
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.445,
+      "improvement_interval": [
+       0.41389911040428456,
+       0.47642559065205875
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 445,
+       "GUARD_NOT_CERTIFIED": 23,
+       "INSUFFICIENT": 532
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.453,
+      "s2": 0.475,
+      "s3": 0.446,
+      "s4": 0.429
+     },
+     "0.1": {
+      "s1": 0.958,
+      "s2": 0.947,
+      "s3": 0.951,
+      "s4": 0.945
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.0,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.02,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 23,
+       "INSUFFICIENT": 977
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 23,
+       "INSUFFICIENT": 977
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 23,
+       "INSUFFICIENT": 977
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.703,
+      "mid": 0.136,
+      "rare": 0.0
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 0.784,
+      "rare": 0.434
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.0,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 2,
+       "INSUFFICIENT": 998
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 2,
+       "INSUFFICIENT": 998
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 2,
+       "INSUFFICIENT": 998
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.164,
+      "mid": 0.027,
+      "rare": 0.001
+     },
+     "0.1": {
+      "common": 0.961,
+      "mid": 0.291,
+      "rare": 0.124
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.016,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.016,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.176,
+      "improvement_interval": [
+       0.1528782896164314,
+       0.20104651271780774
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 176,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 6,
+       "INSUFFICIENT": 818
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 176,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 6,
+       "INSUFFICIENT": 818
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.176,
+      "improvement_interval": [
+       0.1528782896164314,
+       0.20104651271780774
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 176,
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 6,
+       "INSUFFICIENT": 818
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 0.0
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.016,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.036000000000000004,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.009,
+      "improvement_interval": [
+       0.004123395660342473,
+       0.017015783069894586
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 9,
+       "INSUFFICIENT": 991
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 9,
+       "INSUFFICIENT": 991
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.008,
+      "improvement_interval": [
+       0.0034599761653293115,
+       0.015702049176074682
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 8,
+       "GUARD_NOT_CERTIFIED": 1,
+       "INSUFFICIENT": 991
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.853,
+      "mid": 0.182,
+      "rare": 0.002
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 0.846,
+      "rare": 0.467
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.016,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.066,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.002,
+      "improvement_interval": [
+       0.00024230111687723193,
+       0.007205838911457497
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 2,
+       "INSUFFICIENT": 998
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 2,
+       "INSUFFICIENT": 998
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 2,
+       "INSUFFICIENT": 998
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.374,
+      "mid": 0.041,
+      "rare": 0.008
+     },
+     "0.1": {
+      "common": 0.985,
+      "mid": 0.386,
+      "rare": 0.122
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.03,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.03,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.843,
+      "improvement_interval": [
+       0.8189474466392858,
+       0.8650123407930691
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 843,
+       "INSUFFICIENT": 157
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.001,
+      "improvement_interval": [
+       2.5317487491294065e-05,
+       0.005558924279826672
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1,
+       "GUARD_NOT_CERTIFIED": 842,
+       "INSUFFICIENT": 157
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.843,
+      "improvement_interval": [
+       0.8189474466392858,
+       0.8650123407930691
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 843,
+       "INSUFFICIENT": 157
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 0.001
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.03,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.085,
+      "improvement_interval": [
+       0.06845727877099018,
+       0.10403198577837727
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 85,
+       "INSUFFICIENT": 915
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 85,
+       "INSUFFICIENT": 915
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.05,
+      "improvement_interval": [
+       0.037335397604661764,
+       0.06539048791549364
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 50,
+       "GUARD_NOT_CERTIFIED": 35,
+       "INSUFFICIENT": 915
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.94,
+      "mid": 0.241,
+      "rare": 0.005
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 0.866,
+      "rare": 0.429
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.03,
+   "b": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.05,
+     "q_minus": 0.08,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.026,
+      "improvement_interval": [
+       0.017052786345629425,
+       0.037865122478921445
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 26,
+       "INSUFFICIENT": 974
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.001,
+      "improvement_interval": [
+       2.5317487491294065e-05,
+       0.005558924279826672
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1,
+       "GUARD_NOT_CERTIFIED": 25,
+       "INSUFFICIENT": 974
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.005,
+      "improvement_interval": [
+       0.0016254195175627604,
+       0.011629470559812147
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 5,
+       "GUARD_NOT_CERTIFIED": 21,
+       "INSUFFICIENT": 974
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.563,
+      "mid": 0.076,
+      "rare": 0.017
+     },
+     "0.1": {
+      "common": 0.999,
+      "mid": 0.469,
+      "rare": 0.13
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.05,
+   "b": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.019,
+      "improvement_interval": [
+       0.011477036993100948,
+       0.0295124016250978
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 19,
+       "GUARD_NOT_CERTIFIED": 980,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 0.019
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "delta": 0.05,
+   "b": 0.02,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.07,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.451,
+      "improvement_interval": [
+       0.41984260653536304,
+       0.48244666504756756
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 451,
+       "INSUFFICIENT": 549
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.013,
+      "improvement_interval": [
+       0.006939617502851476,
+       0.022127803636778486
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 13,
+       "GUARD_NOT_CERTIFIED": 438,
+       "INSUFFICIENT": 549
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.239,
+      "improvement_interval": [
+       0.21286749037590907,
+       0.26667861888521033
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 239,
+       "GUARD_NOT_CERTIFIED": 212,
+       "INSUFFICIENT": 549
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.993,
+      "mid": 0.402,
+      "rare": 0.032
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 0.91,
+      "rare": 0.449
+     }
+    }
+   }
+  }
+ ],
+ "block_C_harm": [
+  {
+   "config": "4 strata (110 each)",
+   "harmed": "s4",
+   "harm": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": {
+      "s4": [
+       0.07,
+       0.02
+      ]
+     },
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.002,
+      "improvement_interval": [
+       0.00024230111687723193,
+       0.007205838911457497
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 2,
+       "INSUFFICIENT": 998
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 2,
+       "INSUFFICIENT": 998
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.002,
+      "improvement_interval": [
+       0.00024230111687723193,
+       0.007205838911457497
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 2,
+       "INSUFFICIENT": 998
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.284,
+      "s2": 0.283,
+      "s3": 0.295,
+      "s4": 0.001
+     },
+     "0.1": {
+      "s1": 0.902,
+      "s2": 0.909,
+      "s3": 0.916,
+      "s4": 0.043
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "harmed": "s4",
+   "harm": 0.1,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": {
+      "s4": [
+       0.12000000000000001,
+       0.02
+      ]
+     },
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 11,
+       "INSUFFICIENT": 989
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 11,
+       "INSUFFICIENT": 989
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "MEANINGFUL_IMPROVEMENT_RULED_OUT": 11,
+       "INSUFFICIENT": 989
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.284,
+      "s2": 0.283,
+      "s3": 0.295,
+      "s4": 0.0
+     },
+     "0.1": {
+      "s1": 0.902,
+      "s2": 0.909,
+      "s3": 0.916,
+      "s4": 0.003
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "harmed": "rare",
+   "harm": 0.05,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": {
+      "rare": [
+       0.07,
+       0.02
+      ]
+     },
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.02,
+      "improvement_interval": [
+       0.012258267972406327,
+       0.03072003268260911
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 20,
+       "INSUFFICIENT": 980
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 20,
+       "INSUFFICIENT": 980
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.007,
+      "improvement_interval": [
+       0.0028188587596205245,
+       0.014369194978918632
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 7,
+       "GUARD_NOT_CERTIFIED": 13,
+       "INSUFFICIENT": 980
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.94,
+      "mid": 0.241,
+      "rare": 0.0
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 0.866,
+      "rare": 0.047
+     }
+    }
+   }
+  },
+  {
+   "config": "3 unequal (300/100/41)",
+   "harmed": "rare",
+   "harm": 0.1,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": {
+      "rare": [
+       0.12000000000000001,
+       0.02
+      ]
+     },
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.008,
+      "improvement_interval": [
+       0.0034599761653293115,
+       0.015702049176074682
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 8,
+       "INSUFFICIENT": 992
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 8,
+       "INSUFFICIENT": 992
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.001,
+      "improvement_interval": [
+       2.5317487491294065e-05,
+       0.005558924279826672
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 1,
+       "GUARD_NOT_CERTIFIED": 7,
+       "INSUFFICIENT": 992
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.94,
+      "mid": 0.241,
+      "rare": 0.0
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 0.866,
+      "rare": 0.003
+     }
+    }
+   }
+  }
+ ],
+ "block_E_replicates": [
+  {
+   "config": "1 stratum (441)",
+   "replicate_correlation": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 3,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.018,
+      "improvement_interval": [
+       0.010701947929414707,
+       0.028299041249019177
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 18,
+       "INSUFFICIENT": 982
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.018,
+      "improvement_interval": [
+       0.010701947929414707,
+       0.028299041249019177
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 18,
+       "INSUFFICIENT": 982
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.018,
+      "improvement_interval": [
+       0.010701947929414707,
+       0.028299041249019177
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 18,
+       "INSUFFICIENT": 982
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.018,
+      "improvement_interval": [
+       0.010701947929414707,
+       0.028299041249019177
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 18,
+       "INSUFFICIENT": 982
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 1.0
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "1 stratum (441)",
+   "replicate_correlation": 0.5,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "all": 441
+     },
+     "scenes_per_road": 1,
+     "replicates": 3,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.5,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.064,
+      "improvement_interval": [
+       0.049633089291849015,
+       0.08099507436705107
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 64,
+       "INSUFFICIENT": 936
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.064,
+      "improvement_interval": [
+       0.049633089291849015,
+       0.08099507436705107
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 64,
+       "INSUFFICIENT": 936
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.064,
+      "improvement_interval": [
+       0.049633089291849015,
+       0.08099507436705107
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 64,
+       "INSUFFICIENT": 936
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.064,
+      "improvement_interval": [
+       0.049633089291849015,
+       0.08099507436705107
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 64,
+       "INSUFFICIENT": 936
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "all": 1.0
+     },
+     "0.1": {
+      "all": 1.0
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "replicate_correlation": 0.0,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 3,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.016,
+      "improvement_interval": [
+       0.00917231926922208,
+       0.02585324908137346
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 16,
+       "INSUFFICIENT": 984
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.003,
+      "improvement_interval": [
+       0.0006190999316495713,
+       0.008742023238478303
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 3,
+       "GUARD_NOT_CERTIFIED": 13,
+       "INSUFFICIENT": 984
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.016,
+      "improvement_interval": [
+       0.00917231926922208,
+       0.02585324908137346
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 16,
+       "INSUFFICIENT": 984
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.169,
+      "s2": 0.177,
+      "s3": 0.173,
+      "s4": 0.211
+     },
+     "0.1": {
+      "s1": 0.995,
+      "s2": 0.993,
+      "s3": 0.995,
+      "s4": 0.991
+     }
+    }
+   }
+  },
+  {
+   "config": "4 strata (110 each)",
+   "replicate_correlation": 0.5,
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v2",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 3,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.5,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.046,
+      "improvement_interval": [
+       0.03387149854767792,
+       0.06088355271374265
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 46,
+       "INSUFFICIENT": 954
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.003,
+      "improvement_interval": [
+       0.0006190999316495713,
+       0.008742023238478303
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 3,
+       "GUARD_NOT_CERTIFIED": 43,
+       "INSUFFICIENT": 954
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.046,
+      "improvement_interval": [
+       0.03387149854767792,
+       0.06088355271374265
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 46,
+       "INSUFFICIENT": 954
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.248,
+      "s2": 0.248,
+      "s3": 0.26,
+      "s4": 0.262
+     },
+     "0.1": {
+      "s1": 0.949,
+      "s2": 0.958,
+      "s3": 0.969,
+      "s4": 0.951
+     }
+    }
+   }
+  }
+ ],
+ "meta": {
+  "seed": 20261108,
+  "trials": 1000,
+  "p_a": 0.08,
+  "alpha": 0.05,
+  "delta_min": 0.016,
+  "seconds": 290.0
+ }
+}

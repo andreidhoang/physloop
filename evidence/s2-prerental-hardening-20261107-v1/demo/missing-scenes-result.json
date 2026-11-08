@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "prepared": false,
+  "alpasim_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+  "command_origin": "assembled_from_pinned_source_interfaces_not_runtime_tested",
+  "validation_scope": "pure source-contract command preparation",
+  "cloud_launch_authorized": false,
+  "publication_authorized": false,
+  "runtime_qualified": false,
+  "paths_verified": false,
+  "images_verified": false,
+  "execution_order_registered": false,
+  "commands_executed": false,
+  "input_name_scope": "portable_ASCII_paths_and_scene_labels_only",
+  "issues": [
+    {
+      "code": "invalid_scene_selection",
+      "path": "scene_ids",
+      "message": "Provide exactly five unique scene IDs using ASCII letters, digits, dot, underscore or hyphen; dot/traversal labels are unsupported."
+    }
+  ],
+  "pilot": null,
+  "arms": [],
+  "request_sha256": "5250dfa23a3395ed92df5f42401dbafae4cff86aa19e8736df1581e675d6a291"
+}

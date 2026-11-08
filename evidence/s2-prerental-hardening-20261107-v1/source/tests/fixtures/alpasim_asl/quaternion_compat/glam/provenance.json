@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-07",
+  "dependency_version": "glam 0.29.3",
+  "dependency_tag_object": "f5f72c5ea00c1e6d440bce103850ea0bf3287eaf",
+  "dependency_commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+  "crate_checksum": "8babf46d4c1c9d92deac9f7be466f76dfc4482b6452fc5024b5e8daf6ffeb3ee",
+  "tag_resolution_url": "https://api.github.com/repos/bitshifter/glam-rs/git/tags/f5f72c5ea00c1e6d440bce103850ea0bf3287eaf",
+  "retrieval": "Full public source snapshots through GitHub connector, with tag-to-commit resolution; source only",
+  "sources": [
+    {
+      "file": "alpasim_Cargo.lock.txt",
+      "path": "src/utils_rs/Cargo.lock",
+      "repository": "https://github.com/NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "git_blob_sha": "bca1073bad0f5dda2aff549f5397ce356d16f9e7",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/utils_rs/Cargo.lock",
+      "retrieved_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/utils_rs/Cargo.lock",
+      "sha256": "fdad29ad0114a2878737f6999cdce67cd17c3458ca07b96d2b53a322513f2c7b"
+    },
+    {
+      "file": "alpasim_Cargo.toml.txt",
+      "path": "src/utils_rs/Cargo.toml",
+      "repository": "https://github.com/NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "git_blob_sha": "f4e9e6d41755401d2cd169d4aba55fbf8fe275ee",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/utils_rs/Cargo.toml",
+      "retrieved_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/utils_rs/Cargo.toml",
+      "sha256": "c651a2b0035f6ada455dc5202f87f8663fbaa7bba5bbb1edbb29b35be82a2bb6"
+    },
+    {
+      "file": "src/f32/sse2/quat.rs.txt",
+      "path": "src/f32/sse2/quat.rs",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "634f78032e7db7e4e2e1acea8471570d74772acc",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/src/f32/sse2/quat.rs",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/src/f32/sse2/quat.rs",
+      "sha256": "3a34c23deae9c84eb7feefaf66445aebf9b1a324088a140a501ed6113b7dd2a2"
+    },
+    {
+      "file": "src/f32/scalar/quat.rs.txt",
+      "path": "src/f32/scalar/quat.rs",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "2cbeb4c613763c4687e365f3f366cb0c1fca91f1",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/src/f32/scalar/quat.rs",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/src/f32/scalar/quat.rs",
+      "sha256": "23076e32e2f0bc3c5bcf91f8d68ae6c024e7fde558bf8b5d8156269aabf32f91"
+    },
+    {
+      "file": "src/f32/neon/quat.rs.txt",
+      "path": "src/f32/neon/quat.rs",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "76664ad5d13381195f1084d291a82299bd6eeb81",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/src/f32/neon/quat.rs",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/src/f32/neon/quat.rs",
+      "sha256": "f313d25f87c7ef1ea72d9d6e6c4772b589302e752dfa2f659227c54d00c4d044"
+    },
+    {
+      "file": "src/f32/sse2/vec4.rs.txt",
+      "path": "src/f32/sse2/vec4.rs",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "51a972f321c4e22e408cd5990bb0f9d2dddc64a1",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/src/f32/sse2/vec4.rs",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/src/f32/sse2/vec4.rs",
+      "sha256": "fe360bcc23f3fc80f9d3f75c24c3cb7a6461afbec6cf18db04e5a32a206f78be"
+    },
+    {
+      "file": "src/f32/scalar/vec4.rs.txt",
+      "path": "src/f32/scalar/vec4.rs",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "80c348772fc0004d7b6f504f84e8c69ddded390e",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/src/f32/scalar/vec4.rs",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/src/f32/scalar/vec4.rs",
+      "sha256": "9a75b039e329f96fed34eb90e877d61a4fd532d14930c51d47269504507f9af3"
+    },
+    {
+      "file": "src/f32/neon/vec4.rs.txt",
+      "path": "src/f32/neon/vec4.rs",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "a220eb8ec98eea45c68861d47453569b69081f38",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/src/f32/neon/vec4.rs",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/src/f32/neon/vec4.rs",
+      "sha256": "9222655a1b9ebd0f0bb6c32af96cd0aef6856d8e2e05be8896be1055557f2558"
+    },
+    {
+      "file": "src/sse2.rs.txt",
+      "path": "src/sse2.rs",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "e31675a8e652d53716ad0c31f79c7ba3d2f8c05e",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/src/sse2.rs",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/src/sse2.rs",
+      "sha256": "dc668462edb09ee6cd154a7616e0b7ab5f3ac66f9cee7ae1ba25f8a0c07d907d"
+    },
+    {
+      "file": "src/neon.rs.txt",
+      "path": "src/neon.rs",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "55afe4303d4e88ab9a851850f3d3abaca393c890",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/src/neon.rs",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/src/neon.rs",
+      "sha256": "37fdfee5ef3ef12a831b0290d3205c36c36c3a78dccc39bdee0f04963cb8f864"
+    },
+    {
+      "file": "LICENSE-MIT",
+      "path": "LICENSE-MIT",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "31aa79387f27e730e33d871925e152e35e428031",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/LICENSE-MIT",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/LICENSE-MIT",
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "file": "LICENSE-APACHE",
+      "path": "LICENSE-APACHE",
+      "repository": "https://github.com/bitshifter/glam-rs",
+      "commit": "d36e7eeff05338c56c4aa8d59fc2615e7963b1b7",
+      "git_blob_sha": "301f1f0eee5c8f56ee7d4f695cf5e66fde524679",
+      "source_url": "https://github.com/bitshifter/glam-rs/blob/d36e7eeff05338c56c4aa8d59fc2615e7963b1b7/LICENSE-APACHE",
+      "retrieved_url": "https://github.com/bitshifter/glam-rs/blob/0.29.3/LICENSE-APACHE",
+      "sha256": "be33ddb87a30fd321ab100e2d922cba512e50ec7a63d8e62e5bfc0798dd4b585"
+    }
+  ],
+  "arm_reference": {
+    "url": "https://arm-software.github.io/acle/neon_intrinsics/advsimd.html",
+    "page_version": "aef52c2b0944bf652443c1acd867dbb893af8dd0",
+    "intrinsic": "vaddvq_f32",
+    "instructions": [
+      "FADDP Vt.4S,Vn.4S,Vm.4S",
+      "FADDP Sd,Vt.2S"
+    ],
+    "interpretation": "Adjacent f32 pair reduction (x+y)+(z+w), with both input registers holding the same vector."
+  }
+}

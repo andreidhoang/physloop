@@ -1,0 +1,9 @@
+{
+  "diagnosis.json": "b97b27604feeb1d926f5f2e6fe286eb943d003bc439e572c6542a6efe6d25ff7",
+  "focused-tests.log": "5c43ccb17d01d15e44fb57e7ee67d619e9ad4bc8ffd57457c1427152d78eb341",
+  "hyper-util-proxy.txt": "2ad3098f1cae1f64e7b0b58dbef52f8afb52d881858dd8caca937ddcde150b04",
+  "lint.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+  "reqwest-proxy.txt": "64e80c9100925f155f81b5a33293803d34032608c56bfbeb1d2e6921634ef66a",
+  "uv-base-client.txt": "2245827539af99399e172961d4458cb61311a174a9eb4d81b661e6d494da745d",
+  "uv-cargo-lock.txt": "cce2c6b3bdb97d257ff87095c24560a5a24d492060490117591053baca64eb83"
+}

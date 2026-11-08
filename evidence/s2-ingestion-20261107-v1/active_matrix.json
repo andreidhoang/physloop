@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "stage": "S2",
+  "plan_version": "v5",
+  "harmonizer_pilot": {
+    "scene_count": 5,
+    "arm_count": 1,
+    "harmonizer_modes": [
+      "off",
+      "on"
+    ],
+    "replicates": 1,
+    "scheduled_policy_rollouts": 10
+  },
+  "full_sweep": {
+    "scene_count": 441,
+    "arm_count": 2,
+    "policy_roles": [
+      "teacher",
+      "reexport"
+    ],
+    "replicates": 3,
+    "scheduled_policy_rollouts": 2646
+  },
+  "independent_road_count": null,
+  "counts_exclude_diagnostics_and_retries": true,
+  "runtime_measurement_status": "not_measured",
+  "measurement_basis": "Schedule arithmetic only; historical timing scenarios are not measured demand.",
+  "spend_authorized": false,
+  "cloud_launch_authorized": false
+}

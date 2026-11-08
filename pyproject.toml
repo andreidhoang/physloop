@@ -3,7 +3,12 @@ name = "physloop-gate"
 version = "0.0.0"
 description = "Paired, stratified release gate for closed-loop driving policies."
 requires-python = "==3.12.*"
-dependencies = ["numpy", "scipy"]
+dependencies = [
+    "numpy",
+    "protobuf==7.36.2",
+    "pyarrow==25.0.1",
+    "scipy",
+]
 
 [dependency-groups]
 dev = [

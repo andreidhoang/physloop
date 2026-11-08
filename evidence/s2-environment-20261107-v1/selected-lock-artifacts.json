@@ -1,0 +1,101 @@
+[
+  {
+    "package": "iniconfig",
+    "version": "2.3.1",
+    "filename": "iniconfig-2.3.1-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/56/43/4ca9e49d27a1fcf6bece6f6aec0ea46bb9112489b93d4b688fb415457bdb/iniconfig-2.3.1-py3-none-any.whl",
+    "hash": "sha256:9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7",
+    "size": 7552,
+    "upload-time": "2026-10-06T22:48:36.959Z"
+  },
+  {
+    "package": "numpy",
+    "version": "2.5.4",
+    "filename": "numpy-2.5.4-cp312-cp312-macosx_14_0_arm64.whl",
+    "url": "https://files.pythonhosted.org/packages/31/2f/5ea3570fcb8ccd0882bea99436a513b2c85dad8f774a2057849130a8fb99/numpy-2.5.4-cp312-cp312-macosx_14_0_arm64.whl",
+    "hash": "sha256:9cb18a327b49c5c337f972b03682f6a49855525faaf3c0d3e9c96cd0fd8880a8",
+    "size": 5451717,
+    "upload-time": "2026-10-10T20:02:46.169Z"
+  },
+  {
+    "package": "packaging",
+    "version": "26.3",
+    "filename": "packaging-26.3-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+    "hash": "sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+    "size": 129956,
+    "upload-time": "2026-08-04T18:15:27.159Z"
+  },
+  {
+    "package": "pluggy",
+    "version": "1.7.0",
+    "filename": "pluggy-1.7.0-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/40/9e/2b38731e0fc536806f16490e1a12d7f0dc2a1235aa8cc07bcc75416a7daa/pluggy-1.7.0-py3-none-any.whl",
+    "hash": "sha256:7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec",
+    "size": 27082,
+    "upload-time": "2026-10-15T09:50:56.808Z"
+  },
+  {
+    "package": "protobuf",
+    "version": "7.36.2",
+    "filename": "protobuf-7.36.2-cp310-abi3-macosx_10_9_universal2.whl",
+    "url": "https://files.pythonhosted.org/packages/32/72/98342feb672507c8f3a69e34b4fa8961f608edba5c1a48a6f47156d92cb5/protobuf-7.36.2-cp310-abi3-macosx_10_9_universal2.whl",
+    "hash": "sha256:cbc70b17ee27e28894c7fee8bb04be1abead49e936bc70eb60052531eee2079e",
+    "size": 456039,
+    "upload-time": "2026-09-17T20:07:51.542Z"
+  },
+  {
+    "package": "pyarrow",
+    "version": "25.0.1",
+    "filename": "pyarrow-25.0.1-cp312-cp312-macosx_12_0_arm64.whl",
+    "url": "https://files.pythonhosted.org/packages/a6/e2/9ab15b88cbfac28e16419ce5439ec29234c5172cb8259301b4ba639bdec0/pyarrow-25.0.1-cp312-cp312-macosx_12_0_arm64.whl",
+    "hash": "sha256:df961f2e7ae9cf496459259d798652c70625f6c080650d6952f8c04053c58ee9",
+    "size": 35861559,
+    "upload-time": "2026-08-10T12:38:02.567Z"
+  },
+  {
+    "package": "pygments",
+    "version": "2.21.0",
+    "filename": "pygments-2.21.0-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+    "hash": "sha256:2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+    "size": 1250147,
+    "upload-time": "2026-08-17T08:02:44.912Z"
+  },
+  {
+    "package": "pytest",
+    "version": "9.2.0",
+    "filename": "pytest-9.2.0-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/51/39/1f5d8c8877a0fa327db959c19341d4be61660de1ab6b7391f9eb805bcd67/pytest-9.2.0-py3-none-any.whl",
+    "hash": "sha256:07acdcf88ec174f907dc01af70bf52d49b014bbab03faeeade31c96b18c2e588",
+    "size": 411776,
+    "upload-time": "2026-10-27T21:30:19.131Z"
+  },
+  {
+    "package": "ruff",
+    "version": "0.17.3",
+    "filename": "ruff-0.17.3-py3-none-macosx_11_0_arm64.whl",
+    "url": "https://files.pythonhosted.org/packages/a2/7e/537aba4b7f54397a374d2f6a6fc93e9c8015e18553f31a4a7b7dbced48b5/ruff-0.17.3-py3-none-macosx_11_0_arm64.whl",
+    "hash": "sha256:b75cc113b3aca388933d8296b667b1ac401a80317ea3074c9b0a66541199da29",
+    "size": 9440362,
+    "upload-time": "2026-10-27T00:33:35.784Z"
+  },
+  {
+    "package": "scipy",
+    "version": "1.18.1",
+    "filename": "scipy-1.18.1-cp312-cp312-macosx_14_0_arm64.whl",
+    "url": "https://files.pythonhosted.org/packages/a5/f6/a5b82f8abbe14d134691b8b903696f701d25a081353a29dc655c364d9e62/scipy-1.18.1-cp312-cp312-macosx_14_0_arm64.whl",
+    "hash": "sha256:7bbf207c4453ce1ad2e00b17313852b33310b83090c2311bdaf97f93c0380d12",
+    "size": 20475078,
+    "upload-time": "2026-08-21T23:23:54.138Z"
+  },
+  {
+    "package": "shapely",
+    "version": "2.1.2",
+    "filename": "shapely-2.1.2-cp312-cp312-macosx_11_0_arm64.whl",
+    "url": "https://files.pythonhosted.org/packages/86/07/59dee0bc4b913b7ab59ab1086225baca5b8f19865e6101db9ebb7243e132/shapely-2.1.2-cp312-cp312-macosx_11_0_arm64.whl",
+    "hash": "sha256:ba4d1333cc0bc94381d6d4308d2e4e008e0bd128bdcff5573199742ee3634359",
+    "size": 1643556,
+    "upload-time": "2025-09-24T13:50:32.291Z"
+  }
+]

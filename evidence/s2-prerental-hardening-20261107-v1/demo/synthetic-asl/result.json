@@ -1,0 +1,377 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "alpasim_asl_inspection_v1",
+  "capture_origin": "synthetic_fixture",
+  "capture_inspection_passed": true,
+  "ledger": {
+    "admitted": true,
+    "issues": [],
+    "jobs": [
+      {
+        "arm": "A",
+        "job_id": "job",
+        "phase": "synthetic",
+        "policy_id": "teacher",
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "replicate_id": 0,
+        "requested_steps": 3,
+        "road_id": "road",
+        "scene_id": "clip",
+        "stratum": "urban",
+        "attempt_ids": [
+          "attempt"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "attempt"
+      }
+    ],
+    "attempts": [
+      {
+        "job_id": "job",
+        "attempt_id": "attempt",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "run",
+          "clipgt_id": "clip",
+          "rollout_id": "rollout"
+        },
+        "state": "completed",
+        "started_timestamp_us": 1,
+        "terminal_timestamp_us": 2,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "start",
+            "job_id": "job",
+            "attempt_id": "attempt",
+            "type": "started",
+            "timestamp_us": 1,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "run",
+              "clipgt_id": "clip",
+              "rollout_id": "rollout"
+            }
+          },
+          {
+            "event_id": "end",
+            "job_id": "job",
+            "attempt_id": "attempt",
+            "type": "completed",
+            "timestamp_us": 2,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "run",
+              "clipgt_id": "clip",
+              "rollout_id": "rollout"
+            }
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "scheduled_jobs": 1,
+      "attempts": 1,
+      "missing_jobs": 0,
+      "idempotent_events": 0,
+      "completed_attempts": 1,
+      "failed_attempts": 0,
+      "cancelled_attempts": 0,
+      "incomplete_attempts": 0
+    },
+    "schedule": [
+      {
+        "arm": "A",
+        "job_id": "job",
+        "phase": "synthetic",
+        "policy_id": "teacher",
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "replicate_id": 0,
+        "requested_steps": 3,
+        "road_id": "road",
+        "scene_id": "clip",
+        "stratum": "urban"
+      }
+    ],
+    "events": [
+      {
+        "event_id": "start",
+        "job_id": "job",
+        "attempt_id": "attempt",
+        "type": "started",
+        "timestamp_us": 1,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "run",
+          "clipgt_id": "clip",
+          "rollout_id": "rollout"
+        }
+      },
+      {
+        "event_id": "end",
+        "job_id": "job",
+        "attempt_id": "attempt",
+        "type": "completed",
+        "timestamp_us": 2,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "run",
+          "clipgt_id": "clip",
+          "rollout_id": "rollout"
+        }
+      }
+    ]
+  },
+  "captures": [
+    {
+      "attempt_id": "attempt",
+      "job_id": "job",
+      "state": "completed",
+      "status": "verified",
+      "inspection": {
+        "schema_version": 1,
+        "kind": "alpasim_asl_inspection_v1",
+        "source_commit": "e121e59141dc391f6c295513d6dadc840a419149",
+        "parsed": true,
+        "inspection_valid": true,
+        "issues": [],
+        "receipt": {
+          "sha256": "6e9e59a1180b785ed2f3f2b41534b7faf6171b5a7e40af6ea69c684911165a90",
+          "size_bytes": 297
+        },
+        "metadata": {
+          "session_uuid": "rollout",
+          "scene_id": "clip",
+          "batch_size": 1,
+          "n_sim_steps": 3,
+          "start_timestamp_us": 1000,
+          "start_timestamp_semantics": "egomotion_context_start_us",
+          "control_timestep_us": 100,
+          "source_fields": {
+            "session_metadata": {
+              "session_uuid": "rollout",
+              "scene_id": "clip",
+              "batch_size": 1,
+              "n_sim_steps": 3,
+              "start_timestamp_us": "1000",
+              "control_timestep_us": "100",
+              "nre_runid": "",
+              "nre_version": "",
+              "nre_uuid": ""
+            },
+            "force_gt_duration": "0",
+            "rollout_index": 0
+          }
+        },
+        "frame_receipts": [
+          {
+            "frame_index": 0,
+            "byte_offset": 0,
+            "payload_size_bytes": 41,
+            "payload_sha256": "64e8f0897d909521df409bcca6d87bb834453d7be2536363b0b60dc42082c539",
+            "entry_type": "rollout_metadata",
+            "semantic_inspection": true,
+            "session_identity_checked": false
+          },
+          {
+            "frame_index": 1,
+            "byte_offset": 45,
+            "payload_size_bytes": 59,
+            "payload_sha256": "861924628d12874bf685d0157bad3a60b1e34b979118cde5a3b8466ce18c16b1",
+            "entry_type": "actor_poses",
+            "semantic_inspection": true,
+            "session_identity_checked": false
+          },
+          {
+            "frame_index": 2,
+            "byte_offset": 108,
+            "payload_size_bytes": 59,
+            "payload_sha256": "cdb77e65849f4ff186f5930e566fe506d95696fdf0864e803ea279a11e872d3f",
+            "entry_type": "actor_poses",
+            "semantic_inspection": true,
+            "session_identity_checked": false
+          },
+          {
+            "frame_index": 3,
+            "byte_offset": 171,
+            "payload_size_bytes": 59,
+            "payload_sha256": "412c2280fa8701872955110cd1a89abd33b082a8674c64df4ec2ad308fa246eb",
+            "entry_type": "actor_poses",
+            "semantic_inspection": true,
+            "session_identity_checked": false
+          },
+          {
+            "frame_index": 4,
+            "byte_offset": 234,
+            "payload_size_bytes": 59,
+            "payload_sha256": "3c1e9bbedeb86e991a81d64cee87c437492798cfb5e8bb4dfc08a58664ca752c",
+            "entry_type": "actor_poses",
+            "semantic_inspection": true,
+            "session_identity_checked": false
+          }
+        ],
+        "pose_events": [
+          {
+            "frame_index": 1,
+            "timestamp_us": 1000,
+            "actors": [
+              {
+                "actor_id": "EGO",
+                "pose": {
+                  "translation": [
+                    1.0,
+                    2.0,
+                    3.0
+                  ],
+                  "quaternion_wxyz": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "frame_index": 2,
+            "timestamp_us": 1100,
+            "actors": [
+              {
+                "actor_id": "EGO",
+                "pose": {
+                  "translation": [
+                    1.0,
+                    2.0,
+                    3.0
+                  ],
+                  "quaternion_wxyz": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "frame_index": 3,
+            "timestamp_us": 1150,
+            "actors": [
+              {
+                "actor_id": "EGO",
+                "pose": {
+                  "translation": [
+                    1.0,
+                    2.0,
+                    3.0
+                  ],
+                  "quaternion_wxyz": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "frame_index": 4,
+            "timestamp_us": 1200,
+            "actors": [
+              {
+                "actor_id": "EGO",
+                "pose": {
+                  "translation": [
+                    1.0,
+                    2.0,
+                    3.0
+                  ],
+                  "quaternion_wxyz": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "coordinate_frame": "local_to_aabb",
+        "quaternion_component_order": "wxyz",
+        "requested_steps": 3,
+        "effective_n_sim_steps": 3,
+        "actual_steps": null,
+        "completion": null,
+        "renderer_coverage": null,
+        "black_frame_coverage": null,
+        "map_coverage": null,
+        "runtime_qualified": false,
+        "score_admitted": false,
+        "cloud_launch_authorized": false,
+        "observations": {
+          "pose_event_count": 4,
+          "first_timestamp_us": 1000,
+          "last_timestamp_us": 1200,
+          "observed_span_us": 200,
+          "duplicate_timestamps": 0
+        }
+      }
+    }
+  ],
+  "issues": [],
+  "request": {
+    "artifacts": [
+      {
+        "asl": {
+          "path": "capture.asl",
+          "sha256": "6e9e59a1180b785ed2f3f2b41534b7faf6171b5a7e40af6ea69c684911165a90",
+          "size_bytes": 297
+        },
+        "attempt_id": "attempt"
+      }
+    ],
+    "capture_origin": "synthetic_fixture",
+    "evaluator_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+    "events": {
+      "path": "events.json",
+      "sha256": "66f6f510e26facbb115e21dc8176720625d0b19c0a6c1123fae4e29ee7ab27d1",
+      "size_bytes": 458
+    },
+    "evidence_kind": "alpasim_asl_inspection_v1",
+    "schedule": [
+      {
+        "arm": "A",
+        "job_id": "job",
+        "phase": "synthetic",
+        "policy_id": "teacher",
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "replicate_id": 0,
+        "requested_steps": 3,
+        "road_id": "road",
+        "scene_id": "clip",
+        "stratum": "urban"
+      }
+    ],
+    "schedule_request": null,
+    "schema_version": 1
+  },
+  "request_sha256": "2905c1767562e5faf7e004859008278b314e092a21fb73ad5fc7965f3344c948",
+  "score_admitted": false,
+  "runtime_qualified": false,
+  "cloud_launch_authorized": false,
+  "provenance_authenticated": false,
+  "max_asl_bytes": 268435456,
+  "max_events_bytes": 16777216,
+  "remaining": [
+    "actual completion and requested/effective horizon reconciliation",
+    "complete renderer, black-frame and map evidence",
+    "raw metrics and actual scorer-path qualification"
+  ]
+}

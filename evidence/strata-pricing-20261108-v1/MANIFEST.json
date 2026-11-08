@@ -1,0 +1,30 @@
+{
+ "purpose": "Strata and guard-margin pricing for the S4 improvement claim (S2.6 [C]); assumptions, not measurements.",
+ "git_base": "05c439f19f60bbcd8700b32170176e69709ba907",
+ "worktree": "dirty; rule and runner source untracked, archived in source/",
+ "python": "3.12.11",
+ "rule_id": "intersection_union_upper_below_zero_v2",
+ "inputs_read_only": {
+  "gate/verdict.py": "4a6329414d195719d451b7bd0086e5f5d35a5005b797ab51755112f04c2d5e98",
+  "gate/sequential.py": "0ac33360cf85faa9439939235eed264d924b623425f0f78419b6a4871b184549",
+  "gate/synthetic.py": "8e4c80f0bb4fe08bf1cbd27375222a914d39db7f59b33db5fb545ef98178dde9"
+ },
+ "source": {
+  "superiority.py": "52027c3510e5eae5ca485a3a2b3b11b66e02a371315ecac96267c1ac76e57716",
+  "superiority_power.py": "55ca0703952336b55cfd5ed23ed250d8f9bd009d5ba3881750dcf8207a0010f7",
+  "test_superiority.py": "7d154642ca89420ea66a7187c189eafef04d3b57c64d5323cb7be132c35f3f75"
+ },
+ "files": {
+  "CORRECTIONS.txt": "6722af27f3ea3cc2183e6964a6ec0fbd7467b7c7cae9a1018be624f28d98a07a",
+  "guard_size_exact.py": "b916b0b279451186f92ecb2984d495365522365baea7b85199e318c1734a1db7",
+  "guard_size_exact.txt": "845652805d1deb07b7e5172d65ce3064f634eded0998c4cfd740390434da9126",
+  "harm_and_replicates.json": "7beb9095e569928fd323c8a72691519c5cee6782561d32ea8829a6dcb6023668",
+  "harm_and_replicates.txt": "d35fbec720b1ea80a54e7d36572853f97a6a1e8b152ddda6b56a444b44b79209",
+  "pricing.json": "626d133e54fc3e28ac13792892008a9bdc3c3530a134250a339d413f666db3f3",
+  "pricing.txt": "e5cf79e549cf1f24d4a9a78eac752abc37c3cd23757f4a4b6d4f79d39c13fcad",
+  "run_harm_and_replicates.py": "22ed879a357ef87489f31038b498dce71eb5e9d3a9f718b3092172f9a60ab1e0",
+  "run_pricing.py": "2a5a3f4f5177abe39146e641ff7d5e26e840438607089b5e441e8533c0788667"
+ },
+ "tests_at_run": "77 passed (rule tests); full suite 1437 passed",
+ "review": "independent agent review after the run; see CORRECTIONS.txt"
+}

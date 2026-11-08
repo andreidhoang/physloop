@@ -1,0 +1,66 @@
+A. Uniform effect: P(improvement claim) by design
+config                   delta     b | all_strata  pooled  +guard@.05  +guard@.10
+1 stratum (441)          0.000  0.02 |      0.000   0.000      0.000      0.000
+1 stratum (441)          0.000  0.05 |      0.000   0.000      0.000      0.000
+1 stratum (441)          0.016  0.00 |      0.188   0.188      0.188      0.188
+1 stratum (441)          0.016  0.02 |      0.014   0.014      0.014      0.014
+1 stratum (441)          0.016  0.05 |      0.004   0.004      0.004      0.004
+1 stratum (441)          0.030  0.00 |      0.850   0.850      0.850      0.850
+1 stratum (441)          0.030  0.02 |      0.109   0.109      0.109      0.109
+1 stratum (441)          0.030  0.05 |      0.027   0.027      0.027      0.027
+1 stratum (441)          0.050  0.00 |      0.999   0.999      0.999      0.999
+1 stratum (441)          0.050  0.02 |      0.450   0.450      0.450      0.450
+2 strata (220/221)       0.000  0.02 |      0.000   0.000      0.000      0.000
+2 strata (220/221)       0.000  0.05 |      0.000   0.000      0.000      0.000
+2 strata (220/221)       0.016  0.00 |      0.000   0.166      0.166      0.166
+2 strata (220/221)       0.016  0.02 |      0.000   0.013      0.013      0.013
+2 strata (220/221)       0.016  0.05 |      0.000   0.002      0.002      0.002
+2 strata (220/221)       0.030  0.00 |      0.018   0.872      0.872      0.872
+2 strata (220/221)       0.030  0.02 |      0.000   0.081      0.081      0.081
+2 strata (220/221)       0.030  0.05 |      0.000   0.027      0.026      0.027
+2 strata (220/221)       0.050  0.00 |      0.433   1.000      1.000      1.000
+2 strata (220/221)       0.050  0.02 |      0.014   0.458      0.454      0.458
+4 strata (110 each)      0.000  0.02 |      0.000   0.000      0.000      0.000
+4 strata (110 each)      0.000  0.05 |      0.000   0.000      0.000      0.000
+4 strata (110 each)      0.016  0.00 |      0.000   0.156      0.156      0.156
+4 strata (110 each)      0.016  0.02 |      0.000   0.010      0.003      0.010
+4 strata (110 each)      0.016  0.05 |      0.000   0.005      0.000      0.002
+4 strata (110 each)      0.030  0.00 |      0.000   0.850      0.850      0.850
+4 strata (110 each)      0.030  0.02 |      0.000   0.104      0.009      0.104
+4 strata (110 each)      0.030  0.05 |      0.000   0.032      0.000      0.018
+4 strata (110 each)      0.050  0.00 |      0.000   1.000      1.000      1.000
+4 strata (110 each)      0.050  0.02 |      0.000   0.468      0.031      0.445
+3 unequal (300/100/41)   0.000  0.02 |      0.000   0.000      0.000      0.000
+3 unequal (300/100/41)   0.000  0.05 |      0.000   0.000      0.000      0.000
+3 unequal (300/100/41)   0.016  0.00 |      0.000   0.176      0.000      0.176
+3 unequal (300/100/41)   0.016  0.02 |      0.000   0.009      0.000      0.008
+3 unequal (300/100/41)   0.016  0.05 |      0.000   0.002      0.000      0.000
+3 unequal (300/100/41)   0.030  0.00 |      0.000   0.843      0.001      0.843
+3 unequal (300/100/41)   0.030  0.02 |      0.000   0.085      0.000      0.050
+3 unequal (300/100/41)   0.030  0.05 |      0.000   0.026      0.001      0.005
+3 unequal (300/100/41)   0.050  0.00 |      0.000   0.999      0.019      0.999
+3 unequal (300/100/41)   0.050  0.02 |      0.000   0.451      0.013      0.239
+
+C. Harm in one stratum (others delta 0.03, b 0.02): P(improvement claim), lower is safer
+4 strata (110 each)      harm 0.05 in s4     | all_strata 0.000 pooled 0.002 +guard@.05 0.000 +guard@.10 0.002
+4 strata (110 each)      harm 0.10 in s4     | all_strata 0.000 pooled 0.000 +guard@.05 0.000 +guard@.10 0.000
+3 unequal (300/100/41)   harm 0.05 in rare   | all_strata 0.000 pooled 0.020 +guard@.05 0.000 +guard@.10 0.007
+3 unequal (300/100/41)   harm 0.10 in rare   | all_strata 0.000 pooled 0.008 +guard@.05 0.000 +guard@.10 0.001
+
+E. Three replicates per road (delta 0.03, b 0.02 per replicate)
+1 stratum (441)          copy prob 0.0 | all_strata 0.018 pooled 0.018 +guard@.05 0.018 +guard@.10 0.018
+1 stratum (441)          copy prob 0.5 | all_strata 0.064 pooled 0.064 +guard@.05 0.064 +guard@.10 0.064
+4 strata (110 each)      copy prob 0.0 | all_strata 0.000 pooled 0.016 +guard@.05 0.003 +guard@.10 0.016
+4 strata (110 each)      copy prob 0.5 | all_strata 0.000 pooled 0.046 +guard@.05 0.003 +guard@.10 0.046
+
+G. Guard cost: per-stratum non-inferiority GO rate with no harm (delta 0, b as shown)
+1 stratum (441)          b 0.02 | lowest stratum GO@.05 0.913 GO@.10 1.000
+1 stratum (441)          b 0.05 | lowest stratum GO@.05 0.344 GO@.10 0.994
+2 strata (220/221)       b 0.02 | lowest stratum GO@.05 0.440 GO@.10 0.999
+2 strata (220/221)       b 0.05 | lowest stratum GO@.05 0.083 GO@.10 0.800
+4 strata (110 each)      b 0.02 | lowest stratum GO@.05 0.119 GO@.10 0.828
+4 strata (110 each)      b 0.05 | lowest stratum GO@.05 0.019 GO@.10 0.343
+3 unequal (300/100/41)   b 0.02 | lowest stratum GO@.05 0.000 GO@.10 0.434
+3 unequal (300/100/41)   b 0.05 | lowest stratum GO@.05 0.001 GO@.10 0.124
+
+290.0 s

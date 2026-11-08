@@ -1,0 +1,8 @@
+Exact per-stratum guard pass, b = 0.02, margin 0.10, no effect (same helper as run_joint_and_gating.py)
+110 0.8397
+120 0.908
+125 0.8999
+130 0.9144
+135 0.9469
+140 0.9425
+150 0.9696

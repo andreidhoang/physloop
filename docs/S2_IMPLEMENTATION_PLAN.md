@@ -17,6 +17,16 @@ uv run --frozen python -B -m gate.s2 cost-table
 
 Both draft checks intentionally return exit 2 and named blockers. That is the expected result, not a request to insert fictional approvals. `gate.s2 normalize` accepts local summary, identity and observation JSON files; `--help` describes arguments. It neither downloads nor starts a service. Unit tests use invented records derived from public source, with no licensed output.
 
+November 7 local interfaces, with the declared CPU dependencies installed:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m gate.s2 matrix --replicates 3
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m gate.s2 schedule REQUEST.json
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m gate.s2 ingest REQUEST.json --root DIR
+```
+
+`matrix` reports the active 10-job pilot and 2,646-job full schedule at three replicates; `cost-table` remains historical arithmetic. `schedule` requires explicit scene/road/stratum/asset and protocol inputs. `ingest` verifies retained receipts and attempt accounting, reads real Parquet files containing synthetic metrics, and feeds qualified synthetic observations into the existing adapter. The PhysLoop capture format is not an actual AlpaSim ASL decoder. Pilot/full ingestion retains and replays `schedule_request`; only tiny synthetic fixtures use null. All retries and unsupported terminal clipping remain blocked. See [S2_INGESTION](S2_INGESTION.md) for request schemas and exact limits. Ingestion requires PyArrow; frozen-lock setup and complete verification for this addition must be recorded separately, rather than inferred from these usage commands.
+
 ```sh
 uv run --frozen python -B scripts/verify_s2.py --output evidence/s2-NEW-UNIQUE-ID
 ```

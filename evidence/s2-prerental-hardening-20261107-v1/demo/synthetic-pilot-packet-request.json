@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "launch_request": {
+    "schema_version": 1,
+    "alpasim_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+    "alpasim_checkout": "/synthetic/alpasim",
+    "scene_ids": [
+      "synthetic-scene-0",
+      "synthetic-scene-1",
+      "synthetic-scene-2",
+      "synthetic-scene-3",
+      "synthetic-scene-4"
+    ],
+    "requested_steps": 3,
+    "driver_port": 6789,
+    "teacher_snapshot": "/synthetic/teacher/snapshot",
+    "data_root": "/synthetic/data",
+    "renderer_image": "nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "base_image": "registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "arms": [
+      {
+        "harmonizer": false,
+        "run_dir": "/synthetic/runs/off",
+        "driver_log_dir": "/synthetic/driver-logs/off"
+      },
+      {
+        "harmonizer": true,
+        "run_dir": "/synthetic/runs/on",
+        "driver_log_dir": "/synthetic/driver-logs/on"
+      }
+    ]
+  },
+  "schedule_request": {
+    "study_id": "synthetic-pilot-rehearsal",
+    "phase": "harmonizer_pilot",
+    "scenes": [
+      {
+        "scene_id": "synthetic-scene-0",
+        "road_id": "synthetic-road-0",
+        "stratum": "synthetic-urban",
+        "asset_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "scene_id": "synthetic-scene-1",
+        "road_id": "synthetic-road-1",
+        "stratum": "synthetic-urban",
+        "asset_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      {
+        "scene_id": "synthetic-scene-2",
+        "road_id": "synthetic-road-2",
+        "stratum": "synthetic-urban",
+        "asset_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      {
+        "scene_id": "synthetic-scene-3",
+        "road_id": "synthetic-road-3",
+        "stratum": "synthetic-urban",
+        "asset_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      {
+        "scene_id": "synthetic-scene-4",
+        "road_id": "synthetic-road-4",
+        "stratum": "synthetic-urban",
+        "asset_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+      }
+    ],
+    "policies": {
+      "A": "synthetic-teacher"
+    },
+    "protocol_hashes": {
+      "off": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "on": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "replicates": 1,
+    "requested_steps": 3
+  },
+  "execution_order": {
+    "method": "alternating",
+    "job_ids": [
+      "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+      "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+      "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+      "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+      "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+      "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+      "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+      "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+      "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+      "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7"
+    ]
+  }
+}

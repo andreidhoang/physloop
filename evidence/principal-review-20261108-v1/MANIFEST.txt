@@ -1,0 +1,5 @@
+git_base 05c439f19f60bbcd8700b32170176e69709ba907 (dirty worktree; another session's S2 edits present)
+gate/verdict.py sha256 4a6329414d195719d451b7bd0086e5f5d35a5005b797ab51755112f04c2d5e98 (imported read-only)
+python 3.12.11
+superiority_power.py sha256 2c015763650ade702cc339693d5c374cd2230aeb32d616ec366e1daee4b0efa6
+superiority_power_output.txt sha256 bf527b79778601dc9139363d3362f3bdc91e3a79b84c59d0a04404efc475193e

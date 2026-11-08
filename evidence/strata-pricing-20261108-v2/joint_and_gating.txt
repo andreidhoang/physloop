@@ -1,0 +1,15 @@
+J. Exact joint guard pass rate, no effect anywhere (product over gating strata)
+gating strata                  | m=0.05 b=0.00  m=0.05 b=0.02  m=0.05 b=0.05  m=0.10 b=0.00  m=0.10 b=0.02  m=0.10 b=0.05
+1 x 441                        |           1.000            0.904            0.345            1.000            1.000            0.998
+2 x 220/221                    |           1.000            0.208            0.009            1.000            0.997            0.676
+4 x 110                        |           1.000            0.000            0.000            1.000            0.495            0.017
+300/100/41, all gating         |           0.000            0.000            0.000            1.000            0.343            0.036
+300/100 gating, 41 reported    |           1.000            0.096            0.004            1.000            0.785            0.293
+
+D. P(improvement claim) by design; guard margin 0.10 (0.05 in brackets)
+4 x 110, uniform +5pp, b .02         | pooled 0.468 | guard all 0.445 [0.031] | joint guard GO 0.814
+4 x 110, s4 flat, b .02              | pooled 0.193 | guard all 0.179 [0.008] | joint guard GO 0.713
+300/100/41, uniform +5pp, b .02      | pooled 0.451 | guard all 0.239 [0.013] | joint guard GO 0.413 | gating common/mid 0.437 [0.247]
+300/100/41, rare flat, b .02         | pooled 0.356 | guard all 0.183 [0.000] | joint guard GO 0.392 | gating common/mid 0.347 [0.208]
+300/100/41, uniform +5pp, b 0        | pooled 0.999 | guard all 0.999 [0.019] | joint guard GO 1.000 | gating common/mid 0.999 [0.999]
+300/100/41, rare harmed +10pp, b 0   | pooled 0.333 | guard all 0.016 [0.000] | joint guard GO 0.016 | gating common/mid 0.333 [0.333]

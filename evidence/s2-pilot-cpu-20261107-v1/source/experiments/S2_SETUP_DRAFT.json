@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "s2_setup_inventory",
+  "stage": "S2",
+  "phase": "harmonizer_pilot",
+  "status": "draft",
+  "cloud_launch_authorized": false,
+  "scientific_admission": false,
+  "source_audit_date": "2026-10-31",
+  "source_status": "historical_public_source_candidates_not_runtime_qualified",
+  "pilot": {
+    "scene_count": 5,
+    "scene_ids": [],
+    "harmonizer": [false, true],
+    "replicates": 1,
+    "expected_jobs": 10,
+    "policy": "Alpamayo-1.5-10B-BF16",
+    "scientific_registration_ref": null,
+    "schedule_request_ref": null,
+    "prediction_ref": null,
+    "full_sweep_authorized": false
+  },
+  "sources": [
+    {
+      "component": "alpasim_runtime_and_evaluator",
+      "repository": "https://github.com/NVlabs/alpasim",
+      "branch_at_audit": "e2e_challenge",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "status": "source_verified_candidate",
+      "evidence_ref": "docs/research/2026-10-31-s2-upstream.md"
+    },
+    {
+      "component": "alpamayo1_5_driver_dependency",
+      "repository": "https://github.com/NVlabs/alpamayo1.5",
+      "commit": "36aeb4c5938cbc2eb2aed33b22434773da4ab639",
+      "status": "source_verified_candidate",
+      "evidence_ref": "docs/research/2026-10-31-s2-license-approval.md"
+    }
+  ],
+  "runtime": {
+    "platform": "linux/amd64",
+    "run_method": "docker_compose",
+    "selection_status": "candidate_pending_registration_and_host",
+    "cpu_lock_path": "uv.lock",
+    "cpu_lock_is_runtime_lock": false,
+    "lockfile_sha256": null,
+    "resolved_config_sha256": null,
+    "observed_source_commits": null,
+    "observed_gpu_edition": null,
+    "observed_driver_version": null,
+    "historical_upstream_requirements": {
+      "uv_minimum": "0.9.17",
+      "cuda_compatibility": "12.8",
+      "driver_minimum_family": "570.x",
+      "tools": ["Rust", "Docker Engine", "Docker Compose", "Docker buildx", "NVIDIA Container Toolkit"],
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/docs/ONBOARDING.md",
+      "status": "source_requirements_not_delivered_host_checks"
+    },
+    "launcher": {
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/e2e_challenge/local_evaluation/README.md",
+      "candidate_preset_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/e2e_challenge/dev.yaml",
+      "requires_external_driver": true,
+      "documented_curated_preset_scene_count": 441,
+      "pilot_argv": null,
+      "status": "blocked_until_explicit_five_scene_config_and_driver_are_resolved"
+    }
+  },
+  "images": [
+    {
+      "component": "renderer",
+      "reference_candidate": "nvcr.io/nvidia/nre/nre-ga:26.04",
+      "catalog_digest_candidate": "sha256:97f43e7130c5636ce3e80ea3184d97f56a87fdd989b05cce42230881dbdea284",
+      "platform_at_audit": "linux/amd64",
+      "status": "historical_catalog_candidate_not_pulled",
+      "observed_digest": null,
+      "size_bytes": null,
+      "terms_acceptance_ref": null,
+      "evidence_ref": "docs/research/2026-10-31-s2-license-approval.md"
+    },
+    {
+      "component": "public_cuda_probe",
+      "reference_candidate": null,
+      "observed_digest": null,
+      "size_bytes": null,
+      "status": "resolve_pullable_digest_and_prestage_on_selected_host",
+      "evidence_ref": "scripts/vast_s2_host_probe.sh"
+    },
+    {
+      "component": "dcgm_exporter_probe",
+      "reference_candidate": "nvcr.io/nvidia/k8s/dcgm-exporter@sha256:804c17f67ab63e8a4dd5301546beefaa104129f833dae4a68f5ff7c4819f471b",
+      "observed_digest": null,
+      "size_bytes": null,
+      "status": "source_pinned_prestage_and_verify_on_selected_host",
+      "evidence_ref": "scripts/vast_exporter_control.sh"
+    }
+  ],
+  "assets": [
+    {
+      "component": "teacher_weights_and_config",
+      "repository": "https://huggingface.co/nvidia/Alpamayo-1.5-10B",
+      "revision_candidate": "7aba8293c09993f2e125c6819df05d7fa3e873ea",
+      "files": [],
+      "size_bytes": null,
+      "content_sha256": null,
+      "terms_acceptance_ref": null,
+      "status": "candidate_revision_exact_file_manifest_pending"
+    },
+    {
+      "component": "five_nurec_scenes",
+      "repository": "https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles-NuRec",
+      "revision_candidate": null,
+      "files": [],
+      "size_bytes": null,
+      "content_sha256": null,
+      "terms_acceptance_ref": null,
+      "first_delivery_at": null,
+      "status": "gated_scene_allowlist_pending"
+    },
+    {
+      "component": "pai_metadata_if_required_for_selection",
+      "repository": "https://huggingface.co/datasets/nvidia/PhysicalAI-Autonomous-Vehicles",
+      "revision_candidate": null,
+      "files": [],
+      "size_bytes": null,
+      "content_sha256": null,
+      "terms_acceptance_ref": null,
+      "first_delivery_at": null,
+      "status": "conditional_metadata_only_no_raw_camera_or_lidar_corpus"
+    },
+    {
+      "component": "harmonizer",
+      "repository": "https://huggingface.co/nvidia/Harmonizer",
+      "revision_candidate": null,
+      "files": ["harmonizer_nontemporal.pt"],
+      "size_bytes": null,
+      "content_sha256": null,
+      "terms_acceptance_ref": null,
+      "status": "resolve_immutable_revision_and_bundled_or_separate_fetch"
+    },
+    {
+      "component": "teacher_processor_tokenizer_config",
+      "repository": "https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct",
+      "revision_candidate": null,
+      "files": [],
+      "size_bytes": null,
+      "content_sha256": null,
+      "terms_acceptance_ref": null,
+      "status": "helper_source_identified_exact_dependencies_pending"
+    },
+    {
+      "component": "conditional_model_dependencies",
+      "repositories_to_resolve_if_requested": [
+        "https://huggingface.co/nvidia/Cosmos-Predict2-0.6B-Text2Image",
+        "https://huggingface.co/nvidia/Cosmos-Reason2-8B"
+      ],
+      "files": [],
+      "size_bytes": null,
+      "content_sha256": null,
+      "terms_acceptance_ref": null,
+      "status": "not_on_download_allowlist_dependency_not_established",
+      "evidence_ref": "docs/research/2026-10-31-s2-license-approval.md"
+    }
+  ],
+  "authorization": {
+    "rental": null,
+    "funding": null,
+    "license_acceptance": null,
+    "asset_download": null,
+    "private_host_access_plan": null,
+    "scientific_registration": null,
+    "latest_upstream_check": null
+  },
+  "budget": {
+    "currency": "USD",
+    "ceiling_decision_ref": "docs/DECISIONS.md",
+    "ceiling_decision_id": "D-018",
+    "pilot_cap_usd": 100,
+    "stage_cap_usd": 1200,
+    "project_cap_usd": 2500,
+    "caps_are_nested": true,
+    "provider": null,
+    "offer_id": null,
+    "region": null,
+    "quote_ref": null,
+    "approved_compute_gpu_hours_cap": null,
+    "approved_rate_per_gpu_hour_cap": null,
+    "approved_total_cash_outlay_usd": null,
+    "teardown_reserve_usd": null,
+    "storage_retention_deadline": null,
+    "cumulative_ledger_ref": null
+  },
+  "lifecycle": {
+    "watchdog_script": "scripts/vast_stop_watchdog.py",
+    "watchdog_provider": "vast",
+    "watchdog_max_seconds": 3600,
+    "watchdog_is_stop_only": true,
+    "instance_id": null,
+    "unique_label": null,
+    "original_creation_request_at": null,
+    "absolute_stop_deadline": null,
+    "armed_receipt_ref": null,
+    "export_manifest_ref": null,
+    "export_verified_ref": null,
+    "destroy_receipt_ref": null,
+    "absence_verified_ref": null,
+    "settlement_ref": null,
+    "automatic_replacement_rental": false
+  },
+  "actual_input_qualification": {
+    "current_ingestion_contract": "synthetic_source_contract_v1",
+    "alpasim_capture_qualified": false,
+    "summary_recomputed": false,
+    "qualification_evidence_ref": null
+  }
+}

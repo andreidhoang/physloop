@@ -1,0 +1,38 @@
+{
+ "purpose": "Joint-guard and gating re-pricing of the S4 improvement claim after independent review (S2.6 [C]; G1/G9). Assumptions, not measurements.",
+ "git_base": "05c439f19f60bbcd8700b32170176e69709ba907",
+ "worktree": "dirty; rule and runner untracked, archived in source/",
+ "python": "3.12.11",
+ "rule_id": "intersection_union_upper_below_zero_v4",
+ "inputs_read_only": {
+  "gate/verdict.py": "4a6329414d195719d451b7bd0086e5f5d35a5005b797ab51755112f04c2d5e98",
+  "gate/sequential.py": "0ac33360cf85faa9439939235eed264d924b623425f0f78419b6a4871b184549",
+  "gate/synthetic.py": "8e4c80f0bb4fe08bf1cbd27375222a914d39db7f59b33db5fb545ef98178dde9"
+ },
+ "source": {
+  "superiority.py": "75799324c2eda631ee9c6e14d026393dcfc20c5ca7f5550674f449f6429c8a0c",
+  "superiority_power.py": "1daf50987201a626c306e1e0a16b7f60bc0a0e754972eb387d457c0e55b3d123",
+  "test_superiority.py": "7e77a82aad68044f089f0f42bd282117f47bce8028ac541a53495e4592e60ef5"
+ },
+ "source_matches_worktree": true,
+ "files": {
+  "full_suite.txt": "6ab914a80b7027212066bfd77b6125e104fb2bc9d7acdf9178039b4ac8c1555d",
+  "guard_size_fine.txt": "3bbe7b8be9724d9b440cce09fd81ae9812efa0c9b84710474712ce47f3101be9",
+  "joint_and_gating.json": "97fd0d334c8afd3358eb9c187affc0e46266c58874d32d9ac4a4e6a6380452b8",
+  "joint_and_gating.txt": "178405ef8a03d2ddb1c8ac55cc6385bf3cb261c05ddd35b1b89be01e0beb0230",
+  "mutation_runner.py": "83b37e7b09cef9e042dae928d0809286551dafd071c42337102b064ff825139f",
+  "mutations.txt": "779db9df9c08126877d4098ab8b44c6ca582da57c7e9f685263c1da09c943c60",
+  "run_joint_and_gating.py": "780f67ed4006fa118597999eb68c35e7f2d7e7a770f6371c10d838aeb685cfd3",
+  "tests.txt": "3996a70ba1034120e4a99481ed86dae859e2b866243754a6183729ac998940d5"
+ },
+ "results": {
+  "rule_tests": "94 passed",
+  "full_suite": "1454 passed",
+  "ruff": "gate tests scripts: all checks passed",
+  "mutations": "29 of 30 killed; survivor G5 is equivalent (decide() enforces the same gating subset check)"
+ },
+ "reviews": [
+  "independent review of guard_strata/design_power found a label-collision bug, per-stratum versus joint guard reporting, hidden guard-stratum worse bounds, an aggregation comparability gap and 8 surviving mutants; all addressed"
+ ],
+ "supersedes": "per-stratum guard sizing in evidence/strata-pricing-20261108-v1/ (see its CORRECTIONS.txt)"
+}

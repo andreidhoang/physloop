@@ -1,0 +1,5 @@
+This folder is the evidence for candidate rule v1 (intersection_union_upper_below_zero_v1) and stays as
+produced. The current candidate is rule v4, with registered guard and gating strata, a paired-observation
+check, guard-stratum worse-bound flags and guard-definition comparability across runs, after a second
+independent review. Evidence: evidence/strata-pricing-20261108-v2/. The v1 power figures here remain
+valid for v1's fixed-sample, no-guard rule.

@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-07",
+  "repository": "https://github.com/NVlabs/alpasim",
+  "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+  "retrieval": "Public GitHub connector fetch_file at immutable commit; source only, no datasets or weights",
+  "license": "Apache-2.0",
+  "sources": [
+    {
+      "file": "proto/alpasim_grpc/v0/common.proto",
+      "path": "src/grpc/alpasim_grpc/v0/common.proto",
+      "git_blob_sha": "65bd3684fbbf4595e24658acbe3bc45984cc84da",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/grpc/alpasim_grpc/v0/common.proto",
+      "sha256": "dc4ff6b9629e5ea71d66e567f9f2483986f6c53b536c79cf0b72bd676bad8df3"
+    },
+    {
+      "file": "proto/alpasim_grpc/v0/sensorsim.proto",
+      "path": "src/grpc/alpasim_grpc/v0/sensorsim.proto",
+      "git_blob_sha": "8f6bbc56f1c5e6c4cba476980ec3980ebfebc707",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/grpc/alpasim_grpc/v0/sensorsim.proto",
+      "sha256": "c7a590fad1d14180d1cf9c81900952b99c53c72edfdd3cf51fadb80104907af0"
+    },
+    {
+      "file": "proto/alpasim_grpc/v0/egodriver.proto",
+      "path": "src/grpc/alpasim_grpc/v0/egodriver.proto",
+      "git_blob_sha": "a583b5f930632c63962b3fe5ad8f84373e782286",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/grpc/alpasim_grpc/v0/egodriver.proto",
+      "sha256": "b40930f6b402ea740ac379aa3f85322d36a3f8fa5047099ba6e9f9677bc3179f"
+    },
+    {
+      "file": "proto/alpasim_grpc/v0/physics.proto",
+      "path": "src/grpc/alpasim_grpc/v0/physics.proto",
+      "git_blob_sha": "8e796aeef6584d767619e658bbb3f0d86886890d",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/grpc/alpasim_grpc/v0/physics.proto",
+      "sha256": "464e2ab2f0c8694903c5495a75851b2bde95123098f39fae40a568bf216cd4f9"
+    },
+    {
+      "file": "proto/alpasim_grpc/v0/traffic.proto",
+      "path": "src/grpc/alpasim_grpc/v0/traffic.proto",
+      "git_blob_sha": "0a5cffa5f032b50d5853b742722b3d3128d9d721",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/grpc/alpasim_grpc/v0/traffic.proto",
+      "sha256": "98c9e3ed582a10c16ed9e692a473aea02423beb0df65baab2c881ab1f1f6bd47"
+    },
+    {
+      "file": "proto/alpasim_grpc/v0/controller.proto",
+      "path": "src/grpc/alpasim_grpc/v0/controller.proto",
+      "git_blob_sha": "31a52bbfb9ad162e0cf5e140efb7f713352316cb",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/grpc/alpasim_grpc/v0/controller.proto",
+      "sha256": "b91f4bebe04cd597c45dbf0b92193e4bf7f42d09669d9fae4a8f4fe06b28da88"
+    },
+    {
+      "file": "proto/alpasim_grpc/v0/video_model.proto",
+      "path": "src/grpc/alpasim_grpc/v0/video_model.proto",
+      "git_blob_sha": "27282d40e038f281684d852ac0d0edded3077a9f",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/grpc/alpasim_grpc/v0/video_model.proto",
+      "sha256": "98d4cc0aadb35145ca4c44ab3bcd5d8f54b4127d759ec7865bcd2b47a8401948"
+    },
+    {
+      "file": "proto/alpasim_grpc/v0/logging.proto",
+      "path": "src/grpc/alpasim_grpc/v0/logging.proto",
+      "git_blob_sha": "3d6dd37dd7f245dc07b6c6c02d58390001779b33",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/grpc/alpasim_grpc/v0/logging.proto",
+      "sha256": "878580ba5f55fcc2d5432f9005b2bfd93893fa6968b29908f8c14d8b0fa8da24"
+    },
+    {
+      "file": "logs_e121e591.py.txt",
+      "path": "src/utils/alpasim_utils/logs.py",
+      "git_blob_sha": "08f98e8762cfa3f978f3b81ba67d43dffa4d93b7",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/utils/alpasim_utils/logs.py",
+      "sha256": "10519a5999e8f9b281f2f5f1f867008d16adf2d0b20d01cb22681e7f0d0758bf"
+    },
+    {
+      "file": "unbound_rollout_e121e591.py.txt",
+      "path": "src/runtime/alpasim_runtime/unbound_rollout.py",
+      "git_blob_sha": "2d7300bb02ff1becf111291415b2a88346123402",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/runtime/alpasim_runtime/unbound_rollout.py",
+      "sha256": "315336db04f012793414b651e5f9e7b744508939762d7901ed23248855437a8a"
+    },
+    {
+      "file": "step_e121e591.py.txt",
+      "path": "src/runtime/alpasim_runtime/events/step.py",
+      "git_blob_sha": "08edb8741a70753ad1f52eebc9a6c3a42b998a79",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/runtime/alpasim_runtime/events/step.py",
+      "sha256": "ee1897993d2274e9b70279e31c21c115277e1fbfa68b3f083595130ef5a81300"
+    },
+    {
+      "file": "event_loop_e121e591.py.txt",
+      "path": "src/runtime/alpasim_runtime/event_loop.py",
+      "git_blob_sha": "3ed830917f4128a515df8e1a72f0f30b473cec70",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/runtime/alpasim_runtime/event_loop.py",
+      "sha256": "fac05ad378f67be1e777bd2b84b85183fdf9ee8a97d0a5e2189bed6df100bc28"
+    },
+    {
+      "file": "autoresume_e121e591.py.txt",
+      "path": "src/runtime/alpasim_runtime/autoresume.py",
+      "git_blob_sha": "80ba8f71b5ec871c2ccaeae3ebf3d86170d7e699",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/runtime/alpasim_runtime/autoresume.py",
+      "sha256": "310e36d04b9dec61f2789320ad23aa4547d68ad1648c5b563e96372bce04db96"
+    },
+    {
+      "file": "scenario_evaluator_e121e591.py.txt",
+      "path": "src/eval/src/eval/scenario_evaluator.py",
+      "git_blob_sha": "3bdef74b9e3c56f4d8b0f015eb9a65ad6f99d3ba",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/scenario_evaluator.py",
+      "sha256": "71ec2deb84f0c33318262886bdf34b87e4d889c75365d2da1d129e51ef54aca0"
+    }
+  ],
+  "license_file": {
+    "file": "LICENSE",
+    "git_blob_sha": "c6ff73fab08d36444991400fc0aeb8d660f2d098",
+    "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/LICENSE",
+    "sha256": "50201750cc0542d4656d8d95f002f78357021b7c3c975b53924000b7ddc5a24e"
+  }
+}

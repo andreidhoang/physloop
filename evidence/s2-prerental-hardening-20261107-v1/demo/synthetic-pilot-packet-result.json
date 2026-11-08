@@ -1,0 +1,1029 @@
+{
+  "schema_version": 1,
+  "prepared": true,
+  "issues": [],
+  "inputs": {
+    "execution_order": {
+      "job_ids": [
+        "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+        "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+        "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+        "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+        "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+        "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+        "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+        "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+        "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+        "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7"
+      ],
+      "method": "alternating"
+    },
+    "launch_request": {
+      "alpasim_checkout": "/synthetic/alpasim",
+      "alpasim_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+      "arms": [
+        {
+          "driver_log_dir": "/synthetic/driver-logs/off",
+          "harmonizer": false,
+          "run_dir": "/synthetic/runs/off"
+        },
+        {
+          "driver_log_dir": "/synthetic/driver-logs/on",
+          "harmonizer": true,
+          "run_dir": "/synthetic/runs/on"
+        }
+      ],
+      "base_image": "registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "data_root": "/synthetic/data",
+      "driver_port": 6789,
+      "renderer_image": "nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requested_steps": 3,
+      "scene_ids": [
+        "synthetic-scene-0",
+        "synthetic-scene-1",
+        "synthetic-scene-2",
+        "synthetic-scene-3",
+        "synthetic-scene-4"
+      ],
+      "schema_version": 1,
+      "teacher_snapshot": "/synthetic/teacher/snapshot"
+    },
+    "schedule_request": {
+      "phase": "harmonizer_pilot",
+      "policies": {
+        "A": "synthetic-teacher"
+      },
+      "protocol_hashes": {
+        "off": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "on": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "replicates": 1,
+      "requested_steps": 3,
+      "scenes": [
+        {
+          "asset_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "road_id": "synthetic-road-0",
+          "scene_id": "synthetic-scene-0",
+          "stratum": "synthetic-urban"
+        },
+        {
+          "asset_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "road_id": "synthetic-road-1",
+          "scene_id": "synthetic-scene-1",
+          "stratum": "synthetic-urban"
+        },
+        {
+          "asset_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "road_id": "synthetic-road-2",
+          "scene_id": "synthetic-scene-2",
+          "stratum": "synthetic-urban"
+        },
+        {
+          "asset_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+          "road_id": "synthetic-road-3",
+          "scene_id": "synthetic-scene-3",
+          "stratum": "synthetic-urban"
+        },
+        {
+          "asset_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+          "road_id": "synthetic-road-4",
+          "scene_id": "synthetic-scene-4",
+          "stratum": "synthetic-urban"
+        }
+      ],
+      "study_id": "synthetic-pilot-rehearsal"
+    },
+    "schema_version": 1
+  },
+  "schedule": [
+    {
+      "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-0",
+      "road_id": "synthetic-road-0",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-0",
+      "road_id": "synthetic-road-0",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-1",
+      "road_id": "synthetic-road-1",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-1",
+      "road_id": "synthetic-road-1",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-2",
+      "road_id": "synthetic-road-2",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-2",
+      "road_id": "synthetic-road-2",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-3",
+      "road_id": "synthetic-road-3",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-3",
+      "road_id": "synthetic-road-3",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-4",
+      "road_id": "synthetic-road-4",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requested_steps": 3
+    },
+    {
+      "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+      "phase": "harmonizer_pilot",
+      "arm": "A",
+      "policy_id": "synthetic-teacher",
+      "scene_id": "synthetic-scene-4",
+      "road_id": "synthetic-road-4",
+      "stratum": "synthetic-urban",
+      "replicate_id": 0,
+      "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "requested_steps": 3
+    }
+  ],
+  "units": [
+    {
+      "index": 0,
+      "job": {
+        "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-0",
+        "road_id": "synthetic-road-0",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "off",
+      "asset_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "f810ec07bc312f685d1b0019307f5454714d59ba57ffe3cc2effcd4f63f02fb2",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-0\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/off/80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/off/80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/off/80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/off/80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "job": {
+        "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-0",
+        "road_id": "synthetic-road-0",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "on",
+      "asset_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "cf4afb490fe8d68137016602d6f5280973ca160efb490a9c793faa4e1871dc57",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-0\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/on/0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/on/0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--enable-harmonizer\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/on/0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/on/0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "job": {
+        "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-1",
+        "road_id": "synthetic-road-1",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "off",
+      "asset_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "efe66fb06d78a0e51a2bd5c60f1a73b197d631d05f5be6421928e03667c8fff4",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-1\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/off/24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/off/24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/off/24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/off/24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "job": {
+        "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-1",
+        "road_id": "synthetic-road-1",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "on",
+      "asset_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "49a7b2ca8c8c5b53e773293bfe6f2d76ed0a1c752acb643232b94436c3550085",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-1\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/on/bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/on/bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--enable-harmonizer\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/on/bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/on/bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "job": {
+        "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-2",
+        "road_id": "synthetic-road-2",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "off",
+      "asset_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "96e9a9d45365382ffc9c6cdf3ca893fb325bd8b26b3d51f37864da35c024b23b",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-2\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/off/cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/off/cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/off/cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/off/cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "job": {
+        "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-2",
+        "road_id": "synthetic-road-2",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "on",
+      "asset_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "bdf939e714acc15d31a20df82c36e23de2b53ba47b7b4b4fade1968d3b9159c8",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-2\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/on/e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/on/e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--enable-harmonizer\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/on/e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/on/e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "job": {
+        "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-3",
+        "road_id": "synthetic-road-3",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "off",
+      "asset_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "8121f0d9e2f2bbd744b4d970aac1f7d2dcb4e6827b673fb35bb3820785d03d69",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-3\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/off/9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/off/9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/off/9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/off/9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "job": {
+        "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-3",
+        "road_id": "synthetic-road-3",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "on",
+      "asset_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "581d9ea551e610698b8482c6654dff9579f4cf525c49c162f13e4c8b2f6be886",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-3\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/on/08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/on/08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--enable-harmonizer\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/on/08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/on/08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "job": {
+        "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-4",
+        "road_id": "synthetic-road-4",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "off",
+      "asset_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "27b7a4b49d2b5367bf647e86bd3df3aef70ac9d51252e6e81a6ad7007a434f96",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-4\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/off/3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/off/3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/off/3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/off/3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "job": {
+        "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-4",
+        "road_id": "synthetic-road-4",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      "harmonizer_mode": "on",
+      "asset_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "upstream_identity": null,
+      "launch_request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+      "schedule_request_sha256": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+      "commands_sha256": "299dc5ec3e7f72774ab14e540c39e0382bb58c4ae320d2cb07f1f87bd7ef0fb1",
+      "requires_previous_unit_teardown": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-4\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/on/225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/on/225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--enable-harmonizer\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/on/225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/on/225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    }
+  ],
+  "cloud_launch_authorized": false,
+  "publication_authorized": false,
+  "runtime_qualified": false,
+  "execution_order_registration_verified": false,
+  "randomization_verified": false,
+  "asset_identities_verified": false,
+  "commands_executed": false,
+  "execution_model": "serial_units_with_driver_restart_and_compose_teardown",
+  "startup_cost_basis": "unmeasured_per_unit_startup_included_in_paid_work",
+  "validation_scope": "declared_input_binding_and_pinned_source_command_preparation",
+  "request_sha256": "a179a62ed1dfbc8e6d0a9cc78a48bc1cacd51055a4a29ab55e9ab1fec54416d3",
+  "input_hashes": {
+    "launch_request": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07",
+    "schedule_request": "b96aa12557c8a0d4a67dcb889baaf2243a43e67306dfeae2417d53e409f215fa",
+    "execution_order": "f3951881bedffc87b040e1ef255c760baac0b87dbc9f3a24959282f5481895f3"
+  },
+  "schedule_sha256": "fd8173944e65dba4a9eacdb1e821a569d991d8d14550c33840f546a843f56b98"
+}

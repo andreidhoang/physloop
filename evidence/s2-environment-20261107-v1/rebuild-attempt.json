@@ -1,0 +1,93 @@
+{
+  "scope": "S2 CPU environment rebuild; no model, assets, GPU or cloud spending",
+  "work_directory": "/tmp/physloop-clean-environment-20261107-xr_hadkj",
+  "source_before": {
+    "pyproject.toml": "391ce016c515f5345047efb607e3222babf877f936216a138f600e135c9cca2b",
+    "uv.lock": "725f2d1a1c82ebb83187b11f5ed5cac445dcccb09794bb6c3d4b98c733f37abf"
+  },
+  "source_after": {
+    "pyproject.toml": "391ce016c515f5345047efb607e3222babf877f936216a138f600e135c9cca2b",
+    "uv.lock": "725f2d1a1c82ebb83187b11f5ed5cac445dcccb09794bb6c3d4b98c733f37abf"
+  },
+  "dependency_files_unchanged_during_attempts": true,
+  "commands": [
+    {
+      "name": "uv-frozen-offline",
+      "command": [
+        "/Users/danghuyhoang/.local/bin/uv",
+        "sync",
+        "--frozen",
+        "--offline",
+        "--no-install-project",
+        "--python",
+        "/Users/danghuyhoang/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/bin/python3.12"
+      ],
+      "returncode": 101,
+      "elapsed_seconds": 0.13658220786601305
+    },
+    {
+      "name": "create-fresh-venv",
+      "command": [
+        "/Users/danghuyhoang/Desktop/physloop/.venv/bin/python",
+        "-B",
+        "-m",
+        "venv",
+        "/tmp/physloop-clean-environment-20261107-xr_hadkj/venv"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 2.21568787493743
+    },
+    {
+      "name": "pip-from-lock",
+      "command": [
+        "/tmp/physloop-clean-environment-20261107-xr_hadkj/venv/bin/python",
+        "-B",
+        "-m",
+        "pip",
+        "install",
+        "--no-deps",
+        "--require-hashes",
+        "--retries",
+        "0",
+        "--timeout",
+        "5",
+        "--cache-dir",
+        "/tmp/physloop-clean-environment-20261107-xr_hadkj/pip-cache",
+        "-r",
+        "/Users/danghuyhoang/Desktop/physloop/evidence/s2-environment-20261107-v1/requirements-from-lock.txt"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 0.4271974170114845
+    },
+    {
+      "name": "fresh-environment-inventory",
+      "command": [
+        "/tmp/physloop-clean-environment-20261107-xr_hadkj/venv/bin/python",
+        "-B",
+        "-c",
+        "import importlib.metadata,json;print(json.dumps({d.metadata[\"Name\"]:d.version for d in importlib.metadata.distributions()},sort_keys=True))"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.05707204178906977
+    }
+  ],
+  "locked_packages": {
+    "iniconfig": "2.3.1",
+    "numpy": "2.5.4",
+    "packaging": "26.3",
+    "pluggy": "1.7.0",
+    "protobuf": "7.36.2",
+    "pyarrow": "25.0.1",
+    "pygments": "2.21.0",
+    "pytest": "9.2.0",
+    "ruff": "0.17.3",
+    "scipy": "1.18.1",
+    "shapely": "2.1.2"
+  },
+  "clean_frozen_sync_verified": false,
+  "fresh_locked_install_verified": false,
+  "fresh_tests_executed": false,
+  "reason": "uv SystemConfiguration panic; fresh pip fallback cannot retrieve locked wheel URLs in restricted host network",
+  "other_route": "Official uv CI artifact downloaded server-side; authorized materialization helper failed local download",
+  "cloud_spend_usd": 0
+}

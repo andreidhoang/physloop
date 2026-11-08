@@ -1,0 +1,186 @@
+{
+  "scope": "synthetic ten-job pilot; no actual AlpaSim or provider execution",
+  "jobs": 10,
+  "records": 10,
+  "scores": [
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8
+  ],
+  "deviations_m": [
+    4.2,
+    4.2,
+    4.2,
+    4.2,
+    4.2,
+    4.2,
+    4.2,
+    4.2,
+    4.2,
+    4.2
+  ],
+  "out_of_envelope": 10,
+  "negative_controls": {
+    "missing_last_artifact": true,
+    "export_corruption": true,
+    "budget_boundary": true,
+    "deadline_boundary": true
+  },
+  "export_verified": true,
+  "fake_watchdog_passed": true,
+  "scientific_draft_ready": false,
+  "scientific_blockers": [
+    {
+      "code": "not_preregistered",
+      "path": "status",
+      "message": "A draft is not a frozen preregistration."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "registration",
+      "message": "Record Huy's frozen protocol reference."
+    },
+    {
+      "code": "prerequisite_unrecorded",
+      "path": "prerequisites.challenge_closed_verified",
+      "message": "A dated evidence attestation is required."
+    },
+    {
+      "code": "license_unaccepted",
+      "path": "prerequisites.license_acceptance_by_owner",
+      "message": "Dataset-use planning needs a recorded owner license acceptance; publication is separate."
+    },
+    {
+      "code": "host_incompatible",
+      "path": "prerequisites.host_compatibility_verified",
+      "message": "Record full-host access, Docker and NVIDIA runtime compatibility before run planning."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.source.git_hash",
+      "message": "Require a full 40-hex identity."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.source.config_sha256",
+      "message": "Require a full 64-hex identity."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.source.lockfile_sha256",
+      "message": "Require a full 64-hex identity."
+    },
+    {
+      "code": "unpinned_identity",
+      "path": "planned.driver.resolved_alpamayo1_5_commit",
+      "message": "Require a full 40-hex identity."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.sampling.target_population",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.sampling.road_independence_justification",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.topology",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.controller_identity",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.postprocessing_identity",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.driver.policy_clock_source",
+      "message": "Provide the planned definition."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.n_sim_steps_requested",
+      "message": "Require a positive planned integer."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.rendering_flags",
+      "message": "Record rendering flags explicitly."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.camera_request",
+      "message": "Record the camera request."
+    },
+    {
+      "code": "missing_planned_field",
+      "path": "planned.simulator.decoded_size",
+      "message": "Record positive [height,width]."
+    },
+    {
+      "code": "sampling_unresolved",
+      "path": "planned.sampling.scene_list",
+      "message": "Supply unique explicit identities."
+    },
+    {
+      "code": "sampling_unresolved",
+      "path": "planned.sampling.road_list",
+      "message": "Supply unique explicit identities."
+    },
+    {
+      "code": "owner_choice_unfrozen",
+      "path": "planned.measurement.experiment_prediction",
+      "message": "Record a frozen owner value and source."
+    },
+    {
+      "code": "invalid_resource",
+      "path": "planned.resources",
+      "message": "Record quote date and exact GPU edition."
+    },
+    {
+      "code": "phase_limits_unapproved",
+      "path": "prerequisites.budget_decision_P005",
+      "message": "Cash ceilings are recorded; phase GPU-hour and hourly-rate limits still need approval."
+    }
+  ],
+  "asl_capture": {
+    "passed": true,
+    "pose_events": 4,
+    "actual_steps": null,
+    "torn_frame_rejected": true,
+    "score_admitted": false,
+    "runtime_qualified": false
+  },
+  "launch_preparation": {
+    "prepared": true,
+    "policy_rollouts": 10,
+    "missing_scenes_rejected": true,
+    "commands_executed": false
+  },
+  "pilot_packet": {
+    "prepared": true,
+    "bound_job_count": 10,
+    "matches_ingestion_schedule": true,
+    "horizon_mismatch_rejected": true,
+    "missing_order_rejected": true,
+    "commands_executed": false
+  },
+  "runtime_qualified": false,
+  "cloud_launch_authorized": false,
+  "passed": true
+}

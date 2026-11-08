@@ -1,0 +1,17 @@
+H. Harm in one stratum, others delta 0.05 and b 0: P(improvement claim), lower is safer
+4 strata (110 each)      harm 0.00 in s4    | all_strata 0.000 pooled 1.000 +guard@.05 1.000 +guard@.10 1.000
+4 strata (110 each)      harm 0.05 in s4    | all_strata 0.000 pooled 0.065 +guard@.05 0.004 +guard@.10 0.046
+4 strata (110 each)      harm 0.10 in s4    | all_strata 0.000 pooled 0.001 +guard@.05 0.000 +guard@.10 0.001
+4 strata (110 each)      harm 0.25 in s4    | all_strata 0.000 pooled 0.000 +guard@.05 0.000 +guard@.10 0.000
+3 unequal (300/100/41)   harm 0.00 in rare  | all_strata 0.000 pooled 0.999 +guard@.05 0.019 +guard@.10 0.999
+3 unequal (300/100/41)   harm 0.05 in rare  | all_strata 0.000 pooled 0.654 +guard@.05 0.000 +guard@.10 0.113
+3 unequal (300/100/41)   harm 0.10 in rare  | all_strata 0.000 pooled 0.333 +guard@.05 0.000 +guard@.10 0.016
+3 unequal (300/100/41)   harm 0.25 in rare  | all_strata 0.000 pooled 0.022 +guard@.05 0.000 +guard@.10 0.000
+
+R. One versus three replicates, one stratum of 441 roads, 300 trials
+b 0.02 delta 0.03 reps 1 | P(upper<0) 0.097 median +0.0144 sd 0.0118
+b 0.02 delta 0.03 reps 3 | P(upper<0) 0.020 median +0.0150 sd 0.0073
+b 0.00 delta 0.03 reps 1 | P(upper<0) 0.867 median -0.0042 sd 0.0055
+b 0.00 delta 0.03 reps 3 | P(upper<0) 0.973 median -0.0047 sd 0.0031
+b 0.00 delta 0.02 reps 1 | P(upper<0) 0.437 median +0.0012 sd 0.0039
+b 0.00 delta 0.02 reps 3 | P(upper<0) 0.323 median +0.0012 sd 0.0022

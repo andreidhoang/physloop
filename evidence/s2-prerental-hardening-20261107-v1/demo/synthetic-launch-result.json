@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "prepared": true,
+  "alpasim_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+  "command_origin": "assembled_from_pinned_source_interfaces_not_runtime_tested",
+  "validation_scope": "pure source-contract command preparation",
+  "cloud_launch_authorized": false,
+  "publication_authorized": false,
+  "runtime_qualified": false,
+  "paths_verified": false,
+  "images_verified": false,
+  "execution_order_registered": false,
+  "commands_executed": false,
+  "input_name_scope": "portable_ASCII_paths_and_scene_labels_only",
+  "issues": [],
+  "pilot": {
+    "scene_ids": [
+      "synthetic-scene-0",
+      "synthetic-scene-1",
+      "synthetic-scene-2",
+      "synthetic-scene-3",
+      "synthetic-scene-4"
+    ],
+    "scene_count": 5,
+    "replicates": 1,
+    "policy_rollouts": 10,
+    "requested_steps": 3,
+    "seed_mode": "unseeded",
+    "graph_mode": "stock_wrapper_no_graph_enable_call",
+    "max_batch_size": 1,
+    "schedule_status": "cardinality_only_execution_order_not_registered",
+    "source_defaults": {
+      "camera_config": "6cam_1080",
+      "control_timestep_us": 100000,
+      "force_gt_duration_us": 1700000,
+      "planner_delay_us": 0,
+      "render_bundling": "NONE",
+      "traffic_mode": "log_replay"
+    }
+  },
+  "arms": [
+    {
+      "harmonizer": false,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-0\",\"synthetic-scene-1\",\"synthetic-scene-2\",\"synthetic-scene-3\",\"synthetic-scene-4\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/off\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/off\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/off",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/off",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    },
+    {
+      "harmonizer": true,
+      "wizard_prepare": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "alpasim_wizard",
+          "driver=alpamayo1_5",
+          "+e2e_challenge=dev",
+          "+nurec_scenes=curated_val",
+          "scenes.test_suite_id=null",
+          "scenes.scene_ids=[\"synthetic-scene-0\",\"synthetic-scene-1\",\"synthetic-scene-2\",\"synthetic-scene-3\",\"synthetic-scene-4\"]",
+          "scenes.limit_to_first_n=0",
+          "runtime.simulation_config.n_rollouts=1",
+          "runtime.simulation_config.n_sim_steps=3",
+          "driver.port=6789",
+          "wizard.baseport=6790",
+          "wizard.external_services.driver=[\"localhost:6789\"]",
+          "driver.model.checkpoint_path=\"/synthetic/teacher/snapshot\"",
+          "driver.output_dir=\"/synthetic/driver-logs/on\"",
+          "driver.inference.max_batch_size=1",
+          "wizard.log_dir=\"/synthetic/runs/on\"",
+          "wizard.run_method=NONE",
+          "wizard.nr_retries=0",
+          "runtime.enable_autoresume=false",
+          "defines.filesystem=\"/synthetic/data\"",
+          "services.renderer.image=\"nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+          "defines.base_image=\"registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"",
+          "services.physics.external_image=true",
+          "services.controller.external_image=true",
+          "services.runtime.external_image=true",
+          "services.renderer.command=[\"/app/internal/scripts/pycena/runtime/pycena_nrm_full\",\"serve-grpc\",\"--port={port}\",\"--host=0.0.0.0\",\"--artifact-glob=/mnt/nre-data/{sceneset}/**/*.usdz\",\"--egocar-hood-dir=/mnt/ego-hoods\",\"--no-enable-nrend\",\"--enable-harmonizer\",\"--download-cache-dir /tmp/nre-cache-dir\",\"--cache-size=5\",\"--max-workers=4\",\"--enable-editing-actors\",\"--enable-timing\"]"
+        ],
+        "may_download_assets": true
+      },
+      "driver": {
+        "cwd": "/synthetic/alpasim",
+        "argv": [
+          "uv",
+          "run",
+          "--no-sync",
+          "-m",
+          "alpasim_driver.main",
+          "--config-path=/synthetic/runs/on",
+          "--config-name=driver-config.yaml"
+        ]
+      },
+      "compose": {
+        "cwd": "/synthetic/runs/on",
+        "argv": [
+          "docker",
+          "compose",
+          "up",
+          "--exit-code-from",
+          "runtime-0"
+        ]
+      }
+    }
+  ],
+  "request_sha256": "8b8192be7dae49c985bb75adb6ba132491276e36c4b8d85ac38aad171b6c9e07"
+}

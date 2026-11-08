@@ -1,0 +1,1058 @@
+{
+ "joint_exact": [
+  {
+   "config": "1 x 441",
+   "sizes": [
+    441
+   ],
+   "margin": 0.05,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "1 x 441",
+   "sizes": [
+    441
+   ],
+   "margin": 0.05,
+   "b": 0.02,
+   "joint": 0.9039320238161666
+  },
+  {
+   "config": "1 x 441",
+   "sizes": [
+    441
+   ],
+   "margin": 0.05,
+   "b": 0.05,
+   "joint": 0.34531789595352613
+  },
+  {
+   "config": "1 x 441",
+   "sizes": [
+    441
+   ],
+   "margin": 0.1,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "1 x 441",
+   "sizes": [
+    441
+   ],
+   "margin": 0.1,
+   "b": 0.02,
+   "joint": 0.9999999904525726
+  },
+  {
+   "config": "1 x 441",
+   "sizes": [
+    441
+   ],
+   "margin": 0.1,
+   "b": 0.05,
+   "joint": 0.9975417891578882
+  },
+  {
+   "config": "2 x 220/221",
+   "sizes": [
+    220,
+    221
+   ],
+   "margin": 0.05,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "2 x 220/221",
+   "sizes": [
+    220,
+    221
+   ],
+   "margin": 0.05,
+   "b": 0.02,
+   "joint": 0.2083945639909695
+  },
+  {
+   "config": "2 x 220/221",
+   "sizes": [
+    220,
+    221
+   ],
+   "margin": 0.05,
+   "b": 0.05,
+   "joint": 0.009102328305549186
+  },
+  {
+   "config": "2 x 220/221",
+   "sizes": [
+    220,
+    221
+   ],
+   "margin": 0.1,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "2 x 220/221",
+   "sizes": [
+    220,
+    221
+   ],
+   "margin": 0.1,
+   "b": 0.02,
+   "joint": 0.9968117121302558
+  },
+  {
+   "config": "2 x 220/221",
+   "sizes": [
+    220,
+    221
+   ],
+   "margin": 0.1,
+   "b": 0.05,
+   "joint": 0.6761997306839655
+  },
+  {
+   "config": "4 x 110",
+   "sizes": [
+    110,
+    110,
+    110,
+    111
+   ],
+   "margin": 0.05,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "4 x 110",
+   "sizes": [
+    110,
+    110,
+    110,
+    111
+   ],
+   "margin": 0.05,
+   "b": 0.02,
+   "joint": 0.00025047891888975996
+  },
+  {
+   "config": "4 x 110",
+   "sizes": [
+    110,
+    110,
+    110,
+    111
+   ],
+   "margin": 0.05,
+   "b": 0.05,
+   "joint": 4.401015021612852e-07
+  },
+  {
+   "config": "4 x 110",
+   "sizes": [
+    110,
+    110,
+    110,
+    111
+   ],
+   "margin": 0.1,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "4 x 110",
+   "sizes": [
+    110,
+    110,
+    110,
+    111
+   ],
+   "margin": 0.1,
+   "b": 0.02,
+   "joint": 0.4951796660280205
+  },
+  {
+   "config": "4 x 110",
+   "sizes": [
+    110,
+    110,
+    110,
+    111
+   ],
+   "margin": 0.1,
+   "b": 0.05,
+   "joint": 0.0172613471138315
+  },
+  {
+   "config": "300/100/41, all gating",
+   "sizes": [
+    300,
+    100,
+    41
+   ],
+   "margin": 0.05,
+   "b": 0.0,
+   "joint": 0.0
+  },
+  {
+   "config": "300/100/41, all gating",
+   "sizes": [
+    300,
+    100,
+    41
+   ],
+   "margin": 0.05,
+   "b": 0.02,
+   "joint": 7.33642904740016e-06
+  },
+  {
+   "config": "300/100/41, all gating",
+   "sizes": [
+    300,
+    100,
+    41
+   ],
+   "margin": 0.05,
+   "b": 0.05,
+   "joint": 8.847019960543848e-06
+  },
+  {
+   "config": "300/100/41, all gating",
+   "sizes": [
+    300,
+    100,
+    41
+   ],
+   "margin": 0.1,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "300/100/41, all gating",
+   "sizes": [
+    300,
+    100,
+    41
+   ],
+   "margin": 0.1,
+   "b": 0.02,
+   "joint": 0.34277519728591394
+  },
+  {
+   "config": "300/100/41, all gating",
+   "sizes": [
+    300,
+    100,
+    41
+   ],
+   "margin": 0.1,
+   "b": 0.05,
+   "joint": 0.03611826467379904
+  },
+  {
+   "config": "300/100 gating, 41 reported",
+   "sizes": [
+    300,
+    100
+   ],
+   "margin": 0.05,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "300/100 gating, 41 reported",
+   "sizes": [
+    300,
+    100
+   ],
+   "margin": 0.05,
+   "b": 0.02,
+   "joint": 0.09550051400045817
+  },
+  {
+   "config": "300/100 gating, 41 reported",
+   "sizes": [
+    300,
+    100
+   ],
+   "margin": 0.05,
+   "b": 0.05,
+   "joint": 0.003698330915261932
+  },
+  {
+   "config": "300/100 gating, 41 reported",
+   "sizes": [
+    300,
+    100
+   ],
+   "margin": 0.1,
+   "b": 0.0,
+   "joint": 1.0
+  },
+  {
+   "config": "300/100 gating, 41 reported",
+   "sizes": [
+    300,
+    100
+   ],
+   "margin": 0.1,
+   "b": 0.02,
+   "joint": 0.7847562041561766
+  },
+  {
+   "config": "300/100 gating, 41 reported",
+   "sizes": [
+    300,
+    100
+   ],
+   "margin": 0.1,
+   "b": 0.05,
+   "joint": 0.2929823177490825
+  }
+ ],
+ "designs": [
+  {
+   "scenario": "4 x 110, uniform +5pp, b .02",
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v4",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.07,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "gating_strata": null,
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.468,
+      "improvement_interval": [
+       0.4367069965439357,
+       0.49948190470920345
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 468,
+       "INSUFFICIENT": 532
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.031,
+      "improvement_interval": [
+       0.021158171970208632,
+       0.043715085006238906
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 31,
+       "GUARD_NOT_CERTIFIED": 437,
+       "INSUFFICIENT": 532
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.445,
+      "improvement_interval": [
+       0.41389911040428456,
+       0.47642559065205875
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 445,
+       "GUARD_NOT_CERTIFIED": 23,
+       "INSUFFICIENT": 532
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.453,
+      "s2": 0.475,
+      "s3": 0.446,
+      "s4": 0.429
+     },
+     "0.1": {
+      "s1": 0.958,
+      "s2": 0.947,
+      "s3": 0.951,
+      "s4": 0.945
+     }
+    },
+    "guard_joint_go_rate": {
+     "0.05": 0.031,
+     "0.1": 0.814
+    }
+   }
+  },
+  {
+   "scenario": "4 x 110, s4 flat, b .02",
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v4",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "s1": 110,
+      "s2": 110,
+      "s3": 110,
+      "s4": 111
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.07,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": {
+      "s4": [
+       0.02,
+       0.02
+      ]
+     },
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "gating_strata": null,
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.193,
+      "improvement_interval": [
+       0.16897210326979484,
+       0.21885000358205467
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 193,
+       "INSUFFICIENT": 807
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.008,
+      "improvement_interval": [
+       0.0034599761653293115,
+       0.015702049176074682
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 8,
+       "GUARD_NOT_CERTIFIED": 185,
+       "INSUFFICIENT": 807
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.179,
+      "improvement_interval": [
+       0.15571273455792298,
+       0.20419391015831237
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 179,
+       "GUARD_NOT_CERTIFIED": 14,
+       "INSUFFICIENT": 807
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "s1": 0.453,
+      "s2": 0.475,
+      "s3": 0.446,
+      "s4": 0.119
+     },
+     "0.1": {
+      "s1": 0.958,
+      "s2": 0.947,
+      "s3": 0.951,
+      "s4": 0.828
+     }
+    },
+    "guard_joint_go_rate": {
+     "0.05": 0.009,
+     "0.1": 0.713
+    }
+   }
+  },
+  {
+   "scenario": "300/100/41, uniform +5pp, b .02",
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v4",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.07,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "gating_strata": [
+      "common",
+      "mid"
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.451,
+      "improvement_interval": [
+       0.41984260653536304,
+       0.48244666504756756
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 451,
+       "INSUFFICIENT": 549
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.013,
+      "improvement_interval": [
+       0.006939617502851476,
+       0.022127803636778486
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 13,
+       "GUARD_NOT_CERTIFIED": 438,
+       "INSUFFICIENT": 549
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.239,
+      "improvement_interval": [
+       0.21286749037590907,
+       0.26667861888521033
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 239,
+       "GUARD_NOT_CERTIFIED": 212,
+       "INSUFFICIENT": 549
+      }
+     },
+     "pooled_gating@0.05": {
+      "improvement_rate": 0.247,
+      "improvement_interval": [
+       0.22054727947894118,
+       0.2749510409370083
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 247,
+       "GUARD_NOT_CERTIFIED": 204,
+       "INSUFFICIENT": 549
+      }
+     },
+     "pooled_gating@0.1": {
+      "improvement_rate": 0.437,
+      "improvement_interval": [
+       0.4059815065249005,
+       0.46839043851122736
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 437,
+       "GUARD_NOT_CERTIFIED": 14,
+       "INSUFFICIENT": 549
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.993,
+      "mid": 0.402,
+      "rare": 0.032
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 0.91,
+      "rare": 0.449
+     }
+    },
+    "guard_joint_go_rate": {
+     "0.05": 0.014,
+     "0.1": 0.413
+    }
+   }
+  },
+  {
+   "scenario": "300/100/41, rare flat, b .02",
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v4",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.02,
+     "q_minus": 0.07,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": {
+      "rare": [
+       0.02,
+       0.02
+      ]
+     },
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "gating_strata": [
+      "common",
+      "mid"
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.356,
+      "improvement_interval": [
+       0.32628426644823655,
+       0.38656652582891743
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 356,
+       "INSUFFICIENT": 644
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 356,
+       "INSUFFICIENT": 644
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.183,
+      "improvement_interval": [
+       0.1594958343308955,
+       0.2083866245441323
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 183,
+       "GUARD_NOT_CERTIFIED": 173,
+       "INSUFFICIENT": 644
+      }
+     },
+     "pooled_gating@0.05": {
+      "improvement_rate": 0.208,
+      "improvement_interval": [
+       0.18323331957388345,
+       0.234498525128187
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 208,
+       "GUARD_NOT_CERTIFIED": 148,
+       "INSUFFICIENT": 644
+      }
+     },
+     "pooled_gating@0.1": {
+      "improvement_rate": 0.347,
+      "improvement_interval": [
+       0.3174839736829457,
+       0.37742010697828626
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 347,
+       "GUARD_NOT_CERTIFIED": 9,
+       "INSUFFICIENT": 644
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 0.993,
+      "mid": 0.402,
+      "rare": 0.0
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 0.91,
+      "rare": 0.434
+     }
+    },
+    "guard_joint_go_rate": {
+     "0.05": 0.0,
+     "0.1": 0.392
+    }
+   }
+  },
+  {
+   "scenario": "300/100/41, uniform +5pp, b 0",
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v4",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": null,
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "gating_strata": [
+      "common",
+      "mid"
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.019,
+      "improvement_interval": [
+       0.011477036993100948,
+       0.0295124016250978
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 19,
+       "GUARD_NOT_CERTIFIED": 980,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled_gating@0.05": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     },
+     "pooled_gating@0.1": {
+      "improvement_rate": 0.999,
+      "improvement_interval": [
+       0.9944410757201734,
+       0.9999746825125088
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 999,
+       "INSUFFICIENT": 1
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 0.019
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 1.0
+     }
+    },
+    "guard_joint_go_rate": {
+     "0.05": 0.019,
+     "0.1": 1.0
+    }
+   }
+  },
+  {
+   "scenario": "300/100/41, rare harmed +10pp, b 0",
+   "report": {
+    "classification": "assumption_not_measurement",
+    "rule_id": "intersection_union_upper_below_zero_v4",
+    "interval_method": "clopper_pearson_two_sided_0.95",
+    "analysis": "fixed_sample",
+    "seeding": "SeedSequence([seed, trial]); designs share rows",
+    "trials": 1000,
+    "seed": 20261108,
+    "designs": {
+     "all_strata": "improvement required on every stratum (no guards)",
+     "pooled": "improvement on the pooled population (no guards)",
+     "pooled_guard": "pooled improvement plus per-stratum non-inferiority of the same endpoint"
+    },
+    "scenario": {
+     "strata": {
+      "common": 300,
+      "mid": 100,
+      "rare": 41
+     },
+     "scenes_per_road": 1,
+     "replicates": 1,
+     "p_a": 0.08,
+     "q_plus": 0.0,
+     "q_minus": 0.05,
+     "road_correlation": 0.0,
+     "replicate_correlation": 0.0,
+     "effects": {
+      "rare": [
+       0.1,
+       0.0
+      ]
+     },
+     "margin": 0.05,
+     "guard_margins": [
+      0.05,
+      0.1
+     ],
+     "gating_strata": [
+      "common",
+      "mid"
+     ],
+     "alpha": 0.05,
+     "delta_min": 0.016
+    },
+    "results": {
+     "all_strata": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "INSUFFICIENT": 1000
+      }
+     },
+     "pooled": {
+      "improvement_rate": 0.333,
+      "improvement_interval": [
+       0.3038178024201576,
+       0.3631692178520081
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 333,
+       "INSUFFICIENT": 667
+      }
+     },
+     "pooled_guard@0.05": {
+      "improvement_rate": 0.0,
+      "improvement_interval": [
+       0.0,
+       0.0036820838968656708
+      ],
+      "outcomes": {
+       "GUARD_NOT_CERTIFIED": 333,
+       "INSUFFICIENT": 667
+      }
+     },
+     "pooled_guard@0.1": {
+      "improvement_rate": 0.016,
+      "improvement_interval": [
+       0.00917231926922208,
+       0.02585324908137346
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 16,
+       "GUARD_NOT_CERTIFIED": 317,
+       "INSUFFICIENT": 667
+      }
+     },
+     "pooled_gating@0.05": {
+      "improvement_rate": 0.333,
+      "improvement_interval": [
+       0.3038178024201576,
+       0.3631692178520081
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 333,
+       "INSUFFICIENT": 667
+      }
+     },
+     "pooled_gating@0.1": {
+      "improvement_rate": 0.333,
+      "improvement_interval": [
+       0.3038178024201576,
+       0.3631692178520081
+      ],
+      "outcomes": {
+       "IMPROVEMENT_SUPPORTED": 333,
+       "INSUFFICIENT": 667
+      }
+     }
+    },
+    "guard_go_rate": {
+     "0.05": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 0.0
+     },
+     "0.1": {
+      "common": 1.0,
+      "mid": 1.0,
+      "rare": 0.016
+     }
+    },
+    "guard_joint_go_rate": {
+     "0.05": 0.0,
+     "0.1": 0.016
+    }
+   }
+  }
+ ]
+}

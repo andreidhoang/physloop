@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "pinned_public_launch_source_fixtures",
+  "retrieved_at_date": "2026-11-07",
+  "runtime_qualified": false,
+  "sources": [
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/base_config.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/base_config.yaml",
+      "git_blob_sha1": "64ba6900080600665d4279a654d34ca63cad1094",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/base_config.yaml",
+      "size_bytes": 15893,
+      "sha256": "5a03720910f077053eaac54788746adf717fb3510ac59a2e1ed8065f88fad1c3"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/e2e_challenge/dev.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/e2e_challenge/dev.yaml",
+      "git_blob_sha1": "0e6bc0c5309e703d1ded4e6f560341afe1214cd8",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/e2e_challenge/dev.yaml",
+      "size_bytes": 1522,
+      "sha256": "40332494f36fe0bd77c3fdec95514fee17c99238b6d711d8f87e37ba4ca5a943"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/e2e_challenge/ec2.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/e2e_challenge/ec2.yaml",
+      "git_blob_sha1": "0980a58da344c836abf389bbe50275e6e325ffbe",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/e2e_challenge/ec2.yaml",
+      "size_bytes": 2256,
+      "sha256": "756425846685a95ac38257df7ddb091bce2947eacff5b3b8b24bc4aa4af3f751"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/nurec_scenes/curated_val.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/nurec_scenes/curated_val.yaml",
+      "git_blob_sha1": "a84fd59e9977cc19141b7b9e73a1b6d2237fca0b",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/nurec_scenes/curated_val.yaml",
+      "size_bytes": 387,
+      "sha256": "17e0824c54177c1d28551df7b0bc8fb329e594112694c53fd16fb844f09fd6e6"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/driver/alpamayo1_5.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/driver/alpamayo1_5.yaml",
+      "git_blob_sha1": "55225095d64a224a90491f6374693b16bb739dcd",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/driver/alpamayo1_5.yaml",
+      "size_bytes": 1669,
+      "sha256": "5f8b0f987c072988419dd924ed2e8d6b38d9116eecb946c315b0de155c006c57"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/driver/alpamayo_configs.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/driver/alpamayo_configs.yaml",
+      "git_blob_sha1": "88ae99ac17a350cecfaa5d093ab7b3b9e4735ad0",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/driver/alpamayo_configs.yaml",
+      "size_bytes": 1149,
+      "sha256": "4e57b7f840323770562e1dc2f0ecb79674d06a9b7bea68945f9174260e523095"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/cameras/6cam_1080.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/cameras/6cam_1080.yaml",
+      "git_blob_sha1": "f8f08e3c1bc1e60665867a3ac0ccb4c9d431770a",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/cameras/6cam_1080.yaml",
+      "size_bytes": 1721,
+      "sha256": "7283277708eeb9ccbc106e3cc353f53e1fc05adca08e24d8c923c6a0eb4caf83"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/topology/1gpu.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/topology/1gpu.yaml",
+      "git_blob_sha1": "d4c73138d17d3ae23c94bb7bf2e87b298d6c8c83",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/topology/1gpu.yaml",
+      "size_bytes": 962,
+      "sha256": "d4cb3a74b26cf25368c6853ae697c0b1cf95e6b2b6133b30e0482d8e48ee6cf3"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/driver_source/external_static.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/driver_source/external_static.yaml",
+      "git_blob_sha1": "3fdeb35b531c8b6f8af867730aa4c196ba9ad78a",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/driver_source/external_static.yaml",
+      "size_bytes": 286,
+      "sha256": "372cb04e1de945b68846450e29c7b70b25336a8810853773cbb4637c22d75271"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/configs/deploy/local.yaml",
+      "fixture_path": "alpasim/src/wizard/configs/deploy/local.yaml",
+      "git_blob_sha1": "a85bc1e0f39aaf3ca8249245cf89722490c46015",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/configs/deploy/local.yaml",
+      "size_bytes": 225,
+      "sha256": "ec50a601be9ce17acb2261cd3a51c69fe021d1c1c2104f2c966323b92293ba51"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/alpasim_wizard/context.py",
+      "fixture_path": "alpasim/src/wizard/alpasim_wizard/context.py.txt",
+      "git_blob_sha1": "675174bebd26b61d7d3aabfdb2e8c3c484a81de8",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/alpasim_wizard/context.py",
+      "size_bytes": 8901,
+      "sha256": "f9737d394bedc6b8e863ff2000a4c40c664f6dc22b043af8802d9115c4848e9e"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/alpasim_wizard/configuration.py",
+      "fixture_path": "alpasim/src/wizard/alpasim_wizard/configuration.py.txt",
+      "git_blob_sha1": "12f9fc8717bb2baf4ce85b786a915f0e2c526a3b",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/alpasim_wizard/configuration.py",
+      "size_bytes": 14240,
+      "sha256": "937de74dc91cfd72794dd54bdd40f6cc55a2de74383a8dd52986f63481b2cb58"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/alpasim_wizard/setup_omegaconf.py",
+      "fixture_path": "alpasim/src/wizard/alpasim_wizard/setup_omegaconf.py.txt",
+      "git_blob_sha1": "9865684ea85a884f855bd436039e52661579a310",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/alpasim_wizard/setup_omegaconf.py",
+      "size_bytes": 10206,
+      "sha256": "5114f760be87b39303035484107d93d9e89c7b3511ad219cadf78cba5091cd47"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/alpasim_wizard/wizard.py",
+      "fixture_path": "alpasim/src/wizard/alpasim_wizard/wizard.py.txt",
+      "git_blob_sha1": "6f689bc616d3897343c26a290fbb3594b97e77d7",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/alpasim_wizard/wizard.py",
+      "size_bytes": 3900,
+      "sha256": "a5a50d390012f123b5d7e6d4255ecf58ebc5e1eda6db0a1f42ae626738b4ae38"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/alpasim_wizard/services.py",
+      "fixture_path": "alpasim/src/wizard/alpasim_wizard/services.py.txt",
+      "git_blob_sha1": "57b936c51d467e576dbaa78f9aba2551662d3e52",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/alpasim_wizard/services.py",
+      "size_bytes": 15190,
+      "sha256": "526c0617f1a61bb403ed7d7e5b2dfebe11be4ad77dcd8887d17f49733c59206a"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/alpasim_wizard/schema.py",
+      "fixture_path": "alpasim/src/wizard/alpasim_wizard/schema.py.txt",
+      "git_blob_sha1": "1c9f1a74a196ca2e9352ae572c370edc0b122569",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/alpasim_wizard/schema.py",
+      "size_bytes": 6090,
+      "sha256": "58fb1ee44871147fce6b7c6936dc25cafce93da9bca3a45f7ed453ea55277a42"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/alpasim_wizard/deployment/docker_compose.py",
+      "fixture_path": "alpasim/src/wizard/alpasim_wizard/deployment/docker_compose.py.txt",
+      "git_blob_sha1": "20ffeeeabfdde9ad344993980f06f988154942b8",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/alpasim_wizard/deployment/docker_compose.py",
+      "size_bytes": 8165,
+      "sha256": "0b2df637f290b5767f6619dec62c70cf09c6645e128586944525f9925891c0e1"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/driver/src/alpasim_driver/main.py",
+      "fixture_path": "alpasim/src/driver/src/alpasim_driver/main.py.txt",
+      "git_blob_sha1": "3d214295dd3e57bd97e24132b2ac8d1c158b0bd1",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/driver/src/alpasim_driver/main.py",
+      "size_bytes": 41035,
+      "sha256": "16e086ece281ac026076c131893fdb4ff2c86893a46c8dae842e9ddbc9962aaa"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/driver/src/alpasim_driver/schema.py",
+      "fixture_path": "alpasim/src/driver/src/alpasim_driver/schema.py.txt",
+      "git_blob_sha1": "cd639b9eb27e7f86f25b2cf325a2814aaa066476",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/driver/src/alpasim_driver/schema.py",
+      "size_bytes": 4625,
+      "sha256": "b8bc8e7832d740d8f247c9ff35b2ef4a9dc78b52e3c503ac7fb165b22976b7a8"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/driver/src/alpasim_driver/models/alpamayo1_5_model.py",
+      "fixture_path": "alpasim/src/driver/src/alpasim_driver/models/alpamayo1_5_model.py.txt",
+      "git_blob_sha1": "acee3cd7db25c3fdef527bd3278c3c2ac032e636",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/driver/src/alpasim_driver/models/alpamayo1_5_model.py",
+      "size_bytes": 4643,
+      "sha256": "453b8dafb6664c265af9037a3b10d60586552a33afa4c1bdab65ab35c2ee0e29"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "LICENSE",
+      "fixture_path": "alpasim/LICENSE",
+      "git_blob_sha1": "c6ff73fab08d36444991400fc0aeb8d660f2d098",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/LICENSE",
+      "size_bytes": 11347,
+      "sha256": "50201750cc0542d4656d8d95f002f78357021b7c3c975b53924000b7ddc5a24e"
+    },
+    {
+      "repository": "NVlabs/alpamayo1.5",
+      "commit": "36aeb4c5938cbc2eb2aed33b22434773da4ab639",
+      "source_path": "src/alpamayo1_5/models/alpamayo1_5.py",
+      "fixture_path": "alpamayo1_5/src/alpamayo1_5/models/alpamayo1_5.py.txt",
+      "git_blob_sha1": "c98234508b8ee2f257377fde41ff9028de4f6d25",
+      "source_ref": "https://github.com/NVlabs/alpamayo1.5/blob/36aeb4c5938cbc2eb2aed33b22434773da4ab639/src/alpamayo1_5/models/alpamayo1_5.py",
+      "size_bytes": 30517,
+      "sha256": "87b23954570f4d466a6d0dd64090f779af635433b61106eb3b028d8d802ff1e8"
+    },
+    {
+      "repository": "NVlabs/alpamayo1.5",
+      "commit": "36aeb4c5938cbc2eb2aed33b22434773da4ab639",
+      "source_path": "LICENSE",
+      "fixture_path": "alpamayo1_5/LICENSE",
+      "git_blob_sha1": "36d9ac52b8097ee3d914111a09ca0acb5c30483e",
+      "source_ref": "https://github.com/NVlabs/alpamayo1.5/blob/36aeb4c5938cbc2eb2aed33b22434773da4ab639/LICENSE",
+      "size_bytes": 11337,
+      "sha256": "ebc390db62aa7f87f4fbd9a53869ebaf92673db0cee7a5c1934afd83ae1c318f"
+    },
+    {
+      "repository": "NVlabs/alpasim",
+      "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+      "source_path": "src/wizard/alpasim_wizard/deployment/slurm.py",
+      "fixture_path": "alpasim/src/wizard/alpasim_wizard/deployment/slurm.py.txt",
+      "git_blob_sha1": "2baaaf300582d5bcfb17357c8625be5fca2bb84b",
+      "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/wizard/alpasim_wizard/deployment/slurm.py",
+      "size_bytes": 12112,
+      "sha256": "0206be78191eb2ed7310b7c3e5b8e508c31478b80b4f3fad4f7a3a1d25f49331"
+    }
+  ]
+}

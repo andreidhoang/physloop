@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "alpasim_asl_inspection_v1",
+  "capture_origin": "synthetic_fixture",
+  "evaluator_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+  "schedule": [
+    {
+      "job_id": "job",
+      "phase": "synthetic",
+      "arm": "A",
+      "policy_id": "teacher",
+      "scene_id": "clip",
+      "road_id": "road",
+      "stratum": "urban",
+      "replicate_id": 0,
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requested_steps": 3
+    }
+  ],
+  "schedule_request": null,
+  "events": {
+    "path": "events.json",
+    "sha256": "66f6f510e26facbb115e21dc8176720625d0b19c0a6c1123fae4e29ee7ab27d1",
+    "size_bytes": 458
+  },
+  "artifacts": [
+    {
+      "attempt_id": "attempt",
+      "asl": {
+        "path": "capture.asl",
+        "sha256": "6e9e59a1180b785ed2f3f2b41534b7faf6171b5a7e40af6ea69c684911165a90",
+        "size_bytes": 297
+      }
+    }
+  ]
+}

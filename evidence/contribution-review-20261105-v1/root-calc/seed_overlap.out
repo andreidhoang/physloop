@@ -1,0 +1,6 @@
+additive: replicate0 seeds [1000, 1001, 1002, 1003, 1004] ... replicate1 [1001, 1002, 1003, 1004, 1005]
+additive: seeds shared by replicate 0 and 1: 21 of 22
+additive: replicate1[t] == replicate0[t+1] for all t<21: True
+two scenes, same random_seed, replicate 0: identical sequences: True
+random_seed=0 -> session_seed: 0 -> passed as None
+hashed: total 29106 unique 29106

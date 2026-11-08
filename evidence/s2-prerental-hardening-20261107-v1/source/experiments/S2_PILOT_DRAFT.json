@@ -1,0 +1,232 @@
+{
+  "schema_version": 2,
+  "stage": "S2",
+  "phase": "harmonizer_pilot",
+  "status": "draft",
+  "registration": {
+    "owner": "Huy",
+    "source_ref": null,
+    "frozen": false
+  },
+  "recommendations_not_approval": {
+    "initial_compute_gpu_hours_cap": 8,
+    "initial_rate_per_gpu_hour_cap": 2.5,
+    "source_ref": "docs/S2_IMPLEMENTATION_PLAN.md"
+  },
+  "prerequisites": {
+    "S1_evidence": "evidence/s1-20261031-autonomous-v1/summary.json",
+    "budget_decision_P005": {
+      "status": "recorded",
+      "actor": "Huy",
+      "source_ref": "docs/DECISIONS.md (D-018; explicit user adoption)",
+      "recorded_at": "2026-10-31T13:28:02+00:00",
+      "tier": "up_to_2500",
+      "project_cap_usd": 2500,
+      "stage_cap_usd": 1200,
+      "pilot_cap_usd": 100,
+      "approved_by": "Huy",
+      "approved_compute_gpu_hours_cap": null,
+      "approved_rate_per_gpu_hour_cap": null
+    },
+    "hour_reforecast_P003": {
+      "status": "pending",
+      "actor": null,
+      "source_ref": null,
+      "recorded_at": null
+    },
+    "challenge_closed_verified": {
+      "status": "pending",
+      "actor": null,
+      "source_ref": null,
+      "recorded_at": null
+    },
+    "latest_upstream_release_checked": {
+      "status": "recorded",
+      "actor": "agent public-source audit",
+      "source_ref": "docs/research/2026-10-31-s2-upstream.md",
+      "recorded_at": "2026-10-31",
+      "release_merged": false,
+      "recheck_at_stage_start": true
+    },
+    "license_acceptance_by_owner": {
+      "status": "pending",
+      "actor": null,
+      "source_ref": null,
+      "recorded_at": null,
+      "approved_by": null
+    },
+    "host_compatibility_verified": {
+      "status": "pending",
+      "actor": null,
+      "source_ref": null,
+      "recorded_at": null,
+      "docker": null,
+      "nvidia_runtime": null,
+      "full_host_access": null
+    },
+    "public_numbers_KCL": {
+      "status": "pending",
+      "actor": null,
+      "source_ref": null,
+      "recorded_at": null
+    },
+    "derived_weights_labels_KCL2": {
+      "status": "pending",
+      "actor": null,
+      "source_ref": null,
+      "recorded_at": null
+    },
+    "full_sweep_release": {
+      "status": "pending",
+      "actor": null,
+      "source_ref": null,
+      "recorded_at": null,
+      "approved_by": null,
+      "pilot_evidence_ref": null,
+      "forecast_ref": null,
+      "remaining_stage_cap_usd": null
+    },
+    "rental_and_funding_approval": {
+      "status": "pending",
+      "actor": null,
+      "source_ref": null,
+      "recorded_at": null,
+      "scope": "Concrete provider quote, initial funding and rental; D-018 cash adoption is not action approval"
+    }
+  },
+  "planned": {
+    "source": {
+      "git_hash": null,
+      "config_sha256": null,
+      "lockfile_sha256": null,
+      "source_snapshot_sha256": null,
+      "note": "Resolve runtime environment, not the local CPU gate lock"
+    },
+    "sampling": {
+      "scene_list": null,
+      "road_list": null,
+      "replicates": 1,
+      "seed_mode": "unseeded",
+      "force_determinism": false,
+      "target_population": null,
+      "estimand": "proposed equal-road then equal-scene then equal-replicate; owner confirmation pending",
+      "road_independence_justification": null,
+      "contamination_split_labels": null
+    },
+    "simulator": {
+      "branch": "e2e_challenge",
+      "alpasim_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+      "second_alpasim_sha_if_applicable": null,
+      "evaluator_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+      "scorer_file_sha": "6dce0f50c79350f6c392ff7f0f028bc5c47de93b",
+      "scorer_file_sha256": "5bd239cbe30fee33aeff44c86cf43a05da0ec5095068c86f2ef14f4c102c76c4",
+      "n_sim_steps_requested": null,
+      "harmonizer": "compare_off_on",
+      "renderer_image": "nvcr.io/nvidia/nre/nre-ga@sha256:97f43e7130c5636ce3e80ea3184d97f56a87fdd989b05cce42230881dbdea284",
+      "rendering_flags": null,
+      "traffic_mode": "log_replay",
+      "traffic_mode_note": "Background traffic replay; ego is controlled by the evaluated policy, not the GT replay driver",
+      "camera_request": null,
+      "decoded_size": null,
+      "run_method": "docker_compose",
+      "topology": null,
+      "concurrency": 1,
+      "replicas": 1,
+      "nre_workers": 1,
+      "controller_identity": null,
+      "postprocessing_identity": null,
+      "renderer_identity_note": "Public catalog26.04 linux/amd64 candidate verified2026-10-31; not pulled; actualimage/runtime compatibility pending"
+    },
+    "driver": {
+      "expert_graph": false,
+      "max_batch_size": 1,
+      "resolved_alpamayo1_5_commit": null,
+      "teacher_model_revision": "7aba8293c09993f2e125c6819df05d7fa3e873ea",
+      "policy_clock_source": null,
+      "determinism_port_commit": null,
+      "determinism_evidence_ref": null,
+      "graph_qualification": {
+        "status": "not_attempted"
+      }
+    },
+    "measurement": {
+      "score_definition": "challenge continuous per-rollout score at pinned evaluator; card-style rate diagnostic separately",
+      "metric_direction": "higher_is_better",
+      "deviation_convention": "full-trajectory ordinary distance; >=4 m retained and reported separately from lateral corridor; terminal semantics pending",
+      "interim_looks": {
+        "mode": "fixed"
+      },
+      "experiment_prediction": {
+        "value": null,
+        "owner": "Huy",
+        "source_ref": null,
+        "frozen": false
+      },
+      "margin": {
+        "value": null,
+        "owner": "Huy",
+        "source_ref": null,
+        "frozen": false
+      },
+      "reliability_floor": {
+        "value": null,
+        "owner": "Huy",
+        "source_ref": null,
+        "frozen": false
+      },
+      "noise_floor_prediction": {
+        "value": null,
+        "owner": "Huy",
+        "source_ref": null,
+        "frozen": false
+      },
+      "stabilization_rule": {
+        "value": null,
+        "owner": "Huy",
+        "source_ref": null,
+        "frozen": false
+      },
+      "strata_definition": {
+        "value": null,
+        "owner": "Huy",
+        "source_ref": null,
+        "frozen": false
+      }
+    },
+    "resources": {
+      "gpu_count": 1,
+      "gpu_edition": "RTX PRO 6000 Blackwell Server Edition 96 GB",
+      "rate_per_gpu_hour_usd": 2.5,
+      "wall_hours_cap": 8,
+      "storage_cap_usd": 20,
+      "egress_cap_usd": 10,
+      "other_cap_usd": 50,
+      "total_cap_usd": 100,
+      "quoted_at": null,
+      "rate_basis": "Proposed maximum rate, not an itemized account quote or approved phase rate",
+      "cost_reserve_note": "500GiB7day storage baseline8.17; noncompute caps are reservations, not permission for extra services"
+    }
+  },
+  "realized": {},
+  "engineering_owner": {
+    "role": "agent evaluator engineering",
+    "decision_ref": "docs/DECISIONS.md (D-018/P-030)",
+    "scientific_signoff_owner": "Huy",
+    "listed_file_guards_unchanged": true
+  },
+  "proposed_rental": {
+    "provider": "Nebius",
+    "region": "us-central1",
+    "platform": "gpu-rtx6000",
+    "preset": "1gpu-24vcpu-218gb",
+    "image_family": "ubuntu24.04-cuda13.0",
+    "managed_network_ssd_gib": 500,
+    "max_storage_retention_hours": 168,
+    "public_gpu_rate_usd": 1.8,
+    "public_price_checked_at": "2026-10-31",
+    "initial_credit_payment_usd_if_needed": 25,
+    "quote_status": "account_login_required_not_verified",
+    "action_approval_status": "pending",
+    "source_ref": "docs/S2_RENTAL_APPROVAL.md"
+  }
+}

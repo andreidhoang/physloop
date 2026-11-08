@@ -48,3 +48,6 @@ datasets/
 *.engine
 *.plan
 *.trt
+
+# Lesson trace scripts and their output (03 §8): teaching aids, never source or evidence.
+study/

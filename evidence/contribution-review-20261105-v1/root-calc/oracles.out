@@ -1,0 +1,13 @@
+G=2 gap 0.001: [-0.99800399  0.99800399]
+G=2 tracking 0.1 m (-0.01*D): [ 0.99800399 -0.99800399]
+G=2 collision (1,-9): [ 0.9999998 -0.9999998]
+G=2 gap 1e-4: [-0.98039216  0.98039216]  gap 1e-5: [-0.83333333  0.83333333]
+G=6 one collision: [ 0.44721348  0.44721348  0.44721348  0.44721348  0.44721348 -2.23606738]
+G=6 noise-only rms: 0.9998700579977767
+joint ratio: 4.0  geo-mean ratio: 2.0
+joint log-ratio for geo 1.2 over 640 dims: 116.68579634813094
+KL N(0,1)||N(0.1,1): 0.005000000000000001
+distance term at RMSE 0.5 m: -0.005
+distance term at RMSE 2 m: -0.02
+distance term at RMSE 4 m: -0.04
+distance term at RMSE 10 m: -0.1

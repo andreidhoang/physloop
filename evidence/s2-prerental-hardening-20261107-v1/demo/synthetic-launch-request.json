@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "alpasim_sha": "e121e59141dc391f6c295513d6dadc840a419149",
+  "alpasim_checkout": "/synthetic/alpasim",
+  "scene_ids": [
+    "synthetic-scene-0",
+    "synthetic-scene-1",
+    "synthetic-scene-2",
+    "synthetic-scene-3",
+    "synthetic-scene-4"
+  ],
+  "requested_steps": 3,
+  "driver_port": 6789,
+  "teacher_snapshot": "/synthetic/teacher/snapshot",
+  "data_root": "/synthetic/data",
+  "renderer_image": "nvcr.io/nvidia/nre/nre-ga@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "base_image": "registry.example/synthetic-alpasim@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "arms": [
+    {
+      "harmonizer": false,
+      "run_dir": "/synthetic/runs/off",
+      "driver_log_dir": "/synthetic/driver-logs/off"
+    },
+    {
+      "harmonizer": true,
+      "run_dir": "/synthetic/runs/on",
+      "driver_log_dir": "/synthetic/driver-logs/on"
+    }
+  ]
+}

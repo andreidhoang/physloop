@@ -1,0 +1,92 @@
+[
+ {
+  "roads": 147,
+  "missing_rate_per_arm": 0.0,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 0.89,
+  "P_GO_complete_case": 0.89,
+  "median_UB_adverse": 0.08745433498568611,
+  "max_mean_shift_bound": 0.0
+ },
+ {
+  "roads": 147,
+  "missing_rate_per_arm": 0.005,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 0.8,
+  "P_GO_complete_case": 0.9333333333333333,
+  "median_UB_adverse": 0.09249908108998109,
+  "max_mean_shift_bound": 0.01
+ },
+ {
+  "roads": 147,
+  "missing_rate_per_arm": 0.01,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 0.6033333333333334,
+  "P_GO_complete_case": 0.8966666666666666,
+  "median_UB_adverse": 0.09725354422217833,
+  "max_mean_shift_bound": 0.02
+ },
+ {
+  "roads": 147,
+  "missing_rate_per_arm": 0.02,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 0.16,
+  "P_GO_complete_case": 0.8733333333333333,
+  "median_UB_adverse": 0.10951127236542316,
+  "max_mean_shift_bound": 0.04
+ },
+ {
+  "roads": 147,
+  "missing_rate_per_arm": 0.05,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 0.0,
+  "P_GO_complete_case": 0.7266666666666667,
+  "median_UB_adverse": 0.1444725272940107,
+  "max_mean_shift_bound": 0.1
+ },
+ {
+  "roads": 441,
+  "missing_rate_per_arm": 0.0,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 1.0,
+  "P_GO_complete_case": 1.0,
+  "median_UB_adverse": 0.05786199599367735,
+  "max_mean_shift_bound": 0.0
+ },
+ {
+  "roads": 441,
+  "missing_rate_per_arm": 0.005,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 1.0,
+  "P_GO_complete_case": 1.0,
+  "median_UB_adverse": 0.0637741228926081,
+  "max_mean_shift_bound": 0.01
+ },
+ {
+  "roads": 441,
+  "missing_rate_per_arm": 0.01,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 1.0,
+  "P_GO_complete_case": 1.0,
+  "median_UB_adverse": 0.06949878119475777,
+  "max_mean_shift_bound": 0.02
+ },
+ {
+  "roads": 441,
+  "missing_rate_per_arm": 0.02,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 0.98,
+  "P_GO_complete_case": 1.0,
+  "median_UB_adverse": 0.08022250174552469,
+  "max_mean_shift_bound": 0.04
+ },
+ {
+  "roads": 441,
+  "missing_rate_per_arm": 0.05,
+  "margin": 0.1,
+  "P_GO_adverse_imputation": 0.11333333333333333,
+  "P_GO_complete_case": 1.0,
+  "median_UB_adverse": 0.11355097484470998,
+  "max_mean_shift_bound": 0.1
+ }
+]

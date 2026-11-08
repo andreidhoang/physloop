@@ -1,0 +1,15 @@
+{
+  "README.md": "16d3da6b4e3855edc89a55b1dc98714f927ebd73047f3cc46b8f775e13ee8a7a",
+  "create-fresh-venv.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "dependency-lock.before.toml": "dbaae961df2cd349a96f89fc26ee055cff86ca915300f5357e110e725c04298e",
+  "fresh-environment-inventory.log": "0683f7ece8242061b528063554a17453dce2088900eb6e2a68c62d4c87feab61",
+  "newer-uv-artifact.json": "77d122f8bfcb88db185c45397ab862011cb05371ab81a66186cad5516526b130",
+  "pip-from-lock.log": "6cb22ac48490913ec5e7c28e44c4f160a45cade103729a1a78754bbf0690f018",
+  "protobuf-provenance.json": "47d2cab41b698ddcc8e53c1e09ff4085d3344639bb1e7c72e4cb9cb9e679c1e6",
+  "protobuf-resolved-package.toml": "5bdbae4019393f852732bb7123c0830a63ae8bdce2bea30aa9ad4fbd4b220055",
+  "pyproject.before.toml": "24303ffc27970806cd8dcf79ee6835987be5d7b2902e4daa186ee4a2c8658890",
+  "rebuild-attempt.json": "02ca90018f6f93d393eec9247803c58c76dba71bc44ca2061db4b350cfcbb9f1",
+  "requirements-from-lock.txt": "bfe15483be0dbbed2cb5dc7f88139cfabd11a922d1284a2a1422bc03202b5a4c",
+  "selected-lock-artifacts.json": "2f316ae946d1c87de30ef292c2340de54c99aa0e467624911b2908919c8f5cb4",
+  "uv-frozen-offline.log": "0b9f5805c21fdd01cf9075e011b579e6da174031647186fe4ecd2569f9bb5dc6"
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-07T16:39:57.468683+00:00",
+  "scope": "S2 CPU engineering preparation, G1/G2/G3.R1/G7; one bounded retry after workspace reconnect",
+  "clean_frozen_sync_verified": false,
+  "fresh_locked_install_verified": false,
+  "fresh_tests_executed": false,
+  "source_dependency_hashes_before": {
+    "pyproject.toml": "391ce016c515f5345047efb607e3222babf877f936216a138f600e135c9cca2b",
+    "uv.lock": "725f2d1a1c82ebb83187b11f5ed5cac445dcccb09794bb6c3d4b98c733f37abf"
+  },
+  "source_dependency_hashes_after": {
+    "pyproject.toml": "391ce016c515f5345047efb607e3222babf877f936216a138f600e135c9cca2b",
+    "uv.lock": "725f2d1a1c82ebb83187b11f5ed5cac445dcccb09794bb6c3d4b98c733f37abf"
+  },
+  "dependency_files_unchanged": true,
+  "temporary_directory": "/tmp/physloop-clean-environment-v2-6pq3j0ln",
+  "uv_version": "uv 0.8.17 (10960bc13 2025-09-10)",
+  "uv_frozen_exit_code": 101,
+  "package_host_exit_code": 6,
+  "official_uv_transfer_exit_code": 1,
+  "official_uv_artifact": {
+    "repository": "astral-sh/uv",
+    "run_id": 42276008611,
+    "head_sha": "5ce34500b8a3d16d24bc7576bd8ac64879091cea",
+    "artifact_id": 13533431029,
+    "sha256": "56be36299fff22bc424f99806069d4d5f547a4345ee5b75c594e697ab781ba09",
+    "source_record": "evidence/s2-environment-20261107-v1/newer-uv-artifact.json",
+    "bytes_received": false
+  },
+  "findings": [
+    "Existing uv 0.8.17 panics in macOS SystemConfiguration inside this environment.",
+    "Public package-host DNS resolution remains unavailable.",
+    "Official newer uv artifact is resolved by connector, but approved local transfer helper reports download failed."
+  ],
+  "limitations": [
+    "No fresh locked install completed; no fresh environment test claim.",
+    "Working environment uses previously verified cached packages as documented in v1; this retry does not relabel copying as clean installation.",
+    "No dependency/source changes, GPU/cloud actions, project-asset downloads or costs.",
+    "No further repeated installation attempts performed."
+  ]
+}

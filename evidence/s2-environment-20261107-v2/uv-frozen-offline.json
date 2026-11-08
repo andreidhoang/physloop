@@ -1,0 +1,20 @@
+{
+  "command": [
+    "uv",
+    "sync",
+    "--frozen",
+    "--offline",
+    "--no-install-project",
+    "--python",
+    "/Users/danghuyhoang/Desktop/physloop/.venv/bin/python"
+  ],
+  "environment_overrides": {
+    "UV_CACHE_DIR": "/tmp/physloop-clean-environment-v2-6pq3j0ln/uv-cache",
+    "UV_PROJECT_ENVIRONMENT": "/tmp/physloop-clean-environment-v2-6pq3j0ln/venv",
+    "UV_PYTHON_DOWNLOADS": "never"
+  },
+  "returncode": 101,
+  "stdout": "",
+  "stderr": "Using CPython 3.12.11 interpreter at: .venv/bin/python\nCreating virtual environment at: /tmp/physloop-clean-environment-v2-6pq3j0ln/venv\n\nthread 'main2' panicked at /Users/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/system-configuration-0.6.1/src/dynamic_store.rs:154:1:\nAttempted to create a NULL object.\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\nthread 'main' panicked at /Users/runner/work/uv/uv/crates/uv/src/lib.rs:2402:10:\nTokio executor failed, was there a panic?: Any { .. }\n",
+  "elapsed_seconds": 0.208
+}

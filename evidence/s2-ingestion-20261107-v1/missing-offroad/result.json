@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "synthetic_source_contract_v1",
+  "admitted": false,
+  "runtime_qualified": false,
+  "cloud_launch_authorized": false,
+  "publication_authorized": false,
+  "summary_recomputed": false,
+  "issues": [
+    {
+      "code": "missing_raw_metric",
+      "path": "attempt",
+      "message": "Required raw stream absent: offroad"
+    },
+    {
+      "code": "missing_identity_mapping",
+      "path": "('A', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')",
+      "message": ""
+    },
+    {
+      "code": "missing_observation_ledger",
+      "path": "('A', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')",
+      "message": ""
+    }
+  ],
+  "ledger": {
+    "admitted": true,
+    "issues": [],
+    "jobs": [
+      {
+        "job_id": "job",
+        "phase": "synthetic",
+        "arm": "A",
+        "policy_id": "teacher",
+        "scene_id": "scene",
+        "road_id": "road",
+        "stratum": "urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "attempt"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "attempt"
+      }
+    ],
+    "attempts": [
+      {
+        "job_id": "job",
+        "attempt_id": "attempt",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "run",
+          "clipgt_id": "clip",
+          "rollout_id": "rollout"
+        },
+        "state": "completed",
+        "started_timestamp_us": 1,
+        "terminal_timestamp_us": 2,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "start",
+            "job_id": "job",
+            "attempt_id": "attempt",
+            "type": "started",
+            "timestamp_us": 1,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "run",
+              "clipgt_id": "clip",
+              "rollout_id": "rollout"
+            }
+          },
+          {
+            "event_id": "end",
+            "job_id": "job",
+            "attempt_id": "attempt",
+            "type": "completed",
+            "timestamp_us": 2,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "run",
+              "clipgt_id": "clip",
+              "rollout_id": "rollout"
+            }
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "scheduled_jobs": 1,
+      "attempts": 1,
+      "missing_jobs": 0,
+      "idempotent_events": 0,
+      "completed_attempts": 1,
+      "failed_attempts": 0,
+      "cancelled_attempts": 0,
+      "incomplete_attempts": 0
+    },
+    "schedule": [
+      {
+        "job_id": "job",
+        "phase": "synthetic",
+        "arm": "A",
+        "policy_id": "teacher",
+        "scene_id": "scene",
+        "road_id": "road",
+        "stratum": "urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      }
+    ],
+    "events": [
+      {
+        "event_id": "start",
+        "job_id": "job",
+        "attempt_id": "attempt",
+        "type": "started",
+        "timestamp_us": 1,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "run",
+          "clipgt_id": "clip",
+          "rollout_id": "rollout"
+        }
+      },
+      {
+        "event_id": "end",
+        "job_id": "job",
+        "attempt_id": "attempt",
+        "type": "completed",
+        "timestamp_us": 2,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "run",
+          "clipgt_id": "clip",
+          "rollout_id": "rollout"
+        }
+      }
+    ]
+  },
+  "observations": [],
+  "batches": [
+    {
+      "arm": "A",
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "policy_id": "teacher",
+      "normalization": {
+        "schema_version": 1,
+        "admitted": false,
+        "records": [],
+        "metric": {
+          "name": "challenge_scene_score",
+          "kind": "continuous",
+          "higher_is_worse": false,
+          "unit": "score_in_0_1"
+        },
+        "issues": [
+          {
+            "code": "missing_identity_mapping",
+            "identity": [
+              "run",
+              "clip",
+              "rollout"
+            ],
+            "message": ""
+          },
+          {
+            "code": "missing_observation_ledger",
+            "identity": [
+              "run",
+              "clip",
+              "rollout"
+            ],
+            "message": ""
+          }
+        ],
+        "diagnostics": [
+          {
+            "identity": [
+              "run",
+              "clip",
+              "rollout"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "run",
+              "clipgt_id": "clip",
+              "rollout_id": "rollout",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": false
+          }
+        ],
+        "counts": {
+          "total_rollouts": 1,
+          "normalized_before_batch_admission": 0,
+          "out_of_envelope": 0,
+          "infrastructure_errors": 0
+        },
+        "sidecar_authenticity": "not_verified",
+        "validation_scope": "synthetic schema fixtures; no real AlpaSim run yet"
+      }
+    }
+  ],
+  "source_receipts": [
+    {
+      "path": "events.json",
+      "sha256": "66f6f510e26facbb115e21dc8176720625d0b19c0a6c1123fae4e29ee7ab27d1",
+      "size_bytes": 458
+    },
+    {
+      "path": "_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "trace.json",
+      "sha256": "429c3c0dc9c2ed3772d2fa253542a00738054368552e7fb3c899cf2dcc68f531",
+      "size_bytes": 805
+    },
+    {
+      "path": "filtered/metrics.parquet",
+      "sha256": "311ad6fef8bf9917a32b20d2519d526726360c9dbad032fab0225a95cbec4d9f",
+      "size_bytes": 2802
+    },
+    {
+      "path": "summary.json",
+      "sha256": "6573050f4f4e62598c44b70c10d94dcaeb7307d8c8fe432ab7651e83ea5dfd2b",
+      "size_bytes": 830
+    }
+  ],
+  "validation_scope": "synthetic raw-file contracts only",
+  "request_sha256": "5aa9d3a740321456e3a3191bdc420262856d7c1fe900807fe52f45dfbc725a84"
+}

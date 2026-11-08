@@ -1,0 +1,2071 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "synthetic_source_contract_v1",
+  "admitted": true,
+  "runtime_qualified": false,
+  "cloud_launch_authorized": false,
+  "publication_authorized": false,
+  "summary_recomputed": false,
+  "issues": [],
+  "ledger": {
+    "admitted": true,
+    "issues": [],
+    "jobs": [
+      {
+        "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-0",
+        "road_id": "synthetic-road-0",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-00"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-00"
+      },
+      {
+        "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-0",
+        "road_id": "synthetic-road-0",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-01"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-01"
+      },
+      {
+        "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-1",
+        "road_id": "synthetic-road-1",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-02"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-02"
+      },
+      {
+        "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-1",
+        "road_id": "synthetic-road-1",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-03"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-03"
+      },
+      {
+        "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-2",
+        "road_id": "synthetic-road-2",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-04"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-04"
+      },
+      {
+        "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-2",
+        "road_id": "synthetic-road-2",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-05"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-05"
+      },
+      {
+        "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-3",
+        "road_id": "synthetic-road-3",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-06"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-06"
+      },
+      {
+        "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-3",
+        "road_id": "synthetic-road-3",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-07"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-07"
+      },
+      {
+        "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-4",
+        "road_id": "synthetic-road-4",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-08"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-08"
+      },
+      {
+        "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-4",
+        "road_id": "synthetic-road-4",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3,
+        "attempt_ids": [
+          "synthetic-attempt-09"
+        ],
+        "status": "completed",
+        "selected_attempt_id": "synthetic-attempt-09"
+      }
+    ],
+    "attempts": [
+      {
+        "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+        "attempt_id": "synthetic-attempt-00",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-00",
+          "clipgt_id": "synthetic-scene-0",
+          "rollout_id": "synthetic-rollout-00"
+        },
+        "state": "completed",
+        "started_timestamp_us": 1,
+        "terminal_timestamp_us": 2,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-00",
+            "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+            "attempt_id": "synthetic-attempt-00",
+            "type": "started",
+            "timestamp_us": 1,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-00",
+              "clipgt_id": "synthetic-scene-0",
+              "rollout_id": "synthetic-rollout-00"
+            }
+          },
+          {
+            "event_id": "synthetic-event-01",
+            "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+            "attempt_id": "synthetic-attempt-00",
+            "type": "completed",
+            "timestamp_us": 2,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-00",
+              "clipgt_id": "synthetic-scene-0",
+              "rollout_id": "synthetic-rollout-00"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+        "attempt_id": "synthetic-attempt-01",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-01",
+          "clipgt_id": "synthetic-scene-0",
+          "rollout_id": "synthetic-rollout-01"
+        },
+        "state": "completed",
+        "started_timestamp_us": 3,
+        "terminal_timestamp_us": 4,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-02",
+            "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+            "attempt_id": "synthetic-attempt-01",
+            "type": "started",
+            "timestamp_us": 3,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-01",
+              "clipgt_id": "synthetic-scene-0",
+              "rollout_id": "synthetic-rollout-01"
+            }
+          },
+          {
+            "event_id": "synthetic-event-03",
+            "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+            "attempt_id": "synthetic-attempt-01",
+            "type": "completed",
+            "timestamp_us": 4,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-01",
+              "clipgt_id": "synthetic-scene-0",
+              "rollout_id": "synthetic-rollout-01"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+        "attempt_id": "synthetic-attempt-02",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-02",
+          "clipgt_id": "synthetic-scene-1",
+          "rollout_id": "synthetic-rollout-02"
+        },
+        "state": "completed",
+        "started_timestamp_us": 5,
+        "terminal_timestamp_us": 6,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-04",
+            "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+            "attempt_id": "synthetic-attempt-02",
+            "type": "started",
+            "timestamp_us": 5,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-02",
+              "clipgt_id": "synthetic-scene-1",
+              "rollout_id": "synthetic-rollout-02"
+            }
+          },
+          {
+            "event_id": "synthetic-event-05",
+            "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+            "attempt_id": "synthetic-attempt-02",
+            "type": "completed",
+            "timestamp_us": 6,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-02",
+              "clipgt_id": "synthetic-scene-1",
+              "rollout_id": "synthetic-rollout-02"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+        "attempt_id": "synthetic-attempt-03",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-03",
+          "clipgt_id": "synthetic-scene-1",
+          "rollout_id": "synthetic-rollout-03"
+        },
+        "state": "completed",
+        "started_timestamp_us": 7,
+        "terminal_timestamp_us": 8,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-06",
+            "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+            "attempt_id": "synthetic-attempt-03",
+            "type": "started",
+            "timestamp_us": 7,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-03",
+              "clipgt_id": "synthetic-scene-1",
+              "rollout_id": "synthetic-rollout-03"
+            }
+          },
+          {
+            "event_id": "synthetic-event-07",
+            "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+            "attempt_id": "synthetic-attempt-03",
+            "type": "completed",
+            "timestamp_us": 8,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-03",
+              "clipgt_id": "synthetic-scene-1",
+              "rollout_id": "synthetic-rollout-03"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+        "attempt_id": "synthetic-attempt-04",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-04",
+          "clipgt_id": "synthetic-scene-2",
+          "rollout_id": "synthetic-rollout-04"
+        },
+        "state": "completed",
+        "started_timestamp_us": 9,
+        "terminal_timestamp_us": 10,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-08",
+            "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+            "attempt_id": "synthetic-attempt-04",
+            "type": "started",
+            "timestamp_us": 9,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-04",
+              "clipgt_id": "synthetic-scene-2",
+              "rollout_id": "synthetic-rollout-04"
+            }
+          },
+          {
+            "event_id": "synthetic-event-09",
+            "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+            "attempt_id": "synthetic-attempt-04",
+            "type": "completed",
+            "timestamp_us": 10,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-04",
+              "clipgt_id": "synthetic-scene-2",
+              "rollout_id": "synthetic-rollout-04"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+        "attempt_id": "synthetic-attempt-05",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-05",
+          "clipgt_id": "synthetic-scene-2",
+          "rollout_id": "synthetic-rollout-05"
+        },
+        "state": "completed",
+        "started_timestamp_us": 11,
+        "terminal_timestamp_us": 12,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-10",
+            "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+            "attempt_id": "synthetic-attempt-05",
+            "type": "started",
+            "timestamp_us": 11,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-05",
+              "clipgt_id": "synthetic-scene-2",
+              "rollout_id": "synthetic-rollout-05"
+            }
+          },
+          {
+            "event_id": "synthetic-event-11",
+            "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+            "attempt_id": "synthetic-attempt-05",
+            "type": "completed",
+            "timestamp_us": 12,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-05",
+              "clipgt_id": "synthetic-scene-2",
+              "rollout_id": "synthetic-rollout-05"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+        "attempt_id": "synthetic-attempt-06",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-06",
+          "clipgt_id": "synthetic-scene-3",
+          "rollout_id": "synthetic-rollout-06"
+        },
+        "state": "completed",
+        "started_timestamp_us": 13,
+        "terminal_timestamp_us": 14,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-12",
+            "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+            "attempt_id": "synthetic-attempt-06",
+            "type": "started",
+            "timestamp_us": 13,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-06",
+              "clipgt_id": "synthetic-scene-3",
+              "rollout_id": "synthetic-rollout-06"
+            }
+          },
+          {
+            "event_id": "synthetic-event-13",
+            "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+            "attempt_id": "synthetic-attempt-06",
+            "type": "completed",
+            "timestamp_us": 14,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-06",
+              "clipgt_id": "synthetic-scene-3",
+              "rollout_id": "synthetic-rollout-06"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+        "attempt_id": "synthetic-attempt-07",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-07",
+          "clipgt_id": "synthetic-scene-3",
+          "rollout_id": "synthetic-rollout-07"
+        },
+        "state": "completed",
+        "started_timestamp_us": 15,
+        "terminal_timestamp_us": 16,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-14",
+            "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+            "attempt_id": "synthetic-attempt-07",
+            "type": "started",
+            "timestamp_us": 15,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-07",
+              "clipgt_id": "synthetic-scene-3",
+              "rollout_id": "synthetic-rollout-07"
+            }
+          },
+          {
+            "event_id": "synthetic-event-15",
+            "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+            "attempt_id": "synthetic-attempt-07",
+            "type": "completed",
+            "timestamp_us": 16,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-07",
+              "clipgt_id": "synthetic-scene-3",
+              "rollout_id": "synthetic-rollout-07"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+        "attempt_id": "synthetic-attempt-08",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-08",
+          "clipgt_id": "synthetic-scene-4",
+          "rollout_id": "synthetic-rollout-08"
+        },
+        "state": "completed",
+        "started_timestamp_us": 17,
+        "terminal_timestamp_us": 18,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-16",
+            "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+            "attempt_id": "synthetic-attempt-08",
+            "type": "started",
+            "timestamp_us": 17,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-08",
+              "clipgt_id": "synthetic-scene-4",
+              "rollout_id": "synthetic-rollout-08"
+            }
+          },
+          {
+            "event_id": "synthetic-event-17",
+            "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+            "attempt_id": "synthetic-attempt-08",
+            "type": "completed",
+            "timestamp_us": 18,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-08",
+              "clipgt_id": "synthetic-scene-4",
+              "rollout_id": "synthetic-rollout-08"
+            }
+          }
+        ]
+      },
+      {
+        "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+        "attempt_id": "synthetic-attempt-09",
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-09",
+          "clipgt_id": "synthetic-scene-4",
+          "rollout_id": "synthetic-rollout-09"
+        },
+        "state": "completed",
+        "started_timestamp_us": 19,
+        "terminal_timestamp_us": 20,
+        "terminal_reason": "exact_horizon",
+        "events": [
+          {
+            "event_id": "synthetic-event-18",
+            "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+            "attempt_id": "synthetic-attempt-09",
+            "type": "started",
+            "timestamp_us": 19,
+            "parent_attempt_id": null,
+            "retry_reason": null,
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-09",
+              "clipgt_id": "synthetic-scene-4",
+              "rollout_id": "synthetic-rollout-09"
+            }
+          },
+          {
+            "event_id": "synthetic-event-19",
+            "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+            "attempt_id": "synthetic-attempt-09",
+            "type": "completed",
+            "timestamp_us": 20,
+            "reason": "exact_horizon",
+            "upstream_identity": {
+              "run_uuid": "synthetic-run-09",
+              "clipgt_id": "synthetic-scene-4",
+              "rollout_id": "synthetic-rollout-09"
+            }
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "scheduled_jobs": 10,
+      "attempts": 10,
+      "missing_jobs": 0,
+      "idempotent_events": 0,
+      "completed_attempts": 10,
+      "failed_attempts": 0,
+      "cancelled_attempts": 0,
+      "incomplete_attempts": 0
+    },
+    "schedule": [
+      {
+        "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-0",
+        "road_id": "synthetic-road-0",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-0",
+        "road_id": "synthetic-road-0",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-1",
+        "road_id": "synthetic-road-1",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-1",
+        "road_id": "synthetic-road-1",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-2",
+        "road_id": "synthetic-road-2",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-2",
+        "road_id": "synthetic-road-2",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-3",
+        "road_id": "synthetic-road-3",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-3",
+        "road_id": "synthetic-road-3",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-4",
+        "road_id": "synthetic-road-4",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "requested_steps": 3
+      },
+      {
+        "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+        "phase": "harmonizer_pilot",
+        "arm": "A",
+        "policy_id": "synthetic-teacher",
+        "scene_id": "synthetic-scene-4",
+        "road_id": "synthetic-road-4",
+        "stratum": "synthetic-urban",
+        "replicate_id": 0,
+        "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "requested_steps": 3
+      }
+    ],
+    "events": [
+      {
+        "event_id": "synthetic-event-00",
+        "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+        "attempt_id": "synthetic-attempt-00",
+        "type": "started",
+        "timestamp_us": 1,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-00",
+          "clipgt_id": "synthetic-scene-0",
+          "rollout_id": "synthetic-rollout-00"
+        }
+      },
+      {
+        "event_id": "synthetic-event-01",
+        "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+        "attempt_id": "synthetic-attempt-00",
+        "type": "completed",
+        "timestamp_us": 2,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-00",
+          "clipgt_id": "synthetic-scene-0",
+          "rollout_id": "synthetic-rollout-00"
+        }
+      },
+      {
+        "event_id": "synthetic-event-02",
+        "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+        "attempt_id": "synthetic-attempt-01",
+        "type": "started",
+        "timestamp_us": 3,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-01",
+          "clipgt_id": "synthetic-scene-0",
+          "rollout_id": "synthetic-rollout-01"
+        }
+      },
+      {
+        "event_id": "synthetic-event-03",
+        "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+        "attempt_id": "synthetic-attempt-01",
+        "type": "completed",
+        "timestamp_us": 4,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-01",
+          "clipgt_id": "synthetic-scene-0",
+          "rollout_id": "synthetic-rollout-01"
+        }
+      },
+      {
+        "event_id": "synthetic-event-04",
+        "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+        "attempt_id": "synthetic-attempt-02",
+        "type": "started",
+        "timestamp_us": 5,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-02",
+          "clipgt_id": "synthetic-scene-1",
+          "rollout_id": "synthetic-rollout-02"
+        }
+      },
+      {
+        "event_id": "synthetic-event-05",
+        "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+        "attempt_id": "synthetic-attempt-02",
+        "type": "completed",
+        "timestamp_us": 6,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-02",
+          "clipgt_id": "synthetic-scene-1",
+          "rollout_id": "synthetic-rollout-02"
+        }
+      },
+      {
+        "event_id": "synthetic-event-06",
+        "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+        "attempt_id": "synthetic-attempt-03",
+        "type": "started",
+        "timestamp_us": 7,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-03",
+          "clipgt_id": "synthetic-scene-1",
+          "rollout_id": "synthetic-rollout-03"
+        }
+      },
+      {
+        "event_id": "synthetic-event-07",
+        "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+        "attempt_id": "synthetic-attempt-03",
+        "type": "completed",
+        "timestamp_us": 8,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-03",
+          "clipgt_id": "synthetic-scene-1",
+          "rollout_id": "synthetic-rollout-03"
+        }
+      },
+      {
+        "event_id": "synthetic-event-08",
+        "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+        "attempt_id": "synthetic-attempt-04",
+        "type": "started",
+        "timestamp_us": 9,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-04",
+          "clipgt_id": "synthetic-scene-2",
+          "rollout_id": "synthetic-rollout-04"
+        }
+      },
+      {
+        "event_id": "synthetic-event-09",
+        "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+        "attempt_id": "synthetic-attempt-04",
+        "type": "completed",
+        "timestamp_us": 10,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-04",
+          "clipgt_id": "synthetic-scene-2",
+          "rollout_id": "synthetic-rollout-04"
+        }
+      },
+      {
+        "event_id": "synthetic-event-10",
+        "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+        "attempt_id": "synthetic-attempt-05",
+        "type": "started",
+        "timestamp_us": 11,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-05",
+          "clipgt_id": "synthetic-scene-2",
+          "rollout_id": "synthetic-rollout-05"
+        }
+      },
+      {
+        "event_id": "synthetic-event-11",
+        "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+        "attempt_id": "synthetic-attempt-05",
+        "type": "completed",
+        "timestamp_us": 12,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-05",
+          "clipgt_id": "synthetic-scene-2",
+          "rollout_id": "synthetic-rollout-05"
+        }
+      },
+      {
+        "event_id": "synthetic-event-12",
+        "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+        "attempt_id": "synthetic-attempt-06",
+        "type": "started",
+        "timestamp_us": 13,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-06",
+          "clipgt_id": "synthetic-scene-3",
+          "rollout_id": "synthetic-rollout-06"
+        }
+      },
+      {
+        "event_id": "synthetic-event-13",
+        "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+        "attempt_id": "synthetic-attempt-06",
+        "type": "completed",
+        "timestamp_us": 14,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-06",
+          "clipgt_id": "synthetic-scene-3",
+          "rollout_id": "synthetic-rollout-06"
+        }
+      },
+      {
+        "event_id": "synthetic-event-14",
+        "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+        "attempt_id": "synthetic-attempt-07",
+        "type": "started",
+        "timestamp_us": 15,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-07",
+          "clipgt_id": "synthetic-scene-3",
+          "rollout_id": "synthetic-rollout-07"
+        }
+      },
+      {
+        "event_id": "synthetic-event-15",
+        "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+        "attempt_id": "synthetic-attempt-07",
+        "type": "completed",
+        "timestamp_us": 16,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-07",
+          "clipgt_id": "synthetic-scene-3",
+          "rollout_id": "synthetic-rollout-07"
+        }
+      },
+      {
+        "event_id": "synthetic-event-16",
+        "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+        "attempt_id": "synthetic-attempt-08",
+        "type": "started",
+        "timestamp_us": 17,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-08",
+          "clipgt_id": "synthetic-scene-4",
+          "rollout_id": "synthetic-rollout-08"
+        }
+      },
+      {
+        "event_id": "synthetic-event-17",
+        "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+        "attempt_id": "synthetic-attempt-08",
+        "type": "completed",
+        "timestamp_us": 18,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-08",
+          "clipgt_id": "synthetic-scene-4",
+          "rollout_id": "synthetic-rollout-08"
+        }
+      },
+      {
+        "event_id": "synthetic-event-18",
+        "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+        "attempt_id": "synthetic-attempt-09",
+        "type": "started",
+        "timestamp_us": 19,
+        "parent_attempt_id": null,
+        "retry_reason": null,
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-09",
+          "clipgt_id": "synthetic-scene-4",
+          "rollout_id": "synthetic-rollout-09"
+        }
+      },
+      {
+        "event_id": "synthetic-event-19",
+        "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+        "attempt_id": "synthetic-attempt-09",
+        "type": "completed",
+        "timestamp_us": 20,
+        "reason": "exact_horizon",
+        "upstream_identity": {
+          "run_uuid": "synthetic-run-09",
+          "clipgt_id": "synthetic-scene-4",
+          "rollout_id": "synthetic-rollout-09"
+        }
+      }
+    ]
+  },
+  "observations": [
+    {
+      "run_uuid": "synthetic-run-00",
+      "clipgt_id": "synthetic-scene-0",
+      "rollout_id": "synthetic-rollout-00",
+      "attempt_id": "synthetic-attempt-00",
+      "job_id": "80bf3de3aa0fef0bdeabd6d1ed89bd7d1428032a5c40c1e7732c3c8b38793859",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "5158f9080ed879517e38cb548fbbf78c361672ecff6a20cd721d7f18a5c228dd",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-01",
+      "clipgt_id": "synthetic-scene-0",
+      "rollout_id": "synthetic-rollout-01",
+      "attempt_id": "synthetic-attempt-01",
+      "job_id": "0f45ca57d7344d9d310cc9d2d21282ac22fa5e0e0bed00254692c593065751e8",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "e80040ebd071becda571c57c44ff5d7c3790a7f0bf496e08d8d73f0dd20a9ecf",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-02",
+      "clipgt_id": "synthetic-scene-1",
+      "rollout_id": "synthetic-rollout-02",
+      "attempt_id": "synthetic-attempt-02",
+      "job_id": "24a8070990f0792e6a6f0aca59a624559b354bebfcef1902a7aa575e2d3ba878",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "ac70d1ab4b0332735a81d2e16b6499651ac4fdaf07583fdcfe05eb06e0535d74",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-03",
+      "clipgt_id": "synthetic-scene-1",
+      "rollout_id": "synthetic-rollout-03",
+      "attempt_id": "synthetic-attempt-03",
+      "job_id": "bc787574fee48f656e20b0f5513ffbe1970aa314f05ba39c7a0f4be36074717c",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "67bf794ee4539997b739abb33c4de42250a9305b7e385c046f27b677e5978083",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-04",
+      "clipgt_id": "synthetic-scene-2",
+      "rollout_id": "synthetic-rollout-04",
+      "attempt_id": "synthetic-attempt-04",
+      "job_id": "cd56130135c3a09ba2e2d1da3d99e59d71ce1b2c1e6b433a5e13ed9b2f5643da",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "c476bc4ba259b536371a6511ca08464c0a0d0df881f4ca3397a4c93175207732",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-05",
+      "clipgt_id": "synthetic-scene-2",
+      "rollout_id": "synthetic-rollout-05",
+      "attempt_id": "synthetic-attempt-05",
+      "job_id": "e3caeeef0429ab305e5f49627fd40d34dfc3919b6582c131d5645ce4a3b92443",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "984657de44afd91d3cb68436b845c3cb7549acb027ec9c16ec975936a346a927",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-06",
+      "clipgt_id": "synthetic-scene-3",
+      "rollout_id": "synthetic-rollout-06",
+      "attempt_id": "synthetic-attempt-06",
+      "job_id": "9dd76c4ace9e7c790d4fd0a3e75008b849c59ec8e0902a8879f5d72a58ad0981",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "5d48b33257359593def3a36a427aba20560f1c547ca3a1c4529d54a616b890fc",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-07",
+      "clipgt_id": "synthetic-scene-3",
+      "rollout_id": "synthetic-rollout-07",
+      "attempt_id": "synthetic-attempt-07",
+      "job_id": "08f40fd8516af1fb1fd1979f7240006a8a6b7689231379fea3f779916bc4ef21",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "bcaee5e8bca8adc8410a093da133d2c23e6cdcf89167d4990a8941e6e7aea32f",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-08",
+      "clipgt_id": "synthetic-scene-4",
+      "rollout_id": "synthetic-rollout-08",
+      "attempt_id": "synthetic-attempt-08",
+      "job_id": "3ab10d6f9d2f670d2aa1f54afeb528b5fc7356e3081e8cc92c32ea9b8ed79c2d",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "a305328db51112f46deec6da65ea4e5fddeb1b219316cad08b14347ac8a0c8dc",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    },
+    {
+      "run_uuid": "synthetic-run-09",
+      "clipgt_id": "synthetic-scene-4",
+      "rollout_id": "synthetic-rollout-09",
+      "attempt_id": "synthetic-attempt-09",
+      "job_id": "225d8eb02517bda866fd3160f1f44a0c5ce1d7a3941697bd41ff1834ed180fd7",
+      "requested_steps": 3,
+      "actual_steps": 3,
+      "completion_validated": true,
+      "required_metrics_verified": true,
+      "provenance_ref": "bdaefeedafa3358958ad94254cdfb16f8e18dbb21adb036c187510278a100710",
+      "full_max_deviation_m": 4.2,
+      "metric_names": [
+        "collision_front",
+        "collision_lateral",
+        "dist_to_gt_trajectory",
+        "gt_dist_traveled_m",
+        "lateral_dist_to_gt_trajectory",
+        "left_corridor_laterally",
+        "offroad",
+        "progress_rel",
+        "progress_rel_to_total"
+      ],
+      "run_name": "bf16",
+      "raw_metric_rows": 36,
+      "render_coverage": "complete",
+      "black_frame_count": 0,
+      "first_black_timestamp": null,
+      "pose_nonfinite_count": 0,
+      "first_nonfinite_timestamp": null,
+      "map_coverage": "complete"
+    }
+  ],
+  "batches": [
+    {
+      "arm": "A",
+      "protocol_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "policy_id": "synthetic-teacher",
+      "normalization": {
+        "schema_version": 1,
+        "admitted": true,
+        "records": [
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-0",
+            "road_id": "synthetic-road-0",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          },
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-1",
+            "road_id": "synthetic-road-1",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          },
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-2",
+            "road_id": "synthetic-road-2",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          },
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-3",
+            "road_id": "synthetic-road-3",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          },
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-4",
+            "road_id": "synthetic-road-4",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          }
+        ],
+        "metric": {
+          "name": "challenge_scene_score",
+          "kind": "continuous",
+          "higher_is_worse": false,
+          "unit": "score_in_0_1"
+        },
+        "issues": [],
+        "diagnostics": [
+          {
+            "identity": [
+              "synthetic-run-00",
+              "synthetic-scene-0",
+              "synthetic-rollout-00"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-00",
+              "clipgt_id": "synthetic-scene-0",
+              "rollout_id": "synthetic-rollout-00",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          },
+          {
+            "identity": [
+              "synthetic-run-02",
+              "synthetic-scene-1",
+              "synthetic-rollout-02"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-02",
+              "clipgt_id": "synthetic-scene-1",
+              "rollout_id": "synthetic-rollout-02",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          },
+          {
+            "identity": [
+              "synthetic-run-04",
+              "synthetic-scene-2",
+              "synthetic-rollout-04"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-04",
+              "clipgt_id": "synthetic-scene-2",
+              "rollout_id": "synthetic-rollout-04",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          },
+          {
+            "identity": [
+              "synthetic-run-06",
+              "synthetic-scene-3",
+              "synthetic-rollout-06"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-06",
+              "clipgt_id": "synthetic-scene-3",
+              "rollout_id": "synthetic-rollout-06",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          },
+          {
+            "identity": [
+              "synthetic-run-08",
+              "synthetic-scene-4",
+              "synthetic-rollout-08"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-08",
+              "clipgt_id": "synthetic-scene-4",
+              "rollout_id": "synthetic-rollout-08",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          }
+        ],
+        "counts": {
+          "total_rollouts": 5,
+          "normalized_before_batch_admission": 5,
+          "out_of_envelope": 5,
+          "infrastructure_errors": 0
+        },
+        "sidecar_authenticity": "not_verified",
+        "validation_scope": "synthetic schema fixtures; no real AlpaSim run yet"
+      }
+    },
+    {
+      "arm": "A",
+      "protocol_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "policy_id": "synthetic-teacher",
+      "normalization": {
+        "schema_version": 1,
+        "admitted": true,
+        "records": [
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-0",
+            "road_id": "synthetic-road-0",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          },
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-1",
+            "road_id": "synthetic-road-1",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          },
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-2",
+            "road_id": "synthetic-road-2",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          },
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-3",
+            "road_id": "synthetic-road-3",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          },
+          {
+            "arm": "A",
+            "scene_id": "synthetic-scene-4",
+            "road_id": "synthetic-road-4",
+            "stratum": "synthetic-urban",
+            "replicate_id": 0,
+            "value": 0.8,
+            "completed": true,
+            "deviation_m": 4.2,
+            "seed": null
+          }
+        ],
+        "metric": {
+          "name": "challenge_scene_score",
+          "kind": "continuous",
+          "higher_is_worse": false,
+          "unit": "score_in_0_1"
+        },
+        "issues": [],
+        "diagnostics": [
+          {
+            "identity": [
+              "synthetic-run-01",
+              "synthetic-scene-0",
+              "synthetic-rollout-01"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-01",
+              "clipgt_id": "synthetic-scene-0",
+              "rollout_id": "synthetic-rollout-01",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          },
+          {
+            "identity": [
+              "synthetic-run-03",
+              "synthetic-scene-1",
+              "synthetic-rollout-03"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-03",
+              "clipgt_id": "synthetic-scene-1",
+              "rollout_id": "synthetic-rollout-03",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          },
+          {
+            "identity": [
+              "synthetic-run-05",
+              "synthetic-scene-2",
+              "synthetic-rollout-05"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-05",
+              "clipgt_id": "synthetic-scene-2",
+              "rollout_id": "synthetic-rollout-05",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          },
+          {
+            "identity": [
+              "synthetic-run-07",
+              "synthetic-scene-3",
+              "synthetic-rollout-07"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-07",
+              "clipgt_id": "synthetic-scene-3",
+              "rollout_id": "synthetic-rollout-07",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          },
+          {
+            "identity": [
+              "synthetic-run-09",
+              "synthetic-scene-4",
+              "synthetic-rollout-09"
+            ],
+            "status": "pass",
+            "passed": true,
+            "failure_reason": null,
+            "metrics": {
+              "run_uuid": "synthetic-run-09",
+              "clipgt_id": "synthetic-scene-4",
+              "rollout_id": "synthetic-rollout-09",
+              "run_name": "bf16",
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "score_metrics": {
+              "progress_clipped_rel": 0.64,
+              "progress_rel": 1.0,
+              "gt_dist_traveled_m": 20.0,
+              "collision_at_fault": 0.0,
+              "offroad": 0.0,
+              "left_corridor_laterally": 0.0,
+              "dist_to_gt_trajectory": 0.2,
+              "lateral_dist_to_gt_trajectory": 0.2,
+              "progress_score": 0.8
+            },
+            "source_summary_metrics_may_be_truncated": true,
+            "normalized": true
+          }
+        ],
+        "counts": {
+          "total_rollouts": 5,
+          "normalized_before_batch_admission": 5,
+          "out_of_envelope": 5,
+          "infrastructure_errors": 0
+        },
+        "sidecar_authenticity": "not_verified",
+        "validation_scope": "synthetic schema fixtures; no real AlpaSim run yet"
+      }
+    }
+  ],
+  "source_receipts": [
+    {
+      "path": "events.json",
+      "sha256": "7144ee6207934e8704bc14e88af8113b4b87564364741eef1a90cebb1dfb4378",
+      "size_bytes": 7131
+    },
+    {
+      "path": "job-00/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-00/trace.json",
+      "sha256": "5d45e0a8f968a8283d581eb7bbdf5455412b52cb56717afcdeb1206e5f9c07e9",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-00/metrics.parquet",
+      "sha256": "b0412575ee3c126f610ea1a14e2f01878bdf78ba7987aad99593a5c9d8ad0682",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-01/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-01/trace.json",
+      "sha256": "59eac5ca53048986e24a0e195de08c92c5ce8cb3340502554763c2d24fe740a2",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-01/metrics.parquet",
+      "sha256": "4297a634707b6c7e4ff339dfd6e7a6814946a2ca96005cc0ed47c3b40b28e4ae",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-02/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-02/trace.json",
+      "sha256": "1884195a3bb1f528a6bb2afe578a8bc5844cff89bfdae23a3c83c4b28a5d6d1c",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-02/metrics.parquet",
+      "sha256": "01193470d86b302b71dd7541357eb685aa738f48a4a85021377c624c1459bb8b",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-03/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-03/trace.json",
+      "sha256": "933c5adb31638760978557978795eab56104c13ee642d54501d2adce43e31620",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-03/metrics.parquet",
+      "sha256": "1bf6fd7f08edaadff3a3efec740b66341f4d7d67609133dd5d9524d59092b35e",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-04/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-04/trace.json",
+      "sha256": "995a269f71fc60aa4c5c62b0cf50a17feadf7bd84ff089533beaa6433980cd5b",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-04/metrics.parquet",
+      "sha256": "18de1b0c1f6a716951099dc6fd51e8ea3eeec79f89b751729d0e413b5e141c76",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-05/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-05/trace.json",
+      "sha256": "d34179ebd367f3667bc47e477cf5ff44179dc204520cf51d418db1efedb7b35f",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-05/metrics.parquet",
+      "sha256": "37304952f18882498553c2123a0dc065bd74f3044aa928c4527d020928319410",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-06/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-06/trace.json",
+      "sha256": "eb56548920eb5b21856513759695b5ed65285f3fe0e9ae9e95fb9247a5586829",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-06/metrics.parquet",
+      "sha256": "a742e02e20fac908f70d571f06f1a5998b0d7ce9685a6ce2a51e1221b8262883",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-07/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-07/trace.json",
+      "sha256": "7dbaf277a3adbe55fd69edb7f0362213db65813358083c63cbc3f9b0359c2812",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-07/metrics.parquet",
+      "sha256": "1298ca652fbdfcea06c7eb90344ddece8e44ea7fa6cd71b71fc4841d25307572",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-08/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-08/trace.json",
+      "sha256": "eeee6119a02546fd7471d8d87df35813afb21b2b7e35da531c7b40f6b736265c",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-08/metrics.parquet",
+      "sha256": "783469dfd2245b608c8843af8b1acc8d16eea4787fb532325234cb6dbe5ff1d1",
+      "size_bytes": 3021
+    },
+    {
+      "path": "job-09/_complete",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "job-09/trace.json",
+      "sha256": "2204b8d9613a031ff499803447538c8d017dcffc187547ba00437a2dfd5a088b",
+      "size_bytes": 844
+    },
+    {
+      "path": "job-09/metrics.parquet",
+      "sha256": "5cff374c2a37012c78625ac98ac3b5c6cb82275a3eb37e16b9451d41279f8d0e",
+      "size_bytes": 3021
+    },
+    {
+      "path": "summary-off.json",
+      "sha256": "43d912ab01c914519013e4d34edd8c24670f4e9da2727a6d287ab61ca5882bd1",
+      "size_bytes": 4284
+    },
+    {
+      "path": "summary-on.json",
+      "sha256": "7e1910b6a0037fd2618fc2cc955d138c8c0b4065e8e17be78d69ac39080e107c",
+      "size_bytes": 4284
+    }
+  ],
+  "validation_scope": "synthetic raw-file contracts only",
+  "request_sha256": "167e6f4fd1570f7d458691517143e82e622b5e4624be7fd193d1e07e00d4a032"
+}

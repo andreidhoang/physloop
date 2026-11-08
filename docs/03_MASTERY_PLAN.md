@@ -1,6 +1,8 @@
-# 03 — Mastery plan v3.2 (1 November 2026)
+# 03 — Mastery plan v3.3 (7 November 2026)
 
-**Status:** authoritative for curriculum and mastery. v3.2 follows plan v5/D-021: prioritize S2 measurement understanding and S4 learning-algorithm research; S3/S5–S8 curricula are deferred reference. The new focused reading/derivation contract is §7. This changes emphasis, not Huy's scientific ownership or the file guard.
+**Status:** authoritative for curriculum and mastery. v3.3 (2026-11-07, on Huy's instruction) adds the lesson protocol (§8) and the project learning map (§9), and updates the order inside every rep (§3). It changes how topics are taught; it does not change ownership, stage admission, scientific prediction slots or the file guard.
+
+v3.2 follows plan v5/D-021: prioritize S2 measurement understanding and S4 learning-algorithm research; S3/S5–S8 curricula are deferred reference. The new focused reading/derivation contract is §7. This changes emphasis, not Huy's scientific ownership or the file guard.
 
 Historical v3.1 additions under D-015:
 - pillar P8 is added;
@@ -61,7 +63,7 @@ The demand figure is the share of qualification sections that mention the cluste
 
 **Delivery ownership updated by D-018/P-030:** agents implement evaluator statistics, reliability, validity, verifier logic and supporting engineering with independent review and known-answer tests. Huy retains scientific definitions, predictions, tolerances and interpretation, plus model-research loss/reward/estimator, latency-model and kernel design. Listed file guards remain binding. Writing or deriving from blank remains a personal mastery exercise; agent implementation does not satisfy it, and it is not a blanket prohibition on delegated evaluator delivery. `02` §3 and D-018 define the current allocation.
 
-**Order inside every rep:** concept and derivation first; then Huy's written prediction; then measurement; then reconciliation. A prediction comes after the mechanism has been derived. A prediction written before that is a guess and is logged as one.
+**Order inside every rep (v3.3):** plan first, then go deep. Place the topic on the project map (§9), then teach it in the lesson order of §8: goal → derivation from first principles → code, shown or written into its correct project file → an end-to-end ASCII trace of every tensor element, rendered by a script from the real code → tests → production view → Huy's part. For a scientific experiment the lesson comes first, then Huy's written prediction, then measurement, then reconciliation. A prediction comes after the mechanism has been derived. A prediction written before that is a guess and is logged as one. A lesson trace on tiny synthetic inputs is a reading aid: it is not a measurement and never fills an experiment's prediction slot.
 
 **Why this split** (verified learning evidence):
 - In a randomized Anthropic study, AI assistance cut quiz mastery by 17% (d = 0.738, p = 0.010) with no significant speed gain. The cognitively engaged interaction patterns preserved learning (Shen & Tamkin, arXiv 2601.20245).
@@ -175,6 +177,11 @@ Each enters `02` only through a new `DECISIONS.md` entry.
 - **Khóa Think Autonomous** chỉ là tài liệu bổ trợ, không phải xương sống.
 - **Đóng một stage.** Cần qua ba cổng: teach-back có ví dụ số, câu hỏi chuyển giao, và bằng chứng tái lập từ clone mới. Phần ★ phải có owner proof (dựng lại từ trắng, hoặc chẩn đoán lỗi cài sẵn).
 - **Khoảng trống còn mở.** Huấn luyện multi-node (chỉ có qua P-012), Kubernetes (AlpaSim không có đường chạy K8s), PPO có critic, kinh nghiệm hạ tầng trong công ty (X1), và phần cứng Thor thật nếu P-002 chưa được duyệt.
+- **Bản v3.3 (2026-11-07, theo yêu cầu của Huy):**
+  - **Lập bản đồ trước, đào sâu sau.** §9 là bản đồ học toàn dự án theo đúng dòng dữ liệu: Bài 0 đi một cảnh qua mọi ô, rồi Phần I (S1, quyết định), Phần II (S2, đo), Phần III (S4, học, theo thứ tự học của `02` §4). Mỗi bài mở đầu bằng việc đánh dấu ô của nó trên sơ đồ PIPELINE.
+  - **Bảy phần cho mỗi bài (§8):** mục tiêu → toán dẫn từ gốc → code (đọc code có sẵn, hoặc viết vào đúng file của dự án) → trace ASCII từ đầu vào tới đầu ra, in đủ mọi phần tử tensor, do script chạy code thật → test với oracle độc lập → góc nhìn production → phần của em.
+  - **Ai viết code** tùy chế độ của từng dòng: R (code repo), R★ (file khóa, chỉ đọc/test), U (code upstream ở SHA ghim, chỉ đọc), A (agent viết, test trước), H (Huy viết từ trang trắng), S (script đồ chơi trong `study/`). S4 chưa được admit nên các bài phần III chỉ đọc code upstream.
+  - **Script bài học** nằm trong `study/` (git-ignore), chỉ dùng dữ liệu tổng hợp nhỏ, không bao giờ là evidence. Một dự đoán trong bài học là bài tập, không điền vào ô dự đoán khoa học.
 - **Bản v3.1 (2026-10-27, D-015):**
   - **P8.** Thêm trụ cột P8, "Training systems and cluster operations": coi vòng RL closed-loop như một hệ throughput, với hai phương trình cân bằng (driver/renderer, rollout/trainer) và cận Amdahl; đo bằng chính định nghĩa của NVIDIA (seconds per rollout đã ổn định, GPU-hours từ mean wall clock, MFU/HFU/OFU); Slurm/Enroot/Pyxis, DCGM, Flight Recorder.
   - **Sửa đạo hàm S4.** AlpaGym dùng tỉ số geometric-mean theo từng step row, cùng KL Gaussian dạng đóng, mặc định tắt; không phải k3 và tỉ số theo cả quỹ đạo.
@@ -199,3 +206,115 @@ Read [the foundations ledger](research/2026-11-01-rl-direction-review/rl-foundat
 Known-answer examples and future acceptance tests are in [the protocol design](research/2026-11-01-rl-direction-review/protocol-design.md). The numeric examples are exercises, not measured driving results or agent-filled scientific predictions. Three training runs are a minimum diagnostic floor; they do not automatically give a calibrated algorithm-level interval. Fresh roads alone do not make exploratory training runs independent confirmation.
 
 The three existing mastery checks remain: teach the mechanism back without reading, solve a transfer case, and identify checkable evidence. Agent delivery does not pass them on Huy's behalf. The 70/20/10 research/interpretation/measurement-review time allocation is a recommendation after S2, not an adopted weekly-hours estimate.
+
+## 8. Lesson protocol (v3.3)
+
+One topic per lesson, and the plan comes first. In Claude Code, the `first-principles-explain` skill runs a lesson on one topic and `code-walk` walks one existing file component by component. Both defer to this section where they differ. Codex and other agents follow this section directly.
+
+**Plan first.** §9 lists every topic on the active path in data-flow order. A lesson opens by marking its row on the §9 pipeline. A topic that is not in §9 is added there first, as a one-row edit, before it is taught.
+
+**Seven parts, always in this order.** Vietnamese first, with English technical terms unchanged; code, docstrings and commit messages in English.
+
+| Part | Content | PhysLoop rule |
+|---|---|---|
+| 1 · Mục tiêu | What the topic is for and where it sits; a verified incident with its link, or "no verified incident"; what "done" means as a check that runs | The drawing is the §9 pipeline with this lesson's box marked |
+| 2 · Toán từ gốc | Numbered base truths T1…Tk, then the derivation one step per line, each step tagged with the truth it uses. Every symbol gets its shape, dtype and units. State the assumptions, give a "5 tuổi" box, list the failure modes | Known answers come from §4 or from the lesson's own closed form, computed by a script, never typed |
+| 3 · Code | Existing code: read in full in the session, quoted with `file:line`. New code: written into the file that the row's mode allows | The mode table below decides who writes |
+| 4 · ASCII trace | A script runs the real code on tiny inputs and prints the whole path, from first input to final output and back along any gradient or return path. It opens with a PIPELINE block. Each step block names `file:line` and the formula, draws every tensor as a labelled grid with every element shown, marks selected entries with `[ ]`, writes out the arithmetic for one row, and prints the maximum absolute difference between code and hand formula. It closes with the same path at production shapes | Inputs are synthetic and tiny. Never licensed frames, scenes, scores or anything derived from them (KC-L) |
+| 5 · Tests | Derived from part 2's invariants, checked against an independent oracle; report the command and raw counts | In mode A, the failing test is written before the code (contract step 5) |
+| 6 · Production view | Real shapes, bytes and throughput for this project's configuration; what breaks first at 10× and 100× | Shapes come from pinned configs; estimates are labelled |
+| 7 · Phần của em | Two review questions, a teach-back in at most three lines, one modify-and-predict with the exact command to run; then stop until Huy answers | A lesson prediction is an exercise, not a registered scientific prediction |
+
+For non-tensor topics (receipts, schedules, byte formats), the "tensor" is the state: draw timelines, tables and byte grids with every field shown.
+
+**Who writes the code: one mode per §9 row.**
+
+| Mode | Meaning | What the agent does |
+|---|---|---|
+| R | Agent-authored repo code in an admitted stage | Read in full, trace, test. Changes follow D-018 and the contract |
+| R★ | A listed starred core: `gate/verdict.py`, `gate/stats/` | Read, trace and test only. Changes are described to Huy, never written |
+| U | Pinned upstream code: AlpaSim, AlpaGym, alpamayo1.5 | Read at the pinned SHA. The trace copies the exact lines with `SHA:path:line` and checks them against an independent oracle. No weights, datasets or rentals |
+| A | New evaluator engineering inside an admitted stage | Failing test first, then the code, in the correct module, marked agent-authored |
+| H | Huy's research cores (reward, loss, estimator design) or his owner-proof reconstruction (§5) | Derive on a worked neighbour, then give the interface and the known-answer test. Huy writes from blank; the agent traces his code afterwards |
+| S | A concept with no project code, such as DAgger's error bound | A toy script in `study/` only |
+
+Agent-written code and agent-run traces are delivery, not Huy's mastery evidence (§3, `02` §4). A lesson never admits a stage. S4 rows stay in modes U, S or H until S4 is admitted, and no `teacher_rl/` code is created before then.
+
+**Where lesson code lives.** Trace scripts and their printed output go in `study/<phase>/<lesson>.py` and `.txt`. The folder is git-ignored, so lessons never enter tracked source or `evidence/`. Each script takes its inputs as CLI flags so Huy can rerun it with changed values, and vendors any helper it needs inside `study/` instead of importing from `~/.claude`. Lesson status is kept in `study/LEDGER.md`, not in this document.
+
+**Format exemplar.** This was rendered by a script, with the expression reproduced from AlpaGym @ `972d160`; it is not a run of AlpaGym. The 1e-6 term moves the sixth decimal, which is why §4 calls the pinned value approximately equal to the epsilon-free one.
+
+```
+PIPELINE
+  r[G] ─► mean, np.std (ddof=0) ─► A[G] = (r − μ)/(σ + 1e-6) ─► broadcast to every replay row of candidate g
+
+STEP 1 · μ = Σr/G, σ = √(Σ(r−μ)²/G)
+  μ = 3/8 = +0.375000
+  σ² = (3·0.625² + 5·0.375²)/8 = (1.171875 + 0.703125)/8 = 0.234375   σ = 0.484123
+
+STEP 2 · A = (r − μ)/(σ + 1e-6)        entries with r = 1 marked [ ]
+  reward and advantage  shape [8]  float64
+         g=0      g=1      g=2      g=3      g=4      g=5      g=6      g=7
+  r   │ +1.0000  +0.0000  +0.0000  +1.0000  +1.0000  +0.0000  +0.0000  +0.0000 │
+  A   │[+1.2910] -0.7746  -0.7746 [+1.2910][+1.2910] -0.7746  -0.7746  -0.7746 │
+  row g=0: (1 − 0.375)/(0.484123 + 0.000001) = +1.290992
+  max |code − hand(ε=0)| = 2.7e-06   (the 1e-6 shifts the 6th decimal)
+```
+
+**Advancing.** A lesson ends at part 7. Huy writes "tiếp" to move to the next row. §5's teach-back, transfer and evidence gates still close a stage; lessons feed them but do not pass them.
+
+## 9. Project learning map (v3.3): plan first
+
+The active path in data-flow order. Lesson 0 walks one scene through every box; Phases I–III then take each box apart. Phase III follows the learning order in `02` §4. An anchor marked "Step 0" is located and opened at the start of that lesson; this map names no upstream path that has not been opened. Pinned upstream revisions: AlpaSim `e2e_challenge` @ `e121e59` and `main` @ `affc2ea`, AlpaGym @ `972d160`, alpamayo1.5 @ `36aeb4c`.
+
+```
+PIPELINE · the active path, one scene end to end                  ⟨n⟩ = row of the table below
+
+S2 · đo     registration ─► schedule ─► launch ─► AlpaSim run ─► ASL log, metrics ─► receipts ─► records
+            ⟨II-2⟩                                ⟨II-1⟩         ⟨II-3, II-4⟩        ⟨II-5, II-6⟩
+                                                     │ one tick, lockstep
+                                                     ▼
+            state ─► Alpamayo 1.5 ─► 64 waypoints ─► controller ─► next state ─► next tick
+                     ⟨III-4, III-5⟩   ⟨III-6⟩         ⟨III-6⟩
+
+S1 · quyết  records ─► road pairs ─► bounds per stratum ─► Holm flags ─► looks ─► GO / NO-GO / INSUFFICIENT
+            ⟨I-1, I-2⟩               ⟨I-3, I-4⟩            ⟨I-5⟩         ⟨I-6⟩    ⟨I-7, I-8⟩
+            roads and replicates needed: ⟨II-7⟩ reliability, ⟨II-8⟩ cost
+
+S4 · học    G candidates ─► reward ─► group advantage ─► ratio, clip ─► loss ─► optimizer steps ─► weights
+            ⟨III-1⟩         ⟨III-8⟩   ⟨III-3⟩            ⟨III-7⟩        ⟨III-2⟩
+            each candidate is an AlpaSim rollout on the training path, with the same tick loop
+            weights ─► export ─► S2 · đo ─► S1 · quyết            ⟨III-9⟩ two paths, ⟨III-10⟩ the verdict
+```
+
+| # | Topic and goal | Math to derive | Code anchor | Data traced | Mode | Known answer |
+|---|---|---|---|---|---|---|
+| 0 | **Toàn cảnh**: one scene through every box, before any detail | Units and shapes at each box; sweep cost = scenes × replicates × steps × seconds per step | This map; `01_SYSTEM_DESIGN.md` | One scene's objects at each box, shapes only | R + U | 441 × 3 × 200 = 264,600 steps ⇒ 34.0–84.5 GPU-h at 0.463–1.15 s/step |
+| **I-1** | **Records and pairing**: what a paired comparison is made of | Paired difference per scene and replicate; why pairing helps: Var(B − A) = Var A + Var B − 2 Cov | `gate/contracts.py` (`RolloutRecord`, `pair_records`) | Record list → pairs keyed by road, scene, replicate | R | McNemar b = 12, c = 6 ⇒ one-sided p = 0.11894 |
+| I-2 | **Synthetic truth**: a world where the right answer is known | Scene latent copied across replicates with a chosen probability; road dependence | `gate/synthetic.py` | Road × scene × replicate × arm outcome grid | R | `tests/test_synthetic.py` |
+| I-3 | **Bound for a bounded mean**: how far the true mean can be from what we saw | Chernoff bound → KL inversion for a mean in [0, 1]; all-zero case UB = 1 − (α/2)^(1/R) | `gate/verdict.py` (`_kl`, `bounded_mean_bounds`) | Per-road values → upper and lower bounds | R★ | With α/2 = 0.025 and every road difference zero, a stratum still needs 36 / 51 / 72 / 183 roads for margins 0.10 / 0.07 / 0.05 / 0.02 |
+| I-4 | **Paired road bounds and the verdict** | Split d into d⁺ and d⁻; equal-road estimand; GO requires UB(mean d⁺) − LB(mean d⁻) < margin in every stratum (intersection–union) | `gate/verdict.py` (`paired_road_bounds`, `verdict`) | Per-road d → per-stratum bounds → verdict | R★ | Four independent strata at 0.80 ⇒ 0.4096; 0.80 overall needs 0.9457 per stratum |
+| I-5 | **Holm regression flags** | p = exp(−R·max(mean, 0)²/2); Holm step-down | `gate/verdict.py` (`holm_flags`; p-value at L187) | Per-stratum mean d → p-values → Holm-ordered flags across the stratum family | R★ | Built in the lesson from the closed form; must match the function |
+| I-6 | **Finite registered looks** | Union-bound alpha spending across looks | `gate/sequential.py` | Look schedule → spent α → decision per look | R | Reference only, not the gate's method: K = 2 O'Brien–Fleming 2.7965 / 1.9774, Pocock 2.1783 |
+| I-7 | **Power and INSUFFICIENT**: why noisy equivalent controls rarely reach GO | P(GO) under the operational method vs the asymptotic planning formula | `gate/power.py` | Effect × roads grid → P(GO) table | R | 1.6 pp at ψ = 4% needs 964 paired scenes (planning formula) |
+| I-8 | **S1 end to end** | None new: the composition of I-1 to I-7 | `gate/api.py`, `gate/__main__.py` | Request JSON → admission → pairs → bounds → verdict | R | `tests/test_api.py`, `tests/test_known_answers.py` |
+| **II-1** | **AlpaSim tick loop and seeds**: why compute time never enters the outcome, and which repeats are really seeded | Lockstep tick; seed derivation session_seed = random_seed + rollout_idx, inference_seed = session.seed + inference_count | AlpaSim `main` @ `affc2ea`: `engine.py` L210–212, driver `main.py` L713 | Seed table across replicates and inference calls | U | Replicates 0 and 1 share 21 of 22 inference seeds |
+| II-2 | **Registration → schedule → launch** | Matrix size and cost; what a schedule can and cannot verify | `gate/s2_preflight.py`, `gate/s2_schedule.py`, `gate/s2_launch.py` | Registration JSON → job matrix → launch commands | R | `tests/test_s2_schedule.py`, `tests/test_s2_launch.py` |
+| II-3 | **ASL bytes**: reading AlpaSim's log without trusting it | Protobuf wire format: base-128 varints, wire types, length-delimited fields | `gate/s2_asl.py` | Byte grid (hex) → fields → entries → poses | R | Varint 300 = `0xAC 0x02`; `tests/test_s2_asl.py` |
+| II-4 | **Metrics and summaries**: missing is not zero | Per-rollout metric arrays → summary; denominators of failures | `gate/s2_extract.py`, `gate/alpasim_adapter.py` | Metric arrays per rollout → normalized summary rows | R | `tests/test_s2_extract.py`, `tests/test_alpasim_adapter.py` |
+| II-5 | **Identity and integrity**: what a hash proves | Canonical JSON bytes → SHA-256; binds bytes, not origin | `gate/s2_identity.py` | Object → canonical bytes → digest | R | `tests/test_s2_identity.py` |
+| II-6 | **Receipts: ledger and capture** | Monotonic event order; one completed first attempt per job | `gate/s2_ledger.py`, `gate/s2_capture.py` | Event timeline per job → reconciliation table | R | `tests/test_s2_ledger.py`, `tests/test_s2_capture.py` |
+| II-7 | **Reliability and paired variance**: how many replicates and roads | Var(mean) = σ²/(nm)·[1 + (m − 1)ρ]; σ_d² = σ_A² + σ_B² − 2ρσ_Aσ_B; CRN helps only if the driver consumes the seed | No module yet; built after S2 admission with Huy's frozen analysis | Replicate × scene score grid → ICC, design effect, σ_d | A | Design effect 2.2 at m = 3, ρ = 0.6; σ_d = 0.5657 / 0.4000 / 0.2530 at ρ = 0 / 0.5 / 0.8 |
+| II-8 | **Cost and pilot affordability** | Cost = scenes × replicates × steps × s/step × price; Amdahl S = 1/((1 − f) + f/k) | `gate/s2_pilot.py`, `gate/s2.py` | Usage ledger → affordability check | R | Amdahl f = 0.75, k = 2 ⇒ 1.600× at most |
+| **III-1** | **State-distribution shift**: why learn on the policy's own rollouts | Behaviour cloning T²ε vs DAgger uTε; privileged information. Reading: DAgger, LBC, Roach, World on Rails, OPTED | Toy only | Tiny 1-D driving loop: visited states under the expert vs the learner | S | Computed in the lesson from the closed forms |
+| III-2 | **Policy gradient → PPO → GAE** | ∇J = E[A·∇log π]; clipped surrogate; why clipping is not a hard guarantee; k3 estimator | Toy only | Two-step bandit: log-probs, ratios, clipped terms | S | k3 at r = 0.8 ⇒ 0.02314 |
+| III-3 | **Group-relative advantage** | A = (r − μ)/(σ + 1e-6); translation and approximate scale invariance; G = 2 is sign-only | AlpaGym @ `972d160` (file located at Step 0) | Group reward vector → advantage → per-row broadcast | U | G = 8 [1,0,0,1,1,0,0,0] ⇒ +1.290992 / −0.774595 (ε = 0: +1.290994 / −0.774597); G = 2 with a 0.001 gap ⇒ ±0.998004; G = 6, one −10 ⇒ −2.236067 ≈ −√5 |
+| III-4 | **Model input**: cameras → patches → tokens → prefill → KV cache | Tokens per image = (H/16)·(W/16)/4; attention and KV bytes | alpamayo1.5 @ `36aeb4c` (files located at Step 0) | 16 images → token grid → KV shapes | U | 320×576 ⇒ 180 tokens per image, 2,880 for 16; 320×512 ⇒ 2,560 |
+| III-5 | **Flow expert and its two time axes** | Conditional flow matching field; Euler ODE vs SDE sampler; driving time vs denoising time | alpamayo1.5 @ `36aeb4c`, AlpaGym @ `972d160` (Step 0) | Noise → K denoising steps → 64 × 2 action grid | U | 1-D Gaussian flow: K = 10 ⇒ std 0.43078; K = 5 ⇒ 0.36923; K = 2 ⇒ 0.20000 |
+| III-6 | **Waypoints → trajectory → controller** | Exact heading update Δθ = κ(vΔT + aΔT²/2) (AR1 Eq. 5); what the controller does with the plan | alpamayo1.5 and AlpaSim (Step 0) | (accel, curvature) × 64 → poses → controller command | U | Constant arc v = 10 m/s, κ = 0.02 m⁻¹, T = 6.4 s: forward Euler endpoint error 0.5972 m, Eq. 5 0.00199 m |
+| III-7 | **The actual Gym estimator** | Per-row geometric-mean ratio, mean clamped to ±5, clip [0.8, 1.2]; optimizer steps per trainer step ≤ iterations × ⌈rows / mini_batch⌉; `kl_beta: 0` ⇒ logged KL is zero by construction | AlpaGym @ `972d160`: `replay_objective.py`, `default.yaml` | Log-density grid T × 64 × 2 → mean → ratio → clipped loss | U | [0.8, 1.2] over 640 factors ⇔ joint log-ratio −142.8 to +116.7; Gaussian KL at Δμ = 0.1, σ = 0.5 ⇒ 0.0200; up to 22 optimizer steps in the smoke |
+| III-8 | **Reward and its exploitation** | `progress_safety` = P − 10·C_any − 5·O − 0.01·D (terms opened at Step 0); `collision_any` includes rear contact while offline at-fault is front ∨ lateral; one counterexample per reward | AlpaGym @ `972d160` (Step 0); any new reward arm in `teacher_rl/` only after S4 admission | Per-tick event arrays → reward → group order | U, then H | Collision-only group [−10 × 3, 0 × 5] ⇒ −1.29099 / +0.77460 |
+| III-9 | **Two paths for one set of weights** (proposal P-032) | Six factors: image size, reasoning text, expert RoPE offsets, integrator, policy rate, controller | AlpaGym @ `972d160`, AlpaSim driver, alpamayo1.5 (Step 0) | Same weights, two input and sampler paths, side by side | U | 2,560 vs 2,880 tokens; horizontal scale 512/576 = 0.889 |
+| III-10 | **Checkpoint → export → the verdict**: the loop closes on S1 | None new: I-8 with arm B a trained checkpoint; training-run variation reported separately | `gate/api.py`; upstream export (Step 0) | Toy A/B records → I-8 trace | R + U | I-8's known answers |
+
+**Where to start.** Lesson 0, then Phase I and Phase II, which serve the current stage. Phase III lessons are read-only (modes U and S) and may run alongside, since S4 is not admitted.

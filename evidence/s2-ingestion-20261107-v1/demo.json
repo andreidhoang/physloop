@@ -1,0 +1,34 @@
+{
+  "scope": "synthetic known answers only; full checks are separate",
+  "passed": true,
+  "positive": {
+    "admitted": true,
+    "score": 0.8,
+    "deviation_m": 4.2,
+    "out_of_envelope": 1,
+    "known_answer_passed": true
+  },
+  "missing_offroad": {
+    "admitted": false,
+    "issue_codes": [
+      "missing_identity_mapping",
+      "missing_observation_ledger",
+      "missing_raw_metric"
+    ],
+    "known_answer_passed": true
+  },
+  "drafts": {
+    "S2_PILOT_DRAFT": {
+      "ready": false,
+      "blocker_count": 24
+    },
+    "S2_FULL_DRAFT": {
+      "ready": false,
+      "blocker_count": 37
+    }
+  },
+  "runtime_qualified": false,
+  "runtime_limit_preserved": true,
+  "full_checks_run": false,
+  "cloud_launch_authorized": false
+}

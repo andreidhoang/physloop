@@ -6,7 +6,7 @@ On the first read, read all of it. Every session, re-read steps 1, 3, 5 and 6.
 1. `../DOC_AUTHORITY.md` — 2 minutes. Which document wins.
 2. `01_SYSTEM_DESIGN.md` — the active system map and the thirteen core concepts.
 3. `02_PHYSLOOP_PLAN.md` — **the plan**: deliverables G1–G9, stages S1–S8, budget tiers, allowed claims, kill checks, risks, open decisions.
-4. `03_MASTERY_PLAN.md` — the skill pillars, the curriculum for each stage, the mastery gates, skill coverage.
+4. `03_MASTERY_PLAN.md` — the skill pillars, the curriculum for each stage, the mastery gates, skill coverage, the lesson protocol (§8) and the project learning map (§9).
 5. `DECISIONS.md` — what was decided and why. Newest entries are at the bottom.
 6. `../journal/` — the last entry: what was tested, what happened, the next hypothesis. Created at the first after-build ritual.
 
@@ -19,7 +19,7 @@ Reference, when needed:
 
 ## The before-build ritual (do not skip)
 1. Name the stage (S1–S8) and the deliverable (G1–G9) that today's work serves.
-2. Do the active stage's curriculum exercise in `03` §4/§7 if you have not done it yet.
+2. Do the active stage's curriculum exercise in `03` §4/§7 if you have not done it yet. Lessons follow `03` §8, in the order of the §9 map.
 3. For a scientific experiment, open or create `../experiments/<date>-<slug>.md` from `TEMPLATE.md`. Huy records the hypothesis, the mechanism (derived, with numbers), the falsifiable prediction with a number, the scope, the kill criterion, and the metric-to-decision rule. The prediction comes after the mechanism is derived, never before. Engineering-only preparation instead records deterministic acceptance criteria without filling a scientific prediction slot; paid host checks also need recorded execution authority, supplied for the completed bounded Vast check by D-019, which does not authorize another rental.
 4. Estimate the cost (GPU-hours × the current price; re-price at every stage start) and write it down.
 5. Check the gates:
@@ -35,7 +35,7 @@ Reference, when needed:
 
 ## Where we are
 
-**Plan v5 adopted, 2026-11-01 (D-021).** The active research path is **S1 → S2 → S4 → research conclusion**, with G9 teacher RL primary and G1/G2/G3·R1/G7 supplying measurement evidence. Read [the research synthesis](research/2026-11-01-rl-direction-review/report.md), [the main plan](02_PHYSLOOP_PLAN.md), and [the engineering/experiment specification](research/2026-11-01-rl-direction-review/protocol-design.md). The review contains AV precedents, RL foundations, pinned implementation facts and independent review resolutions. It is source/literature evidence, not a completed training experiment. D-022 corrected the S4 card after [a gap review](research/2026-11-01-rl-direction-review/gap-review.md) of sources that review had not covered; direction, budget and admissions did not change.
+**Plan v5 adopted, 2026-11-01 (D-021).** The active research path is **S1 → S2 → S4 → research conclusion**, with G9 teacher RL primary and G1/G2/G3·R1/G7 supplying measurement evidence. Read [the research synthesis](research/2026-11-01-rl-direction-review/report.md), [the main plan](02_PHYSLOOP_PLAN.md), and [the engineering/experiment specification](research/2026-11-01-rl-direction-review/protocol-design.md). The review contains AV precedents, RL foundations, pinned implementation facts and independent review resolutions. It is source/literature evidence, not a completed training experiment. D-022 corrected the S4 card after [a gap review](research/2026-11-01-rl-direction-review/gap-review.md) of sources that review had not covered; direction, budget and admissions did not change. D-023 (2026-11-08) adds that an improvement claim needs a registered superiority rule, and that the RL arm is a shipped recipe for which no published NVIDIA result was found; see [the decision brief](research/2026-11-08-principal-review/decision-brief.md).
 
 **Current stage:** S1 technically qualified; S2 free preparation and the bounded Vast host check completed; scientific S2 pilot/full study and S4 not admitted. November 2 remains the earliest scientific S2 admission, conditional on the registered protocol/prediction, rights/access and concrete action approval. D remains 2026-10-26 for historical records; P-003 weekly hours and a new measured calendar remain open.
 

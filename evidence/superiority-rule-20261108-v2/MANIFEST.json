@@ -1,0 +1,38 @@
+{
+ "purpose": "Candidate superiority rule (D-023; S2.6/S4.6 [C]; G1/G9). Agent-authored evaluator code, not a registered scientific rule.",
+ "git_base": "05c439f19f60bbcd8700b32170176e69709ba907",
+ "worktree": "dirty; another session's uncommitted S2 work present; rule source archived in source/",
+ "python": "3.12.11",
+ "rule_id": "intersection_union_upper_below_zero_v1",
+ "inputs_read_only": {
+  "gate/verdict.py": "4a6329414d195719d451b7bd0086e5f5d35a5005b797ab51755112f04c2d5e98",
+  "gate/sequential.py": "0ac33360cf85faa9439939235eed264d924b623425f0f78419b6a4871b184549",
+  "gate/synthetic.py": "8e4c80f0bb4fe08bf1cbd27375222a914d39db7f59b33db5fb545ef98178dde9"
+ },
+ "files": {
+  "full_suite.txt": "30ed67c770684c018f4c6db4af90650df94b2ddf1b1fca5d42abdd9c91910597",
+  "power.json": "bd7f64b67ef03fa8b3968470b76d6ebcafe3581feefce74600574bbbae9fc35d",
+  "power.txt": "14e5a3e076717e061bbe3ed572ebfe2f0e6f0de140aa2e4acc86c7c371c2238d",
+  "run_power.py": "f114173d7a6ff411ddaee7819cd2388572f34dd548f30dfc87b0dc93c697d9fc",
+  "tests.txt": "c14936fe698fd434b9fa4bd429cd7e707a2d7aeeb881d8562ad6cdda5f2cf1f9"
+ },
+ "source": {
+  "superiority.py": "94957f9200f5ef5a82d8490e9af3f5e72705893ca5498282964a124a31b2b41e",
+  "superiority_power.py": "83c30e52b08abd59d0acfdfdc393644bf26796ac40644330bb126b259492c582",
+  "test_superiority.py": "3f7bb67c879d4550f8dd7552842dd04ee0ce7b75fac1c9112bc7ab5b6f085649"
+ },
+ "results": {
+  "rule_tests": "67 passed",
+  "full_suite": "1427 passed",
+  "ruff": "All checks passed",
+  "mutations": "20 of 20 killed (manual sed mutants, restored after each)"
+ },
+ "reviews": [
+  "independent agent review of v0: no level-alpha bug; labelling/validation/seeding fixes applied in v1"
+ ],
+ "not_established": [
+  "registration of the rule by Huy",
+  "SequentialGate superiority power",
+  "any real AlpaSim data"
+ ]
+}

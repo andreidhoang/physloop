@@ -52,7 +52,7 @@ Harmonizer selection is a protocol choice informed by cost and intended renderin
 
 ## 4. Normalization contract
 
-Implemented plumbing: `gate/alpasim_adapter.py`. It consumes three JSON objects supplied by a caller, does no I/O and returns records only when the entire batch passes.
+Implemented normalization: `gate/alpasim_adapter.py`. It consumes three JSON objects supplied by a caller, does no I/O and returns records only when the entire batch passes. The November 7 engineering addition supplies a separate synthetic raw-file path through `gate/s2_identity.py`, `gate/s2_schedule.py`, `gate/s2_ledger.py` and `gate/s2_extract.py`; its exact local interfaces and limits are in [S2_INGESTION](S2_INGESTION.md).
 
 | Input | Required meaning |
 |---|---|
@@ -75,6 +75,8 @@ Invariants checked on synthetic fixtures:
 **Known v0 boundary:** exact requested/actual horizon equality is currently required. Upstream can legitimately clip a completed recording to available ground truth. Those recordings receive `horizon_unverified`, not an invented infrastructure/driving failure. Real-run admission requires Huy's terminal-segment semantics and a tested extractor for expected clipped horizons, or an explicitly approved alternative protocol. Never silently shrink or replace the required 441-scene schedule with easier exact-horizon recordings. Do not relabel a shortened run as complete to pass the check.
 
 The adapter trusts declared sidecars; it does not authenticate them or compute physical validity. Real-data extractors must establish `_complete`, actual executed steps/timestamps, original untruncated metric arrays, map coverage, black-frame evidence and retry history. The summary may truncate at a collision, offroad or ordinary deviation threshold, and may fill absent offroad data with zero. Summary maxima cannot establish full-trajectory validity.
+
+The new synthetic ingestion reader verifies file receipts, reads actual Parquet bytes, reconciles every planned job/attempt and derives full deviation from untruncated metric streams. Its execution trace is an explicit PhysLoop synthetic contract, not an AlpaSim ASL decoder or actual runtime capture. Pilot/full schedules require their retained builder request and exact schedule replay; tiny fixtures are labelled `synthetic`. All retries still block selection and exact horizons remain required. Hash checks establish byte integrity, not source authenticity, and the supplied score is not recomputed from raw metrics. A passing synthetic bundle is engineering evidence only; actual AlpaSim capture/scorer integration remains unqualified.
 
 ## 5. Preflight and approval boundary
 
@@ -104,7 +106,7 @@ The delivered RTX PRO 6000 Blackwell Workstation Edition reported 97,887 MiB VRA
 | Source/schema audit | Immutable pins, sample contracts, compatibility differences | Agent; completed offline |
 | CPU plumbing | Preflight, adapter, CLI, adversarial fixture tests | Agent; see generated verification |
 | Actual environment | Resolved lock/config/images; clean setup transcript; host GPU/driver/edition identity | Public/synthetic Vast guest checks measured under D-019; licensed AlpaSim bootstrap, complete runtime pins and simultaneous memory fit remain outstanding |
-| Raw observation extraction | Exact logical-job binding, full metric streams, expected/actual horizon, retry and validity provenance | Agent plumbing under Huy's validity semantics; actual-file integration outstanding |
+| Raw observation extraction | Exact logical-job binding, full metric streams, expected/actual horizon, retry and validity provenance | Synthetic file-receipt/Parquet/capture-v1 path implemented; actual AlpaSim capture, scorer replay and terminal/retry semantics remain outstanding under Huy's registered definitions |
 | #198 scorer control | Original minimal reproduction: stationary tail's false ~5 m lateral error becomes ~0 on the pinned scorer; endpoint/boundary controls | Actual public geometry helpers tested on CPU; complete evaluator/runtime execution remains unverified |
 | Instrument decomposition | Fixed-pose renderer repeats per Harmonizer; identical policy inputs; first divergence tick; replay-traffic control | Agent implements decomposition/capture and technical diagnosis; Huy owns scientific interpretation |
 | Reliability | Registered repeatability/ICC and event-noise uncertainty, noise-floor and negative-control rate, road-cluster uncertainty, base rates/discordance/paired SD; Kendall W/policy-panel ranking deferred until a separately admitted meaningful panel | Agent-owned evaluator implementation under D-018, with independent review and Huy's scientific definitions; no fabricated results |

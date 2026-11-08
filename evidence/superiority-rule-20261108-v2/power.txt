@@ -1,0 +1,6 @@
+R441_b0_net3.0pp                 supported 0.850 ruled_out 0.000 insufficient 0.150 regression 0.000
+R441_b0_net1.6pp_target          supported 0.188 ruled_out 0.007 insufficient 0.805 regression 0.000
+R441_b5_net9.5pp                 supported 0.847 ruled_out 0.000 insufficient 0.153 regression 0.000
+R441_null_b5                     supported 0.000 ruled_out 0.007 insufficient 0.993 regression 0.000
+R441_null_b0                     supported 0.000 ruled_out 1.000 insufficient 0.000 regression 0.000
+two_strata_220_each_b0_net3pp    supported 0.018 ruled_out 0.000 insufficient 0.982 regression 0.000

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "curl",
+    "-I",
+    "--connect-timeout",
+    "3",
+    "--max-time",
+    "5",
+    "https://files.pythonhosted.org/"
+  ],
+  "environment_overrides": {},
+  "returncode": 6,
+  "stdout": "",
+  "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: files.pythonhosted.org\n",
+  "elapsed_seconds": 0.015
+}

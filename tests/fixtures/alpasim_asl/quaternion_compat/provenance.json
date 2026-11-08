@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/NVlabs/alpasim",
+  "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+  "checked_date": "2026-11-07",
+  "license": "Apache-2.0",
+  "retrieval": "Exact full public GitHub connector fetch_file at immutable commit; no assets or weights",
+  "sources": [
+    {
+      "file": "geometry.py.txt",
+      "path": "src/utils/alpasim_utils/geometry.py",
+      "git_blob_sha": "d760bddf35fe68a7e4d0668d89aa0947e4d1cae0",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/utils/alpasim_utils/geometry.py",
+      "sha256": "91a12abc9a4243e68f986ed3bf72b6bb47eb700e1cf645cdf5b681fa41daf181"
+    },
+    {
+      "file": "pose.rs.txt",
+      "path": "src/utils_rs/src/pose.rs",
+      "git_blob_sha": "7dcfe58e678a2f4d30e5653f14295578fa14dc23",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/utils_rs/src/pose.rs",
+      "sha256": "ce7366f3627d18e03b27ec4276bc212fde5440096ae6caf9cbe03794ce7f5201"
+    },
+    {
+      "file": "array_utils.rs.txt",
+      "path": "src/utils_rs/src/array_utils.rs",
+      "git_blob_sha": "ef069b621fe7dea6d6b232d7bd77fe1f5d8fb81a",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/utils_rs/src/array_utils.rs",
+      "sha256": "2886d7aafa8fc277598fa830f6952be914dcfac8bfcfb3724290c7647441854d"
+    }
+  ],
+  "license_file": {
+    "file": "LICENSE",
+    "git_blob_sha": "c6ff73fab08d36444991400fc0aeb8d660f2d098",
+    "sha256": "50201750cc0542d4656d8d95f002f78357021b7c3c975b53924000b7ddc5a24e",
+    "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/LICENSE"
+  }
+}

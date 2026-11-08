@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-07",
+  "repository": "https://github.com/NVlabs/alpasim",
+  "commit": "e121e59141dc391f6c295513d6dadc840a419149",
+  "retrieval": "Public GitHub connector fetch_file at full immutable commit; no datasets, weights or LFS objects.",
+  "license": "Apache-2.0",
+  "copyright": "Copyright (c) 2025-2026 NVIDIA Corporation",
+  "sources": [
+    {
+      "file": "data_e121e591.py.txt",
+      "path": "src/eval/src/eval/data.py",
+      "git_blob_sha": "30e0d193b96d0f1c3c94842bc29499a87fa08b88",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/data.py",
+      "sha256": "aef422e48cb161b09df227c4ad338ff4bef152a3154358e8ae0051ba95a0a5b2"
+    },
+    {
+      "file": "processing_e121e591.py.txt",
+      "path": "src/eval/src/eval/aggregation/processing.py",
+      "git_blob_sha": "2abd4b093d1801c6fb9a66a868ec05c6a01518c0",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/aggregation/processing.py",
+      "sha256": "c6e45ff7802b1364333c0bc115c77077e3a61098cb21af0fdacbcc24486bc2cb"
+    },
+    {
+      "file": "ground_truth_e121e591.py.txt",
+      "path": "src/eval/src/eval/scorers/ground_truth.py",
+      "git_blob_sha": "6dce0f50c79350f6c392ff7f0f028bc5c47de93b",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/scorers/ground_truth.py",
+      "sha256": "5bd239cbe30fee33aeff44c86cf43a05da0ec5095068c86f2ef14f4c102c76c4"
+    },
+    {
+      "file": "collision_e121e591.py.txt",
+      "path": "src/eval/src/eval/scorers/collision.py",
+      "git_blob_sha": "8114d884a77c3a4543f2f4a94634408c1078a4cb",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/scorers/collision.py",
+      "sha256": "c001aa30cef7c9a66edf58817f169fc421eae43b898e5678843c042e67f8ab06"
+    },
+    {
+      "file": "offroad_e121e591.py.txt",
+      "path": "src/eval/src/eval/scorers/offroad.py",
+      "git_blob_sha": "b7e34a81d736110dbc92ea07496d20e5dc706a84",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/scorers/offroad.py",
+      "sha256": "f49f200348020e49dd5cfa44162770a4a57b791d163f26f24acf3270322c4016"
+    },
+    {
+      "file": "image_e121e591.py.txt",
+      "path": "src/eval/src/eval/scorers/image.py",
+      "git_blob_sha": "68eee11b0dc6c5e642e7d3421c011a4ad79e4c37",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/scorers/image.py",
+      "sha256": "f4f6dbd4706c558c218b52373baa1ee173404f2168c5a42bf807628c511561d7"
+    }
+  ],
+  "license_file": {
+    "file": "LICENSE",
+    "git_blob_sha": "c6ff73fab08d36444991400fc0aeb8d660f2d098",
+    "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/LICENSE",
+    "sha256": "50201750cc0542d4656d8d95f002f78357021b7c3c975b53924000b7ddc5a24e"
+  }
+}
