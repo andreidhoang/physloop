@@ -8,6 +8,33 @@ Repeated event IDs are idempotent only for identical canonical JSON values.
 This v0 retains retries but cannot select them for inference: admission requires
 one completed first attempt per job. It verifies receipt consistency, not their
 authenticity or physical validity. It performs no I/O and grants no launch right.
+
+Event schema versions (build-spec B1; lane R1 P4b). Versioning is per event, so
+v1 and v2 events may share one batch:
+
+- v1 (no ``schema_version`` key): exactly the original fields; ``completed``
+  requires ``reason == "exact_horizon"`` and a non-null upstream identity.
+- v2 (``schema_version: 2``, an int): the v1 fields plus ``evidence_refs`` (a
+  nonempty list of unique nonempty texts naming the captured evidence the recorder
+  bound; a v2 event that binds no evidence, above all a completion, is invalid).
+  ``completed`` requires the neutral ``reason == "process_completed"``
+  (``PROCESS_COMPLETED``) and a non-null upstream identity. It states only that
+  the pinned upstream process evidence shows the attempt complete; it never
+  claims an exact or a clipped horizon. The horizon is evidence-derived
+  downstream (adapter/diagnostics), and clipped-horizon acceptance is Huy's.
+
+Any other ``schema_version`` value (including an explicit ``1`` or a boolean) is
+an invalid event. The report, job and attempt key sets are unchanged from v1
+(``gate.s2_diagnostics`` validates them exactly); the version and the neutral
+reason stay visible in each attempt's ``events`` and ``terminal_reason``.
+
+Public API: ``reconcile_attempts`` and ``valid_event`` (the exact per-event schema check
+the reconciler applies; review F6 shared change, so consumers such as
+``gate.s2_telemetry_sources`` need not import the private ``_valid_event``, which is
+kept as the same function object for existing importers).
+
+Verification level: L1 for ``reconcile_attempts`` and ``valid_event`` (pure, literal
+known answers).
 """
 
 import json
@@ -26,9 +53,15 @@ _JOB_FIELDS = {
     "protocol_hash",
     "requested_steps",
 }
+# ``diagnostic_qualification`` is the phase of a declared diagnostic unit's job in its own
+# ledger (gate.s2_packet ``DIAGNOSTIC_PHASE``; review G2-04), never a pilot or sweep job.
+PHASES = ("harmonizer_pilot", "full_sweep", "synthetic", "diagnostic_qualification")
 _EVENT_FIELDS = {"event_id", "job_id", "attempt_id", "type", "timestamp_us"}
 _IDENTITY_FIELDS = {"run_uuid", "clipgt_id", "rollout_id"}
 _TERMINAL = {"completed", "failed", "cancelled"}
+EVENT_SCHEMA_VERSIONS = (1, 2)
+PROCESS_COMPLETED = "process_completed"
+_V2_FIELDS = {"schema_version", "evidence_refs"}
 
 
 def _text(value):
@@ -54,7 +87,7 @@ def _valid_job(value):
         and all(
             _text(value[key]) for key in ("job_id", "policy_id", "scene_id", "road_id", "stratum")
         )
-        and value["phase"] in ("harmonizer_pilot", "full_sweep", "synthetic")
+        and value["phase"] in PHASES
         and value["arm"] in ("A", "B")
         and _integer(value["replicate_id"])
         and _integer(value["requested_steps"], 1)
@@ -63,8 +96,28 @@ def _valid_job(value):
     )
 
 
+def _event_version(value):
+    """1 for an unversioned event, 2 for ``schema_version: 2``; None otherwise."""
+    if "schema_version" not in value:
+        return 1
+    version = value["schema_version"]
+    return 2 if type(version) is int and version == 2 else None
+
+
+def _valid_refs(value):
+    return (
+        isinstance(value, list)
+        and bool(value)
+        and all(_text(item) for item in value)
+        and len(set(value)) == len(value)
+    )
+
+
 def _valid_event(value):
     if not isinstance(value, dict):
+        return False
+    version = _event_version(value)
+    if version is None:
         return False
     kind = value.get("type")
     extra = (
@@ -72,6 +125,10 @@ def _valid_event(value):
         if kind == "started"
         else {"reason", "upstream_identity"}
     )
+    if version == 2:
+        extra = extra | _V2_FIELDS
+        if not _valid_refs(value.get("evidence_refs")):
+            return False
     if (
         set(value) != _EVENT_FIELDS | extra
         or kind not in ("started", "completed", "failed", "cancelled")
@@ -85,11 +142,16 @@ def _valid_event(value):
     if kind == "started":
         parent, reason = value["parent_attempt_id"], value["retry_reason"]
         return (parent is None and reason is None) or (_text(parent) and _text(reason))
+    completion_reason = "exact_horizon" if version == 1 else PROCESS_COMPLETED
     return (
-        (value["reason"] == "exact_horizon" and upstream is not None)
+        (value["reason"] == completion_reason and upstream is not None)
         if kind == "completed"
         else _text(value["reason"])
     )
+
+
+# Public alias (review F6); ``_valid_event`` stays importable for existing callers.
+valid_event = _valid_event
 
 
 def reconcile_attempts(schedule, events):

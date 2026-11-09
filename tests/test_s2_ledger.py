@@ -5,7 +5,14 @@ from copy import deepcopy
 
 import pytest
 
-from gate.s2_ledger import reconcile_attempts
+from gate.s2_diagnostics import _ATTEMPT_KEYS, _JOB_KEYS, _LEDGER_KEYS, _check_ledger
+from gate.s2_ledger import (
+    EVENT_SCHEMA_VERSIONS,
+    PROCESS_COMPLETED,
+    _valid_event,
+    reconcile_attempts,
+    valid_event,
+)
 
 
 def job(job_id="job-1", **changes):
@@ -280,6 +287,15 @@ def test_invalid_schedule_rows_are_rejected(change):
     assert "invalid_schedule_entry" in codes(report)
 
 
+def test_diagnostic_qualification_phase_is_a_schedule_phase_of_its_own():
+    """Review G2-04: a declared diagnostic unit's ledger job carries its own phase, never
+    the source pilot job's ``harmonizer_pilot``."""
+    report = reconcile_attempts([job(phase="diagnostic_qualification")], [])
+    assert codes(report) == {"missing_job"}
+    assert report["jobs"][0]["phase"] == "diagnostic_qualification"
+    assert "invalid_schedule_entry" in codes(reconcile_attempts([job(phase="diagnostic")], []))
+
+
 def test_unknown_job_and_attempt_id_reuse_block():
     events = [started(job_id="unknown")]
     assert "unknown_job" in codes(reconcile_attempts([job()], events))
@@ -356,3 +372,139 @@ def test_retry_cannot_use_parent_from_another_job():
         ),
     ]
     assert "retry_parent_invalid" in codes(reconcile_attempts(schedule, events))
+
+
+# --- Event schema v2 (build-spec B1; R1 P4b): neutral process-completion reason ---------
+
+
+
+def v2(event, refs=("capture:unit-attempt-evidence.json",)):
+    return {**event, "schema_version": 2, "evidence_refs": list(refs)}
+
+
+def v2_completed(**changes):
+    return v2(terminal(reason="process_completed", **changes))
+
+
+def test_v2_constants_are_literal():
+    assert EVENT_SCHEMA_VERSIONS == (1, 2)
+    assert PROCESS_COMPLETED == "process_completed"
+
+
+def test_v2_process_completed_admits_and_records_the_neutral_reason():
+    events = [v2(started(upstream_identity=None)), v2_completed()]
+    report = reconcile_attempts([job()], events)
+    assert report["admitted"], report["issues"]
+    attempt = report["attempts"][0]
+    assert attempt["state"] == "completed"
+    assert attempt["terminal_reason"] == "process_completed"
+    assert attempt["upstream_identity"] == identity()
+    assert attempt["events"] == events
+
+
+def test_report_and_record_key_sets_stay_identical_to_the_diagnostics_contract():
+    for events in ([started(), terminal()], [v2(started()), v2_completed()]):
+        report = reconcile_attempts([job()], events)
+        assert set(report) == _LEDGER_KEYS
+        assert set(report["jobs"][0]) == _JOB_KEYS
+        assert set(report["attempts"][0]) == _ATTEMPT_KEYS
+        assert set(report["counts"]) == {
+            "scheduled_jobs", "attempts", "missing_jobs", "idempotent_events",
+            "completed_attempts", "failed_attempts", "cancelled_attempts",
+            "incomplete_attempts"}
+        _check_ledger(report)
+
+
+def test_v1_events_are_byte_identical_in_behaviour():
+    events = [started(), terminal()]
+    report = reconcile_attempts([job()], events)
+    assert report["admitted"] and report["attempts"][0]["terminal_reason"] == "exact_horizon"
+
+
+@pytest.mark.parametrize("event, reason", [
+    # v1 keeps its exact-horizon contract; the neutral reason is a v2-only value.
+    (lambda: terminal(reason="process_completed"), "v1 neutral reason"),
+    # A v2 recorder never claims an exact horizon: that is evidence-derived downstream.
+    (lambda: v2(terminal(reason="exact_horizon")), "v2 exact horizon"),
+    (lambda: {k: v for k, v in v2_completed().items() if k != "evidence_refs"}, "no refs"),
+    (lambda: {**v2_completed(), "schema_version": 3}, "unknown version"),
+    (lambda: {**v2_completed(), "schema_version": True}, "bool version"),
+    (lambda: {**terminal(), "schema_version": 1}, "explicit v1 marker"),
+    (lambda: {**v2_completed(), "evidence_refs": "ref"}, "refs not a list"),
+    (lambda: {**v2_completed(), "evidence_refs": ["a", "a"]}, "duplicate refs"),
+    (lambda: {**v2_completed(), "evidence_refs": [" "]}, "blank ref"),
+    (lambda: v2_completed(upstream_identity=None), "completion without identity"),
+])
+def test_v2_negative_controls_are_invalid_events(event, reason):
+    events = [v2(started(upstream_identity=None)), event()]
+    report = reconcile_attempts([job()], events)
+    assert not report["admitted"], reason
+    assert "invalid_event" in codes(report), reason
+    assert report["events"] == events
+
+
+def test_v2_failure_cancellation_and_retry_chain_reconcile_like_v1():
+    a2 = identity("2")
+    events = [
+        v2(started(upstream_identity=None)),
+        v2(terminal(kind="failed", reason="upstream_rollout_failed")),
+        v2(started("attempt-2", 1, parent_attempt_id="attempt-1",
+                   retry_reason="runtime_internal_retry", upstream_identity=None)),
+        v2_completed(attempt="attempt-2", time=1, upstream_identity=a2),
+    ]
+    report = reconcile_attempts([job()], events)
+    assert not report["admitted"]
+    assert codes(report) == {"retry_selection_unregistered"}
+    assert [(a["state"], a["terminal_reason"]) for a in report["attempts"]] == [
+        ("failed", "upstream_rollout_failed"), ("completed", "process_completed")]
+    assert report["attempts"][1]["parent_attempt_id"] == "attempt-1"
+
+
+def test_mixed_v1_and_v2_jobs_reconcile_in_one_batch():
+    schedule = [job(), job("job-2", arm="B")]
+    events = [
+        started(), terminal(),
+        v2(started("attempt-2", 2, job_id="job-2", upstream_identity=None)),
+        v2_completed(attempt="attempt-2", time=3, job_id="job-2", upstream_identity=identity("2")),
+    ]
+    report = reconcile_attempts(schedule, events)
+    assert report["admitted"], report["issues"]
+    assert [a["terminal_reason"] for a in report["attempts"]] == [
+        "exact_horizon", "process_completed"]
+
+
+def test_v2_idempotent_repeat_and_conflict():
+    first = v2(started(upstream_identity=None))
+    report = reconcile_attempts([job()], [first, v2_completed(), deepcopy(first)])
+    assert report["admitted"] and report["counts"]["idempotent_events"] == 1
+    changed = {**first, "evidence_refs": ["other"]}
+    report = reconcile_attempts([job()], [first, v2_completed(), changed])
+    assert "conflicting_event_id" in codes(report)
+
+
+@pytest.mark.parametrize("kind", ["started", "completed", "failed", "cancelled"])
+def test_v2_event_without_evidence_refs_is_invalid(kind):
+    """B1-F9: a v2 event (above all a completion) must bind at least one evidence ref."""
+    first = v2(started(upstream_identity=None))
+    terminal_event = (v2_completed() if kind == "completed"
+                      else v2(terminal(kind=kind, reason="x")) if kind != "started" else None)
+    if kind == "started":
+        events = [v2(started(upstream_identity=None), refs=()), v2_completed()]
+    else:
+        events = [first, {**terminal_event, "evidence_refs": []}]
+    report = reconcile_attempts([job()], events)
+    assert not report["admitted"]
+    assert "invalid_event" in codes(report)
+
+
+def test_public_valid_event_alias_is_the_private_check():
+    """Review F6: ``valid_event`` is public and identical to the kept ``_valid_event``."""
+    assert valid_event is _valid_event
+    assert valid_event(started()) is True
+    assert valid_event(v2(started(upstream_identity=None))) is True
+    assert valid_event(v2_completed()) is True
+    # Negative controls: a v1 completion needs exact_horizon; v2 needs evidence refs.
+    assert valid_event(terminal(reason="process_completed")) is False
+    assert valid_event({**v2_completed(), "evidence_refs": []}) is False
+    assert valid_event({**started(), "schema_version": True}) is False
+    assert valid_event("not an event") is False

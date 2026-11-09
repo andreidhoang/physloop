@@ -1,0 +1,27 @@
+Using CPython 3.12.11 interpreter at: /Users/danghuyhoang/.local/share/uv/python/cpython-3.12.11-macos-aarch64-none/bin/python3.12
+Creating virtual environment at: /var/folders/jk/23y_gcc56qg_43vr0br4l82h0000gn/T/physloop-clean-s2-kbnij7zy/venv
+Downloading numpy (5.2MiB)
+Downloading pygments (1.2MiB)
+Downloading shapely (1.6MiB)
+Downloading scipy (19.5MiB)
+Downloading pyarrow (34.2MiB)
+Downloading ruff (9.0MiB)
+ Downloading shapely
+ Downloading pygments
+ Downloading ruff
+ Downloading numpy
+ Downloading scipy
+ Downloading pyarrow
+Prepared 11 packages in 7.22s
+Installed 11 packages in 104ms
+ + iniconfig==2.3.1
+ + numpy==2.5.4
+ + packaging==26.3
+ + pluggy==1.7.0
+ + protobuf==7.36.2
+ + pyarrow==25.0.1
+ + pygments==2.21.0
+ + pytest==9.2.0
+ + ruff==0.17.3
+ + scipy==1.18.1
+ + shapely==2.1.2

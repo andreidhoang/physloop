@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "s4_setup_inventory",
+  "stage": "S4",
+  "status": "draft",
+  "cloud_launch_authorized": false,
+  "scientific_admission": false,
+  "engineering_admission": false,
+  "authored_by": "agent (A8) under D-018/D-024; engineering inventory, not a registration, admission, rental, licence action or prediction",
+  "decision_refs": ["D-018", "D-023", "D-024"],
+  "source_audit_date": "2026-11-08",
+  "source_audit_ref": "docs/research/2026-11-08-codebase-build/lane-r3-s4-upstream.md",
+  "source_status": "pinned_source_read_not_runtime_qualified",
+  "verification_ceiling": "L2 facts from pinned source text (tests/fixtures/s4_upstream/, hash-checked); every runtime fact is qualify_on_host",
+  "pins": {
+    "pins_module": "teacher_rl/pins.py",
+    "alpagym": {"repository": "https://github.com/NVlabs/alpagym", "commit": "972d160eed0e23d388497851504a3a233fec5879"},
+    "alpamayo_recipes": {"repository": "https://github.com/NVlabs/alpamayo-recipes", "commit": "1d99fc50370c96637157455da386323a44663c9d", "note": "open PR #18 head; not interchangeable with main c53aa09"},
+    "cosmos_rl": {"repository": "https://github.com/nvidia-cosmos/cosmos-rl", "commit": "d2a2c57c4bd6496482bc42da19a59b4432705eda", "note": "76 behind main; pinned by AlpaGym override"},
+    "training_alpasim": {"repository": "https://github.com/NVlabs/alpasim", "commit": "46b401beaec27977cbb86826df8e39cec2d49e49", "tree_identical_commit": "10cae1c2b943da72eabafad65df80f4e3c16d90d", "tree": "9b838542a6365bd34dc48b9c6eb795a94162fb8d", "note": "only refs/pull/107/head; no uv.lock upstream, record uv pip freeze of the checkout venv"},
+    "alpamayo_r1": {"repository": "https://github.com/NVlabs/alpamayo", "commit": "4cda35d22bb257f0936ac272397627b9309ca211"},
+    "evaluation_alpasim_for_gate": {"commit": "e121e59141dc391f6c295513d6dadc840a419149", "note": "S2 gate path differs from the training AlpaSim; E16 audits the difference"}
+  },
+  "alpagym_lock": {
+    "uv_lock_sha256": "5148f9b0f5f20b1cc3753dec78e165491c881b0217d095bba9a74d017fcd674e",
+    "packages": {"torch": "2.8.0+cu128", "transformers": "4.57.1", "vllm": "0.11.0", "numpy": "2.2.6", "safetensors": "0.7.0"},
+    "platform": "linux x86_64 only",
+    "sync_rule": "uv sync --frozen; record uv version and uv.lock sha256 before and after; fail on any change; working-tree diff must be empty",
+    "known_float": "lock uses relative exclude-newer-span P3D; upstream local launch runs uv run --all-packages without --frozen (lane-r3 finding 12)"
+  },
+  "images": [
+    {"role": "renderer", "reference": "nvcr.io/nvidia/nre/nre-ga:26.04", "kind": "mutable_tag", "digest": null, "gated": true, "terms": "NGC NRE image terms (Huy accepts)", "authorization_ref": null, "note": "record RepoDigests at pull; tag is not an identity"},
+    {"role": "alpasim_base", "reference": null, "kind": "local_build", "image_id": null, "gated": false, "note": "built locally from the training AlpaSim checkout by the Wizard; record build inputs and image ID"},
+    {"role": "alpagym_reference_dockerfile", "reference": "alpagym install/Dockerfile", "kind": "reference_only", "facts": {"cuda": "12.8.1", "nccl": "2.26.2", "torch_cuda_arch_list": "8.0-9.0"}, "note": "Blackwell sm_120 is outside the arch list; grouped-gemm builds from source; record GPU edition, driver, CUDA, compute capability"}
+  ],
+  "assets": [
+    {"role": "teacher", "repository": "nvidia/Alpamayo-1.5-10B", "repo_type": "model", "revision": "7aba8293c09993f2e125c6819df05d7fa3e873ea", "gated": false, "terms": "OpenMDW-1.1 (Huy accepts)", "bytes": null, "sha256": null, "authorization_ref": null, "note": "Gym ONBOARDING downloads without a revision; harness pins it; hash 5 shards, index and config"},
+    {"role": "vlm_config_and_processor", "repository": "nvidia/Cosmos-Reason2-8B", "repo_type": "model", "revision": null, "observed_revision": {"value": "a9fae2cf89dc64db96b12860417f0eb403013bb9", "observed_on": "2026-11-08", "use": "observation only"}, "gated": true, "terms": "gated Hugging Face access (Huy accepts)", "bytes": null, "sha256": null, "authorization_ref": null, "required": true, "why": "converter writes vlm_name_or_path into config.json; every model construction loads its processor/config (lane-r3 finding 8)"},
+    {"role": "nurec_scenes", "repository": "nvidia/PhysicalAI-Autonomous-Vehicles-NuRec", "repo_type": "dataset", "revision": null, "gated": true, "terms": "NuRec dataset licence (Huy accepts; KC-L/KC-L2 apply)", "bytes": null, "sha256": null, "authorization_ref": null, "note": "AlpaGym CLI refuses without an HF token passing the NuRec auth check"},
+    {"role": "converted_bundle", "repository": null, "revision": null, "bytes": null, "sha256": null, "note": "convert_release_to_alpagym_checkpoint.py output; weights are symlinks to release shards, hash the targets; record config.json diff"}
+  ],
+  "host_requirements": {
+    "gpu_count": 2,
+    "placement": {"gpu0": "Cosmos policy replica (trainer)", "gpu1": "Cosmos rollout replica (full 10B inference) + AlpaSim NRE renderer + physics"},
+    "placement_status": "INFERRED from topology local_disaggregated_2gpu (lane-r3 finding 13); memory fit is L3",
+    "gpu_edition": null,
+    "guest_ram_bytes": null,
+    "disk_bytes": null,
+    "nccl_p2p_check": "torchrun --nproc-per-node=2 install/check_nccl_p2p.py (fallback NCCL_P2P_DISABLE=1)",
+    "external_watchdog_required": true,
+    "external_watchdog_reason": "a non-controller worker crash does not stop the run (lane-r3 finding 14); E18"
+  },
+  "tools": [
+    {"name": "uv", "minimum": "0.10"},
+    {"name": "docker", "requirement": "Docker with Compose v2"},
+    {"name": "cuda_apt_keyring", "requirement": "present"},
+    {"name": "libcudnn9-dev-cuda-12", "requirement": "installed"},
+    {"name": "libnccl", "requirement": "libnccl-dev/libnccl2=2.26.2-1+cuda12.8"},
+    {"name": "redis-server", "requirement": "installed"},
+    {"name": "git-lfs", "requirement": "installed"},
+    {"name": "install/check_env.sh", "requirement": "AlpaGym preflight passes"}
+  ],
+  "launch_sequence": [
+    {"step": 1, "what": "host tools and AlpaGym preflight", "gated": false},
+    {"step": 2, "what": "uv sync --frozen --all-packages with lock hash check", "gated": false},
+    {"step": 3, "what": "credentials and licence acceptance (HF token, NuRec, Cosmos-Reason2-8B, NGC)", "gated": true, "owner": "Huy"},
+    {"step": 4, "what": "teacher download at the pinned revision and conversion", "gated": true, "owner": "Huy (licence) then agent"},
+    {"step": 5, "what": "NCCL P2P check", "gated": false},
+    {"step": 6, "what": "stage capture tree (teacher_rl.capture.host_launch.stage_capture_tree), then uv run --no-sync --all-packages python -B -m teacher_rl.capture.host_launch --action-authority-ref <ref> --capture-tree <dir> --capture-manifest <file> --capture-config <file> --worker-credentials <strip_offline|inherit_disclosed> -- <compiled Hydra overrides, which include the absolute run_root> alpasim.checkout_cache_dir='<inventory alpasim_cache_dir>'", "gated": true, "owner": "recorded execution authority", "requirements": ["-B: the capture tree is refused if it holds any __pycache__ (bytecode would run instead of the verified source); workers get PYTHONDONTWRITEBYTECODE=1", "absolute engineering.run_root compiled as run_root='/...': the pinned default ./tmp/alpagym-runs gives workers a relative custom.resolved_config_path that capture refuses", "--worker-credentials has no default: strip_offline removes credential-named variables from every Cosmos role and sets HF_HUB_OFFLINE=1 (gated files, e.g. the Cosmos-Reason2-8B processor/config, must already be cached); inherit_disclosed keeps upstream inheritance and records the variable names only"]},
+    {"step": 7, "what": "export (final step always exports; intermediate needs export_safetensors) and conversion to inference format", "gated": false}
+  ],
+  "capture": {
+    "entrypoint_module": "teacher_rl.capture.entrypoint",
+    "host_launch_module": "teacher_rl.capture.host_launch",
+    "route": "lane-r3 §6 H4: zero upstream lines changed; launcher module string substituted at run_lifecycle._build_cosmos_launcher_command",
+    "level": "L2 (pinned-source and fake-module tests); qualify_on_host",
+    "capture_config_suggestion": {
+      "label": "agent technical default (D-018), provisional until the first measured run",
+      "config": {
+        "schema": "physloop.s4.capture.config.v1",
+        "limits": {"max_event_bytes": 1048576, "max_stream_bytes": 1073741824, "max_blob_bytes": 67108864, "max_total_blob_bytes": 21474836480},
+        "max_inline_items": 4096,
+        "max_message_chars": 4000,
+        "max_completion_file_bytes": 1073741824,
+        "max_checkpoint_file_bytes": 68719476736,
+        "parameter_snapshots": "init_only",
+        "parameter_hashing": "metadata_only",
+        "capture_simulator_bytes": true
+      },
+      "qualification_run_requirement": "This suggestion disables E07 inputs and per-step E03 evidence. An E03/E07 qualification run must set parameter_snapshots: init_and_each_step and parameter_hashing: sha256_local, with max_event_bytes sized for the full tensor table measured on the host; the choice per run is recorded in the run registration (review F5).",
+      "basis": "simulator replies carry metric arrays only (runtime.proto SimulationReturn); completion artifacts carry raw frames and may reach hundreds of MB per episode (INFERRED, unmeasured); full tensor hashing of a 10B model per step is L3 and costly, so E03 hashing is chosen per qualification run; max_checkpoint_file_bytes (64 GiB) bounds each exported safetensors file hashed after _save_checkpoint (E02/E21) above the expected few-GB shards (INFERRED, unmeasured); hashing time per export is L3"
+    }
+  },
+  "registration": {
+    "schema_module": "teacher_rl/registration.py",
+    "schema_version": 2,
+    "schema_note": "s4_run_registration v2 (D-024 G3): guards carry a required s2_protocol_hash; v1 documents are refused as unsupported_schema_version. s4_effective_config stays v1.",
+    "base_experiment": "alpamayo_1_5_local_2gpu_smoke",
+    "engineering_inputs_required": ["run_root (absolute; compiled to the Hydra run_root override)", "policy_model_path", "cosmos_reason2_revision", "config_route"],
+    "status": "unregistered",
+    "owner_inputs_blank": [
+      "group_size", "rollouts_per_trainer_step", "learning_rate", "lr_schedule", "warmup (steps, start_factor)",
+      "scene_set", "optimizer_steps_per_run", "checkpoint_retention", "anchor", "scene_roles", "overlap_rule",
+      "evaluated_policy_path",
+      "improvement_decision_rule (rule_id, registration_ref, guards [guard endpoints: name, s2_registration_id, metric, margin, alpha, s2_protocol_hash (identity_hash of the guard's S2 registration without its run-specific candidate)], guard_strata, gating_strata, look [fixed or sequential with look_index])",
+      "smallest_improvement_of_interest", "seed_modes",
+      "version_policy (on_policy, allowed_outdated_steps, prefetch_rollout)", "reward_arm", "e07_pass_criterion",
+      "parity_tolerances", "video", "decode_device", "independent_training_runs",
+      "run_aggregation (rule, k, family_alpha)", "prediction_ref",
+      "cosmos_reason2_revision",
+      "response_to_alpagym_issue_10 (bf16 trainable masters: accept_as_shipped or a recorded change_request, with record_ref)"
+    ]
+  },
+  "operations": {
+    "authored_by": "agent (B3) under D-018/D-024; engineering preparation only: no authorization, rental, licence action, download or launch",
+    "status": "draft",
+    "authorization": null,
+    "bootstrap_plan": {
+      "module": "teacher_rl/ops.py",
+      "inventory_kind": "s4_runtime_inventory",
+      "plan_kind": "s4_bootstrap_plan",
+      "compiled_with": "gate.s2_bootstrap stage builder, rule constructors, content validator and seal (S4 stage list only)",
+      "phases": ["host", "alpagym", "alpasim", "images", "assets", "convert", "nccl", "record"],
+      "record_phase_note": "compiled after AlpaGym's first launch builds the training AlpaSim venv (lane-r3 finding 12)",
+      "alpasim_checkout": {"choice": "AlpaGym's own content-addressed cache: inventory host_paths.alpasim_cache_dir, passed by the launch as alpasim.checkout_cache_dir; the alpasim phase creates it and requires it empty; the record phase verifies HEAD, tree and venv of <cache>/62400020a95f (sha256 of 'https://github.com/NVlabs/alpasim.git@46b401b...'[:12], alpasim_dependency.py:37-41)", "label": "agent technical default (D-018), review B3-04", "alternative_not_chosen": "alpasim.repo_path=<verified checkout> with repo_url/repo_ref null: AlpaGym then syncs an editable venv in place and skips compile-protos, which the plan would have to replicate"},
+      "host_path_rule": "alpagym_checkout, alpasim_cache_dir, teacher_snapshot, converted_bundle, hf_home, download_scratch, evidence_dir and docker_data_root are pairwise disjoint (review B3-10)",
+      "rental_licence_attestation": "every terms:<role> reference a compiled stage consumes must appear in the rental action record's license_attestation_refs (review B3-19)",
+      "disk_rule": "H6 applies the S2 285 GB filesystem floor to the teacher-snapshot and Docker filesystems and lists the S4 consumers of unknown size (agent technical default (D-018), review B3-15)",
+      "converter_caveat": "C1 is L3: offline load of nvidia/Cosmos-Reason2-8B by repo name after a by-commit download may find no refs/main (info issue hf_offline_cache_resolution_unverified, review B3-18)",
+      "action_record_authorizations": ["host_setup", "acquire:renderer", "acquire:teacher", "acquire:cosmos_reason2"],
+      "inventory_terms_refs": ["terms:renderer", "terms:teacher", "terms:cosmos_reason2"],
+      "gpu_count_source": "gate.s2_execution action record resources.gpu_count; must equal 2 (local_disaggregated_2gpu)",
+      "executable_by": null,
+      "executable_by_note": "gate.s2_bootstrap.validate_plan and scripts/s2_guest_bootstrap.py refuse an s4_bootstrap_plan until their S4 generalization is integrated (requested shared change)"
+    },
+    "launch": {
+      "module": "teacher_rl/launch.py",
+      "routes": ["hydra_only", "h1_resolved_toml"],
+      "h1_inputs_required_from_host": ["run_dir (host-created)", "base cosmos_config.toml bytes", "sha256 of the host-composed resolved_config.yaml"],
+      "h1_registered_value_check": "every compiled cosmos.<key> override and policy.model.path must already be in the base TOML under its TOML name with the same type and value; credential-like TOML content blocks; launch_hash binds the base TOML bytes (review B3-01, B3-12)",
+      "required_inputs_both_routes": ["alpasim_cache_dir (equal to the inventory's)", "nurec_authorization_refs {terms, acquire}: Huy's NuRec licence and acquisition references, because HF_TOKEN reaches the host CLI's NuRec dataset check and the Wizard's scene download (review B3-08)"],
+      "nurec_authorization_refs": null,
+      "argv_only": true
+    },
+    "watchdog": {
+      "module": "teacher_rl/watchdog.py",
+      "ticket": "E18",
+      "required_inputs": ["run_id", "roles (name, role, pid, pgid)", "stall_seconds", "poll_seconds", "deadline_epoch", "provider_cutoff_epoch", "export_reserve_seconds", "term_grace_seconds"],
+      "stall_seconds": null,
+      "deadline_epoch": null,
+      "term_grace_seconds_suggestion": {"value": 10, "label": "agent technical default (D-018): mirrors the upstream host teardown SIGTERM then SIGKILL after 10 s (lane-r3 section 3)"},
+      "teardown_bound": "export_reserve_seconds > 0 and poll_seconds + 2 x term_grace_seconds + 4 x 60 s command timeouts <= export_reserve_seconds; sleeps are clamped to deadline_epoch (review B3-05)",
+      "process_identity": "SystemProcesses binds each group to its leader start time from /proc and refuses a reused or re-grouped id (review B3-09; L3)",
+      "handoff": "gate.s2_execution lifecycle: work_complete for a completed clean run, work_failed (with its required reason and s4_watchdog/s4_cleanup codes) for every other end; the lifecycle exports, then stops and destroys"
+    },
+    "forecast": {
+      "module": "teacher_rl/forecast.py",
+      "formula": "setup + training + development_selection + locked_confirmation + storage + transfer + fees + failure_reserve (protocol-design section 8)",
+      "measured_inputs": null,
+      "failure_reserve_usd": null,
+      "status": "not_estimable until an admitted engineering qualification measures setup time, episode wall time and rerun rates on the approved topology"
+    },
+    "evaluation_handoff": {
+      "module": "teacher_rl/evaluate.py",
+      "candidate_identity": "tensor_set_sha256 of the inference checkpoint's gate.tensor_manifest manifest; the S2 registration candidate must name it",
+      "export_chain": "each request re-runs teacher_rl.export_audit.audit_export over the release, Cosmos export, policy snapshot and this inference manifest; the audit and its converter section must pass (review B3-11)",
+      "checkpoint_steps": "the final trainer step, plus multiples of save_freq when export_safetensors is registered (review B3-11)",
+      "aggregation_inputs_location": "s4_run_registry v2 aggregation {rule, k, family_alpha}, registered before any request is built; requests bind the registry hash (review B3-20; a slot in the S4 registration is a requested shared change)",
+      "decision_binding": "aggregate takes {run: {request_hash, decision}}; delta_min, strata, metric, gate method and primary alpha must equal the registration (review B3-02)",
+      "run_registry_run_ids": null,
+      "aggregation_rule": null,
+      "aggregation_k": null,
+      "family_alpha": null
+    },
+    "cli": "python -m teacher_rl (pure or dry-run commands)",
+    "rehearsal": "scripts/rehearse_s4.py (synthetic, L1)"
+  },
+  "qualify_on_host": [
+    "Hydra composes the compiled overrides onto the pinned preset (hash resolved_config.yaml)",
+    "H1 route: the controller's effective Cosmos config contains every TOML override",
+    "uv run preserves PYTHONPATH into every Cosmos role and the substituted module runs in each",
+    "the chosen worker credential mode works: with strip_offline every Cosmos role starts with HF_HUB_OFFLINE=1 from the pre-populated cache; /proc/<pid>/environ of a role still shows its initial environment",
+    "pinned _prepare_training_data samples expose training_signal.old_logprobs and is_padding per row (E04 capture), and the export manifest hashing time fits the step budget",
+    "two-GPU memory fit and NCCL P2P on the delivered edition",
+    "per-process capture streams close cleanly and their volume fits the declared budgets",
+    "AlpaSim per-rollout directory layout {run_dir}/alpasim/wizard_0/rollouts/<scene>/<session>/ (INFERRED)"
+  ]
+}

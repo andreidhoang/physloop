@@ -51,3 +51,5 @@ PhysLoop execution traces are a separate, explicitly labelled test contract.
 They do not establish parsing of AlpaSim's ASL protobuf logs, effective runtime
 configuration, map coverage, actual rendering completeness, actual simulation
 step counts, or a real rollout's qualification.
+
+`modifiers_e121e591.py.txt`, `main_e121e591.py.txt` and `scene_score_e121e591.py.txt` (`src/eval/src/eval/aggregation/`) were added on 2026-11-09 from a clean local public clone at the same commit via `git cat-file`; their blob SHA-1 and SHA-256 are in `provenance.json`, whose per-entry `retrieval` field supersedes the top-level one for these three. CPU-12 executes the modifier row semantics and the >= 4 m modifier of `main` from them; `scene_score` is hash-checked only.

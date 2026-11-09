@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-09",
+  "repository": "https://github.com/NVlabs/alpagym",
+  "commit": "972d160eed0e23d388497851504a3a233fec5879",
+  "retrieval": "Byte copy from the R3 lane read-only clone at the pinned commit (clean worktree); no weights, datasets or LFS objects.",
+  "license": "Apache-2.0",
+  "license_check": "Apache-2.0 permits redistribution with the LICENSE file; copied alongside, unmodified.",
+  "license_file": "LICENSE",
+  "license_file_sha256": "85d0bf7032265ecf3647a293362c7ac55930d253d6a78dfcbce245c98eba2a72",
+  "license_file_git_blob_sha": "bc7af1e20a7c4f56383bcb3446b8b8b0f8bf362e",
+  "sources": [
+    {
+      "file": "convert_alpagym_checkpoint_to_inference_972d160e.py.txt",
+      "path": "packages/policies/alpamayo_r1/scripts/convert_alpagym_checkpoint_to_inference.py",
+      "commit": "972d160eed0e23d388497851504a3a233fec5879",
+      "git_blob_sha": "a15800e8d7ca9f0690cf4c26eb993d3edc9951b8",
+      "sha256": "936a290377955fe28ec8db4ed28e7622fe3d52450c8bce439255daf0b5f8b38f",
+      "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/policies/alpamayo_r1/scripts/convert_alpagym_checkpoint_to_inference.py",
+      "executed_nodes": ["to_inference_weight_key"]
+    }
+  ]
+}

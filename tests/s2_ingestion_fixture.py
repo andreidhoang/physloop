@@ -1,4 +1,7 @@
-"""Invented exact-answer raw files; no licensed or measured simulator data."""
+"""Invented exact-answer raw files; no licensed or measured simulator data.
+
+The job's scene_id equals the upstream clipgt_id (R4 C2 binding, docs/S2_INGESTION.md).
+"""
 
 import hashlib
 import json
@@ -58,7 +61,9 @@ def fixture_bundle(root):
         "phase": "synthetic",
         "arm": "A",
         "policy_id": "teacher",
-        "scene_id": "scene",
+        # R4 C2: the scheduled scene_id is the value the wizard passes in scenes.scene_ids,
+        # which the pinned runtime writes as clipgt_id, so the two must be equal.
+        "scene_id": IDENTITY["clipgt_id"],
         "road_id": "road",
         "stratum": "urban",
         "replicate_id": 0,

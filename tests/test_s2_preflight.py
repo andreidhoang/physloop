@@ -451,3 +451,404 @@ def test_full_sweep_missing_release_is_blocked_but_pilot_needs_none():
     pilot = manifest()
     del pilot["prerequisites"]["full_sweep_release"]
     assert validate_s2_preflight(pilot)["ready_for_planning"]
+
+
+# --- R4 C6: planned.resources is an exact allowlist (agent-authored, D-024) ----------------
+
+
+def blockers_at(result, code):
+    return sorted(reason["path"] for reason in result["blocking_reasons"] if reason["code"] == code)
+
+
+def test_c6_setup_fee_and_tax_are_named_blockers_not_ignored():
+    """repro_03: setup_fee_usd=500 and tax_usd=90 formerly left the $12 plan ready."""
+    document = manifest()
+    document["planned"]["resources"].update(setup_fee_usd=500, tax_usd=90)
+    result = validate_s2_preflight(document)
+    assert not result["ready_for_planning"]
+    assert blockers_at(result, "unknown_cost_field") == [
+        "planned.resources.setup_fee_usd",
+        "planned.resources.tax_usd",
+    ]
+
+
+@pytest.mark.parametrize("field", ["allocation_note", "rate_basis", "gpu_hours", "region"])
+def test_c6_any_unknown_resource_key_blocks(field):
+    document = manifest()
+    document["planned"]["resources"][field] = "anything"
+    result = validate_s2_preflight(document)
+    assert blockers_at(result, "unknown_resource_field") == [f"planned.resources.{field}"]
+
+
+def test_c6_negative_control_exact_allowlist_is_ready():
+    document = manifest()
+    assert set(document["planned"]["resources"]) == {
+        "gpu_count", "rate_per_gpu_hour_usd", "wall_hours_cap", "storage_cap_usd",
+        "egress_cap_usd", "other_cap_usd", "total_cap_usd", "quoted_at", "gpu_edition",
+    }
+    result = validate_s2_preflight(document)
+    assert result["ready_for_planning"] and result["estimated_total_cost_usd"] == 12
+
+
+# --- R4 C11: attestation dates and placeholder owner text ----------------------------------
+
+
+def test_c11_repro_dates_are_blocked_with_named_paths():
+    """repro_03: challenge closure recorded 2026-09-01 and a 1999 licence were accepted."""
+    document = manifest()
+    document["prerequisites"]["challenge_closed_verified"]["recorded_at"] = "2026-09-01"
+    document["prerequisites"]["license_acceptance_by_owner"]["recorded_at"] = "1999-01-01"
+    result = validate_s2_preflight(document)
+    assert not result["ready_for_planning"]
+    assert blockers_at(result, "attestation_date_out_of_range") == [
+        "prerequisites.challenge_closed_verified.recorded_at",
+        "prerequisites.license_acceptance_by_owner.recorded_at",
+    ]
+    assert {"prerequisite_unrecorded", "license_unaccepted"} <= codes(result)
+
+
+@pytest.mark.parametrize(
+    "key,recorded_at,ready",
+    [
+        ("challenge_closed_verified", "2026-10-30", False),
+        ("challenge_closed_verified", "2026-10-31", True),  # gate date itself is allowed
+        ("challenge_closed_verified", "2026-10-31T09:00:00+07:00", True),
+        ("challenge_closed_verified", "2026-10-30T23:59:59", False),
+        ("latest_upstream_release_checked", "2026-10-30", False),
+        ("latest_upstream_release_checked", "2026-11-01", True),
+        ("license_acceptance_by_owner", "2026-09-21", False),
+        ("license_acceptance_by_owner", "2026-09-22", True),  # project start floor
+        ("host_compatibility_verified", "2026-09-21", False),
+        ("budget_decision_P005", "2026-09-21", False),
+        ("budget_decision_P005", "2026-09-22", True),
+    ],
+)
+def test_c11_date_floors_known_answers(key, recorded_at, ready):
+    document = manifest()
+    document["prerequisites"][key]["recorded_at"] = recorded_at
+    result = validate_s2_preflight(document)
+    assert result["ready_for_planning"] is ready, result["blocking_reasons"]
+    expected = [] if ready else [f"prerequisites.{key}.recorded_at"]
+    assert blockers_at(result, "attestation_date_out_of_range") == expected
+
+
+def test_c11_floor_constants_are_the_documented_defaults():
+    from datetime import date
+
+    from gate import s2_preflight
+
+    assert s2_preflight.PROJECT_START_DATE == date(2026, 9, 22)
+    assert s2_preflight.ATTESTATION_GATE_DATES["challenge_closed_verified"] == date(2026, 10, 31)
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "TBD later",
+        "tbd",
+        "TODO",
+        "ToDo:",
+        "Later",
+        "placeholder",
+        "XXX",
+        "xxxx",
+        "N/A",
+        "n/a",
+        "?",
+        "????",
+        "____",
+        "tbd later",
+        " TBD - later ",
+        "[todo]",
+        "-",
+    ],
+)
+def test_c11_placeholder_prediction_is_rejected(value):
+    document = manifest()
+    document["planned"]["measurement"]["experiment_prediction"]["value"] = value
+    result = validate_s2_preflight(document)
+    assert not result["ready_for_planning"]
+    assert blockers_at(result, "invalid_measurement") == [
+        "planned.measurement.experiment_prediction.value"
+    ]
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "Lateral deviation stays below 0.5 m on every pilot scene.",
+        "Collateral cost stays below the translated quote for taxis.",
+        "Added time below 1 second/step; box and taxi scenes included.",
+        # A1R: placeholder tokens inside prose are prose, not a placeholder value.
+        "ToDo: write it",
+        "placeholder text",
+        "prediction?",
+        "Added time ____ s/step",
+        "Đường đô thị",
+        "城市道路",
+    ],
+)
+def test_c11_negative_control_real_text_with_embedded_letters_is_accepted(value):
+    document = manifest()
+    document["planned"]["measurement"]["experiment_prediction"]["value"] = value
+    assert validate_s2_preflight(document)["ready_for_planning"]
+
+
+@pytest.mark.parametrize(
+    "name,value",
+    [("stabilization_rule", "TODO"), ("strata_definition", ["urban", "tbd later"])],
+)
+def test_c11_other_owner_text_values_reject_placeholders(name, value):
+    document = manifest("full_sweep")
+    document["planned"]["measurement"][name]["value"] = value
+    result = validate_s2_preflight(document)
+    assert blockers_at(result, "invalid_measurement") == [f"planned.measurement.{name}.value"]
+
+
+# --- A1-R2: placeholder rejection covers owner definitions and owner source refs ----------
+
+
+def _set(document, path, value):
+    *parents, leaf = path.split(".")
+    target = document
+    for key in parents:
+        target = target[key]
+    target[leaf] = value
+
+
+@pytest.mark.parametrize(
+    "path,value,code,blocked_path",
+    [
+        (
+            "planned.measurement.score_definition",
+            "????",
+            "missing_planned_field",
+            "planned.measurement.score_definition",
+        ),
+        (
+            "planned.measurement.deviation_convention",
+            "n/a",
+            "missing_planned_field",
+            "planned.measurement.deviation_convention",
+        ),
+        (
+            "planned.sampling.target_population",
+            "TBD later",
+            "missing_planned_field",
+            "planned.sampling.target_population",
+        ),
+        ("registration.source_ref", "TODO", "owner_choice_unfrozen", "registration"),
+        (
+            "prerequisites.license_acceptance_by_owner.source_ref",
+            "TODO",
+            "license_unaccepted",
+            "prerequisites.license_acceptance_by_owner",
+        ),
+        (
+            "prerequisites.license_acceptance_by_owner.actor",
+            "____",
+            "license_unaccepted",
+            "prerequisites.license_acceptance_by_owner",
+        ),
+        (
+            "prerequisites.challenge_closed_verified.source_ref",
+            "placeholder",
+            "prerequisite_unrecorded",
+            "prerequisites.challenge_closed_verified",
+        ),
+        (
+            "planned.measurement.experiment_prediction.source_ref",
+            "TBD",
+            "owner_choice_unfrozen",
+            "planned.measurement.experiment_prediction",
+        ),
+    ],
+)
+def test_a1_r2_placeholder_owner_definitions_and_source_refs_block(path, value, code, blocked_path):
+    """Review A1-R2 repro: each value formerly left ready_for_planning True with no blocker."""
+    document = manifest()
+    _set(document, path, value)
+    result = validate_s2_preflight(document)
+    assert not result["ready_for_planning"]
+    assert blockers_at(result, code) == [blocked_path]
+
+
+@pytest.mark.parametrize(
+    "path,value",
+    [
+        ("planned.measurement.score_definition", "scene_score summed over every scored step"),
+        ("planned.sampling.target_population", "Laterally offset urban roads"),
+        ("registration.source_ref", "docs/DECISIONS.md#D-018"),
+    ],
+)
+def test_a1_r2_negative_control_real_text_is_still_accepted(path, value):
+    document = manifest()
+    _set(document, path, value)
+    assert validate_s2_preflight(document)["ready_for_planning"]
+
+
+# --- A1R: placeholder = whole value of placeholder tokens/punctuation, never a substring ---
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "registration.source_ref",
+        "prerequisites.challenge_closed_verified.source_ref",
+        "planned.measurement.experiment_prediction.source_ref",
+        "planned.measurement.score_definition",
+    ],
+)
+@pytest.mark.parametrize(
+    "value",
+    [
+        "https://github.com/NVlabs/alpasim/releases?q=v1.1&expanded=true",
+        "https://github.com/NVlabs/alpasim/pulls?q=is%3Apr+is%3Amerged",
+    ],
+)
+def test_a1r_urls_with_question_marks_are_not_placeholders(path, value):
+    """A1R repro: these URLs formerly blocked (owner_choice_unfrozen, prerequisite_unrecorded)."""
+    document = manifest()
+    _set(document, path, value)
+    result = validate_s2_preflight(document)
+    assert result["ready_for_planning"], result["blocking_reasons"]
+
+
+@pytest.mark.parametrize("value", ["TBD", "TODO", "n/a", "?", "____", "tbd later"])
+@pytest.mark.parametrize(
+    "path,code,blocked_path",
+    [
+        ("registration.source_ref", "owner_choice_unfrozen", "registration"),
+        (
+            "prerequisites.challenge_closed_verified.source_ref",
+            "prerequisite_unrecorded",
+            "prerequisites.challenge_closed_verified",
+        ),
+        (
+            "planned.measurement.margin.source_ref",
+            "owner_choice_unfrozen",
+            "planned.measurement.margin",
+        ),
+    ],
+)
+def test_a1r_whole_value_placeholders_block_source_refs(value, path, code, blocked_path):
+    document = manifest("full_sweep")  # margin is an owner choice only in full_sweep
+    _set(document, path, value)
+    result = validate_s2_preflight(document)
+    assert not result["ready_for_planning"]
+    assert blockers_at(result, code) == [blocked_path]
+
+
+@pytest.mark.parametrize("value", ["TODO", "n/a"])
+@pytest.mark.parametrize(
+    "path,code,blocked_path",
+    [
+        # Non-owner attestations: no actor == "Huy" equality masks the _owner_text actor check.
+        (
+            "prerequisites.challenge_closed_verified.actor",
+            "prerequisite_unrecorded",
+            "prerequisites.challenge_closed_verified",
+        ),
+        (
+            "prerequisites.latest_upstream_release_checked.actor",
+            "prerequisite_unrecorded",
+            "prerequisites.latest_upstream_release_checked",
+        ),
+        # Owner-choice source_ref (planned.measurement.<choice>).
+        (
+            "planned.measurement.margin.source_ref",
+            "owner_choice_unfrozen",
+            "planned.measurement.margin",
+        ),
+        (
+            "planned.measurement.experiment_prediction.source_ref",
+            "owner_choice_unfrozen",
+            "planned.measurement.experiment_prediction",
+        ),
+    ],
+)
+def test_a1r_placeholders_text_accepts_block_actor_and_owner_choice_source_ref(
+    value, path, code, blocked_path
+):
+    """A1R test gap: 'TODO'/'n/a' pass _text, so only _owner_text at these sites blocks them."""
+    document = manifest("full_sweep")  # margin is an owner choice only in full_sweep
+    _set(document, path, value)
+    result = validate_s2_preflight(document)
+    assert not result["ready_for_planning"]
+    assert blockers_at(result, code) == [blocked_path]
+
+
+# --- A1R2: placeholder tokens joined by "/" are still a placeholder; "n/a" stays one token --
+
+
+@pytest.mark.parametrize("value", ["TBD/later", "todo/tbd", "n/a/tbd", "xxx/xxx", "n/a", "N/A"])
+def test_a1r2_slash_joined_placeholder_tokens_are_placeholders(value):
+    from gate.s2_preflight import _placeholder
+
+    assert _placeholder(value)
+
+
+@pytest.mark.parametrize(
+    "value", ["todo.md", "docs/todo", "docs/DECISIONS.md#D-018", "https://later.example/x?y=1"]
+)
+def test_a1r2_paths_and_urls_containing_placeholder_words_are_not_placeholders(value):
+    from gate.s2_preflight import _placeholder
+
+    assert not _placeholder(value)
+
+
+@pytest.mark.parametrize(
+    "path,value,code,blocked_path",
+    [
+        ("registration.source_ref", "TBD/later", "owner_choice_unfrozen", "registration"),
+        (
+            "planned.measurement.experiment_prediction.value",
+            "todo/tbd",
+            "invalid_measurement",
+            "planned.measurement.experiment_prediction.value",
+        ),
+        (
+            "prerequisites.challenge_closed_verified.source_ref",
+            "TBD/later",
+            "prerequisite_unrecorded",
+            "prerequisites.challenge_closed_verified",
+        ),
+        (
+            "planned.measurement.experiment_prediction.value",
+            "n/a/tbd",
+            "invalid_measurement",
+            "planned.measurement.experiment_prediction.value",
+        ),
+        (
+            "planned.measurement.experiment_prediction.value",
+            "xxx/xxx",
+            "invalid_measurement",
+            "planned.measurement.experiment_prediction.value",
+        ),
+    ],
+)
+def test_a1r2_slash_joined_placeholders_block(path, value, code, blocked_path):
+    """A1R2 repro: each value formerly left ready_for_planning True with no blocker."""
+    document = manifest()
+    _set(document, path, value)
+    result = validate_s2_preflight(document)
+    assert not result["ready_for_planning"]
+    assert blockers_at(result, code) == [blocked_path]
+
+
+@pytest.mark.parametrize(
+    "value", ["todo.md", "docs/todo", "docs/DECISIONS.md#D-018", "https://later.example/x?y=1"]
+)
+@pytest.mark.parametrize(
+    "path",
+    [
+        "registration.source_ref",
+        "prerequisites.challenge_closed_verified.source_ref",
+        "planned.measurement.experiment_prediction.source_ref",
+    ],
+)
+def test_a1r2_negative_control_paths_and_urls_are_accepted(path, value):
+    document = manifest()
+    _set(document, path, value)
+    result = validate_s2_preflight(document)
+    assert result["ready_for_planning"], result["blocking_reasons"]

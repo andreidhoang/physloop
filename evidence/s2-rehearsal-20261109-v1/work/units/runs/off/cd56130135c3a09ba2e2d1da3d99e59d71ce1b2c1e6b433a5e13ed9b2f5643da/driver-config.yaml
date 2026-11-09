@@ -1,0 +1,10 @@
+inference:
+  max_batch_size: 1
+  use_cameras:
+  - camera_cross_right_120fov
+  - camera_cross_left_120fov
+  - camera_front_tele_30fov
+  - camera_front_wide_120fov
+model:
+  checkpoint_path: /synthetic/teacher/snapshot
+port: 6789

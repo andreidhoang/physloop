@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/danghuyhoang/Desktop/physloop/scripts/verify_clean_s2_environment.py", line 381, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/danghuyhoang/Desktop/physloop/scripts/verify_clean_s2_environment.py", line 360, in main
+    print(json.dumps(probe_environment(Path(argv[1]), Path(argv[2]))))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danghuyhoang/Desktop/physloop/scripts/verify_clean_s2_environment.py", line 191, in probe_environment
+    expected = locked_graph(lock, project["name"], lambda value: Marker(value).evaluate())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danghuyhoang/Desktop/physloop/scripts/verify_clean_s2_environment.py", line 80, in locked_graph
+    raise ValueError(f"Unsupported ambiguous locked package: {name}")
+ValueError: Unsupported ambiguous locked package: torch

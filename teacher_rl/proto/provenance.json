@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-09",
+  "repository": "https://github.com/NVlabs/alpasim",
+  "commit": "46b401beaec27977cbb86826df8e39cec2d49e49",
+  "commit_role": "training AlpaSim pin (teacher_rl.pins UPSTREAM_PINS training_alpasim; tree-identical 10cae1c per lane-r3)",
+  "retrieval": "Read-only lane-r3 source clone at the immutable commit (git hash-object matches each blob below); source only, no datasets or weights",
+  "license": "Apache-2.0",
+  "sources": [
+    {
+      "file": "source/alpasim_grpc/v0/runtime.proto",
+      "path": "src/grpc/alpasim_grpc/v0/runtime.proto",
+      "git_blob_sha": "0f96fb7cce6f875f0852fb4f20906c9194daa9e1",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/46b401beaec27977cbb86826df8e39cec2d49e49/src/grpc/alpasim_grpc/v0/runtime.proto",
+      "sha256": "9bfd8521d35cb7e873ce9c032ad0f052a0f5698d51d521f1dc3a595f7925e80f"
+    },
+    {
+      "file": "source/alpasim_grpc/v0/common.proto",
+      "path": "src/grpc/alpasim_grpc/v0/common.proto",
+      "git_blob_sha": "65bd3684fbbf4595e24658acbe3bc45984cc84da",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/46b401beaec27977cbb86826df8e39cec2d49e49/src/grpc/alpasim_grpc/v0/common.proto",
+      "sha256": "dc4ff6b9629e5ea71d66e567f9f2483986f6c53b536c79cf0b72bd676bad8df3"
+    }
+  ],
+  "license_file": {
+    "file": "LICENSE",
+    "git_blob_sha": "c6ff73fab08d36444991400fc0aeb8d660f2d098",
+    "source_url": "https://github.com/NVlabs/alpasim/blob/46b401beaec27977cbb86826df8e39cec2d49e49/LICENSE",
+    "sha256": "50201750cc0542d4656d8d95f002f78357021b7c3c975b53924000b7ddc5a24e"
+  },
+  "descriptor": {
+    "file": "46b401be.pb",
+    "sha256": "a77ac18f62f85ac75ae5d4add305bc850d6f4881ddd8d8d69936e42aaa5be634",
+    "compiler": "libprotoc 33.4",
+    "command": [
+      "protoc",
+      "--proto_path=teacher_rl/proto/source",
+      "--include_imports",
+      "--descriptor_set_out=teacher_rl/proto/46b401be.pb",
+      "alpasim_grpc/v0/runtime.proto"
+    ],
+    "files": ["alpasim_grpc/v0/common.proto", "alpasim_grpc/v0/runtime.proto"],
+    "decoded_message": "SimulationReturn (runtime.proto declares no package)",
+    "reproduced": "compiled twice from the vendored sources on 2026-11-09 with identical bytes"
+  },
+  "consumers": {
+    "producer": "alpasim@46b401b src/runtime/alpasim_runtime/daemon/engine.py:28-102 (build_simulation_return)",
+    "reader": "alpagym@972d160 packages/runtime/src/alpagym_runtime/episode_runner/streaming_worker.py:216-252 (reads rollout_returns[0]; aggregated_metrics empty -> metrics None)",
+    "capture": "teacher_rl/capture/entrypoint.py _SimulateProxy (reply.SerializeToString() stored as the simulate_call reply_blob)"
+  }
+}

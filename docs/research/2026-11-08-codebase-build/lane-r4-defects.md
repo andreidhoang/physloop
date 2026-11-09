@@ -1,0 +1,25 @@
+# R4 defect hunt — existing S2 evaluator code (agent-authored, 2026-11-08)
+
+Repros: `/private/tmp/claude-501/-Users-danghuyhoang-Desktop-physloop/f03310c0-0c42-4abe-9121-688d3397b50a/scratchpad/research/r4-code-review/repro_*.py`, outputs in `repro_outputs.txt`. Run from repo root: `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B <repro>`. Baseline suite unchanged (1,454 pass).
+
+| Rank | ID | Status | Severity | File:line | Defect | Fix |
+|---|---|---|---|---|---|---|
+| 1 | C1 | CONFIRMED | High | gate/superiority.py:285-305, :412 | With registered gating strata, a NO-GO guard in a non-gating stratum gives outcome GUARD_REGRESSION_FLAGGED but `claims.improvement.holds` stays True (`holds = improvement and guards_go` omits guard_regression); `aggregate_runs` counts claims, so 3 flagged runs aggregate to IMPROVEMENT_SUPPORTED (repro_01) | `holds = improvement and guards_go and not guard_regression`; test aggregating real gated decide() outputs |
+| 2 | C2 | CONFIRMED | High | gate/s2_extract.py:366-404 (compare s2_capture.py:150-162, s2_ledger.py:222) | Score-producing ingestion never checks scheduled scene_id == clipgt_id, nor one session (clipgt_id, rollout_id) per job; a job scheduled for scene-0 that ran scene-1 is admitted and labelled scene-0; two jobs claiming the same session both admitted (repro_08). S2_INGESTION.md does not state the scene↔clip relation; capture spec does; base fixture relies on the gap | Require clipgt_id == job.scene_id and unique (clipgt_id, rollout_id) per attempt; align fixture and S2_INGESTION.md |
+| 3 | C3 | CONFIRMED | Medium | gate/__main__.py:26 | Verdict CLI uses json.loads: duplicate "margin" key → last wins → INSUFFICIENT becomes GO exit 0 (repro_09) | parse with read_json_bytes |
+| 4 | C4 | CONFIRMED | Medium | gate/superiority.py:228, :250 | Guard coverage only checked when guard strata differ from primary; guard computed on a 60+60 subset yields IMPROVEMENT_SUPPORTED (repro_06) | require equal per-stratum n_roads/n_scenes/n_replicates when strata match |
+| 5 | C5 | CONFIRMED | Medium (money) | scripts/vast_stop_watchdog.py:98-100, :163-168 | After arming, one empty inventory makes watchdog exit 0 before deadline without stopping (repro_04 A); existing test encodes it | after arming require exact-ID lookup / N consecutive absences; keep monitoring to deadline; exact-ID stop idempotent |
+| 6 | C6 | CONFIRMED | Medium | gate/s2_preflight.py:482-488, :559-568 | Cost keys not named *_cap_usd ignored: setup_fee_usd=500 vs $30 cap still ready (repro_03) | exact allowlist for planned.resources |
+| 7 | P1 | PLAUSIBLE | Low–med | scripts/vast_s2_host_probe.sh:13,:33,:59-61,:78 | Outer TERM deferred while foreground check runs; worst-case checks ~1,540 s vs 1,200 s budget; SIGKILL skips cleanup (repro_07 scaled) | --kill-after above longest check+cleanup, or background+wait |
+| 8 | P2 | PLAUSIBLE | Low–med | scripts/vast_stop_watchdog.py:148-154, :163-186 | Duplicate label after arming exits 2 with no stop; inventory failing past deadline never stops (repro_04 B,C) | after deadline issue exact-ID stop even if inventory failing/ambiguous |
+| 9 | C7 | CONFIRMED | Low | gate/s2_pilot.py:44-57 | Budget used/liability not checked for nesting pilot ≤ stage ≤ project (repro_05 a) | require nesting |
+| 10 | C8 | CONFIRMED | Low | gate/s2_asl.py:343-347 | ASL effective steps below requested not flagged (repro_05 b) | non-blocking effective_steps_below_requested / horizon status |
+| 11 | C9 | CONFIRMED | Low | gate/s2_asl.py:354-365 | Duplicate EGO actor in one frame accepted (repro_10) | duplicate_actor_id issue |
+| 12 | C10 | CONFIRMED | Low | gate/superiority.py:415-427 | All-runs REGRESSION_FLAGGED aggregates to MEANINGFUL_IMPROVEMENT_RULED_OUT; IMPROVED_BELOW_MIN reports family_alpha not joint level | regression precedence; emit joint_level |
+| 13 | C11 | CONFIRMED | Low | gate/s2_preflight.py:30-35, :52-74 | Attestation dates not ordered vs gate dates; placeholder "TBD later" accepted | date ordering; placeholder rejection |
+| 14 | C12 | CONFIRMED | Low | scripts/verify_s2_ingestion.py:217; scripts/verify_s2.py:61-62,:87-91 | git diff --check skips untracked/staged; ruff without --no-cache writes .ruff_cache; protected check misses new files under gate/stats/ | snapshot-based whitespace check; align verify scripts |
+| – | R1 | Rejected | – | gate/s2_launch.py:233-241, s2_packet.py:143-149 | equal run/driver dirs within one arm is deliberate and tested | none |
+
+Test gaps: C1 claim vs outcome on real gated outputs; C2 scene↔clip binding; C5 watchdog absence semantics; P1 probe tests stub `timeout`; C6 only *_cap_usd unknown keys.
+
+Reviewed, no defect: read_artifact TOCTOU, strict/canonical JSON, schedule identity, ledger reconciliation, packet binding, launch alphabets/port arithmetic, synthetic trace/Parquet checks, ASL wire checks, superiority vs protected verdict/SequentialGate interfaces, export verification, shell quoting and ownership-scoped cleanup, profiler env allowlist, watchdog never logs raw CLI output.

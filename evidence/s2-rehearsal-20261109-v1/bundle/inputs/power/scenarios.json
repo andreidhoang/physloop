@@ -1,0 +1,1 @@
+[{"dependence":{"replicate_copy_probability":0.0,"road_copy_probability":0.0},"information_role":"test assumption","law":"paired_continuous_uniform_shift_v1","parameters":{"candidate_worse_by":0.0,"noise_half_width":0.0,"reference_high":0.5,"reference_low":0.5},"scenario_id":"continuous","stratum_effects":{}}]

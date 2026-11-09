@@ -1,0 +1,7 @@
+scenes:
+- scene_id: synthetic-scene-0
+simulation_config:
+  cameras:
+  - logical_id: camera_front_wide_120fov
+  n_rollouts: 1
+  n_sim_steps: 3

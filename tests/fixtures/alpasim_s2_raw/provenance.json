@@ -48,6 +48,30 @@
       "git_blob_sha": "68eee11b0dc6c5e642e7d3421c011a4ad79e4c37",
       "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/scorers/image.py",
       "sha256": "f4f6dbd4706c558c218b52373baa1ee173404f2168c5a42bf807628c511561d7"
+    },
+    {
+      "file": "modifiers_e121e591.py.txt",
+      "path": "src/eval/src/eval/aggregation/modifiers.py",
+      "git_blob_sha": "025537b9244036203fe31ddfe036d965368061cb",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/aggregation/modifiers.py",
+      "sha256": "d4bab741579f3babdca3896b64001db3f7ee4934731495ddd9145619fd22b5bf",
+      "retrieval": "2026-11-09: git cat-file -p from a local public clone with HEAD == commit and a clean tree; git hash-object of the copy equals the commit's blob SHA-1."
+    },
+    {
+      "file": "main_e121e591.py.txt",
+      "path": "src/eval/src/eval/aggregation/main.py",
+      "git_blob_sha": "a4ab0bd736f194845fa6f25a0b1d10a276d75023",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/aggregation/main.py",
+      "sha256": "a9d52262f5bce0d47ddc3e5b1f50290bf780d356cde41ca303acbaa38f717374",
+      "retrieval": "2026-11-09: git cat-file -p from a local public clone with HEAD == commit and a clean tree; git hash-object of the copy equals the commit's blob SHA-1."
+    },
+    {
+      "file": "scene_score_e121e591.py.txt",
+      "path": "src/eval/src/eval/aggregation/scene_score.py",
+      "git_blob_sha": "4bdc177b5f26996f99eb4db1cc16123a713b3ed3",
+      "source_url": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/src/eval/src/eval/aggregation/scene_score.py",
+      "sha256": "e5231c89dc3eb6eff5e1fb33f59978a940c0e16880fa019c9feb2be4b6792714",
+      "retrieval": "2026-11-09: git cat-file -p from a local public clone with HEAD == commit and a clean tree; git hash-object of the copy equals the commit's blob SHA-1."
     }
   ],
   "license_file": {

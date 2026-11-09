@@ -1,11 +1,36 @@
 """Strict, inspection-only reader for the pinned upstream AlpaSim ASL format.
 
+Tickets: S2 CPU handoff E1; build-spec A4 A1 (streaming, explicit size bound),
+A3 (effective-step and hood-mask evidence), R4 C8 (effective steps below
+requested) and R4 C9 (repeated actor ID in one frame). Serves S2.1-S2.7 [C].
+
 Framing and the complete protobuf descriptor come from public e121e591 source.
 Original local-to-AABB poses are not transformed, normalized, interpolated or
 deduplicated. Parsing establishes neither provenance nor runtime completion.
+
+Verification level per function (build-spec section 1):
+
+- ``inspect_asl`` / ``inspect_asl_stream``: L2. Literal wire known answers and
+  negative controls on CPU; checked against the pinned .proto set, the pinned
+  ``write_pb_stream`` writer and the pinned glam quaternion consumer. Real
+  simulator ASL files are ``qualify_on_host``.
+- ``_check_wire``, ``_check_quaternion``, ``_varint``: L1.
+
+Size bounds: ``MAX_FILE_BYTES`` (2 GiB) is an agent technical default (D-018),
+provisional until the first measured ASL. R2 infers 0.3-0.8 GB per 200-step
+six-camera rollout (every driver JPEG is logged); the bound is about 2.5x the
+upper inference. ``inspect_asl_stream`` reads one bounded frame at a
+time (``MAX_FRAME_BYTES``), hashing incrementally, so the file bound limits
+work, not RAM; the decoded report still holds every pose sample and frame
+receipt. Callers choose the bound; the artifact never authorizes it.
+
+This module never: transforms or deduplicates poses; infers executed steps,
+completion, renderer/black-frame/map coverage or "hood applied"; admits scores;
+authenticates the producer; reads files or calls subprocesses itself.
 """
 
 import hashlib
+import io
 import math
 import struct
 from collections import Counter
@@ -19,14 +44,21 @@ from google.protobuf.message import DecodeError
 
 SOURCE_COMMIT = "e121e59141dc391f6c295513d6dadc840a419149"
 DESCRIPTOR_SHA256 = "94d684ffa268538bd385cd05041d2f360f88d7073f054d65a8097020d4e89314"
-MAX_FILE_BYTES = 256 * 1024 * 1024
+# Agent technical default (D-018): provisional until the first measured ASL.
+MAX_FILE_BYTES = 2 * 1024 * 1024 * 1024
 MAX_FRAME_BYTES = 64 * 1024 * 1024
 MAX_FRAMES = 1_000_000
+_READ_CHUNK_BYTES = 1024 * 1024
 SESSION_IDENTITY_ENTRIES = frozenset({
     "driver_request", "traffic_request", "driver_session_request", "driver_camera_image",
     "driver_ego_trajectory", "traffic_session_request", "controller_request",
     "route_request", "ground_truth_request",
 })
+# Pinned runtime logs RGB render requests through three LogEntry members:
+# sensorsim_service.py:453 (batch_render_request), :514 (aggregated_render_request)
+# and :594 (render_request); each request sets insert_ego_mask (:309).
+_RENDER_ENTRIES = frozenset({"render_request", "aggregated_render_request",
+                             "batch_render_request"})
 
 
 def _f32(value):
@@ -80,6 +112,10 @@ class _WireError(ValueError):
     def __init__(self, code, message):
         super().__init__(message)
         self.code = code
+
+
+class _FileLimitExceeded(Exception):
+    pass
 
 
 @lru_cache(maxsize=1)
@@ -233,139 +269,320 @@ def _metadata(message, issue, frame_index):
     return result
 
 
-def inspect_asl(data, *, expected_session_uuid, expected_scene_id, requested_steps,
-                max_file_bytes=MAX_FILE_BYTES, max_frame_bytes=MAX_FRAME_BYTES,
-                max_frames=MAX_FRAMES):
-    """Inspect pinned framed protobuf bytes without admitting score/runtime evidence.
+def _render_requests(entry, kind):
+    if kind == "render_request":
+        return [entry.render_request]
+    if kind == "aggregated_render_request":
+        return list(entry.aggregated_render_request.rgb_requests)
+    return [item.request for item in entry.batch_render_request.items]
 
-    Session UUID binds to upstream ``rollout_id``; scene ID to ``clipgt_id``.
-    ``run_uuid`` is external evaluator run metadata, absent from this binding.
-    Limits are configurable engineering limits, not qualified runtime capacities.
-    Invalid input reports preserve decoded-prefix diagnostics and frame receipts.
+
+def _hood_record(hood, entry, kind):
+    """Record ego-mask facts only; presence of a mask request is not 'hood applied'.
+
+    Proto3 omits ``insert_ego_mask=false``; requests without the flag count as
+    ``without_insert_ego_mask``. ``available_ego_masks_return`` (logging.proto
+    field 23, logged at sensorsim_service.py:194) lists the renderer's masks.
     """
-    report = {
+    if kind == "available_ego_masks_return":
+        hood["available_ego_masks_returns"] += 1
+        for metadata in entry.available_ego_masks_return.ego_mask_metadata:
+            mask = metadata.ego_mask_id
+            label = f"{mask.rig_config_id}/{mask.camera_logical_id}"
+            if label not in hood["available_ego_masks"]:
+                hood["available_ego_masks"].append(label)
+        return
+    for request in _render_requests(entry, kind):
+        camera = request.camera_intrinsics.logical_id
+        counts = hood["by_camera"].setdefault(
+            camera, {"rgb_render_requests": 0, "with_insert_ego_mask": 0, "ego_mask_ids": []})
+        hood["rgb_render_requests"] += 1
+        counts["rgb_render_requests"] += 1
+        if request.insert_ego_mask:
+            hood["with_insert_ego_mask"] += 1
+            counts["with_insert_ego_mask"] += 1
+            mask = request.ego_mask_id
+            label = f"{mask.rig_config_id}/{mask.camera_logical_id}"
+            if label not in counts["ego_mask_ids"]:
+                counts["ego_mask_ids"].append(label)
+
+
+def _new_report(requested_steps):
+    return {
         "schema_version": 1, "kind": "alpasim_asl_inspection_v1",
         "source_commit": SOURCE_COMMIT, "parsed": False, "inspection_valid": False,
         "issues": [], "receipt": None, "metadata": None, "frame_receipts": [],
         "pose_events": [], "coordinate_frame": "local_to_aabb",
         "quaternion_component_order": "wxyz",
         "requested_steps": requested_steps if type(requested_steps) is int else None,
-        "effective_n_sim_steps": None, "actual_steps": None,
+        "effective_n_sim_steps": None, "horizon_status": None, "actual_steps": None,
         "completion": None, "renderer_coverage": None, "black_frame_coverage": None,
-        "map_coverage": None, "runtime_qualified": False, "score_admitted": False,
-        "cloud_launch_authorized": False,
+        "map_coverage": None, "hood_mask_evidence": None, "runtime_qualified": False,
+        "score_admitted": False, "cloud_launch_authorized": False,
         "observations": {"pose_event_count": 0, "first_timestamp_us": None,
                          "last_timestamp_us": None, "observed_span_us": None,
                          "duplicate_timestamps": 0},
     }
 
-    def issue(code, message, frame_index=None):
-        item = {"code": code, "message": message}
+
+def _issue_adder(report):
+    def issue(code, message, frame_index=None, severity="blocking"):
+        item = {
+            "code": code,
+            "path": "asl" if frame_index is None else f"asl.frames[{frame_index}]",
+            "severity": severity,
+            "evidence_refs": [] if frame_index is None else [f"frame_receipts[{frame_index}]"],
+            "message": message,
+        }
         if frame_index is not None:
             item["frame_index"] = frame_index
         report["issues"].append(item)
+    return issue
 
-    if (type(data) is not bytes or not isinstance(expected_session_uuid, str)
-            or not expected_session_uuid or not isinstance(expected_scene_id, str)
-            or not expected_scene_id or any(type(value) is not int or value <= 0 for value in (
-                requested_steps, max_file_bytes, max_frame_bytes, max_frames))):
-        issue("invalid_arguments", "Expected bytes, explicit nonempty IDs and positive integer limits")
+
+def _arguments_valid(expected_session_uuid, expected_scene_id, requested_steps, limits):
+    return (
+        isinstance(expected_session_uuid, str) and bool(expected_session_uuid)
+        and isinstance(expected_scene_id, str) and bool(expected_scene_id)
+        and all(type(value) is int and value > 0 for value in (requested_steps, *limits))
+    )
+
+
+def inspect_asl(data, *, expected_session_uuid, expected_scene_id, requested_steps,
+                max_file_bytes=MAX_FILE_BYTES, max_frame_bytes=MAX_FRAME_BYTES,
+                max_frames=MAX_FRAMES):
+    """Inspect in-memory ASL bytes; a thin wrapper over ``inspect_asl_stream``.
+
+    Session UUID binds to upstream ``rollout_id``; scene ID to ``clipgt_id``.
+    ``run_uuid`` is external evaluator run metadata, absent from this binding.
+    Bytes larger than ``max_file_bytes`` are rejected before parsing; the whole
+    file receipt is still reported. Prefer the stream API for real captures.
+    """
+    report = _new_report(requested_steps)
+    issue = _issue_adder(report)
+    if type(data) is not bytes or not _arguments_valid(
+            expected_session_uuid, expected_scene_id, requested_steps,
+            (max_file_bytes, max_frame_bytes, max_frames)):
+        issue("invalid_arguments",
+              "Expected bytes, explicit nonempty IDs and positive integer limits")
         return report
-    report["receipt"] = {"sha256": hashlib.sha256(data).hexdigest(), "size_bytes": len(data)}
     if len(data) > max_file_bytes:
+        report["receipt"] = {"sha256": hashlib.sha256(data).hexdigest(), "size_bytes": len(data)}
         issue("file_limit_exceeded", "ASL exceeds configured file size limit")
+        return report
+    return inspect_asl_stream(
+        io.BytesIO(data), expected_session_uuid=expected_session_uuid,
+        expected_scene_id=expected_scene_id, requested_steps=requested_steps,
+        max_file_bytes=max_file_bytes, max_frame_bytes=max_frame_bytes, max_frames=max_frames)
+
+
+def inspect_asl_stream(stream, *, expected_session_uuid, expected_scene_id, requested_steps,
+                       max_file_bytes=MAX_FILE_BYTES, max_frame_bytes=MAX_FRAME_BYTES,
+                       max_frames=MAX_FRAMES):
+    """Inspect pinned framed protobuf from ``stream.read(n)`` one frame at a time.
+
+    Never requests more than ``_READ_CHUNK_BYTES`` per read and never holds more
+    than one frame payload. The SHA-256/size receipt covers every byte read; after
+    a framing error the remainder is drained (hashed, not parsed) so the receipt
+    still describes the whole input. Exceeding ``max_file_bytes`` stops reading:
+    ``receipt`` is then ``None`` and ``bytes_read`` records the stopping point.
+    Invalid input preserves decoded-prefix diagnostics and frame receipts.
+    Warnings (``severity != "blocking"``) never make ``inspection_valid`` false.
+    """
+    report = _new_report(requested_steps)
+    issue = _issue_adder(report)
+    if not hasattr(stream, "read") or not _arguments_valid(
+            expected_session_uuid, expected_scene_id, requested_steps,
+            (max_file_bytes, max_frame_bytes, max_frames)):
+        issue("invalid_arguments",
+              "Expected a readable stream, explicit nonempty IDs and positive integer limits")
         return report
     try:
         entry_class = _entry_class()
     except (OSError, ValueError, DecodeError) as error:
         issue("schema_unavailable", str(error))
         return report
-    offset, syntax_ok = 0, True
-    while offset < len(data):
-        frame_index = len(report["frame_receipts"])
-        if frame_index >= max_frames:
-            issue("frame_count_exceeded", "ASL exceeds configured frame count", frame_index)
-            syntax_ok = False
-            break
-        if len(data) - offset < 4:
-            issue("truncated_header", "ASL length prefix has fewer than four bytes", frame_index)
-            syntax_ok = False
-            break
-        size = struct.unpack_from(">L", data, offset)[0]
-        if size > max_frame_bytes:
-            issue("frame_limit_exceeded", "ASL frame exceeds configured byte limit", frame_index)
-            syntax_ok = False
-            break
-        start, stop = offset + 4, offset + 4 + size
-        if stop > len(data):
-            issue("truncated_frame", "ASL frame body is shorter than its length prefix", frame_index)
-            syntax_ok = False
-            break
-        payload = data[start:stop]
-        receipt = {"frame_index": frame_index, "byte_offset": offset, "payload_size_bytes": size,
-                   "payload_sha256": hashlib.sha256(payload).hexdigest(), "entry_type": None,
-                   "semantic_inspection": False, "session_identity_checked": False}
-        report["frame_receipts"].append(receipt)
-        offset = stop
-        try:
-            _check_wire(payload, entry_class.DESCRIPTOR)
-            entry = entry_class.FromString(payload)
-            kind = entry.WhichOneof("log_entry")
-            if kind is None:
-                raise _WireError("empty_log_entry", "ASL frame has no log_entry member")
-        except (_WireError, DecodeError) as error:
-            issue(getattr(error, "code", "invalid_protobuf"), str(error), frame_index)
-            syntax_ok = False
-            break
-        receipt["entry_type"] = kind
-        if kind in SESSION_IDENTITY_ENTRIES:
-            service_session = getattr(entry, kind).session_uuid
-            receipt["session_identity_checked"] = True
-            receipt["session_uuid"] = service_session
-            if service_session != expected_session_uuid:
-                issue("service_session_identity_mismatch",
-                      f"{kind} session_uuid differs from the bound rollout_id", frame_index)
-        if kind == "rollout_metadata":
-            receipt["semantic_inspection"] = True
-            current = _metadata(entry.rollout_metadata, issue, frame_index)
-            if report["metadata"] is not None:
-                issue("duplicate_metadata", "ASL contains multiple metadata entries", frame_index)
-                continue
-            if frame_index != 0:
-                issue("metadata_not_first", "Rollout metadata is not the first frame", frame_index)
-            report["metadata"] = current
-            report["effective_n_sim_steps"] = current["n_sim_steps"]
-            if current["session_uuid"] != expected_session_uuid:
-                issue("session_identity_mismatch", "ASL session_uuid differs from expected rollout_id",
+
+    hasher, consumed = hashlib.sha256(), [0]
+
+    def take(count):
+        parts, remaining = [], count
+        while remaining > 0:
+            request = min(remaining, _READ_CHUNK_BYTES)
+            chunk = stream.read(request)
+            if type(chunk) is not bytes or len(chunk) > request:
+                raise TypeError("ASL stream must return at most the requested bytes")
+            if not chunk:
+                break
+            if consumed[0] + len(chunk) > max_file_bytes:
+                consumed[0] += len(chunk)
+                raise _FileLimitExceeded
+            hasher.update(chunk)
+            consumed[0] += len(chunk)
+            parts.append(chunk)
+            remaining -= len(chunk)
+        return b"".join(parts)
+
+    hood = {"available_ego_masks_returns": 0, "available_ego_masks": [],
+            "rgb_render_requests": 0, "with_insert_ego_mask": 0, "by_camera": {}}
+    syntax_ok, offset, complete_read = True, 0, False
+    try:
+        while True:
+            frame_index = len(report["frame_receipts"])
+            header = take(4)
+            if not header:
+                complete_read = True
+                break
+            if frame_index >= max_frames:
+                issue("frame_count_exceeded", "ASL exceeds configured frame count", frame_index)
+                syntax_ok = False
+                break
+            if len(header) < 4:
+                issue("truncated_header", "ASL length prefix has fewer than four bytes",
                       frame_index)
-            if current["scene_id"] != expected_scene_id:
-                issue("scene_identity_mismatch", "ASL scene_id differs from expected clipgt_id", frame_index)
-            if current["n_sim_steps"] <= 0:
-                issue("invalid_effective_steps", "Metadata n_sim_steps must be positive", frame_index)
-            elif current["n_sim_steps"] > requested_steps:
-                issue("effective_steps_exceed_requested", "Logged effective steps exceed requested steps",
+                syntax_ok = False
+                break
+            size = struct.unpack(">L", header)[0]
+            if size > max_frame_bytes:
+                issue("frame_limit_exceeded", "ASL frame exceeds configured byte limit",
                       frame_index)
-            if current["control_timestep_us"] <= 0:
-                issue("invalid_control_timestep", "Metadata control timestep must be positive", frame_index)
-        elif kind == "actor_poses":
-            receipt["semantic_inspection"] = True
-            event = {"frame_index": frame_index, "timestamp_us": entry.actor_poses.timestamp_us,
-                     "actors": []}
-            for actor in entry.actor_poses.actor_poses:
-                if not actor.HasField("actor_pose"):
-                    pose = None
-                    issue("missing_pose", "Actor lacks actor_pose submessage", frame_index)
-                else:
-                    pose = _pose(actor.actor_pose, issue, frame_index)
-                if not actor.actor_id:
-                    issue("missing_actor_id", "Actor ID is empty", frame_index)
-                event["actors"].append({"actor_id": actor.actor_id, "pose": pose})
-            actor_ids = [actor["actor_id"] for actor in event["actors"]]
-            if "EGO" not in actor_ids:
-                issue("missing_ego_pose", "Actor pose event lacks EGO", frame_index)
-            if report["pose_events"] and event["timestamp_us"] < report["pose_events"][-1]["timestamp_us"]:
-                issue("timestamp_regression", "Actor pose event timestamps regress", frame_index)
-            report["pose_events"].append(event)
+                syntax_ok = False
+                break
+            payload = take(size)
+            if len(payload) < size:
+                issue("truncated_frame", "ASL frame body is shorter than its length prefix",
+                      frame_index)
+                syntax_ok = False
+                break
+            receipt = {"frame_index": frame_index, "byte_offset": offset,
+                       "payload_size_bytes": size,
+                       "payload_sha256": hashlib.sha256(payload).hexdigest(),
+                       "entry_type": None, "semantic_inspection": False,
+                       "session_identity_checked": False}
+            report["frame_receipts"].append(receipt)
+            offset += 4 + size
+            try:
+                _check_wire(payload, entry_class.DESCRIPTOR)
+                entry = entry_class.FromString(payload)
+                kind = entry.WhichOneof("log_entry")
+                if kind is None:
+                    raise _WireError("empty_log_entry", "ASL frame has no log_entry member")
+            except (_WireError, DecodeError) as error:
+                issue(getattr(error, "code", "invalid_protobuf"), str(error), frame_index)
+                syntax_ok = False
+                break
+            receipt["entry_type"] = kind
+            _inspect_entry(report, issue, hood, entry, kind, receipt, frame_index,
+                           expected_session_uuid, expected_scene_id, requested_steps)
+        if not complete_read:
+            while take(_READ_CHUNK_BYTES):
+                pass
+            complete_read = True
+    except _FileLimitExceeded:
+        issue("file_limit_exceeded", "ASL exceeds configured file size limit")
+        report["bytes_read"] = consumed[0]
+        report["hood_mask_evidence"] = _hood_summary(hood)
+        return report
+    report["receipt"] = {"sha256": hasher.hexdigest(), "size_bytes": consumed[0]}
+    report["hood_mask_evidence"] = _hood_summary(hood)
+    _finish(report, issue, syntax_ok)
+    return report
+
+
+def _hood_summary(hood):
+    present = hood["available_ego_masks_returns"] > 0 or hood["rgb_render_requests"] > 0
+    return {
+        "status": "present" if present else "absent",
+        "available_ego_masks_returns": hood["available_ego_masks_returns"],
+        "available_ego_masks": hood["available_ego_masks"],
+        "rgb_render_requests": hood["rgb_render_requests"],
+        "with_insert_ego_mask": hood["with_insert_ego_mask"],
+        "without_insert_ego_mask": hood["rgb_render_requests"] - hood["with_insert_ego_mask"],
+        "by_camera": {camera: hood["by_camera"][camera] for camera in sorted(hood["by_camera"])},
+        "hood_applied": None,
+        "semantics": "request_flags_only_not_rendered_pixels",
+    }
+
+
+def _inspect_entry(report, issue, hood, entry, kind, receipt, frame_index,
+                   expected_session_uuid, expected_scene_id, requested_steps):
+    if kind in SESSION_IDENTITY_ENTRIES:
+        service_session = getattr(entry, kind).session_uuid
+        receipt["session_identity_checked"] = True
+        receipt["session_uuid"] = service_session
+        if service_session != expected_session_uuid:
+            issue("service_session_identity_mismatch",
+                  f"{kind} session_uuid differs from the bound rollout_id", frame_index)
+    if kind in _RENDER_ENTRIES or kind == "available_ego_masks_return":
+        receipt["hood_fields_inspected"] = True
+        _hood_record(hood, entry, kind)
+    if kind == "rollout_metadata":
+        receipt["semantic_inspection"] = True
+        current = _metadata(entry.rollout_metadata, issue, frame_index)
+        if report["metadata"] is not None:
+            issue("duplicate_metadata", "ASL contains multiple metadata entries", frame_index)
+            return
+        if frame_index != 0:
+            issue("metadata_not_first", "Rollout metadata is not the first frame", frame_index)
+        report["metadata"] = current
+        effective = current["n_sim_steps"]
+        report["effective_n_sim_steps"] = effective
+        if current["session_uuid"] != expected_session_uuid:
+            issue("session_identity_mismatch",
+                  "ASL session_uuid differs from expected rollout_id", frame_index)
+        if current["scene_id"] != expected_scene_id:
+            issue("scene_identity_mismatch", "ASL scene_id differs from expected clipgt_id",
+                  frame_index)
+        if effective <= 0:
+            issue("invalid_effective_steps", "Metadata n_sim_steps must be positive", frame_index)
+        elif effective > requested_steps:
+            report["horizon_status"] = "effective_exceeds_requested"
+            issue("effective_steps_exceed_requested",
+                  f"Logged effective steps {effective} exceed requested steps "
+                  f"{requested_steps}", frame_index)
+        elif effective < requested_steps:
+            # Upstream clips to ground-truth availability (unbound_rollout.py:163-171).
+            report["horizon_status"] = "effective_below_requested"
+            issue("effective_steps_below_requested",
+                  f"Logged effective steps {effective} are below requested steps "
+                  f"{requested_steps}; horizon is reported, not hidden", frame_index,
+                  severity="warning")
+        else:
+            report["horizon_status"] = "effective_equals_requested"
+        if current["control_timestep_us"] <= 0:
+            issue("invalid_control_timestep", "Metadata control timestep must be positive",
+                  frame_index)
+    elif kind == "actor_poses":
+        receipt["semantic_inspection"] = True
+        event = {"frame_index": frame_index, "timestamp_us": entry.actor_poses.timestamp_us,
+                 "actors": []}
+        for actor in entry.actor_poses.actor_poses:
+            if not actor.HasField("actor_pose"):
+                pose = None
+                issue("missing_pose", "Actor lacks actor_pose submessage", frame_index)
+            else:
+                pose = _pose(actor.actor_pose, issue, frame_index)
+            if not actor.actor_id:
+                issue("missing_actor_id", "Actor ID is empty", frame_index)
+            event["actors"].append({"actor_id": actor.actor_id, "pose": pose})
+        actor_ids = [actor["actor_id"] for actor in event["actors"]]
+        repeated = sorted(actor_id for actor_id, count in Counter(actor_ids).items()
+                          if count > 1 and actor_id)
+        if repeated:
+            # R4 C9. Upstream log_actor_poses (step.py:141-178) appends one pose per
+            # occurrence of a timestamp, so repeated timestamps repeat IDs; any repeat
+            # is ambiguous for a per-actor consumer. All samples stay preserved.
+            issue("duplicate_actor_id",
+                  f"Actor IDs repeat within one actor_poses frame: {repeated}", frame_index)
+        if "EGO" not in actor_ids:
+            issue("missing_ego_pose", "Actor pose event lacks EGO", frame_index)
+        if (report["pose_events"]
+                and event["timestamp_us"] < report["pose_events"][-1]["timestamp_us"]):
+            issue("timestamp_regression", "Actor pose event timestamps regress", frame_index)
+        report["pose_events"].append(event)
+
+
+def _finish(report, issue, syntax_ok):
     if report["metadata"] is None:
         issue("missing_metadata", "No rollout metadata decoded")
     if not report["pose_events"]:
@@ -374,9 +591,10 @@ def inspect_asl(data, *, expected_session_uuid, expected_scene_id, requested_ste
         timestamps = [event["timestamp_us"] for event in report["pose_events"]]
         report["observations"] = {
             "pose_event_count": len(timestamps), "first_timestamp_us": timestamps[0],
-            "last_timestamp_us": timestamps[-1], "observed_span_us": max(timestamps) - min(timestamps),
+            "last_timestamp_us": timestamps[-1],
+            "observed_span_us": max(timestamps) - min(timestamps),
             "duplicate_timestamps": sum(count - 1 for count in Counter(timestamps).values()),
         }
     report["parsed"] = syntax_ok
-    report["inspection_valid"] = syntax_ok and not report["issues"]
-    return report
+    report["inspection_valid"] = syntax_ok and not any(
+        item["severity"] == "blocking" for item in report["issues"])

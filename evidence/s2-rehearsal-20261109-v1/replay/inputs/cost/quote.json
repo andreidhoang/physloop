@@ -1,0 +1,1 @@
+{"artifact_kind":"s2_cost_quote","billing_granularity_seconds":1,"compute_usd_per_hour":"2","currency":"USD","fees_and_tax":{"basis":"synthetic fixture: no fees","bound_usd":"0"},"provider":"vast","rate_basis":"per_gpu","schema_version":1,"scope":"synthetic","storage_usd_per_hour":"0","transfer_usd_per_gb":{"download":"0","upload":"0"}}

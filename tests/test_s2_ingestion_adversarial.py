@@ -27,14 +27,17 @@ def assert_blocked(report):
     json.dumps(report, allow_nan=False)
 
 
-def paired_bundle(root):
+UPSTREAM_B = {"run_uuid": "run-b", "clipgt_id": "clip", "rollout_id": "rollout-b"}
+
+
+def paired_bundle(root, upstream_b=UPSTREAM_B):
     """Two different upstream identities, one shared scientific protocol."""
     root_a, root_b = root / "a", root / "b"
     root_a.mkdir()
     root_b.mkdir()
     first, events_a, _, _ = fixture_bundle(root_a)
     second, events_b, trace_b, summary_b = fixture_bundle(root_b)
-    upstream_b = {"run_uuid": "run-b", "clipgt_id": "clip", "rollout_id": "rollout-b"}
+    upstream_b = dict(upstream_b)
     second["schedule"][0].update(job_id="job-b", arm="B", policy_id="reexport")
     second["artifacts"][0]["attempt_id"] = "attempt-b"
     second["batches"][0]["arm"] = "B"
@@ -255,3 +258,50 @@ def test_duplicate_artifact_attempt_cannot_overwrite_original(tmp_path):
     report = extract_bundle(tmp_path, request)
     assert_blocked(report)
     assert "duplicate_artifact_attempt" in codes(report)
+
+
+# --- R4 C2: scene <-> clip and session binding (agent-authored, D-024) ----------------------
+
+
+def test_c2_scheduled_scene_must_equal_upstream_clip(tmp_path):
+    """repro_08 case A: job B is scheduled for scene 'clip' but every receipt says 'clip-b'."""
+    request, _ = paired_bundle(tmp_path, {**UPSTREAM_B, "clipgt_id": "clip-b"})
+    assert request["schedule"][1]["scene_id"] == "clip"
+    report = extract_bundle(tmp_path, request)
+    assert_blocked(report)
+    mismatch = [i for i in report["issues"] if i["code"] == "scene_clip_mismatch"]
+    assert [i["path"] for i in mismatch] == ["attempt-b"]
+    assert "'clip'" in mismatch[0]["message"] and "'clip-b'" in mismatch[0]["message"]
+    assert "session_reused" not in codes(report)
+
+
+def test_c2_one_session_claimed_by_two_jobs_is_rejected(tmp_path):
+    """repro_08 case B: job B claims job A's (clipgt_id, rollout_id) under another run_uuid."""
+    request, _ = paired_bundle(tmp_path, {**UPSTREAM_B, "rollout_id": "rollout"})
+    report = extract_bundle(tmp_path, request)
+    assert_blocked(report)
+    reused = [i for i in report["issues"] if i["code"] == "session_reused"]
+    assert [i["path"] for i in reused] == ["attempt-b"]
+    assert "'attempt'" in reused[0]["message"]
+    assert "scene_clip_mismatch" not in codes(report)
+    # the ledger alone admits this: the full (run_uuid, clipgt_id, rollout_id) triple differs
+    assert report["ledger"]["admitted"]
+
+
+def test_c2_negative_control_distinct_sessions_on_one_clip_are_admitted(tmp_path):
+    request, _ = paired_bundle(tmp_path)
+    report = extract_bundle(tmp_path, request)
+    assert report["admitted"], report["issues"]
+    assert {o["clipgt_id"] for o in report["observations"]} == {"clip"}
+    assert len({(o["clipgt_id"], o["rollout_id"]) for o in report["observations"]}) == 2
+
+
+def test_c2_base_fixture_binds_scene_to_clip(tmp_path):
+    request, _, _, _ = fixture_bundle(tmp_path)
+    assert request["schedule"][0]["scene_id"] == "clip"
+    report = extract_bundle(tmp_path, request)
+    assert report["admitted"], report["issues"]
+    request["schedule"][0]["scene_id"] = "scene"  # the pre-fix fixture value
+    report = extract_bundle(tmp_path, request)
+    assert_blocked(report)
+    assert codes(report) == {"scene_clip_mismatch"}

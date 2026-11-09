@@ -132,3 +132,55 @@ def test_export_refuses_symlinked_destination_ancestor(tmp_path):
     with pytest.raises(ValueError):
         copy_verified_export(source, alias / "export", [receipt()])
     assert list(actual.iterdir()) == []
+
+
+# --- R4 C7: usage and liability nest pilot <= stage <= project (agent-authored, D-024) ------
+
+
+def nested_request(pilot, stage, project, field="used_usd"):
+    request = {
+        "scopes": {
+            "pilot": {"cap_usd": "100", "used_usd": "0", "liability_usd": "0", "reserve_usd": "0"},
+            "stage": {"cap_usd": "1200", "used_usd": "0", "liability_usd": "0", "reserve_usd": "0"},
+            "project": {"cap_usd": "2500", "used_usd": "0", "liability_usd": "0",
+                        "reserve_usd": "0"},
+        },
+        "next_unit_usd": "4.99", "now_epoch": 0, "deadline_epoch": 100,
+        "next_unit_seconds": 10, "cleanup_seconds": 10,
+    }
+    for name, value in (("pilot", pilot), ("stage", stage), ("project", project)):
+        request["scopes"][name][field] = value
+    return request
+
+
+def test_c7_repro_non_nested_usage_is_blocked():
+    """repro_05(a): pilot used 95 while stage/project recorded 0 was affordable."""
+    result = next_unit_check(nested_request("95", "0", "0"))
+    assert not result["can_start_next_unit"]
+    assert result["issues"] == ["budget_usage_not_nested"]
+
+
+@pytest.mark.parametrize(
+    "field,values",
+    [
+        ("used_usd", ("10", "9.99", "20")),
+        ("used_usd", ("10", "20", "19.99")),
+        ("liability_usd", ("1", "0", "1")),
+        ("liability_usd", ("0", "2", "1")),
+    ],
+)
+def test_c7_any_inversion_of_used_or_liability_blocks(field, values):
+    result = next_unit_check(nested_request(*values, field=field))
+    assert "budget_usage_not_nested" in result["issues"]
+    assert not result["can_start_next_unit"]
+
+
+@pytest.mark.parametrize(
+    "field,values",
+    [("used_usd", ("10", "10", "10")), ("used_usd", ("10", "30", "40.60")),
+     ("liability_usd", ("1", "1.5", "2"))],
+)
+def test_c7_negative_control_nested_usage_is_affordable(field, values):
+    result = next_unit_check(nested_request(*values, field=field))
+    assert result["can_start_next_unit"], result["issues"]
+    assert result["issues"] == []

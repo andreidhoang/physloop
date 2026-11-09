@@ -2,6 +2,16 @@
 
 The fixture has invented outcomes and a PhysLoop synthetic execution trace.
 Passing this verifier does not qualify AlpaSim runtime capture or a scientific run.
+
+Tickets: R4 C12. The whitespace check scans the frozen source snapshot, so staged, unstaged and
+untracked files are all covered (``git diff --check`` saw only unstaged tracked changes); hash-
+verified vendored upstream files named by a ``provenance.json`` under ``tests/fixtures/`` stay
+byte-identical and are exempt. Check subprocesses get an allowlisted environment. Ruff runs with ``--no-cache``; the protected-source check compares the whole set of
+``gate/verdict.py`` and ``gate/stats/`` files, so an added file fails it. Verification level:
+L1 for ``run_demo``, ``whitespace_issues``, ``vendored_paths``, ``protected_sources_unchanged``,
+``check_locked_versions`` and ``run_checks`` with an injected runner; ``main`` runs the live
+suite (a check of the current checkout, not a qualification of a later state). Never: commits,
+downloads, edits existing evidence, rents, or authorizes a launch.
 """
 
 import argparse
@@ -133,7 +143,7 @@ def source_snapshot():
         ROOT / "docs/02_PHYSLOOP_PLAN.md",
         ROOT / "docs/research/2026-11-07-pilot-launch-audit.md",
     }
-    for directory in ("gate", "tests", "scripts", "experiments"):
+    for directory in ("gate", "teacher_rl", "tests", "scripts", "experiments"):
         files.update(
             path
             for path in (ROOT / directory).rglob("*")
@@ -146,6 +156,115 @@ def source_snapshot():
             raise ValueError(f"Source archive refuses symlink: {path.relative_to(ROOT)}")
         snapshot[path.relative_to(ROOT).as_posix()] = path.read_bytes()
     return snapshot
+
+
+VENDORED_ROOT = "tests/fixtures/"
+
+
+def _vendored_target(base, file):
+    """Normalized snapshot path of ``file`` under ``base``, or None outside VENDORED_ROOT."""
+    if not isinstance(file, str):
+        return None
+    parts = []
+    for part in (base + file).split("/"):
+        if part in ("", "."):
+            continue
+        if part == "..":
+            if not parts:
+                return None
+            parts.pop()
+        else:
+            parts.append(part)
+    path = "/".join(parts)
+    return path if path.startswith(VENDORED_ROOT) else None
+
+
+def vendored_paths(snapshot):
+    """Snapshot paths that are hash-verified vendored upstream bytes (exempt from style checks).
+
+    Only a ``provenance.json`` under ``tests/fixtures/`` counts (A1-R4). A path qualifies when
+    that provenance lists it under ``sources``, or names it as ``license_file`` (a
+    ``{file, sha256}`` object), with a ``sha256`` equal to the snapshot bytes, and the resolved
+    path stays under ``tests/fixtures/``. A bare-string ``license_file`` carries no hash and
+    exempts nothing. Unreadable provenance exempts nothing.
+    """
+    exempt = set()
+    for name in sorted(snapshot):
+        if name.rsplit("/", 1)[-1] != "provenance.json" or not name.startswith(VENDORED_ROOT):
+            continue
+        base = name.rsplit("/", 1)[0] + "/"
+        try:
+            provenance = read_json_bytes(snapshot[name])
+        except ValueError:
+            continue
+        if not isinstance(provenance, dict):
+            continue
+        sources = provenance.get("sources")
+        records = [*(sources if isinstance(sources, list) else ()), provenance.get("license_file")]
+        for record in records:
+            if not isinstance(record, dict):
+                continue
+            path = _vendored_target(base, record.get("file"))
+            if (
+                path is not None
+                and path in snapshot
+                and hashlib.sha256(snapshot[path]).hexdigest() == record.get("sha256")
+            ):
+                exempt.add(path)
+    return exempt
+
+
+def whitespace_issues(snapshot):
+    """``git diff --check`` rules over every UTF-8 text file in a frozen snapshot.
+
+    Codes: ``trailing_whitespace`` (space, tab or CR before a line end), ``space_before_tab``
+    (in the indentation) and ``blank_at_eof`` (at the first of the trailing lines that are empty
+    or whitespace-only, A1-R1, counted exactly as git does, A1R). Binary (NUL-containing or
+    non-UTF-8) files and ``vendored_paths`` are skipped. Returns issues sorted by path and line.
+    """
+    exempt, issues = vendored_paths(snapshot), []
+    for name in sorted(snapshot):
+        data = snapshot[name]
+        if name in exempt or b"\0" in data:
+            continue
+        try:
+            text = data.decode("utf-8")
+        except UnicodeDecodeError:
+            continue
+        lines = text.split("\n")
+        for number, line in enumerate(lines, start=1):
+            if line.endswith((" ", "\t", "\r")):
+                issues.append({"code": "trailing_whitespace", "path": name, "line": number})
+            indent = line[: len(line) - len(line.lstrip(" \t"))]
+            if " \t" in indent:
+                issues.append({"code": "space_before_tab", "path": name, "line": number})
+        blank = _trailing_blank_lines(data)
+        if blank:
+            total = len(lines) - 1 if text.endswith("\n") or not text else len(lines)
+            issues.append({"code": "blank_at_eof", "path": name, "line": total - blank + 1})
+    return issues
+
+
+def _trailing_blank_lines(data):
+    """Port of git diff.c ``count_trailing_blank`` (A1R): blank = only space, tab or CR.
+
+    Like git, the scan stops once its cursor reaches byte 0, so a leading line whose last byte
+    before its LF is byte 0 is never counted: ``b"\\n"``, ``b"\\n\\n"`` and ``b" \\n"``
+    report no blank line at EOF, while ``b"  \\n"`` and ``b"\\n\\n\\n"`` report one.
+    """
+    if not data:
+        return 0
+    end = len(data) - 1
+    if data[end : end + 1] == b"\n":
+        end -= 1  # skip the final LF
+    count = 0
+    while 0 < end:
+        previous = data.rfind(b"\n", 0, end + 1)  # -1 when the line starts at byte 0
+        if data[previous + 1 : end + 1].strip(b" \t\r"):
+            break
+        count += 1
+        end = previous - 1
+    return count
 
 
 def source_hashes(snapshot):
@@ -168,16 +287,42 @@ def protected_sources_unchanged(snapshot):
 
 
 def check_locked_versions(lock, installed):
-    """Check direct runtime/dev version identity; not a substitute for clean sync."""
-    packages = {package["name"]: package for package in lock["package"]}
-    project = packages["physloop-gate"]
+    """Check direct runtime/dev version identity; not a substitute for clean sync.
+
+    A name split across sources by a marker (D-024 torch) has one lock entry per source;
+    the edge applicable to this environment selects the entry, and any remaining ambiguity
+    leaves the locked version unknown (a mismatch), never a guess.
+    """
+    from packaging.markers import Marker
+
+    from scripts.verify_clean_s2_environment import canonical as canonical_name
+    from scripts.verify_clean_s2_environment import lock_candidates, select_locked_package
+
+    def applies(marker):
+        return Marker(marker).evaluate()
+
+    candidates = lock_candidates(lock)
+    roots = candidates.get("physloop-gate", [])
+    if len(roots) != 1:
+        raise ValueError("Missing or ambiguous project package in the lock")
+    project = roots[0]
     runtime = {item["name"] for item in project.get("dependencies", [])}
-    dependencies = runtime | {
-        item["name"] for group in project.get("dev-dependencies", {}).values() for item in group
-    }
+    edges = list(project.get("dependencies", [])) + [
+        item for group in project.get("dev-dependencies", {}).values() for item in group
+    ]
+    locked = {}
+    for edge in edges:
+        if "marker" in edge and not applies(edge["marker"]):
+            continue
+        try:
+            version = select_locked_package(candidates, canonical_name(edge["name"]), edge,
+                                            applies)["version"]
+        except ValueError:
+            version = None
+        locked[edge["name"]] = None if edge["name"] in locked else version
     comparisons = {
-        name: {"locked": packages.get(name, {}).get("version"), "installed": installed.get(name)}
-        for name in sorted(dependencies)
+        name: {"locked": locked.get(name), "installed": installed.get(name)}
+        for name in sorted(locked)
     }
     return {
         "matched": "pyarrow" in runtime
@@ -205,19 +350,47 @@ def environment_record(snapshot):
     }
 
 
-def run_checks(output):
-    environment = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
+CHECK_COMMANDS = (
+    ("tests", [sys.executable, "-B", "-m", "pytest", "-p", "no:cacheprovider", "-q"]),
+    (
+        "lint",
+        [sys.executable, "-B", "-m", "ruff", "check", "--no-cache", "gate", "teacher_rl", "tests", "scripts"],
+    ),
+)
+
+
+def whitespace_check(output, snapshot):
+    """Record the frozen-snapshot whitespace check as one check entry and its log."""
+    issues = whitespace_issues(snapshot)
+    log = "".join(f"{i['path']}:{i['line']}: {i['code']}\n" for i in issues)
+    with (output / "snapshot_whitespace.log").open("x", encoding="utf-8") as stream:
+        stream.write(log or f"no whitespace issues in {len(snapshot)} snapshot files\n")
+    return {
+        "name": "snapshot_whitespace",
+        "command": ["in_process", "whitespace_issues", "frozen_source_snapshot"],
+        "returncode": 1 if issues else 0,
+        "issue_count": len(issues),
+    }
+
+
+# Contract §2.5 (A1-R3): check subprocesses get only these caller variables, never secrets,
+# PYTHONPATH or PYTHONHOME.
+CHECK_ENVIRONMENT_KEYS = ("PATH", "HOME", "LANG", "LC_ALL", "LC_CTYPE", "TMPDIR", "VIRTUAL_ENV")
+
+
+def check_environment():
+    """Allowlisted environment for check subprocesses, with bytecode writing disabled."""
+    environment = {key: os.environ[key] for key in CHECK_ENVIRONMENT_KEYS if key in os.environ}
+    return {**environment, "PYTHONDONTWRITEBYTECODE": "1"}
+
+
+def run_checks(output, snapshot, runner=subprocess.run):
+    """Run the suite and Ruff through ``runner``, then the snapshot whitespace check."""
+    environment = check_environment()
     checks = []
-    for name, command in (
-        ("tests", [sys.executable, "-B", "-m", "pytest", "-p", "no:cacheprovider", "-q"]),
-        (
-            "lint",
-            [sys.executable, "-B", "-m", "ruff", "check", "--no-cache", "gate", "tests", "scripts"],
-        ),
-        ("diff_whitespace", ["git", "diff", "--check"]),
-    ):
+    for name, command in CHECK_COMMANDS:
         try:
-            result = subprocess.run(
+            result = runner(
                 command,
                 cwd=ROOT,
                 env=environment,
@@ -234,6 +407,7 @@ def run_checks(output):
         with (output / f"{name}.log").open("x", encoding="utf-8") as stream:
             stream.write(log)
         checks.append({"name": name, "command": command, "returncode": returncode})
+    checks.append(whitespace_check(output, snapshot))
     return checks
 
 
@@ -253,7 +427,7 @@ def main(argv=None):
             entry.external_attr = 0o100644 << 16
             archive.writestr(entry, data)
     bundle_hash = hashlib.sha256((output / "source.zip").read_bytes()).hexdigest()
-    checks = run_checks(output)
+    checks = run_checks(output, before)
     source_recheck_error = None
     try:
         after = source_snapshot()
@@ -267,6 +441,7 @@ def main(argv=None):
     git = subprocess.run(
         ["git", "rev-parse", "HEAD"],
         cwd=ROOT,
+        env=check_environment(),
         capture_output=True,
         text=True,
         check=False,

@@ -1,0 +1,12 @@
+{
+ "author": "agent (D-018/D-024)",
+ "created": "2026-11-09",
+ "files": {
+  "README.md": "803f8c751585524f515ff668412f316690ae7121ad361af91bb9d10c1a793956",
+  "run/aggregate/results-summary.json": "aa047eabb4cc5cbbf6247ecd5414cab40a7fe390e753edbd37711f0d1e08d939",
+  "run/generated-user-config-0.yaml": "93adce08c8e89afec5aa6fbf143050a9ce033083a9d848cd72c90559e4ede68e",
+  "run/physloop-capture/compose-up.stdout.txt": "ff4312c67aeb2cff0b132391b6e7f2c037d353bda17a7c45a98d628a3545dd3f",
+  "run/run_metadata.yaml": "7c2d0e7f9fd881a97261622e96ee14c46aa19699ef84fdc29f2f07bdd6edf564"
+ },
+ "scope": "synthetic"
+}

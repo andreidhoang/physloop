@@ -4,6 +4,12 @@ The Parquet schema/metric names follow the pinned public writer. Execution trace
 v1 is a PhysLoop synthetic fixture contract, NOT the upstream trajectory format.
 Hashes verify bytes, not origin; successful ingestion never qualifies a runtime,
 authenticates a registration, recomputes the scorer, or authorizes a launch.
+
+Tickets: S2.2/S2.5 synthetic ingestion; R4 C2 (scheduled scene_id must equal the upstream
+clipgt_id, and one simulator session backs one attempt). Verification level: L1 for every
+function here (pure checks over synthetic fixtures); the scene_id -> clipgt_id relation it
+enforces is L2 (pinned AlpaSim source, cited in docs/S2_INGESTION.md), untested on a host.
+Never: decodes a real ASL, selects among retries, fills a registration value, or launches.
 """
 
 import math
@@ -244,6 +250,35 @@ def _metrics(data, identity, timestamps):
     }
 
 
+def _binding_issues(attempts, jobs):
+    """R4 C2 scene/clip and session binding over every ledger attempt (L1; pinned source L2).
+
+    The wizard's ``scenes.scene_ids`` values become the runtime ``scene_id``, which the pinned
+    AlpaSim writer records as ``clipgt_id`` (``docs/S2_INGESTION.md``), so a scheduled job's
+    ``scene_id`` must equal its attempt's ``clipgt_id`` (``scene_clip_mismatch``). One simulator
+    session ``(clipgt_id, rollout_id)`` may back only one attempt of one job (``session_reused``);
+    distinct ``run_uuid`` values cannot disambiguate it. Same semantics as
+    ``gate.s2_capture`` (``scene_identity_mismatch`` / ``reused_asl_identity``). Returns
+    ``(code, path, message)`` triples in ledger order; both codes block admission.
+    """
+    found, owners = [], {}
+    for attempt in attempts:
+        identity, attempt_id = attempt.get("upstream_identity"), attempt.get("attempt_id")
+        if identity is None:
+            continue
+        clip, session = identity["clipgt_id"], (identity["clipgt_id"], identity["rollout_id"])
+        job = jobs.get(attempt.get("job_id"))
+        if job is not None and job["scene_id"] != clip:
+            message = f"Scheduled scene_id {job['scene_id']!r} differs from upstream clipgt_id"
+            found.append(("scene_clip_mismatch", attempt_id, f"{message} {clip!r}"))
+        owner = owners.setdefault(session, (attempt.get("job_id"), attempt_id))
+        if owner != (attempt.get("job_id"), attempt_id):
+            message = f"Simulator session (clipgt_id, rollout_id) = {session!r} is already"
+            claimed = f"claimed by job {owner[0]!r} attempt {owner[1]!r}"
+            found.append(("session_reused", attempt_id, f"{message} {claimed}"))
+    return found
+
+
 def extract_bundle(root, request):
     """Verify a synthetic bundle, preserve attempts, normalize all groups or none.
 
@@ -362,6 +397,8 @@ def extract_bundle(root, request):
             "missing_attempt_artifacts",
             "Every completed attempt needs exact raw artifacts",
         )
+        for code, path, message in _binding_issues(ledger["attempts"], jobs):
+            issue(code, path, message)
         groups = defaultdict(lambda: {"identities": [], "observations": [], "run_names": {}})
         for attempt_id, attempt in attempts.items():
             job, entry = jobs[attempt["job_id"]], artifacts[attempt_id]

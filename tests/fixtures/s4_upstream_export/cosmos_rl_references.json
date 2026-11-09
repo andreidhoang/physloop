@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-09",
+  "repository": "https://github.com/nvidia-cosmos/cosmos-rl",
+  "commit": "d2a2c57c4bd6496482bc42da19a59b4432705eda",
+  "license": "Apache-2.0",
+  "vendored": false,
+  "reason": "Large files; only the cited lines are re-derived in teacher_rl/export_audit.py and the oracle in tests/test_s4_export_audit.py (build-spec section 3 allows path, line references and SHA-256 with re-derivation).",
+  "references": [
+    {
+      "path": "cosmos_rl/utils/util.py",
+      "sha256": "6ee7aed22942c1bb3d8fa61db346a504670848926e18854cbe427613eb51c495",
+      "git_blob_sha": "db812ded382d33e542bf020707664834a0367241",
+      "lines": "369-370",
+      "fact": "clear_weight_name(name) = name.replace('._orig_mod', '').replace('._checkpoint_wrapped_module', '')"
+    },
+    {
+      "path": "cosmos_rl/policy/model/hf_models/weight_mapper.py",
+      "sha256": "e52339fe921697b5af687cd1f4e92f18e0ae00dd6616b0e509fd60f68ea18506",
+      "git_blob_sha": "5dab4f43d6ec75a6c3ece2b057e3cf4b6079fa57",
+      "lines": "64-65, 353-369",
+      "fact": "is_vlm = config has vision_config; reverse_hf_conversion_mapping defaults to None; policy_map_local_key_to_hf_key: clear_weight_name, then if is_vlm apply the first matching reverse mapping (none when None), else prefix 'model.' to every name except 'lm_head.weight' that does not already start with 'model.'"
+    },
+    {
+      "path": "cosmos_rl/policy/model/hf_models/__init__.py",
+      "sha256": "0c827771ea037a7b07eb23f0f622634e235588cfd36d811f0761f0b1a2ff4f6b",
+      "git_blob_sha": "782ab873310e3b1ffa4f3b9d81af2c3355c1416a",
+      "lines": "111-125",
+      "fact": "reverse_hf_conversion_mapping is set only by the HFModel wrapper; ExpertModelCosmos (recipes cosmos_wrapper.py:40) is a different BaseCosmosWrapper subclass (INFERRED: mapping stays None on the AlpaGym export path)"
+    },
+    {
+      "path": "cosmos_rl/policy/trainer/llm_trainer/llm_trainer.py",
+      "sha256": "d090e09ad6e123ff0fe24a402197fb655549772b03ca3de5f64d95854cf9860e",
+      "git_blob_sha": "9ea057ceab20cdfd2783fcf626ab2a8759855b9e",
+      "lines": "488-501, 539-573, 622-627, 734-742",
+      "fact": "export iterates named_parameters only (no buffers), maps names with policy_map_local_key_to_hf_key, casts to the export dtype, greedy chunks of at most 4*1024**3 bytes named f'{file_idx:05d}.safetensors' (pp_size 1), index model.safetensors.index.json = {metadata: {total_size}, weight_map}"
+    }
+  ],
+  "related": [
+    {
+      "repository": "https://github.com/NVlabs/alpagym",
+      "commit": "972d160eed0e23d388497851504a3a233fec5879",
+      "path": "packages/runtime/src/alpagym_runtime/cosmos/trainer.py",
+      "sha256": "c6f60325207503cac286a0a70da7edc8b70e9d4c278375a262e09b542599f7b3",
+      "lines": "572-587",
+      "fact": "export at the last step or when export_safetensors is set, trainable_only=False, dtype = torch.<param_dtype>"
+    },
+    {
+      "repository": "https://github.com/NVlabs/alpamayo-recipes",
+      "commit": "1d99fc50370c96637157455da386323a44663c9d",
+      "path": "recipes/alpamayo1_x_rl/models/reasoning_vla/config.py",
+      "sha256": "a820a99d4a0878d9a9e6a3d062feb12380328a6af2bfcd2b1d607188548408aa",
+      "lines": "85-125",
+      "fact": "get_llm_config() returns AutoConfig.from_pretrained(vlm_name_or_path) (the full VLM config; INFERRED to carry vision_config for Cosmos-Reason2-8B, so HFModelWeightMapper.is_vlm is True)"
+    },
+    {
+      "repository": "https://github.com/NVlabs/alpamayo-recipes",
+      "commit": "1d99fc50370c96637157455da386323a44663c9d",
+      "path": "recipes/alpamayo1_x_rl/models/expert_model/cosmos_wrapper.py",
+      "sha256": "8b01be4b1802fd3badd70215f2468f3d4b3c30d78f6dfdd70a5ded67ca9d603a",
+      "lines": "40-69",
+      "fact": "ExpertModelCosmos wraps ExpertModelRL as self.expert_model (local parameter names start with 'expert_model.') and freezes language_model and visual parameters"
+    }
+  ]
+}

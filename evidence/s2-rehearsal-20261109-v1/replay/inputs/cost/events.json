@@ -1,0 +1,1 @@
+[{"amount_usd":"0","as_of_epoch":0,"event_id":"o","kind":"opening_credit"},{"amount_usd":"10","at_epoch":1,"event_id":"d","kind":"cash_deposit"},{"amount_usd":"3","at_epoch":2,"event_id":"s","kind":"provider_charge_snapshot","resource_id":"i-1"}]

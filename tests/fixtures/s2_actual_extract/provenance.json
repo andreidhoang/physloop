@@ -1,0 +1,9 @@
+{
+  "author": "agent (D-018/D-024)",
+  "created": "2026-11-09",
+  "files": {
+    "README.md": "78d35324ca135d6b5293f16e610c72ea3d65f58df34221ee77a6299f76bc38c9",
+    "scenario.json": "a680d255b4271bd0bd32a9d44b5087e298499d550fdcae32805739e8226ca135"
+  },
+  "scope": "public_source_fixture"
+}

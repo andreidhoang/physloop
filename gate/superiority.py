@@ -1,4 +1,11 @@
-"""Candidate superiority rule over locked-gate outputs. Agent-authored under D-018/D-023.
+"""Candidate superiority rule over locked-gate outputs. Agent-authored under D-018/D-023/D-024.
+
+Tickets: S2.6/S4.6 rule; R4 C1 (a guard regression blocks the improvement claim, not only the
+outcome), R4 C4 (same-strata guards must cover the primary's per-stratum observations), R4 C10
+(regression precedence and ``joint_level`` in run aggregation). Verification level: L1 for every
+function (pure logic over gate outputs, literal known answers and negative controls on CPU).
+Never: recomputes a bound, edits or copies ``gate/verdict.py`` / ``gate/stats/``, chooses a
+registered value (strata, guards, ``delta_min``, run ids or run rule), or authorizes anything.
 
 Serves S2.6 [C] (superiority sensitivity) and S4.6 [C] (an improvement claim needs a registered
 superiority rule). This module **reads** the per-stratum endpoints that the protected
@@ -14,8 +21,10 @@ Conventions (from the gate): a stratum's difference is positive when the candida
 ``lower`` endpoint from below, *separately*; the pair is not a joint 1 - alpha interval
 (``docs/S1_CORRECTNESS.md``). Under the S1 assumptions (independent bounded road differences):
 
-- **improvement claim**: ``upper < 0`` on every registered stratum and every guard GO. An
-  intersection-union test at level max(component alphas); no adjustment across strata;
+- **improvement claim**: ``upper < 0`` on every registered stratum, every gating guard stratum GO,
+  no primary NO-GO and no guard NO-GO in any guard stratum (gating or not). An intersection-union
+  test at level max(component alphas); no adjustment across strata. ``claims.improvement.holds``
+  is never True when the outcome is a regression (R4 C1);
 - **ruled-out claim**: ``lower > -delta_min`` on every registered stratum. An intersection-union test
   at the primary alpha that no improvement of delta_min or more exists on any stratum. It is not the
   complement of the improvement claim; mixed strata give INSUFFICIENT overall;
@@ -175,6 +184,28 @@ def _total(counts):
     return tuple(sum(c[i] for c in counts.values()) for i in range(3))
 
 
+def _check_same_strata_coverage(name, guard_counts, primary_counts):
+    """R4 C4: a guard on the primary's strata must cover the same observations per stratum.
+
+    Each stratum's ``(n_roads, n_scenes, n_replicates)`` must equal the primary's. For a
+    ``SequentialGate`` result a stratum keeps the counts of the look at which it closed, so a guard
+    that closed at a different look than the primary is rejected here as well (fail closed);
+    register guards that close with the primary, or use a fixed-sample analysis.
+    """
+    for stratum in sorted(primary_counts):
+        guard, primary = guard_counts.get(stratum), primary_counts[stratum]
+        if guard is None or primary is None:
+            raise ValueError(
+                f"guard {name!r} stratum {stratum!r}: cannot verify paired observations "
+                "(road, scene and replicate counts are required)"
+            )
+        if tuple(guard) != tuple(primary):
+            raise ValueError(
+                f"guard {name!r} stratum {stratum!r} covers (n_roads, n_scenes, n_replicates) = "
+                f"{tuple(guard)}, the primary {tuple(primary)}: not the same paired observations"
+            )
+
+
 def _strata_tuple(value, name):
     if isinstance(value, (str, bytes)) or not isinstance(value, Sequence):
         raise TypeError(f"{name} must be a sequence of stratum names")
@@ -203,7 +234,9 @@ def decide(
     with per-stratum non-inferiority guards on the same endpoint; that is still an
     intersection-union claim. With a registered ``guard_strata`` different from the primary's,
     every guard must cover the same paired observations (equal summed road, scene and replicate
-    counts), and each guard stratum's endpoints and worse-bound flag are recorded.
+    counts), and each guard stratum's endpoints and worse-bound flag are recorded. When the guard
+    strata equal the primary's, every stratum's ``(n_roads, n_scenes, n_replicates)`` must equal
+    the primary's (R4 C4); a guard computed on a subset raises ``ValueError`` naming the stratum.
     ``gating_strata`` (a registered nonempty subset of the guard strata) makes only those strata
     required to be GO; the others are reported descriptively. A NO-GO regression flag in any guard
     stratum still blocks the claim, which only makes it more conservative. For a
@@ -251,6 +284,8 @@ def decide(
             raise ValueError(
                 f"guard {name!r} and the primary do not cover the same paired observations"
             )
+        if not refined:
+            _check_same_strata_coverage(name, g_counts, primary_counts)
         guard_report[name] = {
             "state": g_overall,
             "gating_go": all(g_strata[s][2] == "GO" for s in gating),
@@ -302,7 +337,14 @@ def decide(
         "rule_id": RULE_ID,
         "outcome": decision,
         "claims": {
-            "improvement": {"holds": improvement and guards_go, "level": improvement_level},
+            # R4 C1: a regression flag (primary or any guard stratum) blocks the claim itself.
+            "improvement": {
+                "holds": improvement
+                and guards_go
+                and not guard_regression
+                and overall != "NO-GO",
+                "level": improvement_level,
+            },
             "ruled_out": {"holds": ruled_out, "level": alpha},
         },
         "joint_level_when_both_hold": min(1.0, improvement_level + alpha),
@@ -346,6 +388,18 @@ def aggregate_runs(decisions, *, registered_run_ids, rule, family_alpha, k=None)
     different runs reach both counts, CONFLICTING_RUNS. Run identity comes from the registered ids;
     reusing one decision object for two runs is rejected. The result concerns named checkpoints,
     not a training method.
+
+    Regression precedence (R4 C10): if any registered run's outcome is REGRESSION_FLAGGED the
+    aggregate outcome is REGRESSION_FLAGGED; otherwise, if any run is GUARD_REGRESSION_FLAGGED,
+    it is GUARD_REGRESSION_FLAGGED. Only then are the claim counts read, so a regressed run can
+    never aggregate to MEANINGFUL_IMPROVEMENT_RULED_OUT or an improvement outcome, under either run
+    rule. The claim counts are still reported.
+
+    ``joint_level`` is the level of the joint "improved, by less than delta_min" statement: the
+    family level of the improvement claim plus that of the ruled-out claim, capped at 1. A claim's
+    family level is the largest run level under ``"all"`` and the summed run levels (the union
+    bound, <= family_alpha) under ``"at_least_k"``. It is reported only when the outcome is
+    IMPROVEMENT_SUPPORTED_BELOW_MIN, and is None otherwise.
     """
     _check_alpha(family_alpha, "family_alpha")
     if rule not in RUN_RULES:
@@ -412,10 +466,14 @@ def aggregate_runs(decisions, *, registered_run_ids, rule, family_alpha, k=None)
     improved = {r for r in ids if decisions[r]["claims"]["improvement"]["holds"]}
     ruled = {r for r in ids if decisions[r]["claims"]["ruled_out"]["holds"]}
     n_improved, n_ruled_out = len(improved), len(ruled)
-    any_regression = any(
-        decisions[r]["outcome"] in (REGRESSION_FLAGGED, GUARD_REGRESSION_FLAGGED) for r in ids
-    )
-    if len(improved & ruled) >= need:
+    run_outcomes = [decisions[r]["outcome"] for r in ids]
+    any_regression = any(o in (REGRESSION_FLAGGED, GUARD_REGRESSION_FLAGGED) for o in run_outcomes)
+    joint_level = None
+    if REGRESSION_FLAGGED in run_outcomes:
+        outcome = REGRESSION_FLAGGED
+    elif GUARD_REGRESSION_FLAGGED in run_outcomes:
+        outcome = GUARD_REGRESSION_FLAGGED
+    elif len(improved & ruled) >= need:
         outcome = IMPROVED_BELOW_MIN  # joint statement: level is the sum of both claim levels
     elif n_improved >= need and n_ruled_out >= need:
         outcome = CONFLICTING
@@ -425,12 +483,20 @@ def aggregate_runs(decisions, *, registered_run_ids, rule, family_alpha, k=None)
         outcome = RULED_OUT
     else:
         outcome = INSUFFICIENT
+    if outcome == IMPROVED_BELOW_MIN:
+        combine = max if rule == "all" else sum
+        family_levels = [
+            combine(float(decisions[r]["claims"][name]["level"]) for r in ids)
+            for name in ("improvement", "ruled_out")
+        ]
+        joint_level = min(1.0, sum(family_levels))
     return {
         "rule_id": RULE_ID,
         "run_rule": rule,
         "k": need,
         "m": m,
         "family_alpha": family_alpha,
+        "joint_level": joint_level,
         "outcome": outcome,
         "n_improvement_claims": n_improved,
         "n_ruled_out_claims": n_ruled_out,

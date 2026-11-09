@@ -176,10 +176,12 @@ def test_ruled_out_includes_strata_improved_below_min():
 
 
 def test_guard_must_be_go_and_guard_regression_takes_precedence():
+    # R4 C4: same-strata guards are built on the primary's 50 roads (formerly 441 and 200 roads,
+    # which the per-stratum coverage check now rejects).
     primary = verdict(rows("a", 50, better=50), MARGIN, ALPHA)
-    good = verdict(rows("a", 441), MARGIN, ALPHA)
+    good = verdict(rows("a", 50, better=50), MARGIN, ALPHA)
     weak = verdict(rows("a", 50), MARGIN, ALPHA)
-    bad = verdict(rows("a", 200, worse=60), MARGIN, ALPHA)
+    bad = verdict(rows("a", 50, worse=20), MARGIN, ALPHA)
     assert good.overall == "GO" and weak.overall == "INSUFFICIENT" and bad.overall == "NO-GO"
     assert decide(primary, guards={"progress": good})["outcome"] == sup.SUPPORTED
     d = decide(primary, guards={"progress": good, "offroad": weak})
@@ -207,7 +209,7 @@ def test_guard_strata_must_match_and_primary_cannot_guard_itself():
 
 def test_level_is_the_largest_component_alpha():
     primary = verdict(rows("a", 50, better=50), MARGIN, 0.025)
-    guard = verdict(rows("a", 441), MARGIN, ALPHA)
+    guard = verdict(rows("a", 50, better=50), MARGIN, ALPHA)  # same 50 roads (R4 C4)
     d = decide(primary, guards={"g": guard})
     assert d["claims"]["improvement"]["level"] == ALPHA
     assert d["claims"]["ruled_out"]["level"] == 0.025
@@ -404,11 +406,16 @@ def test_conflicting_runs_are_reported_not_collapsed():
     assert out["outcome"] == sup.CONFLICTING and out["conflicting_runs"] is True
 
 
-def test_regression_in_one_run_is_flagged():
+def test_regression_in_one_run_takes_precedence():
+    # R4 C10: this test formerly asserted IMPROVEMENT_SUPPORTED with a regressed run, which is
+    # the defect; regression now takes precedence over the claim counts under either run rule.
     runs = [_decision(True, level=0.05 / 3), _decision(True, level=0.05 / 3)]
     runs.append(_decision(False, level=0.05 / 3, outcome=sup.REGRESSION_FLAGGED))
     out = agg(runs, rule="at_least_k", k=2, family_alpha=0.05)
-    assert out["outcome"] == sup.SUPPORTED and out["any_run_regression_flagged"] is True
+    assert out["outcome"] == sup.REGRESSION_FLAGGED
+    assert out["any_run_regression_flagged"] is True
+    assert out["n_improvement_claims"] == 2  # counts are still reported
+    assert out["joint_level"] is None
 
 
 def test_at_least_k_requires_bonferroni_levels():
@@ -973,3 +980,141 @@ def test_aggregation_rejects_runs_that_differ_only_in_guard_strata():
         sup.aggregate_runs(
             {"r1": d1, "r2": d2}, registered_run_ids=("r1", "r2"), rule="all", family_alpha=ALPHA
         )
+
+
+# --- R4 C1 / C4 / C10 regressions (agent-authored, D-024) ------------------------------------
+
+
+def _gated_run():
+    """repro_01 shape: pooled primary improves; the non-gating 41-road stratum regresses."""
+    data = rows("big", 300, better=120) + rows("small", 41, worse=25)
+    guard = verdict(data, 0.10, ALPHA)
+    pooled = verdict([{**r, "stratum": "pooled"} for r in data], MARGIN, ALPHA)
+    assert guard.strata == {"big": "GO", "small": "NO-GO"} and guard.overall == "NO-GO"
+    return sup.decide(
+        pooled,
+        required_strata=("pooled",),
+        guards={"ni": guard},
+        guard_strata=("big", "small"),
+        gating_strata=("big",),
+        delta_min=0.02,
+    )
+
+
+def test_c1_guard_regression_in_non_gating_stratum_blocks_the_claim():
+    d = _gated_run()
+    assert d["outcome"] == sup.GUARD_REGRESSION_FLAGGED
+    assert d["claims"]["improvement"]["holds"] is False
+    assert d["strata"]["pooled"]["outcome"] == sup.AT_LEAST_MIN_NOT_EXCLUDED  # primary improved
+    assert d["guards"]["ni"]["gating_go"] is True  # only the non-gating stratum regressed
+
+
+def test_c1_three_real_flagged_runs_do_not_aggregate_to_supported():
+    decisions = {run: _gated_run() for run in IDS}
+    out = sup.aggregate_runs(decisions, registered_run_ids=IDS, rule="all", family_alpha=ALPHA)
+    assert out["outcome"] == sup.GUARD_REGRESSION_FLAGGED
+    assert out["outcome"] not in (sup.SUPPORTED, sup.IMPROVED_BELOW_MIN)
+    assert out["n_improvement_claims"] == 0
+    assert out["any_run_regression_flagged"] is True
+
+
+def test_c1_negative_control_same_design_without_regression_is_supported():
+    data = rows("big", 300, better=120) + rows("small", 41)
+    guard = verdict(data, 0.10, ALPHA)
+    pooled = verdict([{**r, "stratum": "pooled"} for r in data], MARGIN, ALPHA)
+    assert guard.strata["small"] != "NO-GO"
+    d = sup.decide(
+        pooled,
+        required_strata=("pooled",),
+        guards={"ni": guard},
+        guard_strata=("big", "small"),
+        gating_strata=("big",),
+        delta_min=0.02,
+    )
+    assert d["outcome"] == sup.SUPPORTED and d["claims"]["improvement"]["holds"] is True
+
+
+def test_c10_all_runs_primary_regressed_aggregate_is_regression_not_ruled_out():
+    worse = rows("a", 200, worse=60)
+    decisions = {run: decide(verdict(worse, MARGIN, ALPHA)) for run in IDS}
+    assert {d["outcome"] for d in decisions.values()} == {sup.REGRESSION_FLAGGED}
+    assert all(d["claims"]["ruled_out"]["holds"] for d in decisions.values())
+    out = sup.aggregate_runs(decisions, registered_run_ids=IDS, rule="all", family_alpha=ALPHA)
+    assert out["outcome"] == sup.REGRESSION_FLAGGED  # formerly MEANINGFUL_IMPROVEMENT_RULED_OUT
+    assert out["joint_level"] is None
+
+
+def test_c10_primary_regression_precedes_guard_regression():
+    runs = [
+        _decision(True, outcome=sup.GUARD_REGRESSION_FLAGGED),
+        _decision(False, True, outcome=sup.REGRESSION_FLAGGED),
+        _decision(True),
+    ]
+    assert agg(runs, rule="all", family_alpha=0.05)["outcome"] == sup.REGRESSION_FLAGGED
+    runs = [_decision(True, outcome=sup.GUARD_REGRESSION_FLAGGED), _decision(True)]
+    runs.append(_decision(True))
+    assert agg(runs, rule="all", family_alpha=0.05)["outcome"] == sup.GUARD_REGRESSION_FLAGGED
+
+
+def test_c10_below_min_reports_joint_level_beside_family_alpha():
+    below = [_decision(True, True) for _ in IDS]
+    out = agg(below, rule="all", family_alpha=0.05)
+    assert out["outcome"] == sup.IMPROVED_BELOW_MIN
+    assert out["family_alpha"] == 0.05
+    assert out["joint_level"] == pytest.approx(0.10)  # max(0.05) + max(0.05)
+    ids = ("r1", "r2", "r3", "r4")
+    decisions = [_decision(True, True, level=0.0125) for _ in ids]
+    out = sup.aggregate_runs(
+        dict(zip(ids, decisions)), registered_run_ids=ids, rule="at_least_k", k=2, family_alpha=0.05
+    )
+    assert out["outcome"] == sup.IMPROVED_BELOW_MIN
+    assert out["joint_level"] == pytest.approx(0.10)  # 4 x 0.0125 per claim, two claims
+    assert agg([_decision(True) for _ in IDS], rule="all", family_alpha=0.05)["joint_level"] is None
+
+
+def test_c10_real_below_min_decisions_report_joint_level():
+    result = verdict(rows("a", 441, better=10), MARGIN, ALPHA)
+    decisions = {run: decide(result, delta_min=0.05) for run in IDS}
+    out = sup.aggregate_runs(decisions, registered_run_ids=IDS, rule="all", family_alpha=ALPHA)
+    assert out["outcome"] == sup.IMPROVED_BELOW_MIN
+    assert out["joint_level"] == pytest.approx(2 * ALPHA)
+
+
+def _two_strata(n_a, n_b, **kw):
+    return rows("a", n_a, **kw) + rows("b", n_b, **kw)
+
+
+def test_c4_same_strata_subset_guard_is_rejected_naming_the_stratum():
+    """repro_06: a guard from a 60+60 subset formerly gave IMPROVEMENT_SUPPORTED."""
+    primary = verdict(_two_strata(220, 221, better=80), MARGIN, ALPHA)
+    subset_guard = verdict(_two_strata(60, 60), 0.10, ALPHA)
+    assert subset_guard.overall == "GO"
+    with pytest.raises(ValueError, match=r"stratum 'a'.*\(60, 60, 60\).*\(220, 220, 220\)"):
+        decide(primary, strata=("a", "b"), guards={"offroad": subset_guard})
+
+
+def test_c4_one_stratum_mismatch_is_named():
+    primary = verdict(_two_strata(220, 221, better=80), MARGIN, ALPHA)
+    guard = verdict(rows("a", 220) + rows("b", 200), 0.10, ALPHA)
+    with pytest.raises(ValueError, match="stratum 'b'"):
+        decide(primary, strata=("a", "b"), guards={"offroad": guard})
+
+
+def test_c4_full_coverage_guard_is_accepted_and_decides():
+    primary = verdict(_two_strata(220, 221, better=80), MARGIN, ALPHA)
+    full_guard = verdict(_two_strata(220, 221, worse=40), 0.10, ALPHA)
+    d = decide(primary, strata=("a", "b"), guards={"offroad": full_guard})
+    assert d["guards"]["offroad"]["state"] == full_guard.overall
+    assert d["outcome"] != sup.SUPPORTED  # the full-data guard does not certify the claim
+    clean = verdict(_two_strata(220, 221), 0.10, ALPHA)
+    d = decide(primary, strata=("a", "b"), guards={"offroad": clean})
+    assert d["outcome"] == sup.SUPPORTED
+
+
+def test_c4_guard_without_counts_cannot_be_verified():
+    primary = verdict(rows("a", 50, better=50), MARGIN, ALPHA)
+    guard = asdict(verdict(rows("a", 50, better=50), MARGIN, ALPHA))
+    for key in ("n_roads", "n_scenes", "n_replicates"):
+        del guard["details"]["a"][key]
+    with pytest.raises(ValueError, match="cannot verify"):
+        decide(primary, guards={"g": guard})

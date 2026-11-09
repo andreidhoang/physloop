@@ -5,11 +5,11 @@ from copy import deepcopy
 from pathlib import Path
 
 import pytest
-from s2_packet_fixture import packet_request
+from s2_packet_fixture import diagnostic_unit, ego_hood_staging, packet_request
 
 from gate.s2_identity import identity_hash
-from gate.s2_launch import build_pilot_launch
-from gate.s2_packet import build_pilot_packet
+from gate.s2_launch import build_pilot_launch, check_generated_compose
+from gate.s2_packet import EGO_HOOD_FILES, SCHEMA_VERSION, build_pilot_packet
 from gate.s2_schedule import build_schedule
 
 
@@ -30,7 +30,8 @@ def test_known_answer_packet_binds_every_job_to_one_scene_and_matching_mode():
     before = deepcopy(request)
     report = build_pilot_packet(request)
     assert report["prepared"], report["issues"]
-    assert report["issues"] == []
+    assert [(i["code"], i["severity"]) for i in report["issues"]] == [
+        ("renderer_driver_camera_mismatch_predicted", "warning")]
     assert request == before
     assert report["inputs"] == request
     assert report["request_sha256"] == identity_hash(request)
@@ -46,7 +47,11 @@ def test_known_answer_packet_binds_every_job_to_one_scene_and_matching_mode():
         assert job["arm"] == "A"
         assert job["protocol_hash"] == request["schedule_request"]["protocol_hashes"][mode]
         assert unit["asset_sha256"] == job["scene_id"].rsplit("-", 1)[1] * 64
-        assert unit["upstream_identity"] is None
+        assert unit["upstream_attempts"] == []
+        assert unit["upstream_attempts_status"] == "not_run"
+        assert unit["run_uuid_binding"] == {
+            "source": f"/synthetic/runs/{mode}/{job['job_id']}/run_metadata.yaml#run_uuid",
+            "status": "not_run", "run_uuid": None}
         assert json.loads(override(unit, "scenes.scene_ids")) == [job["scene_id"]]
         assert override(unit, "scenes.test_suite_id") == "null"
         assert override(unit, "runtime.simulation_config.n_rollouts") == "1"
@@ -69,7 +74,8 @@ def test_known_answer_packet_binds_every_job_to_one_scene_and_matching_mode():
         assert unit["requires_previous_unit_teardown"] is True
         paths.update((run_dir, log_dir))
     assert len(paths) == 20
-    assert report["execution_model"] == "serial_units_with_driver_restart_and_compose_teardown"
+    assert report["execution_model"] == (
+        "serial_units_driver_restart_capture_before_compose_teardown")
     assert report["startup_cost_basis"] == "unmeasured_per_unit_startup_included_in_paid_work"
     for field in (
         "cloud_launch_authorized", "publication_authorized", "runtime_qualified",
@@ -275,3 +281,396 @@ def test_packet_is_pure_and_does_not_import_wizard_or_execute_commands(monkeypat
     monkeypatch.setattr(subprocess, "run", forbidden)
     monkeypatch.setattr(subprocess, "Popen", forbidden)
     assert build_pilot_packet(packet_request())["prepared"]
+
+
+# --- A4: L6 ego hoods, L7 retries, P1/P3 attempts and captures, shm_size ----------------
+
+UPSTREAM = Path(__file__).parent / "fixtures" / "alpasim_launch_upstream" / "alpasim"
+
+
+def test_ego_hood_pin_matches_literal_git_tree_and_source_mounts():
+    # Literal `git ls-tree -l e121e591 data/nre-artifacts/ego-hoods` and sha256 of each blob.
+    assert [(f["path"], f["size_bytes"], f["git_blob_sha1"], f["sha256"])
+            for f in EGO_HOOD_FILES] == [
+        ("hyperion_8/camera_front_wide_120fov.png", 808775,
+         "1e4cbd9f0a023f3cd3578b707380e61a9d4a39ca",
+         "04fa3f354940d03984a37eb755ebf845be4b4bdae39c178b8de990d0b045392d"),
+        ("hyperion_8_1/camera_front_wide_120fov.png", 425624,
+         "1a07fea50bf774883fc3a7b9df8555d97b9dae98",
+         "b7c36c0d179e82cc0d820a202fb9b0017e4006aa815cc850fbd3ea1848d9a8cd"),
+    ]
+    base = (UPSTREAM / "src/wizard/configs/base_config.yaml").read_text().splitlines()
+    assert base[30].strip() == 'sensordata: "${defines.filesystem}/nre-artifacts"'
+    assert base[125].strip() == '- "${defines.sensordata}/ego-hoods:/mnt/ego-hoods"'
+    assert 'ego_mask_rig_config_id: "hyperion_8_1"' in base[286]
+    dev = (UPSTREAM / "src/wizard/configs/e2e_challenge/dev.yaml").read_text().splitlines()
+    assert dev[22].strip() == "validate_mount_points: false"
+
+
+def test_packet_records_declared_staging_without_claiming_host_verification():
+    report = build_pilot_packet(packet_request())
+    assert report["ego_hood_staging"]["declared_matches_pin"] is True
+    assert report["ego_hood_staging"]["host_verified"] is False
+    assert report["ego_hood_staging"]["scope"] == "synthetic"
+    assert report["ego_hood_staging_host_verified"] is False
+
+
+@pytest.mark.parametrize("mutation", [
+    "missing", "wrong_hash", "missing_file", "extra_file", "wrong_root", "bad_scope", "kind",
+    "duplicate",
+])
+def test_unit_preparation_requires_pinned_ego_hood_staging(mutation):
+    request = packet_request()
+    staging = request["ego_hood_staging"]
+    if mutation == "missing":
+        del request["ego_hood_staging"]
+    elif mutation == "wrong_hash":
+        staging["files"][0]["sha256"] = "f" * 64
+    elif mutation == "missing_file":
+        staging["files"].pop()
+    elif mutation == "extra_file":
+        staging["files"].append({**staging["files"][0], "path": "hyperion_9/x.png"})
+    elif mutation == "wrong_root":
+        staging["staged_root"] = "/synthetic/data/ego-hoods"
+    elif mutation == "bad_scope":
+        staging["scope"] = "assumed"
+    elif mutation == "kind":
+        staging["artifact_kind"] = "receipt"
+    else:
+        staging["files"].append(dict(staging["files"][0]))
+    report = build_pilot_packet(request)
+    assert not report["prepared"]
+    assert report["units"] == []
+    expected = "invalid_request" if mutation == "missing" else "ego_hood_staging_required"
+    assert expected in codes(report)
+
+
+def test_staged_root_follows_the_launch_data_root():
+    request = packet_request()
+    request["launch_request"]["data_root"] = "/other/data"
+    assert not build_pilot_packet(request)["prepared"]
+    request["ego_hood_staging"] = ego_hood_staging("/other/data")
+    assert build_pilot_packet(request)["prepared"]
+
+
+@pytest.mark.parametrize("value", [None, {}, {"renderer-0": "64g"}, "64g"])
+def test_shm_size_is_required_for_every_service_without_default(value):
+    request = packet_request()
+    request["shm_size"] = value
+    report = build_pilot_packet(request)
+    assert not report["prepared"]
+    assert "invalid_shm_size" in codes(report)
+
+
+@pytest.mark.parametrize("size", ["0g", "64x", "64", "64gb", " 64g", "1234567g"])
+def test_shm_size_rejects_malformed_values(size):
+    request = packet_request()
+    request["shm_size"]["renderer-0"] = size
+    assert "invalid_shm_size" in codes(build_pilot_packet(request))
+
+
+def test_declared_shm_size_reaches_each_unit_compose_expectation_and_check():
+    request = packet_request()
+    request["shm_size"]["renderer-0"] = "64g"
+    report = build_pilot_packet(request)
+    assert report["prepared"], report["issues"]
+    unit = report["units"][0]
+    expected = unit["compose_expectations"]
+    assert expected["shm_size"]["renderer-0"] == "64g"
+    assert expected["harmonizer"] is (unit["harmonizer_mode"] == "on")
+    assert expected["harmonizer_cache"] is None
+    services = {
+        name: {"image": (request["launch_request"]["renderer_image"] if name == "renderer-0"
+                         else request["launch_request"]["base_image"]),
+               "network_mode": "host", "pull_policy": "never",
+               "command": ["-c", "umask 0000\n/app/x serve-grpc"]}
+        for name in ("controller-0", "physics-0", "renderer-0", "runtime-0")}
+    services["renderer-0"]["volumes"] = [
+        "/synthetic/data/nre-artifacts:/mnt/nre-data",
+        "/synthetic/data/nre-artifacts/ego-hoods:/mnt/ego-hoods"]
+    generated = check_generated_compose({"services": services}, expected)
+    assert [i["code"] for i in generated["issues"]] == ["shm_size_mismatch"]
+    services["renderer-0"]["shm_size"] = "64g"
+    assert check_generated_compose({"services": services}, expected)["status"] == "passed"
+
+
+def test_units_require_captures_before_teardown_and_never_trust_exit_codes():
+    report = build_pilot_packet(packet_request())
+    unit = report["units"][0]
+    run_dir = unit["compose"]["cwd"]
+    capture_dir = run_dir + "/physloop-capture"
+    assert unit["capture_dir"] == capture_dir
+    assert [(c["id"], c["argv"]) for c in unit["required_captures_before_teardown"]] == [
+        ("compose_up_stdout", None),
+        ("compose_logs", ["docker", "compose", "logs", "--no-color", "--timestamps"]),
+        ("compose_ps", ["docker", "compose", "ps", "-a", "--format", "json"]),
+        ("compose_container_ids", ["docker", "compose", "ps", "-a", "-q"]),
+        ("container_inspect", None),
+    ]
+    first = unit["required_captures_before_teardown"][0]
+    assert first["stdout_path"] == capture_dir + "/compose-up.stdout.txt"
+    inspect = unit["required_captures_before_teardown"][-1]
+    assert inspect["argv_template"] == ["docker", "inspect", "{container_ids}"]
+    assert inspect["placeholder_source"] == "compose_container_ids"
+    assert unit["teardown"]["argv"] == ["docker", "compose", "down", "--timeout", "10"]
+    assert unit["teardown"]["requires"] == [
+        "compose_up_stdout", "compose_logs", "compose_ps", "compose_container_ids",
+        "container_inspect"]
+    assert unit["compose_config"]["argv"] == ["docker", "compose", "config", "--format", "json"]
+    assert unit["compose"]["argv"] == ["docker", "compose", "up", "--pull", "never",
+                                       "--exit-code-from", "runtime-0"]
+    assert unit["compose"]["exit_code_is_success_evidence"] is False
+    for step in (*unit["required_captures_before_teardown"][1:], unit["teardown"]):
+        assert step["cwd"] == run_dir
+        assert step["env_allowlist"] == ["HOME", "LANG", "PATH"]
+    assert "exit code ignored" in report["unit_completion_rule"]
+
+
+def test_retry_controls_document_noop_nr_retries_and_internal_retry_with_sources():
+    controls = build_pilot_packet(packet_request())["retry_controls"]
+    assert controls["wizard.nr_retries"]["effect_on_run_method_NONE"] == "none"
+    assert controls["runtime_internal_retry"]["max_retry_attempts"] == 1
+    assert controls["runtime_internal_retry"]["configurable"] is False
+    slurm = (UPSTREAM / "src/wizard/alpasim_wizard/deployment/slurm.py.txt").read_text()
+    assert "self.context.cfg.wizard.nr_retries" in slurm.splitlines()[66]
+    wizard_sources = [p for p in (UPSTREAM / "src/wizard/alpasim_wizard").rglob("*.py.txt")
+                      if "nr_retries" in p.read_text()]
+    assert sorted(p.name for p in wizard_sources) == ["schema.py.txt", "slurm.py.txt"]
+    ipc = (UPSTREAM / "src/runtime/alpasim_runtime/worker/ipc.py.txt").read_text()
+    assert ipc.splitlines()[49].strip() == "max_retry_attempts: int = 1"
+    scheduler = (UPSTREAM / "src/runtime/alpasim_runtime/daemon/scheduler.py.txt").read_text()
+    assert scheduler.splitlines()[198].strip() == 'session_uuid="",'
+
+
+def test_generated_config_expectations_follow_the_camera_decision():
+    request = packet_request()
+    request["launch_request"]["renderer_camera_override"] = "4cam_1080"
+    report = build_pilot_packet(request)
+    assert report["prepared"] and report["issues"] == []
+    expected = report["units"][0]["generated_config_expectations"]
+    assert expected == {
+        "scope": "synthetic",
+        "scene_ids": [report["units"][0]["job"]["scene_id"]], "requested_steps": 3,
+        "driver_port": 6789, "teacher_snapshot": "/synthetic/teacher/snapshot",
+        "renderer_cameras": ["camera_front_wide_120fov", "camera_front_tele_30fov",
+                             "camera_cross_left_120fov", "camera_cross_right_120fov"]}
+    assert "cameras=4cam_1080" in report["units"][0]["wizard_prepare"]["argv"]
+
+
+def test_schema_version_one_packets_are_rejected():
+    request = packet_request()
+    request["schema_version"] = 1
+    assert "unsupported_schema" in codes(build_pilot_packet(request))
+
+
+# --- Review A4-F5/F6 ------------------------------------------------------------------
+
+
+def test_compose_expectations_name_the_renderer_mounts_the_argv_requests():
+    from s2_launch_fixture import pinned_harmonizer_source
+
+    report = build_pilot_packet(packet_request())
+    assert report["units"][0]["compose_expectations"]["renderer_volumes"] == {
+        "/mnt/ego-hoods": "/synthetic/data/nre-artifacts/ego-hoods"}
+    request = packet_request()
+    request["launch_request"]["harmonizer_source"] = pinned_harmonizer_source()
+    report = build_pilot_packet(request)
+    assert report["prepared"], report["issues"]
+    for unit in report["units"]:
+        assert unit["compose_expectations"]["renderer_volumes"] == {
+            "/mnt/ego-hoods": "/synthetic/data/nre-artifacts/ego-hoods",
+            "/mnt/harmonizer": "/synthetic/harmonizer"}
+        assert "/synthetic/harmonizer:/mnt/harmonizer" in json.loads(
+            override(unit, "services.renderer.volumes"))
+
+
+def test_packet_report_carries_kind_scope_producer_and_unit_scopes():
+    report = build_pilot_packet(packet_request())
+    assert report["prepared"], report["issues"]
+    assert report["artifact_kind"] == "s2_pilot_packet"
+    assert report["scope"] == "synthetic"
+    assert report["producer"]["module"] == "gate.s2_packet"
+    assert report["producer"]["function"] == "build_pilot_packet"
+    assert len(report["producer"]["source_sha256"]) == 64
+    for unit in report["units"]:
+        assert unit["generated_config_expectations"]["scope"] == "synthetic"
+        assert unit["compose_expectations"]["scope"] == "synthetic"
+
+
+@pytest.mark.parametrize("mutation", ["missing", "invalid", "launch_differs", "actual_packet",
+                                      "actual_staging"])
+def test_packet_scope_is_required_and_consistent(mutation):
+    request = packet_request()
+    if mutation == "missing":
+        del request["scope"]
+    elif mutation == "invalid":
+        request["scope"] = "assumed"
+    elif mutation == "launch_differs":
+        request["launch_request"]["scope"] = "public_source_fixture"
+    elif mutation == "actual_packet":
+        request["scope"] = request["launch_request"]["scope"] = "actual"
+    else:
+        request["ego_hood_staging"]["scope"] = "actual"
+    report = build_pilot_packet(request)
+    assert not report["prepared"] and report["units"] == []
+    expected = {"missing": "invalid_request", "invalid": "invalid_scope"}.get(
+        mutation, "scope_mismatch")
+    assert expected in codes(report)
+
+
+# --- Review A2-F12: Harmonizer licence gate on on-arm units --------------------------
+
+
+@pytest.mark.parametrize("pinned", [False, True])
+@pytest.mark.parametrize("ref", [None, "", "TBD"])
+def test_on_arm_units_require_recorded_harmonizer_terms(pinned, ref):
+    from s2_launch_fixture import pinned_harmonizer_source
+
+    request = packet_request()
+    if pinned:
+        request["launch_request"]["harmonizer_source"] = pinned_harmonizer_source()
+    request["launch_request"]["harmonizer_terms_authorization_ref"] = ref
+    report = build_pilot_packet(request)
+    assert not report["prepared"] and report["units"] == []
+    blocking = [(i["code"], i["path"]) for i in report["issues"] if i["severity"] == "blocking"]
+    assert blocking == [("harmonizer_terms_unrecorded",
+                         "launch_request.harmonizer_terms_authorization_ref")]
+
+
+def test_terms_reference_leaves_off_and_on_unit_commands_unchanged():
+    first = build_pilot_packet(packet_request())
+    request = packet_request()
+    request["launch_request"]["harmonizer_terms_authorization_ref"] = "SYNTHETIC-other-terms"
+    second = build_pilot_packet(request)
+    assert first["prepared"] and second["prepared"]
+    for one, two in zip(first["units"], second["units"], strict=True):
+        assert one["commands_sha256"] == two["commands_sha256"]
+        assert one["launch_request_sha256"] != two["launch_request_sha256"]
+
+
+# ------------------------------------------------------------ diagnostic qualification units
+
+# Identity of the fixture's ten-job pilot packet, pinned before diagnostic support existed
+# (computed on the unmodified builder, 2026-11-09). ``producer`` is excluded because it
+# carries this module's own source hash, which every edit changes.
+PILOT_PACKET_SHA256_WITHOUT_PRODUCER = (
+    "bd5b0ed35014a4ef4c09f9b8613937233fe79aa325abdeb5e32c18645943a9e9")
+PILOT_REQUEST_SHA256 = "56222db27747d70f88de76fb9183993d7a838efe8167126aab12345077283232"
+PILOT_UNITS_SHA256 = "99b5e2da360f2c54b63ef66630de0ad71bf4828168e9c988fd1370655702dc8d"
+PILOT_SCHEDULE_SHA256 = "fd8173944e65dba4a9eacdb1e821a569d991d8d14550c33840f546a843f56b98"
+
+
+def without_producer(packet):
+    return {key: value for key, value in packet.items() if key != "producer"}
+
+
+def test_ten_job_packet_without_diagnostics_is_byte_identical_to_the_pin():
+    packet = build_pilot_packet(packet_request())
+    assert packet["prepared"] and SCHEMA_VERSION == 2
+    assert identity_hash(without_producer(packet)) == PILOT_PACKET_SHA256_WITHOUT_PRODUCER
+    assert packet["request_sha256"] == PILOT_REQUEST_SHA256
+    assert identity_hash(packet["units"]) == PILOT_UNITS_SHA256
+    assert identity_hash(packet["schedule"]) == PILOT_SCHEDULE_SHA256
+    assert "diagnostic_units" not in packet and "diagnostics" not in packet
+    assert "diagnostic_units" not in packet["input_hashes"]
+
+
+def diagnostic_packet(**changes):
+    request = packet_request()
+    first = build_pilot_packet(packet_request())["units"][0]["job"]["job_id"]
+    request["diagnostic_units"] = [diagnostic_unit(first, **changes)]
+    return request, build_pilot_packet(request), first
+
+
+def test_declared_diagnostic_unit_is_separate_from_the_ten_pilot_jobs():
+    request, packet, source = diagnostic_packet()
+    assert packet["prepared"], packet["issues"]
+    # The ten pilot jobs, their units and the schedule are unchanged by the declaration.
+    assert len(packet["units"]) == 10 and len(packet["schedule"]) == 10
+    assert identity_hash(packet["units"]) == PILOT_UNITS_SHA256
+    assert identity_hash(packet["schedule"]) == PILOT_SCHEDULE_SHA256
+    assert packet["request_sha256"] == identity_hash(request) != PILOT_REQUEST_SHA256
+    assert packet["input_hashes"]["diagnostic_units"] == identity_hash(
+        request["diagnostic_units"])
+    [unit] = packet["diagnostic_units"]
+    assert unit["job"]["job_id"] == "diagnostic-camera-check"
+    # Review G2-04: its own ledger phase, never the source pilot job's.
+    assert unit["job"]["phase"] == "diagnostic_qualification"
+    assert {job["phase"] for job in packet["schedule"]} == {"harmonizer_pilot"}
+    assert unit["job"]["job_id"] not in {job["job_id"] for job in packet["schedule"]}
+    assert unit["diagnostic"] == {
+        "diagnostic_id": "camera-check", "role": "camera_config_qualification",
+        "source_job_id": source,
+        "budget_line": {"line_id": "pilot_diagnostics", "cap_usd": "5"},
+        "counts_toward_pilot_jobs": False, "inference_input": False}
+    assert packet["diagnostics"] == {
+        "unit_count": 1, "budget_lines": {"pilot_diagnostics": "5"},
+        "execution": "before_pilot_units_serially", "counts_toward_pilot_jobs": False,
+        "inference_input": False, "ledger": "separate from the pilot schedule's attempt ledger"}
+    pilot = packet["units"][0]
+    assert pilot["job"]["job_id"] == source
+    # Same scene, mode and horizon as its source job, in its own directories.
+    for key in ("scene_id", "protocol_hash", "requested_steps", "road_id", "stratum"):
+        assert unit["job"][key] == pilot["job"][key]
+    assert unit["harmonizer_mode"] == pilot["harmonizer_mode"]
+    assert unit["compose"]["cwd"] == pilot["compose"]["cwd"].rsplit("/", 1)[0] + (
+        "/diagnostic-camera-check")
+    assert unit["capture_dir"] == unit["compose"]["cwd"] + "/physloop-capture"
+    assert unit["driver_output_path"].endswith(
+        "/diagnostic-camera-check/physloop-driver-output.txt")
+    assert override(unit, "scenes.scene_ids") == override(pilot, "scenes.scene_ids")
+    assert json.loads(override(unit, "wizard.log_dir")) == unit["compose"]["cwd"]
+    assert unit["commands_sha256"] != pilot["commands_sha256"]
+
+
+@pytest.mark.parametrize(("mutate", "fragment"), [
+    (lambda r, s: r.update(diagnostic_units=[]), "nonempty list"),
+    (lambda r, s: r.update(diagnostic_units={"x": 1}), "nonempty list"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit("0" * 64)]), "scheduled pilot job"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit(s), diagnostic_unit(s)]),
+     "declared twice"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit(s, role="")]), "no default role"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit(s, role="TBD")]), "role"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit(s, diagnostic_id="../x")]),
+     "diagnostic_id"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit(
+        s, budget_line={"line_id": "pilot_diagnostics", "cap_usd": "0"})]), "positive"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit(
+        s, budget_line={"line_id": "pilot_diagnostics", "cap_usd": "0.00"})]), "positive"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit(
+        s, budget_line={"line_id": "pilot_diagnostics", "cap_usd": 5})]), "positive"),
+    (lambda r, s: r.update(diagnostic_units=[diagnostic_unit(
+        s, budget_line={"line_id": "pilot_diagnostics"})]), "line_id and cap_usd"),
+    (lambda r, s: r.update(diagnostic_units=[
+        diagnostic_unit(s),
+        diagnostic_unit(s, diagnostic_id="other",
+                        budget_line={"line_id": "pilot_diagnostics", "cap_usd": "6"})]),
+     "two caps"),
+    (lambda r, s: r.update(diagnostic_units=[{**diagnostic_unit(s), "counts": True}]),
+     "requires exactly"),
+])
+def test_invalid_diagnostic_declarations_prepare_nothing(mutate, fragment):
+    request = packet_request()
+    source = build_pilot_packet(packet_request())["units"][0]["job"]["job_id"]
+    mutate(request, source)
+    packet = build_pilot_packet(request)
+    assert not packet["prepared"] and packet["units"] == []
+    assert "diagnostic_units" not in packet
+    messages = [item["message"] for item in packet["issues"]
+                if item["code"] == "invalid_diagnostic_units"]
+    assert any(fragment in message for message in messages), packet["issues"]
+
+
+def test_two_diagnostics_may_share_one_budget_line_and_keep_declared_order():
+    request = packet_request()
+    jobs = [unit["job"]["job_id"] for unit in build_pilot_packet(packet_request())["units"]]
+    request["diagnostic_units"] = [diagnostic_unit(jobs[1], diagnostic_id="b-on"),
+                                   diagnostic_unit(jobs[0], diagnostic_id="a-off")]
+    packet = build_pilot_packet(request)
+    assert packet["prepared"], packet["issues"]
+    assert [unit["job"]["job_id"] for unit in packet["diagnostic_units"]] == [
+        "diagnostic-b-on", "diagnostic-a-off"]
+    assert [unit["index"] for unit in packet["diagnostic_units"]] == [0, 1]
+    assert [unit["harmonizer_mode"] for unit in packet["diagnostic_units"]] == [
+        packet["units"][1]["harmonizer_mode"], packet["units"][0]["harmonizer_mode"]]
+    assert packet["diagnostics"]["budget_lines"] == {"pilot_diagnostics": "5"}

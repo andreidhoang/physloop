@@ -12,12 +12,26 @@ import numpy as np
 from gate.s2_extract import PARQUET_COLUMNS, RAW_AGGREGATIONS
 
 ROOT = Path(__file__).parent / "fixtures" / "alpasim_s2_raw"
+# Every vendored file: four scorer/writer snapshots, processing.py and the three
+# aggregation sources CPU-12 executes (modifiers.py, main.py, scene_score.py).
+SOURCE_PATHS = {
+    "data_e121e591.py.txt": "src/eval/src/eval/data.py",
+    "processing_e121e591.py.txt": "src/eval/src/eval/aggregation/processing.py",
+    "ground_truth_e121e591.py.txt": "src/eval/src/eval/scorers/ground_truth.py",
+    "collision_e121e591.py.txt": "src/eval/src/eval/scorers/collision.py",
+    "offroad_e121e591.py.txt": "src/eval/src/eval/scorers/offroad.py",
+    "image_e121e591.py.txt": "src/eval/src/eval/scorers/image.py",
+    "modifiers_e121e591.py.txt": "src/eval/src/eval/aggregation/modifiers.py",
+    "main_e121e591.py.txt": "src/eval/src/eval/aggregation/main.py",
+    "scene_score_e121e591.py.txt": "src/eval/src/eval/aggregation/scene_score.py",
+}
 
 
 def test_complete_public_source_snapshots_match_git_and_sha256_receipts():
     provenance = json.loads((ROOT / "provenance.json").read_text())
     assert provenance["commit"] == "e121e59141dc391f6c295513d6dadc840a419149"
-    assert len(provenance["sources"]) == 6
+    assert len(provenance["sources"]) == 9
+    assert {e["file"]: e["path"] for e in provenance["sources"]} == SOURCE_PATHS
     for entry in [*provenance["sources"], provenance["license_file"]]:
         raw = (ROOT / entry["file"]).read_bytes()
         assert hashlib.sha256(raw).hexdigest() == entry["sha256"]

@@ -1,0 +1,1 @@
+{"alpha":0.05,"design_id":"synthetic-design-not-registered","layout":{"urban":[[1],[1],[1]]},"looks":null,"margin":0.1,"metric":{"higher_is_worse":false,"kind":"continuous","name":"synthetic_metric","unit":"score_in_0_1"},"required_strata":["urban"],"schema_version":2,"superiority":null}

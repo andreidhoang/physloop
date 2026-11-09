@@ -1,0 +1,5 @@
+Attaching to runtime-0-1
+runtime-0-1  | 10:00:01.123 [W0] INFO:	Session STARTING: uuid=00000003-0000-4000-8000-000000000001 scene=synthetic-scene-1 steps=3
+runtime-0-1  | 10:00:02.123 [W0] WARNING:	Rollout FAILED: job=0123456789abcdef0123456789abcdea scene=synthetic-scene-1 uuid=00000003-0000-4000-8000-000000000001 retryable=False error=Camera camera_rear_left_70fov not in desired
+runtime-0-1  | Traceback (most recent call last):
+runtime-0-1  |   raise Boom

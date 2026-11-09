@@ -1,0 +1,1 @@
+{"argv":[["install","-d"],["bash","/opt/physloop/scripts/vast_s2_host_probe.sh"]],"result":{"failed_stage":"A1_host_probe","reason":"verification_failed","status":"failed"}}

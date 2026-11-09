@@ -4,6 +4,25 @@ Agent-authored · 2026-11-07 · implementation backlog, not a scientific registr
 
 **Scope correction, 2026-11-07:** Huy challenged the need for all fourteen packages and then authorized the reduced execution path. This document is a backlog, not a prerequisite checklist for the first rental. The immediate work is ingestion handoff, a small setup inventory, existing host-probe/cutoff repairs, cost/export checks and one synthetic rehearsal. Follow [the minimal pilot runbook](S2_MINIMAL_PILOT_RUNBOOK.md). Reliability/power and population analyses remain required at their full-study/S4 decision points; reusable infrastructure is built only when needed. The acceptance list in §11 describes the full backlog, not the reduced preparation milestone.
 
+**Implementation status, 2026-11-09 (D-024):** every ticket below now has a home; the tables in §2 and the proposed interfaces in §5 are historical where they differ. Verification levels and the remaining gaps are in [the build record](research/2026-11-08-codebase-build/build-spec.md) and [the completeness audit](research/2026-11-08-codebase-build/completeness-audit.md). A green CPU suite is not host qualification.
+
+| Ticket | Implemented home (interface as built) |
+|---|---|
+| CPU-00 | `scripts/verify_s2.py`, `scripts/verify_s2_ingestion.py` (frozen snapshot incl. `teacher_rl/`), producer identities in sealed bundles |
+| CPU-01 | `gate/s2_runtime.py::validate_runtime_inventory(inventory)` |
+| CPU-02 | `gate/s2_readiness.py::inspect_readiness(plan, evidence_index, schedule, action_record=None, *, root)` |
+| CPU-03 | `gate/s2_population.py::audit_population(manifest, roles=None, *, overlap_rule=None)` |
+| CPU-04 | `gate/s2_diagnostics.py::describe_validity(ledger_report, observations, records=None, *, validity_definition=None, scope=None)`; real-output inputs from `gate/s2_actual_extract.py::extract_unit` |
+| CPU-05 | `gate/s2_probes.py::describe_repeats(observations, method=None, *, scope, paired_policies=None)`, `compare_probe_artifacts(a, b, kind, *, tolerance=None)`; `gate/tensor_manifest.py` |
+| CPU-06 | `gate/s2_power.py::run_sensitivity(design, scenarios, n_sim, seed)` (non-inferiority, superiority and falsifier power); `gate/s2_gate.py` registered evaluation glue |
+| CPU-07 | `gate/s2_telemetry.py::summarize_telemetry(samples, allocation, rollouts, ...)`; producers in `gate/s2_telemetry_sources.py`, `scripts/s2_gpu_sampler.py` |
+| CPU-08 | `gate/s2_cost.py::reconcile_cost(events, quote, scope)`, `can_start_next_unit(ledger, limits, next_unit, *, now_epoch)` |
+| CPU-09 | `gate/s2_bootstrap.py::build_execution_plan(inventory, action_record, *, phases)`, `scripts/s2_guest_bootstrap.py`, `scripts/s2_prepare_bundle.py`, `gate/s2_host_fit.py::assess_host_fit(texts, requirements)` |
+| CPU-10 | `gate/s2_execution.py` (`validate_action_record`, hash-chained journal, transition function), `scripts/s2_lifecycle.py`, `scripts/vast_stop_watchdog.py`; hash-bound authority in `gate/s2_authority.py::verify_authority` |
+| CPU-11 | `gate/s2_bundle.py::seal_bundle(root, artifact_index)`, `verify_bundle(root, manifest=None)`, replay |
+| CPU-12 | `tests/test_s2_evaluator_path.py` over vendored pinned aggregation sources |
+| CPU-13 | `scripts/rehearse_s2.py`, `gate/s2_report.py::build_s2_report(*, scope, evidence, readiness=None, bundle_verification=None, rehearsal=None)` |
+
 ## 1. Goal and authority
 
 Finish the software that can be qualified with CPU fixtures so the next approved GPU allocation executes a prepared, bounded qualification and pilot, rather than becoming an open-ended installation/debugging session.
@@ -233,7 +252,7 @@ Separate pre-rental requirements from post-provision host checks, so the report 
 
 **Stages:** inspect guest → qualify public synthetic host → verify permitted asset access/acquire approved subset → verify bytes/cache → render resolved upstream Compose configuration → start required services → actual-input checks → run the registered ten-job pilot → export → stop/destroy/reconcile. Image/build/license/acquisition gates are explicit. Reuse upstream run methods; no Kubernetes, custom trainer, service mesh or replacement scheduler.
 
-**Required host-script repair before reuse:** `scripts/vast_monitor_control.sh:12` and `scripts/vast_exporter_control.sh:15` embed a local CUDA image ID from the old VM. Accept a validated run-specific pullable image digest, resolve its actual local ID on the target host, and pass that identity to the probes. `vast_exporter_control.sh:32` stops `nvidia-dcgm` unconditionally; its original disposable-host assumption must become an explicit service-ownership check. Record prior service state, reject a foreign host-engine conflict, and restore state only within recorded authority. These are unlocked engineering-script changes with fake-command tests, not changes to old evidence.
+**Required host-script repair before reuse (done 2026-11-07/08: both scripts now take a digest-pinned `CUDA_IMAGE_REF`, resolve its local ID, and the exporter refuses an active DCGM/`nv-hostengine` conflict instead of stopping it):** `scripts/vast_monitor_control.sh:12` and `scripts/vast_exporter_control.sh:15` embed a local CUDA image ID from the old VM. Accept a validated run-specific pullable image digest, resolve its actual local ID on the target host, and pass that identity to the probes. `vast_exporter_control.sh:32` stops `nvidia-dcgm` unconditionally; its original disposable-host assumption must become an explicit service-ownership check. Record prior service state, reject a foreign host-engine conflict, and restore state only within recorded authority. These are unlocked engineering-script changes with fake-command tests, not changes to old evidence.
 
 **CPU execution:** generate/replay against fake process and inventory clients. Check Compose/schema semantics with public fixture configurations or available local tooling without pulling images. A missing local Docker command is `not_run`; pure-YAML checks are not reported as successful Compose execution. Validate model-loading config without importing/loading weights.
 
@@ -251,7 +270,7 @@ Separate pre-rental requirements from post-provision host checks, so the report 
 
 Persist original creation-request time, absolute cutoff and cumulative billed intervals. A coordinator/watchdog restart cannot renew the allowance. An uncertain create response is reconciled against the predeclared unique label and complete inventory before any further create action; ambiguity blocks, and no automatic replacement is allowed.
 
-**Constraints:** existing watchdog is stop-only, requires exact ID plus unique label, and rejects deadlines more than 60 minutes ahead. It is not a hard provider cap and cannot survive controller/network failure. Reuse as-is for scopes it fits. For a later longer approved window, independently review a parameterized deadline contract or use provider-enforced scheduling before execution; never silently remove the bound or treat D-019's one-hour authority as current. Stop does not delete billed storage.
+**Constraints (superseded 2026-11-09 by D-024 work, see `scripts/vast_stop_watchdog.py`):** the watchdog now takes `--max-window-seconds` equal to the action record's approved window with a 12 h hard bound (agent technical default, D-018), persists the deadline at arm time and never renews it, requires exact-ID confirmation of absence, and issues an exact-ID stop after the deadline even when inventory fails. Original text: existing watchdog is stop-only, requires exact ID plus unique label, and rejects deadlines more than 60 minutes ahead. It is not a hard provider cap and cannot survive controller/network failure. Reuse as-is for scopes it fits. For a later longer approved window, independently review a parameterized deadline contract or use provider-enforced scheduling before execution; never silently remove the bound or treat D-019's one-hour authority as current. Stop does not delete billed storage.
 
 **First failures:** wrong ID/label or duplicate inventory, lost `armed` acknowledgment, process kill after launch-before-response, controller restart near the original deadline, provider API timeout, prose instead of JSON, `exited` with queued restart, missing export file, billing cap reached during export, teardown failure and a foreign resource in the inventory. Assert no bootstrap without arming, no second attempt on uncertainty, no renewed time/budget after restart, no foreign destroy, and no success on an API error.
 
@@ -291,7 +310,7 @@ Persist original creation-request time, absolute cutoff and cumulative billed in
 
 **Work:** fixture pipeline performs plan → fake lifecycle → complete attempts/raw files → extraction → whole-batch adapter → diagnostics/power/accounting → seal/export/replay → human-readable report. Include both a passing engineering fixture and individually failing controls; failure controls pass the test only when the intended stage rejects with the intended issue. Never convert a rejection into an empty successful run.
 
-**Proposed command, unavailable until implemented:**
+**Command (implemented 2026-11-09 under D-024; passes synthetically):**
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B scripts/rehearse_s2.py \

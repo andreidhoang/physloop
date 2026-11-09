@@ -194,3 +194,31 @@ def test_real_capture_is_not_claimed_supported(tmp_path):
     request["evidence_kind"] = "alpasim_runtime"
     result = extract_bundle(tmp_path, request)
     assert not result["admitted"] and "unsupported_evidence_kind" in codes(result)
+
+
+# --- R4 C2 binding rule, unit level (agent-authored, D-024) --------------------------------
+
+
+def _attempt(job_id, attempt_id, clip, rollout, run="run"):
+    identity = {"run_uuid": run, "clipgt_id": clip, "rollout_id": rollout}
+    return {"job_id": job_id, "attempt_id": attempt_id, "upstream_identity": identity}
+
+
+def test_binding_issues_literal_known_answers():
+    from gate.s2_extract import _binding_issues
+
+    jobs = {"j0": {"scene_id": "s0"}, "j1": {"scene_id": "s1"}}
+    attempts = [
+        _attempt("j0", "a0", "s0", "r0"),
+        _attempt("j1", "a1", "s0", "r1"),  # ran scene s0 although scheduled for s1
+        _attempt("j0", "a2", "s0", "r0", run="other-run"),  # retry reusing a0's session
+        {"job_id": "j1", "attempt_id": "a3", "upstream_identity": None},  # pre-UUID failure
+        _attempt("j1", "a4", "s1", "r4"),
+    ]
+    found = _binding_issues(attempts, jobs)
+    assert [(code, path) for code, path, _ in found] == [
+        ("scene_clip_mismatch", "a1"),
+        ("session_reused", "a2"),
+    ]
+    assert "'j0'" in found[1][2] and "'a0'" in found[1][2]
+    assert _binding_issues(attempts[:1] + attempts[3:], jobs) == []

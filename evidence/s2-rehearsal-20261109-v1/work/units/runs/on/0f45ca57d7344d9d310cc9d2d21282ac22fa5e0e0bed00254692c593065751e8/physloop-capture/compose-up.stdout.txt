@@ -1,0 +1,4 @@
+Attaching to runtime-0-1
+runtime-0-1  | 10:00:02.123 [W0] WARNING:	Rollout FAILED: job=0123456789abcdef0123456789abcdeb scene=N/A uuid=N/A retryable=False error=scene load failed
+runtime-0-1  | Traceback (most recent call last):
+runtime-0-1  |   raise Boom

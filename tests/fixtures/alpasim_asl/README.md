@@ -66,8 +66,9 @@ scalar and NEON reductions can disagree at the boundary, an ambiguous result
 blocks portable inspection explicitly; it does not choose a host backend or
 widen the threshold. No compiler, floating-point mode or runtime is qualified.
 
-File/frame/count limits default to 256 MiB/64 MiB/1,000,000 and are configurable
-CPU engineering limits, not verified runtime capacity. A report may preserve
+File/frame/count limits default to 2 GiB/64 MiB/1,000,000 and are configurable
+CPU engineering limits, not verified runtime capacity; the 2 GiB file bound is an
+agent technical default (D-018), provisional until the first measured ASL. A report may preserve
 decoded prefix diagnostics after malformed trailing data; `parsed=false` and
 `inspection_valid=false` prevent treating that prefix as a complete parse.
 Even `inspection_valid=true` leaves actual steps, completion, renderer coverage,
@@ -75,7 +76,7 @@ black-frame coverage and map coverage unknown. Runtime qualification, score
 admission and cloud-launch authorization are always false.
 `inspect_capture(..., max_asl_bytes=N)` exposes the file bound explicitly and
 passes it to the parser after checking the receipt before file I/O. The bound is
-an operator choice, not permission supplied by the artifact. This implementation
-materializes file bytes and the decoded report in memory, so increasing the
-limit requires a suitable RAM budget. Scene/session reuse across two attempts is
+an operator choice, not permission supplied by the artifact. `inspect_asl_stream`
+reads one bounded frame at a time in 1 MiB chunks and verifies the file hash, so
+the file is never loaded whole; the decoded report is still held in memory. Scene/session reuse across two attempts is
 ambiguous even when the external run UUIDs differ and therefore blocks capture.

@@ -10,7 +10,7 @@
   "source_status": "pinned_launch_source_rechecked_not_runtime_qualified",
   "source_audit_ref": "docs/research/2026-11-07-pilot-launch-audit.md",
   "public_source_check": {
-    "checked_at_date": "2026-11-07",
+    "checked_at_date": "2026-11-08",
     "e2e_challenge_head": "297b4d00cfdd2c4f636b9d9bcee7a85c699174c0",
     "main_head": "affc2eab209fa43bdfa2f26c0f8d437922d78a68",
     "latest_release_tag": "v2026.5",
@@ -23,14 +23,50 @@
     "release_ref": "https://api.github.com/repos/NVlabs/alpasim/releases/latest",
     "runtime_change_qualified": false,
     "repeat_at_scientific_admission": true,
-    "provides_action_authority": false
+    "provides_action_authority": false,
+    "rechecked_by": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md section (3)",
+    "open_upstream_items_against_pin": [
+      {
+        "ref": "NVlabs/alpasim#235",
+        "state": "open",
+        "note": "aggregation ignores valid; base exactly e121e59; re-qualify pin if merged"
+      },
+      {
+        "ref": "NVlabs/alpasim#236",
+        "state": "open",
+        "note": "wrong_lane yaw not wrapped (not in score); base exactly e121e59; re-qualify pin if merged"
+      },
+      {
+        "ref": "NVlabs/alpasim#238",
+        "state": "open",
+        "note": "commit uv.lock on main; aligned with the runtime lock need; do not duplicate"
+      },
+      {
+        "ref": "NVlabs/alpasim#208",
+        "state": "open",
+        "note": "n_sim_steps silently clipped; keep own requested/actual sidecar; outside PR offered, do not compete"
+      },
+      {
+        "ref": "NVlabs/alpasim#234",
+        "state": "open",
+        "note": "collision category accumulation; same code at pin src/eval/src/eval/scorers/collision.py:44-55"
+      },
+      {
+        "ref": "NVlabs/alpasim#237",
+        "state": "open",
+        "note": "multi-actor contact keeps last actor class; report, do not patch"
+      }
+    ]
   },
   "pilot": {
     "scene_count": 5,
     "scene_ids": [],
     "requested_steps": null,
     "execution_order_ref": null,
-    "harmonizer": [false, true],
+    "harmonizer": [
+      false,
+      true
+    ],
     "replicates": 1,
     "expected_jobs": 10,
     "policy": "Alpamayo-1.5-10B-BF16",
@@ -74,10 +110,53 @@
       "driver_python_constraint": ">=3.12,<3.13",
       "cuda_compatibility": "12.8",
       "driver_minimum_family": "570.x",
-      "tools": ["Rust", "Docker Engine", "Docker Compose", "Docker buildx", "NVIDIA Container Toolkit"],
+      "tools": [
+        "Rust",
+        "Docker Engine",
+        "Docker Compose",
+        "Docker buildx",
+        "NVIDIA Container Toolkit"
+      ],
       "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/docs/ONBOARDING.md",
       "status": "source_requirements_not_delivered_host_checks",
-      "source_rechecked_at": "2026-11-07"
+      "source_rechecked_at": "2026-11-08",
+      "docker_minimum": "23.0.1",
+      "nvidia_container_toolkit_minimum": "1.13.5",
+      "blackwell_driver_minimum_family": "R580+",
+      "nre_container_capabilities": [
+        "graphics",
+        "compute",
+        "utility",
+        "video"
+      ],
+      "python_management": "uv-managed CPython 3.12 (python-preference only-managed; .python-version 3.12)",
+      "host_packages": [
+        "git",
+        "build-essential",
+        "ca-certificates",
+        "curl"
+      ],
+      "rust_on_host": "rustup with a pinned --default-toolchain; record rustc -V (toolchain version is a required inventory input, not chosen here)",
+      "lock_resolution": {
+        "status": "no committed upstream runtime lock; resolve with uv lock first and archive",
+        "exclude_newer": "3 days (relative, so resolution is date-dependent)",
+        "unpinned_git_dependencies": [
+          "alpamayo1_5 (NVlabs/alpamayo1.5 HEAD; gate: must lock to 36aeb4c5938cbc2eb2aed33b22434773da4ab639)",
+          "alpamayo_r1 (NVlabs/alpamayo HEAD; 11a0e01c on 2026-11-08)",
+          "vam (valeoai/VideoActionModel@738050ec, which pulls microsoft/mup@19814971)"
+        ],
+        "nightly_wheel_url": "torchdata-0.11.0.dev20250103",
+        "dropped_by_override": [
+          "flash-attn",
+          "av",
+          "hyperqueue"
+        ],
+        "upstream_issues": [
+          "NVlabs/alpasim#207",
+          "NVlabs/alpasim#238"
+        ]
+      },
+      "r2_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) A and S9"
     },
     "launcher": {
       "source_ref": "https://github.com/NVlabs/alpasim/blob/e121e59141dc391f6c295513d6dadc840a419149/e2e_challenge/local_evaluation/README.md",
@@ -111,8 +190,16 @@
         "renderer_image": null,
         "base_image": null,
         "arms": [
-          {"harmonizer": false, "run_dir": null, "driver_log_dir": null},
-          {"harmonizer": true, "run_dir": null, "driver_log_dir": null}
+          {
+            "harmonizer": false,
+            "run_dir": null,
+            "driver_log_dir": null
+          },
+          {
+            "harmonizer": true,
+            "run_dir": null,
+            "driver_log_dir": null
+          }
         ]
       },
       "scene_selection": {
@@ -155,37 +242,137 @@
         "harmonizer_off_mechanism": "omit_enable_flag_from_otherwise_identical_dev_renderer_command",
         "wizard_nr_retries_override": 0,
         "runtime_enable_autoresume_override": false,
-        "internal_retry_absence_proven": false
+        "internal_retry_absence_proven": false,
+        "wizard_nr_retries_effect": "no-op on this route; only deployment/slurm.py:66-102 reads wizard.nr_retries",
+        "internal_retry_present_in_source": true,
+        "internal_retry": {
+          "status": "present_in_source",
+          "detail": "The runtime scheduler retries a rollout once after a renderer infrastructure error (max_retry_attempts=1, not configurable); the retry gets a new rollout UUID in the same unit; retry lines appear only in Compose stdout.",
+          "source_refs": [
+            "alpasim@e121e59:src/runtime/alpasim_runtime/daemon/scheduler.py:181-213",
+            "worker/ipc.py:47-50,92",
+            "worker/main.py:163-186,333-357"
+          ],
+          "r2_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (4) C2 and S2"
+        }
       }
+    },
+    "camera_mismatch": {
+      "status": "unresolved_pending_huy",
+      "renderer_camera_count": 6,
+      "driver_camera_count": 4,
+      "predicted_effect": "INFERRED from source: the first rear-camera image raises ValueError in the stock driver and fails the rollout without retry; confirm with one diagnostic unit on an admitted host",
+      "source_refs": [
+        "alpasim@e121e59:src/wizard/configs/e2e_challenge/dev.yaml:11",
+        "src/wizard/configs/driver/alpamayo1_5.yaml:32-36",
+        "src/driver/src/alpasim_driver/main.py:224,780-787"
+      ],
+      "options": [
+        "a: cameras=4cam_1080 renderer override (nested-list replacement INFERRED; check the generated config)",
+        "b: add the two rear cameras to the driver's use_cameras (changes policy input; scientific)",
+        "c: patch the driver to ignore unconfigured cameras (deviates from upstream)"
+      ],
+      "selected_option": null,
+      "decision_ref": null,
+      "free_pre_rental_check": "after wizard prepare, generated-user-config-0.yaml lists 6 cameras while driver-config.yaml lists 4",
+      "r2_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (4) L1 and S1"
+    },
+    "ego_hood_staging": {
+      "status": "required_before_any_unit",
+      "destination": "<DATA_ROOT>/nre-artifacts/ego-hoods",
+      "files": [
+        {
+          "path": "hyperion_8_1/camera_front_wide_120fov.png",
+          "size_bytes": 425624,
+          "git_blob": "1a07fea50bf774883fc3a7b9df8555d97b9dae98",
+          "sha256": "b7c36c0d179e82cc0d820a202fb9b0017e4006aa815cc850fbd3ea1848d9a8cd"
+        },
+        {
+          "path": "hyperion_8/camera_front_wide_120fov.png",
+          "size_bytes": 808775,
+          "git_blob": "1e4cbd9f0a023f3cd3578b707380e61a9d4a39ca",
+          "sha256": "04fa3f354940d03984a37eb755ebf845be4b4bdae39c178b8de990d0b045392d"
+        }
+      ],
+      "reason": "defines.filesystem=<DATA_ROOT> moves the hood mount; Compose creates it empty and the renderer silently renders without a hood",
+      "source_refs": [
+        "alpasim@e121e59:src/wizard/configs/base_config.yaml:30-31,125-126,139,287",
+        "src/runtime/alpasim_runtime/services/sensorsim_service.py:205-227,309-310"
+      ],
+      "r2_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) B2, (4) L6 and S10"
+    },
+    "disk_request": {
+      "minimum_gb": 300,
+      "basis": "agent technical default (D-018); replace with measured sizes after the first admitted host",
+      "derivation": "R2 sizing: teacher 20.64 GiB + NRE image ~40-50 GiB + alpasim-base ~20-30 GiB + host env ~10-15 GiB + Harmonizer 1.35 GiB and caches total about 120-170 GiB before scenes (image/env sizes INFERRED). 170 GiB = 182.5 GB; the remaining ~117 GB covers unverified scene bytes, >= 11 units of raw outputs (ASL 0.3-0.8 GB each, INFERRED, plus videos) and one temporary export copy. Request floor, not a fit proof.",
+      "implementation": "gate.s2_runtime.DISK_REQUEST_FLOOR_BYTES",
+      "r2_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) sizing and S11"
+    },
+    "per_unit_startup": {
+      "status": "unmeasured",
+      "note": "each unit starts a fresh Compose project and driver: NRE scene load, Warp kernel compile and (without a mounted pinned checkpoint) a 1.35 GiB Harmonizer download per on-arm unit are paid startup",
+      "r2_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (4) P4 and S11"
     }
   },
   "images": [
     {
       "component": "alpasim_base",
+      "kind": "local_build",
+      "local_tag": "alpasim-base:0.89.0",
+      "pullable": false,
       "reference_candidate": null,
-      "observed_digest": null,
+      "observed_image_id": null,
       "size_bytes": null,
-      "status": "resolve_immutable_image_and_runtime_lock_matching_retained_source_pin",
-      "evidence_ref": "docs/research/2026-11-07-pilot-launch-audit.md"
+      "mutable_inputs": [
+        "FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04",
+        "COPY --from=ghcr.io/astral-sh/uv:latest",
+        "unpinned apt-get packages",
+        "latest rustup toolchain",
+        "uv sync --extra all --extra mtgs without uv.lock"
+      ],
+      "runtime_lock_in_image": false,
+      "in_image_freeze_required": true,
+      "status": "local_build_record_inputs_built_id_and_in_image_freeze",
+      "source_refs": [
+        "alpasim@e121e59:Dockerfile:11-58",
+        ".dockerignore:1-25",
+        "src/wizard/configs/base_config.yaml:25-26",
+        "pyproject.toml:3"
+      ],
+      "evidence_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) D3-D4 and S3"
     },
     {
       "component": "renderer",
-      "reference_candidate": "nvcr.io/nvidia/nre/nre-ga:26.04",
+      "reference_candidate": "nvcr.io/nvidia/nre/nre-ga@sha256:97f43e7130c5636ce3e80ea3184d97f56a87fdd989b05cce42230881dbdea284",
       "catalog_digest_candidate": "sha256:97f43e7130c5636ce3e80ea3184d97f56a87fdd989b05cce42230881dbdea284",
       "platform_at_audit": "linux/amd64",
-      "status": "historical_catalog_candidate_not_pulled",
+      "status": "digest_confirmed_from_registry_metadata_not_pulled",
       "observed_digest": null,
       "size_bytes": null,
       "terms_acceptance_ref": null,
-      "evidence_ref": "docs/research/2026-10-31-s2-license-approval.md"
+      "evidence_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) D2 and S4",
+      "kind": "registry_digest",
+      "tags_at_audit": [
+        "26.04",
+        "26.04.01"
+      ],
+      "layers": 41,
+      "compressed_bytes": 14287662578,
+      "config_digest": "sha256:a6837f3877126947ff281ce9a6506261b65a2cb53d17f271da7852a9058c2289",
+      "image_home": "/home",
+      "entrypoint": "/app/run",
+      "created": "2026-05-26T18:44:15Z",
+      "base": "Ubuntu 24.04, CUDA 12.8.0, cuDNN 9.7 (registry metadata)",
+      "on_disk_bytes_estimate": "~40-50 GiB (INFERRED)"
     },
     {
       "component": "public_cuda_probe",
       "reference_candidate": null,
       "observed_digest": null,
       "size_bytes": null,
-      "status": "resolve_pullable_digest_and_prestage_on_selected_host",
-      "evidence_ref": "scripts/vast_s2_host_probe.sh"
+      "status": "resolve_pullable_digest_with_cuda_12_8_or_newer_for_blackwell_and_prestage_on_selected_host",
+      "evidence_ref": "scripts/vast_s2_host_probe.sh",
+      "probe_usage": "scripts/vast_s2_host_probe.sh OUT REPOSITORY@sha256:DIGEST DATA_ROOT (digest-only pull)"
     },
     {
       "component": "dcgm_exporter_probe",
@@ -201,11 +388,71 @@
       "component": "teacher_weights_and_config",
       "repository": "https://huggingface.co/nvidia/Alpamayo-1.5-10B",
       "revision_candidate": "7aba8293c09993f2e125c6819df05d7fa3e873ea",
-      "files": [],
-      "size_bytes": null,
+      "files": [
+        {
+          "path": "model-00001-of-00005.safetensors",
+          "size_bytes": 4928204944,
+          "sha256": "537259bb56815f9dfdcb028d5606e84dff5ab0c8e0e559782d63d91b6671d15c"
+        },
+        {
+          "path": "model-00002-of-00005.safetensors",
+          "size_bytes": 4915963032,
+          "sha256": "18841e5049b7836c16c034123ae6d40b2ff0414f9f77008bc7ca72490302a47b"
+        },
+        {
+          "path": "model-00003-of-00005.safetensors",
+          "size_bytes": 4983071160,
+          "sha256": "e8953b27fe827a60604a006b07ab1216fe766375f9926d1c3bd5ecee84ecef78"
+        },
+        {
+          "path": "model-00004-of-00005.safetensors",
+          "size_bytes": 4980341192,
+          "sha256": "604f0c0f19986f363a23a1e0b5736eedadd231ca285beab28d5db968a1d37602"
+        },
+        {
+          "path": "model-00005-of-00005.safetensors",
+          "size_bytes": 2349614196,
+          "sha256": "9d889c09634e5a21b4c957957ede2cdab4418c268ee1d870c1f942d04242adf6"
+        },
+        {
+          "path": "model.safetensors.index.json",
+          "size_bytes": 104778,
+          "sha256": "unverified",
+          "git_blob": "b5cc861ab75551c6d7311f6439f45063e6b64aa9"
+        },
+        {
+          "path": "config.json",
+          "size_bytes": 3058,
+          "sha256": "unverified",
+          "git_blob": "aca9b581156d7561beee843213a01dbb7f4be1c9"
+        },
+        {
+          "path": "README.md",
+          "size_bytes": 10446,
+          "sha256": "unverified",
+          "git_blob": "0650b5dd6d2beeb6cedceade3d109a4b369b3437"
+        },
+        {
+          "path": "LICENSE",
+          "size_bytes": 2619,
+          "sha256": "unverified",
+          "git_blob": "ec297ac5456384786644013ec196da33b916be97"
+        },
+        {
+          "path": ".gitattributes",
+          "size_bytes": 1519,
+          "sha256": "unverified",
+          "git_blob": "a6344aac8c09253b3b630fb776ae94478aa0275b"
+        }
+      ],
+      "size_bytes": 22157316944,
       "content_sha256": null,
       "terms_acceptance_ref": null,
-      "status": "candidate_revision_exact_file_manifest_pending"
+      "status": "metadata_derived_verify_on_download",
+      "terms": "OpenMDW-1.1",
+      "hf_gated": false,
+      "loader_note": "the driver wrapper loads BF16 SDPA without a revision, so a local snapshot path is required",
+      "evidence_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) E1 and S5"
     },
     {
       "component": "five_nurec_scenes",
@@ -216,7 +463,15 @@
       "content_sha256": null,
       "terms_acceptance_ref": null,
       "first_delivery_at": null,
-      "status": "gated_scene_allowlist_pending"
+      "status": "gated_scene_allowlist_pending",
+      "revision_resolution": "per scene: read uuid, path and hf_revision from data/scenes/sim_scenes{,_2604}.csv at the AlpaSim pin; hf_revision is a moving ref (26.01/26.04) and must be resolved to a commit",
+      "staging": "hf download ... --repo-type dataset --revision <commit> --local-dir <scratch>; require metadata.yaml inside the zip to carry the same uuid; place as <DATA_ROOT>/nre-artifacts/all-usdzs/<uuid>.usdz; record bytes, sha256, commit and first-delivery time",
+      "catalog_note": "441 curated validation scenes: 264 from 26.04, 177 from 26.01; the pilot stages exactly five registered scenes",
+      "source_refs": [
+        "alpasim@e121e59:src/wizard/alpasim_wizard/scenes/sceneset.py:444-560",
+        "src/wizard/alpasim_wizard/scenes/csv_utils.py:18,33-41"
+      ],
+      "evidence_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) E3 and S8"
     },
     {
       "component": "pai_metadata_if_required_for_selection",
@@ -232,36 +487,168 @@
     {
       "component": "harmonizer",
       "repository": "https://huggingface.co/nvidia/Harmonizer",
-      "revision_candidate": null,
-      "files": ["harmonizer_nontemporal.pt"],
-      "size_bytes": null,
-      "content_sha256": null,
+      "revision_candidate": "20ca33d4612b1e98e0526b3a7ee604af5b289f58",
+      "files": [
+        "harmonizer_nontemporal.pt"
+      ],
+      "size_bytes": 1448843112,
+      "content_sha256": "ece8e2daa914e8c2a027a2da94e0eb2064491d5b3fd8514009fae9a442e06e90",
       "terms_acceptance_ref": null,
-      "status": "resolve_immutable_revision_and_bundled_or_separate_fetch"
+      "status": "candidate_revision_and_hash_from_metadata_source_decision_pending_huy",
+      "release_revision": "f2bae9823e07d281c9dce6581d06118d675e08c3",
+      "default_runtime_path": "/home/.cache/nre/harmonizer",
+      "default_runtime_behavior": "INFERRED: each new renderer container with --enable-harmonizer downloads from huggingface.co/nvidia/Harmonizer/resolve/main",
+      "source_decision": null,
+      "source_decision_options": [
+        "pinned_mount (--harmonizer-cache=<mount> in both arms)",
+        "upstream_default_download"
+      ],
+      "evidence_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) E4, (4) L8 and S6"
     },
     {
       "component": "teacher_processor_tokenizer_config",
       "repository": "https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct",
-      "revision_candidate": null,
-      "files": [],
-      "size_bytes": null,
+      "revision_candidate": "89644892e4d85e24eaac8bacfd4f463576704203",
+      "files": [
+        {
+          "path": "chat_template.json",
+          "size_bytes": 5502,
+          "sha256": "unverified"
+        },
+        {
+          "path": "config.json",
+          "size_bytes": 1505,
+          "sha256": "unverified"
+        },
+        {
+          "path": "generation_config.json",
+          "size_bytes": 269,
+          "sha256": "unverified"
+        },
+        {
+          "path": "merges.txt",
+          "size_bytes": 1671839,
+          "sha256": "unverified"
+        },
+        {
+          "path": "preprocessor_config.json",
+          "size_bytes": 390,
+          "sha256": "unverified"
+        },
+        {
+          "path": "tokenizer.json",
+          "size_bytes": 7032403,
+          "sha256": "unverified"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "size_bytes": 10868,
+          "sha256": "unverified"
+        },
+        {
+          "path": "video_preprocessor_config.json",
+          "size_bytes": 385,
+          "sha256": "unverified"
+        },
+        {
+          "path": "vocab.json",
+          "size_bytes": 2776833,
+          "sha256": "unverified"
+        }
+      ],
+      "size_bytes": 11499994,
       "content_sha256": null,
       "terms_acceptance_ref": null,
-      "status": "helper_source_identified_exact_dependencies_pending",
-      "dependency_note": "The base-model config also resolves its actual vlm_name_or_path; helper processor name alone does not establish the complete config/tokenizer dependency set or an additional full VLM weight requirement."
+      "status": "helper_processor_identified_config_processor_tokenizer_files_only",
+      "dependency_note": "The wrapper also loads this processor (alpamayo1.5@36aeb4c src/alpamayo1_5/models/base_model.py:211,248-266; helper.py:25,190-199). Pre-cache at the pinned revision; offline load by repo name without refs/main is INFERRED and must be tested.",
+      "hf_gated": false,
+      "candidate_alternative": {
+        "repository": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct",
+        "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "status": "conditional_not_on_allowlist"
+      },
+      "evidence_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1) E2 and S7"
+    },
+    {
+      "component": "vlm_config_processor_tokenizer",
+      "requirement": "required",
+      "repository": "https://huggingface.co/nvidia/Cosmos-Reason2-8B",
+      "revision_candidate": "a9fae2cf89dc64db96b12860417f0eb403013bb9",
+      "hf_gated": "auto",
+      "files": [
+        {
+          "path": "chat_template.json",
+          "size_bytes": 5499,
+          "sha256": "unverified"
+        },
+        {
+          "path": "config.json",
+          "size_bytes": 1474,
+          "sha256": "unverified"
+        },
+        {
+          "path": "generation_config.json",
+          "size_bytes": 269,
+          "sha256": "unverified"
+        },
+        {
+          "path": "merges.txt",
+          "size_bytes": 1671839,
+          "sha256": "unverified"
+        },
+        {
+          "path": "preprocessor_config.json",
+          "size_bytes": 390,
+          "sha256": "unverified"
+        },
+        {
+          "path": "tokenizer.json",
+          "size_bytes": 7032403,
+          "sha256": "unverified"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "size_bytes": 10868,
+          "sha256": "unverified"
+        },
+        {
+          "path": "video_preprocessor_config.json",
+          "size_bytes": 385,
+          "sha256": "unverified"
+        },
+        {
+          "path": "vocab.json",
+          "size_bytes": 2776833,
+          "sha256": "unverified"
+        }
+      ],
+      "size_bytes": 11499960,
+      "content_sha256": null,
+      "terms_acceptance_ref": null,
+      "needed_for": [
+        "S2 driver load",
+        "S4"
+      ],
+      "reason": "teacher config.json names vlm_name_or_path nvidia/Cosmos-Reason2-8B; AutoProcessor.from_pretrained x2 and Qwen3VLConfig.from_pretrained x1 fetch config/processor/tokenizer files only (no VLM weights)",
+      "evidence_ref": "evidence/contribution-review-20261105-v1/hf-public-configs/a15_config.json",
+      "source_refs": [
+        "alpamayo1.5@36aeb4c:src/alpamayo1_5/models/base_model.py:211,248-266,336-344,376-390",
+        "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md U1, (1) E2 and S7"
+      ],
+      "status": "required_gated_access_pending_huy"
     },
     {
       "component": "conditional_model_dependencies",
       "repositories_to_resolve_if_requested": [
-        "https://huggingface.co/nvidia/Cosmos-Predict2-0.6B-Text2Image",
-        "https://huggingface.co/nvidia/Cosmos-Reason2-8B"
+        "https://huggingface.co/nvidia/Cosmos-Predict2-0.6B-Text2Image"
       ],
       "files": [],
       "size_bytes": null,
       "content_sha256": null,
       "terms_acceptance_ref": null,
       "status": "not_on_download_allowlist_dependency_not_established",
-      "evidence_ref": "docs/research/2026-10-31-s2-license-approval.md"
+      "evidence_ref": "docs/research/2026-10-31-s2-license-approval.md",
+      "superseded_note": "nvidia/Cosmos-Reason2-8B moved to vlm_config_processor_tokenizer as required (R2 U1, 2026-11-08)"
     }
   ],
   "authorization": {
@@ -295,7 +682,8 @@
   "lifecycle": {
     "watchdog_script": "scripts/vast_stop_watchdog.py",
     "watchdog_provider": "vast",
-    "watchdog_max_seconds": 3600,
+    "watchdog_max_seconds": null,
+    "watchdog_window_rule": "--max-window-seconds must equal the action record's approved window; hard bound 43200 s (12 h), agent technical default (D-018); deadline persisted at arm time and never renewed",
     "watchdog_is_stop_only": true,
     "instance_id": null,
     "unique_label": null,
@@ -313,6 +701,394 @@
     "current_ingestion_contract": "synthetic_source_contract_v1",
     "alpasim_capture_qualified": false,
     "summary_recomputed": false,
-    "qualification_evidence_ref": null
+    "qualification_evidence_ref": null,
+    "asl_size_bound": {
+      "status": "provisional_until_first_measured_asl",
+      "estimate": "0.3-0.8 GB per 200-step rollout (INFERRED); the 256 MiB reader bound is too small",
+      "r2_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (4) A1/C1 and S13"
+    },
+    "run_uuid_binding": "bind run_uuid from each unit's run_metadata.yaml; failed rows carry run_uuid null"
+  },
+  "runtime_audit_date": "2026-11-08",
+  "runtime_audit_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md",
+  "bootstrap": {
+    "plan_builder": "gate.s2_bootstrap.build_execution_plan",
+    "inventory_validator": "gate.s2_runtime.validate_runtime_inventory",
+    "guest_runner": "scripts/s2_guest_bootstrap.py",
+    "phases": [
+      "A host prerequisites, delivered-host fit and PhysLoop guest runtime",
+      "B source and lock",
+      "C host Python env",
+      "D images",
+      "E assets"
+    ],
+    "status": "plan_template_qualify_on_host",
+    "r2_ref": "docs/research/2026-11-08-codebase-build/lane-r2-alpasim-runtime.md (1)"
+  },
+  "guest_runtime": {
+    "status": "draft_pins_recorded_not_host_qualified",
+    "ticket": "completeness-audit CPU-09 guest runtime (F3)",
+    "basis": "agent technical default (D-018); public release metadata only, no binary downloaded",
+    "reason": "Ubuntu 22.04 python3 is 3.10; the runner needs Python >= 3.11 (tomllib, datetime.UTC), PyYAML 6.0.3 and protobuf 7.36.2",
+    "uv": {
+      "version": "0.12.24",
+      "published_at": "2026-10-08T20:06:20Z",
+      "target": "x86_64-unknown-linux-gnu",
+      "archive_url": "https://github.com/astral-sh/uv/releases/download/0.12.24/uv-x86_64-unknown-linux-gnu.tar.gz",
+      "archive_sha256": "b4dfaef47d491a7296981f8374a4595f55dbf84e8937c8ecd2983574d8bb3da6",
+      "archive_size_bytes": 17249236,
+      "checksum_sources": [
+        "release asset uv-x86_64-unknown-linux-gnu.tar.gz.sha256 (asset digest sha256:ffef1b089e099e19f3839dd8a583122de6681022ef7c8f253b3d0d8456850bb0)",
+        "release asset sha256.sum (asset digest sha256:64a2cd5ba4fddb06558fd283cd80c69d133e67270358be859a5d942d0d09e403)",
+        "GitHub release-asset digest of the archive",
+        "dist-manifest.json checksums (asset digest sha256:e74ba5c572cd58d72d7414d8cfdc3462b116943120b962ce3f13e6eb8c624ac0)"
+      ],
+      "checksum_read_at_date": "2026-11-09",
+      "satisfies_upstream_minimum": "0.9.17",
+      "install": "curl --proto =https --proto-redir =https to the scratch dir, sha256/size check, tar -x -z --strip-components 1, install -m 0755 to <home>/.local/bin/uv"
+    },
+    "python": {
+      "version": "3.12.11",
+      "request": "cpython-3.12.11-linux-x86_64-gnu",
+      "archive_sha256_in_uv_metadata": "f98121eb1fb2b05a25c1f3d2fe7cf08c3a2468c350785df3d84c2516e7280d3f",
+      "metadata_source": "astral-sh/uv@0.12.24 crates/uv-python-managed/download-metadata.json (build 20251007; uv verifies the download)",
+      "basis": "the interpreter of the 2026-11-08 clean frozen rebuild and CPU suite (evidence/s2-clean-rebuild-20261108-v1); 3.12.12-3.12.15 are listed alternatives"
+    },
+    "locked_runtime": {
+      "pyyaml": "6.0.3",
+      "pyarrow": "25.0.1",
+      "protobuf": "7.36.2"
+    },
+    "source_bundle": {
+      "builder": "scripts/s2_prepare_bundle.py build --root <physloop> --out-dir <new dir> --scope actual",
+      "contents": [
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version",
+        "gate/",
+        "scripts/",
+        "experiments/S2_SETUP_DRAFT.json"
+      ],
+      "never_included": [
+        "tests/",
+        "teacher_rl/",
+        "evidence/",
+        "docs/",
+        ".gitignore-equivalent names"
+      ],
+      "guest_path": "<download_scratch>/physloop-source-<bundle_sha256>.tar",
+      "bundle_sha256": null,
+      "archive_sha256": null,
+      "archive_size_bytes": null
+    },
+    "sync": "uv sync --frozen --no-dev --no-install-project --no-build --managed-python --no-python-downloads --no-config --python cpython-3.12.11-linux-x86_64-gnu (cwd <physloop_root>; dev and s4 groups off)",
+    "guest_command_prefix": "uv run --frozen --no-dev --no-sync --no-config python (cwd <physloop_root>; --no-sync so uv never builds the editable project at run time)",
+    "phase_a_interpreter": "system python3 >= 3.10 is meant to run phase A of scripts/s2_guest_bootstrap.py (operator extracts the bundle with tar -x --touch first); phases B-E run under the guest command prefix. The runner graph must import on 3.10 at every depth, checked by tests/test_s2_bootstrap.py::test_phase_a_runner_graph_stays_python_3_10_compatible",
+    "phase_a_interpreter_open_item": "2026-11-09 review F3-1: scripts/s2_guest_bootstrap.py main() lazily imports datetime.UTC (Python 3.11+), so phase A does not yet start on 3.10; the fix is a pending shared change and the guard stays red until it lands",
+    "bundle_unpack": "A6g tar -x --no-same-owner --touch; the source_tree rule refuses __pycache__ bytecode CPython would load in place of a sealed source (stale_bytecode, F3-2 review)",
+    "host_fit": "A1 host_fit rule: gate/s2_host_fit.py against action_record.required_resources; no automatic replacement host",
+    "host_fit_open_item": "scripts/vast_s2_host_probe.sh does not yet record nvidia-smi compute_cap, so CUDA capability is host_fact_unverified (blocking) until the probe adds it"
+  },
+  "runtime_inventory": {
+    "artifact_kind": "s2_runtime_inventory",
+    "schema_version": 1,
+    "scope": "public_source_fixture",
+    "sources": {
+      "alpasim": {
+        "repository": "https://github.com/NVlabs/alpasim",
+        "commit": "e121e59141dc391f6c295513d6dadc840a419149"
+      },
+      "alpamayo1_5": {
+        "repository": "https://github.com/NVlabs/alpamayo1.5.git",
+        "commit": "36aeb4c5938cbc2eb2aed33b22434773da4ab639"
+      }
+    },
+    "platform": "linux/amd64",
+    "host_paths": {
+      "physloop_root": null,
+      "checkout": null,
+      "data_root": null,
+      "teacher_snapshot": null,
+      "hf_home": null,
+      "harmonizer_dir": null,
+      "download_scratch": null,
+      "evidence_dir": null,
+      "docker_data_root": null,
+      "home": null
+    },
+    "toolchain": {
+      "rust_toolchain": null
+    },
+    "harmonizer_source": null,
+    "images": [
+      {
+        "role": "renderer",
+        "kind": "registry_digest",
+        "reference": "nvcr.io/nvidia/nre/nre-ga@sha256:97f43e7130c5636ce3e80ea3184d97f56a87fdd989b05cce42230881dbdea284",
+        "platform": "linux/amd64",
+        "size_bytes": "unverified",
+        "compressed_bytes": 14287662578,
+        "authorization_ref": null
+      },
+      {
+        "role": "alpasim_base",
+        "kind": "local_build",
+        "build": {
+          "context": "checkout",
+          "dockerfile": "Dockerfile",
+          "tag": "alpasim-base:0.89.0",
+          "source_commit": "e121e59141dc391f6c295513d6dadc840a419149"
+        },
+        "image_id": null,
+        "mutable_inputs": [
+          "FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04",
+          "COPY --from=ghcr.io/astral-sh/uv:latest",
+          "unpinned apt-get packages",
+          "latest rustup toolchain",
+          "uv sync --extra all --extra mtgs without uv.lock"
+        ],
+        "platform": "linux/amd64",
+        "size_bytes": "unverified",
+        "authorization_ref": null
+      },
+      {
+        "role": "public_cuda_probe",
+        "kind": "registry_digest",
+        "reference": null,
+        "platform": "linux/amd64",
+        "size_bytes": "unverified",
+        "compressed_bytes": "unverified",
+        "authorization_ref": null
+      }
+    ],
+    "assets": [
+      {
+        "role": "teacher",
+        "repository": "nvidia/Alpamayo-1.5-10B",
+        "repo_type": "model",
+        "revision": "7aba8293c09993f2e125c6819df05d7fa3e873ea",
+        "authorization_ref": null,
+        "files": [
+          {
+            "path": "model-00001-of-00005.safetensors",
+            "size_bytes": 4928204944,
+            "sha256": "537259bb56815f9dfdcb028d5606e84dff5ab0c8e0e559782d63d91b6671d15c"
+          },
+          {
+            "path": "model-00002-of-00005.safetensors",
+            "size_bytes": 4915963032,
+            "sha256": "18841e5049b7836c16c034123ae6d40b2ff0414f9f77008bc7ca72490302a47b"
+          },
+          {
+            "path": "model-00003-of-00005.safetensors",
+            "size_bytes": 4983071160,
+            "sha256": "e8953b27fe827a60604a006b07ab1216fe766375f9926d1c3bd5ecee84ecef78"
+          },
+          {
+            "path": "model-00004-of-00005.safetensors",
+            "size_bytes": 4980341192,
+            "sha256": "604f0c0f19986f363a23a1e0b5736eedadd231ca285beab28d5db968a1d37602"
+          },
+          {
+            "path": "model-00005-of-00005.safetensors",
+            "size_bytes": 2349614196,
+            "sha256": "9d889c09634e5a21b4c957957ede2cdab4418c268ee1d870c1f942d04242adf6"
+          },
+          {
+            "path": "model.safetensors.index.json",
+            "size_bytes": 104778,
+            "sha256": "unverified"
+          },
+          {
+            "path": "config.json",
+            "size_bytes": 3058,
+            "sha256": "unverified"
+          },
+          {
+            "path": "README.md",
+            "size_bytes": 10446,
+            "sha256": "unverified"
+          },
+          {
+            "path": "LICENSE",
+            "size_bytes": 2619,
+            "sha256": "unverified"
+          },
+          {
+            "path": ".gitattributes",
+            "size_bytes": 1519,
+            "sha256": "unverified"
+          }
+        ]
+      },
+      {
+        "role": "vlm_config",
+        "repository": "nvidia/Cosmos-Reason2-8B",
+        "repo_type": "model",
+        "revision": "a9fae2cf89dc64db96b12860417f0eb403013bb9",
+        "authorization_ref": null,
+        "files": [
+          {
+            "path": "chat_template.json",
+            "size_bytes": 5499,
+            "sha256": "unverified"
+          },
+          {
+            "path": "config.json",
+            "size_bytes": 1474,
+            "sha256": "unverified"
+          },
+          {
+            "path": "generation_config.json",
+            "size_bytes": 269,
+            "sha256": "unverified"
+          },
+          {
+            "path": "merges.txt",
+            "size_bytes": 1671839,
+            "sha256": "unverified"
+          },
+          {
+            "path": "preprocessor_config.json",
+            "size_bytes": 390,
+            "sha256": "unverified"
+          },
+          {
+            "path": "tokenizer.json",
+            "size_bytes": 7032403,
+            "sha256": "unverified"
+          },
+          {
+            "path": "tokenizer_config.json",
+            "size_bytes": 10868,
+            "sha256": "unverified"
+          },
+          {
+            "path": "video_preprocessor_config.json",
+            "size_bytes": 385,
+            "sha256": "unverified"
+          },
+          {
+            "path": "vocab.json",
+            "size_bytes": 2776833,
+            "sha256": "unverified"
+          }
+        ]
+      },
+      {
+        "role": "processor",
+        "repository": "Qwen/Qwen3-VL-2B-Instruct",
+        "repo_type": "model",
+        "revision": "89644892e4d85e24eaac8bacfd4f463576704203",
+        "authorization_ref": null,
+        "files": [
+          {
+            "path": "chat_template.json",
+            "size_bytes": 5502,
+            "sha256": "unverified"
+          },
+          {
+            "path": "config.json",
+            "size_bytes": 1505,
+            "sha256": "unverified"
+          },
+          {
+            "path": "generation_config.json",
+            "size_bytes": 269,
+            "sha256": "unverified"
+          },
+          {
+            "path": "merges.txt",
+            "size_bytes": 1671839,
+            "sha256": "unverified"
+          },
+          {
+            "path": "preprocessor_config.json",
+            "size_bytes": 390,
+            "sha256": "unverified"
+          },
+          {
+            "path": "tokenizer.json",
+            "size_bytes": 7032403,
+            "sha256": "unverified"
+          },
+          {
+            "path": "tokenizer_config.json",
+            "size_bytes": 10868,
+            "sha256": "unverified"
+          },
+          {
+            "path": "video_preprocessor_config.json",
+            "size_bytes": 385,
+            "sha256": "unverified"
+          },
+          {
+            "path": "vocab.json",
+            "size_bytes": 2776833,
+            "sha256": "unverified"
+          }
+        ]
+      },
+      {
+        "role": "nurec_scenes",
+        "repository": "nvidia/PhysicalAI-Autonomous-Vehicles-NuRec",
+        "repo_type": "dataset",
+        "revision": null,
+        "authorization_ref": null,
+        "files": []
+      },
+      {
+        "role": "harmonizer",
+        "repository": "nvidia/Harmonizer",
+        "repo_type": "model",
+        "revision": "20ca33d4612b1e98e0526b3a7ee604af5b289f58",
+        "authorization_ref": null,
+        "files": [
+          {
+            "path": "harmonizer_nontemporal.pt",
+            "size_bytes": 1448843112,
+            "sha256": "ece8e2daa914e8c2a027a2da94e0eb2064491d5b3fd8514009fae9a442e06e90"
+          }
+        ]
+      }
+    ],
+    "disk": {
+      "capacity_bytes": null,
+      "components": [
+        {
+          "name": "alpasim_host_python_env",
+          "size_bytes": "unverified"
+        },
+        {
+          "name": "per_unit_raw_outputs",
+          "size_bytes": "unverified"
+        },
+        {
+          "name": "export_temporary_copy",
+          "size_bytes": "unverified"
+        },
+        {
+          "name": "physloop_guest_runtime",
+          "size_bytes": "unverified"
+        }
+      ]
+    },
+    "guest_runtime": {
+      "uv": {
+        "version": "0.12.24",
+        "target": "x86_64-unknown-linux-gnu",
+        "archive_url": "https://github.com/astral-sh/uv/releases/download/0.12.24/uv-x86_64-unknown-linux-gnu.tar.gz",
+        "archive_sha256": "b4dfaef47d491a7296981f8374a4595f55dbf84e8937c8ecd2983574d8bb3da6",
+        "archive_size_bytes": 17249236
+      },
+      "python": {
+        "request": "cpython-3.12.11-linux-x86_64-gnu"
+      },
+      "source_bundle": {
+        "bundle_sha256": null,
+        "archive_sha256": null,
+        "archive_size_bytes": null
+      }
+    }
   }
 }

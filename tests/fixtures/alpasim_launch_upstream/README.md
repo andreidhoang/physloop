@@ -1,7 +1,10 @@
 # Pinned launch-source fixtures
 
 These are unmodified public-source bytes from the two repositories and commits
-listed in `manifest.json`, retrieved on 2026-11-07. They support source-interface
+listed in `manifest.json`, retrieved on 2026-11-07, plus eight runtime-capture files
+(`4cam_1080.yaml`, `worker/main.py`, `worker/ipc.py`, `daemon/scheduler.py`,
+`simulate/__main__.py`, `sensorsim_service.py`, `failed_rollouts.py`, `processing.py`)
+listed in `manifest_runtime_capture.json` and added on 2026-11-08. They support source-interface
 tests of the S2 command preparer; they are not an installed simulator or a runtime
 qualification. No model weights, scenes, dataset metadata or renderer image is
 included.

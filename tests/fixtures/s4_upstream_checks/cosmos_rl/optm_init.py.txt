@@ -1,0 +1,620 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import collections
+from typing import List, Dict, Any, TypeVar, Generic, Callable
+import functools
+from copy import deepcopy
+import itertools
+import copy
+import torch
+import torch.nn as nn
+from torch.optim.optimizer import Optimizer
+from cosmos_rl.policy.config import Config as CosmosConfig
+from torch.distributed.checkpoint.stateful import Stateful
+from torch.distributed.checkpoint.state_dict import (
+    get_optimizer_state_dict,
+    set_optimizer_state_dict,
+    StateDictOptions,
+)
+from torch.optim.lr_scheduler import LambdaLR, LRScheduler
+from cosmos_rl.utils.logging import logger
+import inspect
+import math
+
+try:
+    from torchao.optim import Adam8bit, AdamW8bit
+except ImportError:
+    Adam8bit = None
+    AdamW8bit = None
+
+T = TypeVar("T", bound=Optimizer)
+
+
+class OptimizerDesc:
+    num_parameters: int
+    num_trainable_parameters: int
+    lr: float
+    optimizer_cls: str
+    model_part: str = ""
+
+    def __init__(
+        self,
+        num_parameters: int,
+        num_trainable_parameters: int,
+        lr: float,
+        optimizer_cls: str,
+        model_part: str = "",
+    ) -> None:
+        self.num_parameters = num_parameters
+        self.num_trainable_parameters = num_trainable_parameters
+        self.lr = lr
+        self.optimizer_cls = optimizer_cls
+        self.model_part = model_part
+
+
+class OptimizersContainer(Optimizer, Generic[T]):
+    """A container for multiple optimizers.
+
+    This class is used to wrap multiple optimizers into a single object that can be
+    used to reduce the complexity of the training loop. This mimics the behavior of
+    ``torch.optim.Optimizer``. This class currently only supports ``Adam`` and ``AdamW``.
+
+    **Note**
+    Users who want to customize the optimizer behavior can inherit from this class and
+    extend the functionality as needed. The following methods must follow the same signature
+    as ``torch.optim.Optimizer`` class: ``step()``, ``zero_grad()``, ``state_dict()``,
+    ``load_state_dict()``.
+
+    **Limitations**
+    This class assumes that all the optimizers are the same type and have the same
+    configurations. With this assumption, TorchTitan can support lr scheduler resharding
+    (e.g., loading a checkpoint with a different number of GPUs and/or different
+    parallelization strategy). Note that ``get_optimizer_state_dict`` already enables the
+    resharding for the optimizer state but not for the lr scheduler state, hence the limitation.
+
+    Args:
+        optimizer_cls (type[T]): Class of the optimizers.
+        model_parts (List[nn.Module]): List of model parts to be optimized.
+        optimizer_kwargs (List[Dict[str, Any]]): Keyword arguments for the optimizers.
+    """
+
+    optimizers: List[T]
+    model_parts: List[nn.Module]
+
+    def __init__(
+        self,
+        optimizer_cls: type[T],
+        model_parts: List[nn.Module],
+        optimizer_kwargs: List[Dict[str, Any]],
+        model_module_path: List[str] = None,
+    ) -> None:
+        all_params = []
+        self.model_parts = model_parts
+        self.model_module_path = model_module_path
+        self.optimizers = [[] for _ in self.model_parts]
+        # Compute total number of parameters
+        total_trainable_params = 0
+        all_trainable_params = []
+        param_set = set()
+
+        optimizer_desc_by_model_part = {}
+        for model_id, (model, optimizer_kwargs_i) in enumerate(
+            zip(self.model_parts, optimizer_kwargs)
+        ):
+            model_part_name = (
+                self.model_module_path[model_id]
+                if self.model_module_path and model_id < len(self.model_module_path)
+                else f"part_{model_id}"
+            )
+
+            optimizer_desc_by_model_part[model_id] = OptimizerDesc(
+                num_parameters=0,
+                num_trainable_parameters=0,
+                lr=optimizer_kwargs_i.get("lr", None),
+                optimizer_cls=optimizer_cls.__name__,
+                model_part=model_part_name,
+            )
+
+            if model is None:
+                continue
+            optimizer_kwargs_copy = deepcopy(optimizer_kwargs_i)
+
+            if optimizer_kwargs_copy.get("fused", False):
+                # Group the parameters by device mesh to do optimizer fusion.
+                parameters_by_mesh = collections.defaultdict(list)
+                for name, p in model.named_parameters():
+                    if p not in param_set:
+                        param_set.add(p)
+                        optimizer_desc_by_model_part[
+                            model_id
+                        ].num_parameters += p.numel()
+
+                        if p.requires_grad:
+                            param_set.add(p)
+                            all_trainable_params.append(name)
+                            device_mesh = (
+                                p.device_mesh
+                                if hasattr(p, "device_mesh")
+                                else "default"
+                            )
+                            parameters_by_mesh[device_mesh].append(p)
+                            all_params.append(p)
+                            total_trainable_params += p.numel()
+                            optimizer_desc_by_model_part[
+                                model_id
+                            ].num_trainable_parameters += p.numel()
+                    elif p.requires_grad:
+                        logger.warning(
+                            f"Parameter {name} in model part {model_part_name} is duplicated but requires grad. "
+                            f"Only the first occurrence will be optimized."
+                        )
+                for params in parameters_by_mesh.values():
+                    optimizer = optimizer_cls(params, **optimizer_kwargs_copy)
+                    self.optimizers[model_id].append(optimizer)
+            else:
+                for name, p in model.named_parameters():
+                    if p not in param_set:
+                        param_set.add(p)
+                        optimizer_desc_by_model_part[
+                            model_id
+                        ].num_parameters += p.numel()
+
+                        if p.requires_grad:
+                            optimizer = optimizer_cls([p], **optimizer_kwargs_copy)
+                            self.optimizers[model_id].append(optimizer)
+                            all_params.append(p)
+                            total_trainable_params += p.numel()
+                            optimizer_desc_by_model_part[
+                                model_id
+                            ].num_trainable_parameters += p.numel()
+                            all_trainable_params.append(name)
+        logger.info(f"Total number of trainable parameters: {total_trainable_params}")
+        logger.debug(f"Trainable parameters: {all_trainable_params}")
+        descs = [
+            optimizer_desc_by_model_part[i]
+            for i in sorted(optimizer_desc_by_model_part)
+        ]
+        _print_optimizer_desc_table(descs)
+
+        self._post_init(all_params, optimizer_kwargs)
+
+    def __iter__(self) -> Optimizer:
+        return iter(itertools.chain(*self.optimizers))
+
+    def __len__(self) -> int:
+        return len(self.optimizers)
+
+    def step(self, *args, **kwargs) -> None:
+        for optimizer in itertools.chain(*self.optimizers):
+            # Check those grad is None:
+            optimizer.step(*args, **kwargs)
+
+    def zero_grad(self, *args, **kwargs) -> None:
+        for optimizer in itertools.chain(*self.optimizers):
+            optimizer.zero_grad(*args, **kwargs)
+
+    def state_dict(self) -> Dict[str, Any]:
+        state_dict = {}
+        for i, (mp, opt) in enumerate(zip(self.model_parts, self.optimizers)):
+            if mp is None or len(opt) == 0:
+                continue
+            sd = get_optimizer_state_dict(
+                mp, opt, options=StateDictOptions(flatten_optimizer_state_dict=True)
+            )
+            for k, v in sd.items():
+                if f"idx-{i}-{k}" in state_dict:
+                    raise ValueError(f"Duplicated optimizer key is deteced! Key = {k}")
+                state_dict[f"idx-{i}-{k}"] = v
+        return state_dict
+
+    def load_state_dict(self, state_dict: Dict[str, Any]) -> None:
+        for i, (mp, opt) in enumerate(zip(self.model_parts, self.optimizers)):
+            if mp is None or len(opt) == 0:
+                continue
+            # Filter the state_dict for the current model part
+            current_state_dict = {
+                k.replace(f"idx-{i}-", ""): v
+                for k, v in state_dict.items()
+                if k.startswith(f"idx-{i}-")
+            }
+            set_optimizer_state_dict(mp, opt, current_state_dict)
+
+    def _post_init(
+        self, all_params: list[nn.Parameter], optimizer_kwargs: dict[str, Any]
+    ) -> None:
+        # We need to call Optimizer.__init__() to initialize some necessary optimizer
+        # functionality such as hooks.
+        if len(optimizer_kwargs) == 1:
+            Optimizer.__init__(self, all_params, optimizer_kwargs[0])
+        else:
+            # This won't affect the optimizer behavior, since all methods just forward
+            # the arguments to the sub-optimizers.
+            Optimizer.__init__(
+                self,
+                all_params,
+                {
+                    "optimizers_args": optimizer_kwargs,
+                },
+            )
+
+
+def _print_optimizer_desc_table(descs: list["OptimizerDesc"]) -> None:
+    if not descs:
+        logger.info("No optimizer descs to display.")
+        return
+
+    columns = [
+        "model_part",
+        "optimizer_cls",
+        "lr",
+        "num_parameters",
+        "num_trainable_parameters",
+        "status",
+    ]
+
+    rows = []
+    for d in descs:
+        status = "FROZEN" if d.num_trainable_parameters == 0 else "TRAINABLE"
+        rows.append(
+            [
+                str(d.model_part),
+                str(d.optimizer_cls),
+                str(d.lr),
+                str(d.num_parameters),
+                str(d.num_trainable_parameters),
+                status,
+            ]
+        )
+
+    # column widths
+    widths = [len(c) for c in columns]
+    for r in rows:
+        for i, cell in enumerate(r):
+            widths[i] = max(widths[i], len(cell))
+
+    def fmt(r):
+        return " | ".join(r[i].ljust(widths[i]) for i in range(len(r)))
+
+    header = fmt(columns)
+    sep = "-+-".join("-" * w for w in widths)
+
+    logger.info(header)
+    logger.info(sep)
+    for r in rows:
+        logger.info(fmt(r))
+
+
+def build_optimizers(
+    model_parts: List[nn.Module],
+    config: CosmosConfig,
+    model_module_path: List[str] = None,
+) -> OptimizersContainer:
+    """Create a OptimizersContainer for the given model parts and job config.
+
+    This function creates a ``OptimizersContainer`` for the given model parts.
+    ``job_config`` should define the correct optimizer name and parameters.
+    This function currently supports creating ``OptimizersContainer`` and
+    ``OptimizersInBackwardContainer``.
+
+    **Note**
+    Users who want to customize the optimizer behavior can create their own
+    ``OptimizersContainer`` subclass and ``build_optimizers``. Passing the
+    customized ``build_optimizers`` to ``TrainSpec`` will create the customized
+    ``OptimizersContainer``.
+
+    Args:
+        model_parts (List[nn.Module]): List of model parts to be optimized.
+        model_module_path (List[str], optional): List of model part paths. Defaults to None.
+    """
+    lr = config.train.optm_lr
+    if isinstance(lr, float):
+        lr = [lr] * len(model_parts)
+    elif isinstance(lr, list):
+        if len(lr) != len(model_parts):
+            if len(lr) > len(model_parts):
+                logger.warning(
+                    f"Length of lr ({len(lr)}) is greater than length of model_parts ({len(model_parts)}). "
+                    f"Only the first {len(model_parts)} lrs will be used."
+                )
+                lr = lr[: len(model_parts)]
+            else:
+                # List the model part names for better debugging
+                if model_module_path is not None:
+                    model_part_names = model_module_path
+                else:
+                    model_part_names = []
+                    for model_part in model_parts:
+                        if model_part is None:
+                            model_part_names.append("None")
+                        else:
+                            model_part_names.append(type(model_part).__name__)
+                raise ValueError(
+                    f"The length of lr ({len(lr)}) and model_parts ({len(model_parts)}) must be the same. "
+                    f"Model parts: {model_part_names}"
+                )
+    else:
+        raise ValueError(f"Invalid lr: {lr}")
+
+    optm_impl = config.train.optm_impl
+    if isinstance(optm_impl, str):
+        assert optm_impl in ["fused", "foreach", "for-loop"], "Invalid optm_impl"
+        optm_impl = [optm_impl] * len(model_parts)
+    elif isinstance(optm_impl, list):
+        assert len(optm_impl) == len(model_parts), (
+            "The length of optm_impl and model_parts must be the same"
+        )
+        assert all(
+            optm_impl_i in ["fused", "foreach", "for-loop"] for optm_impl_i in optm_impl
+        ), "Invalid optm_impl"
+    else:
+        raise ValueError(f"Invalid optm_impl: {optm_impl}")
+
+    fused = [optm_impl_i == "fused" for optm_impl_i in optm_impl]
+    foreach = [optm_impl_i == "foreach" for optm_impl_i in optm_impl]
+
+    optimizer_kwargs = [
+        {
+            "lr": lr_i,
+            "betas": config.train.optm_betas,
+            "weight_decay": config.train.optm_weight_decay,
+            "eps": config.train.epsilon,
+            "fused": fused_i,
+            "foreach": foreach_i,
+        }
+        for lr_i, fused_i, foreach_i in zip(lr, fused, foreach)
+    ]
+
+    optimizer_classes = {
+        "Adam": torch.optim.Adam,
+        "AdamW": torch.optim.AdamW,
+        "Adam8bit": Adam8bit,
+        "AdamW8bit": AdamW8bit,
+    }
+
+    name = config.train.optm_name
+    if name not in optimizer_classes:
+        raise NotImplementedError(f"Optimizer {name} not added.")
+    elif optimizer_classes[name] is None:
+        raise NotImplementedError(f"Optimizer {name} not installed.")
+
+    optimizer_cls = optimizer_classes[name]
+    init_signature = inspect.signature(optimizer_cls.__init__)
+    parameters = init_signature.parameters
+    kwarg_names = [
+        name
+        for name, param in parameters.items()
+        if param.default != inspect.Parameter.empty
+    ]
+
+    filtered_optimizer_kwargs = []
+    for optimizer_kwargs_i in optimizer_kwargs:
+        # Filter for kwargs
+        optimizer_kwargs_i = {
+            k: v for k, v in optimizer_kwargs_i.items() if k in kwarg_names
+        }
+        # Warn if any kwargs are not used
+        unused_kwargs = set(optimizer_kwargs_i.keys()) - set(kwarg_names)
+        if unused_kwargs:
+            logger.warning(f"Unused kwargs in optimizer-{name}: {unused_kwargs}")
+        filtered_optimizer_kwargs.append(optimizer_kwargs_i)
+
+    return OptimizersContainer(
+        optimizer_cls,
+        model_parts,
+        filtered_optimizer_kwargs,
+        model_module_path=model_module_path,
+    )
+
+
+class LRSchedulersContainer(Stateful):
+    """Container for multiple learning rate schedulers.
+
+    This class is used to wrap multiple LRSchedulers into a single object that can be
+    used to reduce the complexity of the training loop. This mimics the behavior of
+    ``torch.optim.lr_scheduler.LRScheduler``. The design concept is the same as
+    ``OptimizersContainer``. This class currently only supports ``LambdaLR``.
+
+    **Note**
+    Users who want to customize the lr_scheduler behavior can inherit from this class and
+    extend the functionality as needed. The following methods must follow the same
+    signature as ``torch.optim.lr_scheduler.LRScheduler`` class: ``step()``, ``state_dict()``,
+    ``load_state_dict()``.
+
+    **Limitations**
+    This class assumes all the lr schedulers are the same. There is no easy way to support
+    resharding for multiple different LRSchedulers because LRScheduler.state_dict() is not
+    resharding friendly. Therefore, the limitation is used to allow TorchTitan to support
+    lr scheduler resharding.
+
+    Args:
+        optimizers (OptimizersContainer): The corresponding optimizers for the lr_schedulers.
+    """
+
+    schedulers: List[LRScheduler]
+
+    def __init__(self, optimizers: OptimizersContainer, lr_lambda: Callable) -> None:
+        assert len(optimizers) > 0, (
+            "Must have at least one optimizer to create LRScheduler"
+        )
+
+        # [[scheduler1_for_optm1, scheduler2_for_optm1], [scheduler1_for_optm2, scheduler2_for_optm2], ...]
+        self.schedulers = [[] for _ in optimizers.model_parts]
+        for model_id, optm_list in enumerate(optimizers.optimizers):
+            for optm in optm_list:
+                scheduler = LambdaLR(optm, lr_lambda=lr_lambda)
+                self.schedulers[model_id].append(scheduler)
+
+    def __iter__(self) -> LRScheduler:
+        return iter(itertools.chain(*self.schedulers))
+
+    def __len__(self) -> int:
+        return len(self.schedulers)
+
+    def step(self) -> None:
+        for scheduler in itertools.chain(*self.schedulers):
+            scheduler.step()
+
+    def get_last_lr(self, model_part_idx: int = 0) -> float:
+        return self.schedulers[model_part_idx][0].get_last_lr()
+
+    def state_dict(self) -> Dict[str, Any]:
+        state_dict = {}
+        for idx, scheduler_list in enumerate(self.schedulers):
+            # each schduler state is same inside the same model part, so we just save the first one to avoid redundancy
+            if len(scheduler_list) == 0:
+                continue
+            scheduler = scheduler_list[0]
+            sd = scheduler.state_dict()
+            for k, v in sd.items():
+                if f"idx-{idx}-{k}" in state_dict:
+                    raise ValueError(f"Duplicated scheduler key is deteced! Key = {k}")
+                state_dict[f"idx-{idx}-{k}"] = v
+        return state_dict
+
+    def load_state_dict(self, state_dict: Dict[str, Any]) -> None:
+        for idx, scheduler_list in enumerate(self.schedulers):
+            if len(scheduler_list) == 0:
+                continue
+            current_state_dict = {
+                k.replace(f"idx-{idx}-", ""): v
+                for k, v in state_dict.items()
+                if k.startswith(f"idx-{idx}-")
+            }
+            for scheduler in scheduler_list:
+                scheduler.load_state_dict(copy.deepcopy(current_state_dict))
+
+
+def build_lr_schedulers(
+    optimizers: OptimizersContainer, config: CosmosConfig, training_steps: int
+) -> LRSchedulersContainer:
+    """Create a LRSchedulerContainer for the given optimizers and job config.
+
+    This function creates a ``LRSchedulersContainer`` for the given optimizers.
+    ``job_config`` should define the correct lr scheduler parameters.
+
+    **Note**
+    Users who want to customize the lr scheduler behavior can create their own
+    ``LRSchedulersContainer`` subclass and ``build_lr_scheduler``. Passing the
+    customized ``build_lr_schedulers`` to ``TrainSpec`` will create the customized
+    ``LRSchedulersContainer``.
+
+
+    Args:
+        optimizers (OptimizersContainer): The corresponding optimizers for the
+            lr_schedulers.
+    """
+    if (
+        isinstance(config.train.optm_warmup_steps, float)
+        and config.train.optm_warmup_steps <= 1.0
+    ):
+        warmup_steps = int(config.train.optm_warmup_steps * training_steps)
+    else:
+        warmup_steps = int(config.train.optm_warmup_steps)
+
+    if warmup_steps > training_steps:
+        logger.warning(
+            f"Warmup steps ({warmup_steps}) exceed total training steps ({training_steps}). "
+            f"Adjusting warmup steps to {training_steps}."
+        )
+        warmup_steps = training_steps
+
+    if config.train.optm_decay_ratio is not None:
+        decay_steps = round(training_steps * config.train.optm_decay_ratio)
+        if warmup_steps + decay_steps > training_steps:
+            logger.warning(
+                f"Warmup ({warmup_steps}) + decay ({decay_steps}) steps exceed "
+                f"total training steps ({training_steps}). "
+                f"Adjusting decay steps to {training_steps - warmup_steps}."
+            )
+            decay_steps = training_steps - warmup_steps
+    else:
+        decay_steps = training_steps - warmup_steps
+    # Add a vitual last step to prevent the learning rate from dropping to 0
+    stable_steps = training_steps + 1 - warmup_steps - decay_steps
+    lr_decay_type = config.train.optm_decay_type
+    min_lr_factor = config.train.optm_min_lr_factor
+
+    def warmup_stable_decay(
+        current_step: int,
+        warmup_steps: int,
+        stable_steps: int,
+        decay_steps: int,
+        lr_decay_type: str,
+        min_lr_factor: float,
+        warmup_start_factor: float,
+    ):
+        """
+        Computes linear warmup followed by stable learning rate for a while,
+        then some type of decay.
+
+        Per LambdaLR requirement, this is accomplished by returning
+        a multiplicative factor `curr_adjustment` ranging from 1 to 0
+        to adjust the learning rate to create the desired schedule.
+
+        We offer three types of learning rate decay schedules:
+        1. `linear`: decays linearly from 1 to 0 over the decay period.
+        2. `sqrt`: decays as 1 minus the square root of the decay progress.
+        3. `cosine`: follows a cosine curve, decaying according to the values of the half-period of the cosine function.
+
+        If `min_lr_factor` is specified, the decay range is scaled from 1 to `min_lr_factor`
+        to ensure the learning rate does not drop below this minimum value.
+        """
+        warmup_stable_steps = warmup_steps + stable_steps
+        if current_step < warmup_steps:
+            # linear warmup from warmup_start_factor to 1.0
+            assert warmup_steps != 0, (
+                "warmup_steps must not be zero to reach this branch"
+            )
+            if warmup_steps == 1:
+                curr_adjustment = 1.0
+            else:
+                progress = float(current_step) / float(warmup_steps - 1)
+                curr_adjustment = (
+                    warmup_start_factor + (1.0 - warmup_start_factor) * progress
+                )
+        elif current_step < warmup_stable_steps:
+            curr_adjustment = 1.0
+        else:
+            # 0-indexed step, hence + 1 adjustments
+            current_step += 1
+            assert decay_steps != 0, "decay_steps must not be zero to reach this branch"
+            progress = float(current_step - warmup_stable_steps) / decay_steps
+
+            if lr_decay_type == "linear":
+                curr_adjustment = 1 - progress
+            elif lr_decay_type == "sqrt":
+                curr_adjustment = 1 - math.sqrt(progress)
+            elif lr_decay_type == "cosine":
+                curr_adjustment = 0.5 * (1.0 + math.cos(math.pi * progress))
+            elif lr_decay_type == "none" or lr_decay_type is None:
+                # No lr decay
+                curr_adjustment = 1.0
+            else:
+                raise ValueError(f"Invalid lr_decay_type: {lr_decay_type}")
+            curr_adjustment = min_lr_factor + (1 - min_lr_factor) * curr_adjustment
+        return curr_adjustment
+
+    lr_lambda = functools.partial(
+        warmup_stable_decay,
+        warmup_steps=warmup_steps,
+        stable_steps=stable_steps,
+        decay_steps=decay_steps,
+        lr_decay_type=lr_decay_type,
+        min_lr_factor=min_lr_factor,
+        warmup_start_factor=config.train.optm_warmup_start_factor,
+    )
+
+    return LRSchedulersContainer(optimizers, lr_lambda)

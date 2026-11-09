@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-09",
+  "retrieval": "Byte copies from the R3 lane read-only clones at the pinned commits (clean worktrees); no weights, datasets or LFS objects. Git blob SHA-1 equals each repository's tree entry at the commit.",
+  "use": "Test reference for gate.s2_reexport (S2.4 policy B re-export procedure): argparse flags, model_type literals, tokenizer files, output-directory policy and the key map; only the named pure functions are executed, in a restricted namespace.",
+  "repositories": [
+    {
+      "repository": "https://github.com/NVlabs/alpagym",
+      "commit": "972d160eed0e23d388497851504a3a233fec5879",
+      "license": "Apache-2.0",
+      "license_check": "Apache-2.0 permits redistribution with the LICENSE file; copied alongside, unmodified.",
+      "license_file": "alpagym/LICENSE",
+      "license_file_sha256": "85d0bf7032265ecf3647a293362c7ac55930d253d6a78dfcbce245c98eba2a72",
+      "license_file_git_blob_sha": "bc7af1e20a7c4f56383bcb3446b8b8b0f8bf362e",
+      "sources": [
+        {
+          "file": "alpagym/convert_release_to_alpagym_checkpoint_972d160e.py.txt",
+          "path": "packages/policies/alpamayo_r1/scripts/convert_release_to_alpagym_checkpoint.py",
+          "commit": "972d160eed0e23d388497851504a3a233fec5879",
+          "git_blob_sha": "67c4b49fb10a66f0bb55c95993c7e7b483a091a0",
+          "sha256": "ec926d0dd345711663db2493753de492b1a7367cb640a108a87439da776e25c8",
+          "size_bytes": 7472,
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/policies/alpamayo_r1/scripts/convert_release_to_alpagym_checkpoint.py",
+          "executed_nodes": []
+        },
+        {
+          "file": "alpagym/convert_alpagym_checkpoint_to_inference_972d160e.py.txt",
+          "path": "packages/policies/alpamayo_r1/scripts/convert_alpagym_checkpoint_to_inference.py",
+          "commit": "972d160eed0e23d388497851504a3a233fec5879",
+          "git_blob_sha": "a15800e8d7ca9f0690cf4c26eb993d3edc9951b8",
+          "sha256": "936a290377955fe28ec8db4ed28e7622fe3d52450c8bce439255daf0b5f8b38f",
+          "size_bytes": 7213,
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/policies/alpamayo_r1/scripts/convert_alpagym_checkpoint_to_inference.py",
+          "executed_nodes": [
+            "to_inference_weight_key"
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/NVlabs/alpamayo-recipes",
+      "commit": "1d99fc50370c96637157455da386323a44663c9d",
+      "license": "Apache-2.0",
+      "license_check": "Apache-2.0 permits redistribution with the LICENSE file; copied alongside, unmodified.",
+      "license_file": "alpamayo-recipes/LICENSE",
+      "license_file_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "license_file_git_blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "sources": [
+        {
+          "file": "alpamayo-recipes/checkpoint_utils_1d99fc50.py.txt",
+          "path": "src/alpamayo/utils/checkpoint_utils.py",
+          "commit": "1d99fc50370c96637157455da386323a44663c9d",
+          "git_blob_sha": "98708dc01ed0700efd8ebee04644194abd3be712",
+          "sha256": "ccb004a01cdda6173972ecc145fa1f3bc76b84fe4293555d9b3d15e7b7b217a8",
+          "size_bytes": 4560,
+          "source_url": "https://github.com/NVlabs/alpamayo-recipes/blob/1d99fc50370c96637157455da386323a44663c9d/src/alpamayo/utils/checkpoint_utils.py",
+          "executed_nodes": [
+            "prepare_output_dir"
+          ]
+        }
+      ]
+    }
+  ]
+}

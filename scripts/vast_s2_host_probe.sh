@@ -1,29 +1,49 @@
 #!/usr/bin/env bash
 # Synthetic guest readiness only. No models, datasets, account or provider actions.
 # See experiments/2026-11-01-vast-host-check.md before execution.
+# Build-spec A2 (D-024): digest-only public image pull (R2 H2), outer kill-after that covers the
+# longest foreground check plus cleanup (R4 P1), S2 host inventory records (R2 H1) and an
+# AlpaSim-shaped host-network/pid/device-ID Compose check (R2 H3). Verification ceiling: L1
+# with every tool faked (tests/test_vast_s2_host_probe.py); real host behaviour is L3.
+# Usage: bash vast_s2_host_probe.sh /abs/new/evidence-dir REPOSITORY@sha256:DIGEST /abs/data-root
 set -u -o pipefail
 umask 077
 
-if [[ $# != 1 || $1 != /* ]]; then
-    echo 'Usage: bash vast_s2_host_probe.sh /absolute/new/evidence-directory' >&2
+if [[ $# != 3 || $1 != /* || $3 != /* ]]; then
+    echo 'Usage: bash vast_s2_host_probe.sh /abs/new/evidence-dir REPOSITORY@sha256:DIGEST /abs/data-root' >&2
+    exit 64
+fi
+image_ref=$2
+digest_pattern='^[a-z0-9][a-z0-9._:/-]*@sha256:[0-9a-f]{64}$'
+if ! [[ $image_ref =~ $digest_pattern ]]; then
+    echo 'The public CUDA image must be an immutable repository@sha256:<64 hex> reference.' >&2
     exit 64
 fi
 command -v timeout >/dev/null || { echo 'GNU timeout is required.' >&2; exit 69; }
+# R4 P1: bash defers the outer TERM until the running foreground check exits, then cleanup()
+# runs. The KILL grace must cover the longest check (public_image_pull, 600 s, plus its 5 s
+# kill-after) and the whole cleanup chain (60 s budget, timeouts summed in cleanup()), plus a
+# 30 s margin. Agent technical default (D-018).
+longest_check_s=600
+check_kill_after_s=5
+cleanup_budget_s=60
+outer_kill_after_s=$((longest_check_s + check_kill_after_s + cleanup_budget_s + 30))
 if [[ ${PHYSLOOP_PROBE_TIMEOUT_ACTIVE:-0} != 1 ]]; then
-    PHYSLOOP_PROBE_TIMEOUT_ACTIVE=1 exec timeout --signal=TERM --kill-after=60s 20m bash "$0" "$@"
+    PHYSLOOP_PROBE_TIMEOUT_ACTIVE=1 exec timeout --signal=TERM --kill-after="${outer_kill_after_s}s" 20m bash "$0" "$@"
 fi
 
 out=$1
+data_root=$3
 mkdir -m 700 -- "$out" || exit 73
 work=$(mktemp -d /tmp/physloop-host-probe.XXXXXXXX) || exit 73
 project="physloop-probe-$(date -u +%Y%m%d%H%M%S)-$$"
-cuda_tag='nvidia/cuda:12.8.1-devel-ubuntu22.04'
 docker=(docker)
 compose_ready=0
+compose_host_ready=0
 failed=0
 printf 'check\tcategory\texit_code\n' > "$out/checks.tsv"
 printf 'UNFINISHED\n' > "$out/result.txt"
-printf 'utc_start=%s\nproject=%s\npublic_image_tag=%s\n' "$(date -u +%FT%TZ)" "$project" "$cuda_tag" > "$out/manifest.txt"
+printf 'utc_start=%s\nproject=%s\npublic_image_ref=%s\ndata_root=%s\nouter_kill_after_s=%s\n' "$(date -u +%FT%TZ)" "$project" "$image_ref" "$data_root" "$outer_kill_after_s" > "$out/manifest.txt"
 cp -- "$0" "$out/probe-script.sh"
 sha256sum "$out/probe-script.sh" > "$out/script.sha256"
 
@@ -41,15 +61,20 @@ check() {
 cleanup() {
     local rc=$?
     trap - EXIT INT TERM
+    # Cleanup budget: 8+10 (+8+10 for the host-network project) +6+6+6 = 54 s <= 60 s.
     if [[ $compose_ready == 1 ]]; then
         timeout -k 2s 6s "${docker[@]}" compose -p "$project" -f "$work/compose.yaml" logs --no-color > "$out/compose-services.log" 2>&1 || true
         timeout -k 2s 8s "${docker[@]}" compose -p "$project" -f "$work/compose.yaml" down --volumes --remove-orphans --timeout 2 > "$out/cleanup-compose.log" 2>&1 || true
+    fi
+    if [[ $compose_host_ready == 1 ]]; then
+        timeout -k 2s 6s "${docker[@]}" compose -p "$project-host" -f "$work/compose-host.yaml" logs --no-color > "$out/compose-host-services.log" 2>&1 || true
+        timeout -k 2s 8s "${docker[@]}" compose -p "$project-host" -f "$work/compose-host.yaml" down --volumes --remove-orphans --timeout 2 > "$out/cleanup-compose-host.log" 2>&1 || true
     fi
     timeout -k 2s 4s "${docker[@]}" rm -f "$project-compile" "$project-cuda" "$project-vram" > "$out/cleanup-containers.log" 2>&1 || true
     timeout -k 2s 4s "${docker[@]}" image rm "$project:build-check" > "$out/cleanup-build-image.log" 2>&1 || true
     timeout -k 2s 4s "${docker[@]}" ps -aq --filter "label=com.docker.compose.project=$project" > "$out/remaining-compose-containers.log" 2>&1 || true
     # Preserve sources and any partial outputs before deleting only our workspace.
-    cp -- "$work"/*.cu "$work"/Dockerfile "$work"/compose.yaml "$out/" 2>/dev/null || true
+    cp -- "$work"/*.cu "$work"/Dockerfile "$work"/compose.yaml "$work"/compose-host.yaml "$out/" 2>/dev/null || true
     rm -rf -- "$work"
     printf 'utc_end=%s\nscript_exit=%s\n' "$(date -u +%FT%TZ)" "$rc" >> "$out/manifest.txt"
     if [[ $rc != 0 ]]; then printf 'FAIL_OR_INTERRUPTED exit=%s; inspect checks and cleanup logs\n' "$rc" > "$out/result.txt"; fi
@@ -75,10 +100,45 @@ check required compose_version 15 "${docker[@]}" compose version || exit 2
 check required buildx_version 15 "${docker[@]}" buildx version || exit 2
 check diagnostic docker_platform 10 "${docker[@]}" info --format 'os={{.OSType}} arch={{.Architecture}} driver={{.Driver}}' || true
 check diagnostic disk_space 10 df -h "$work" || true
-check required public_image_pull 600 "${docker[@]}" pull "$cuda_tag" || exit 2
-check required image_identity 15 "${docker[@]}" image inspect "$cuda_tag" --format '{{.Id}} {{json .RepoDigests}} {{.Os}}/{{.Architecture}}' || exit 2
-image_id=$(timeout -k 2s 10s "${docker[@]}" image inspect "$cuda_tag" --format '{{.Id}}') || exit 2
+# R2 H1: S2 host inventory records. Diagnostic: absence or failure is recorded, never a pass.
+check diagnostic nvidia_ctk_version 10 nvidia-ctk --version || true
+check diagnostic uv_version 10 uv --version || true
+check diagnostic rustc_version 10 rustc -V || true
+check diagnostic git_version 10 git --version || true
+check diagnostic docker_storage 10 "${docker[@]}" info --format 'driver={{.Driver}} root={{.DockerRootDir}}' || true
+docker_root=$(timeout -k 2s 8s "${docker[@]}" info --format '{{.DockerRootDir}}' 2>/dev/null) || docker_root=
+if [[ $docker_root == /* ]]; then
+    check diagnostic docker_root_free 10 df -B1 -- "$docker_root" || true
+else
+    printf 'UNVERIFIED: Docker data root not reported; its free space is not established.\n' > "$out/docker-root-unverified.log"
+fi
+if [[ -d $data_root ]]; then
+    check diagnostic data_root_free 10 df -B1 -- "$data_root" || true
+else
+    printf 'UNVERIFIED: %s does not exist yet; its free space is not established.\n' "$data_root" > "$out/data-root-unverified.log"
+fi
+check diagnostic cpu_count 10 nproc || true
+check diagnostic memory_bytes 10 free -b || true
+check diagnostic shm_size 10 df -B1 -- /dev/shm || true
+check diagnostic ulimits 10 bash -c 'ulimit -a' || true
+check diagnostic listening_sockets 10 ss -ltnp || true
+check diagnostic firewall_state 10 bash -c 'found=0; if command -v ufw >/dev/null; then found=1; ufw status verbose; fi; if command -v iptables >/dev/null; then found=1; iptables -S; fi; test "$found" = 1' || true
+if check diagnostic compose_up_help 10 "${docker[@]}" compose up --help && grep -q -e '--pull' "$out/compose_up_help.log"; then
+    printf 'compose_up_pull_flag=listed\n' >> "$out/manifest.txt"
+else
+    printf 'compose_up_pull_flag=UNVERIFIED_not_listed\n' >> "$out/manifest.txt"
+fi
+check diagnostic hf_reachability 20 curl -sS -o /dev/null -w '%{http_code}\n' --max-time 15 https://huggingface.co/api/models/nvidia/Alpamayo-1.5-10B || true
+check diagnostic nvcr_reachability 20 curl -sS -o /dev/null -w '%{http_code}\n' --max-time 15 https://nvcr.io/v2/ || true
+# R2 H2: pull only the immutable digest supplied for this run; never a tag.
+check required public_image_pull 600 "${docker[@]}" pull "$image_ref" || exit 2
+check required image_identity 15 "${docker[@]}" image inspect "$image_ref" --format '{{.Id}} {{json .RepoDigests}} {{.Os}}/{{.Architecture}}' || exit 2
+identity=$(timeout -k 2s 10s "${docker[@]}" image inspect "$image_ref" --format '{{.Id}}{{range .RepoDigests}}{{printf "\n%s" .}}{{end}}') || exit 2
+image_id=${identity%%$'\n'*}
 [[ $image_id =~ ^sha256:[0-9a-f]{64}$ ]] || exit 2
+digest_matched=0
+while IFS= read -r digest; do [[ $digest == "$image_ref" ]] && digest_matched=1; done <<< "$identity"
+[[ $digest_matched == 1 ]] || { printf 'RepoDigests do not include %s\n' "$image_ref" > "$out/image-identity-mismatch.log"; exit 2; }
 printf 'resolved_image_id=%s\n' "$image_id" >> "$out/manifest.txt"
 
 cat > "$work/known_answer.cu" <<'CUDA'
@@ -185,10 +245,10 @@ int main(int argc,char** argv) {
 CUDA
 
 cat > "$work/Dockerfile" <<DOCKERFILE
-FROM $cuda_tag
+FROM $image_ref
 RUN test -x /usr/local/cuda/bin/nvcc
 DOCKERFILE
-# A recorded local tag is used only for FROM. Its image ID was recorded above;
+# The digest reference is used only for FROM. Its image ID was recorded above;
 # compilation and all execution use that immutable local image ID directly.
 check required buildx_build 120 "${docker[@]}" buildx build --load --pull=false --network=none --tag "$project:build-check" "$work" || true
 check required cuda_compile 120 "${docker[@]}" run --rm --name "$project-compile" --gpus all --network none --mount "type=bind,src=$work,dst=/probe" "$image_id" bash -c 'nvcc -O2 -arch=native /probe/known_answer.cu -o /probe/known_answer' || exit 2
@@ -198,8 +258,9 @@ if ! check required cuda_vram_integrity 60 "${docker[@]}" run --rm --name "$proj
 fi
 
 export PHYSLOOP_PROBE_IMAGE="$image_id" PHYSLOOP_PROBE_WORK="$work"
-export PHYSLOOP_EXPECT_PIDNS
+export PHYSLOOP_EXPECT_PIDNS PHYSLOOP_EXPECT_NETNS
 PHYSLOOP_EXPECT_PIDNS=$(readlink /proc/self/ns/pid)
+PHYSLOOP_EXPECT_NETNS=$(readlink /proc/self/ns/net)
 cat > "$work/compose.yaml" <<'COMPOSE'
 services:
   server:
@@ -235,6 +296,34 @@ COMPOSE
 compose_ready=1
 check required compose_config 15 "${docker[@]}" compose -p "$project" -f "$work/compose.yaml" config --quiet || true
 check required compose_execution 90 "${docker[@]}" compose -p "$project" -f "$work/compose.yaml" up --abort-on-container-exit --exit-code-from client --timeout 3 || true
+# R2 H3: AlpaSim services use network_mode host, pid host on runtime and per-service
+# device_ids ["0"] (deployment/docker_compose.py:108-113; services.py:200-221).
+cat > "$work/compose-host.yaml" <<'COMPOSE'
+services:
+  hostnet:
+    image: ${PHYSLOOP_PROBE_IMAGE}
+    pull_policy: never
+    network_mode: host
+    pid: host
+    command:
+      - bash
+      - -ec
+      - 'test "$$(readlink /proc/self/ns/net)" = "$$PHYSLOOP_EXPECT_NETNS"; echo host_network=PASS; test "$$(readlink /proc/self/ns/pid)" = "$$PHYSLOOP_EXPECT_PIDNS"; echo host_pid=PASS; /probe/known_answer'
+    environment:
+      PHYSLOOP_EXPECT_NETNS: ${PHYSLOOP_EXPECT_NETNS}
+      PHYSLOOP_EXPECT_PIDNS: ${PHYSLOOP_EXPECT_PIDNS}
+    volumes: ["${PHYSLOOP_PROBE_WORK}:/probe"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+COMPOSE
+compose_host_ready=1
+check required compose_host_config 15 "${docker[@]}" compose -p "$project-host" -f "$work/compose-host.yaml" config --quiet || true
+check required compose_host_network_device_ids 90 "${docker[@]}" compose -p "$project-host" -f "$work/compose-host.yaml" up --abort-on-container-exit --exit-code-from hostnet --timeout 3 || true
 
 check diagnostic profiler_policy 10 bash -c 'if test -r /proc/driver/nvidia/params; then grep -E "RmProfilingAdminOnly|RestrictProfiling" /proc/driver/nvidia/params; else echo UNVERIFIED_no_readable_driver_policy; exit 1; fi' || true
 check diagnostic process_capabilities 10 bash -c 'grep -E "^Cap(Eff|Prm|Bnd):" /proc/self/status; test ! -r /proc/sys/kernel/perf_event_paranoid || cat /proc/sys/kernel/perf_event_paranoid' || true

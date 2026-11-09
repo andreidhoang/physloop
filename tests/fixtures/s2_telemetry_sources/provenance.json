@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-09",
+  "origin": "PhysLoop project evidence (D-019 bounded Vast host check, closed under D-020), byte-identical copies; plus the dcgm-exporter default counters CSV vendored at the exporter release the recorded image runs (see vendored)",
+  "producer": "scripts/vast_exporter_control.sh (copy recorded at evidence/s2-vast-host-20261101-v1/exporter-v1/vast_exporter_control.sh): curl of the loopback dcgm-exporter /metrics endpoint",
+  "exporter_image": "nvcr.io/nvidia/k8s/dcgm-exporter@sha256:804c17f67ab63e8a4dd5301546beefaa104129f833dae4a68f5ff7c4819f471b",
+  "exporter_mode": "embedded; bundled DCGM 4.6.1 with exporter 4.8.4; -f /etc/dcgm-exporter/default-counters.csv",
+  "scrape_utc": {
+    "sample-0.prom": "2026-11-01T07:10:14.286723801Z",
+    "sample-1.prom": "2026-11-01T07:10:15.293835978Z"
+  },
+  "scrape_utc_source": "evidence/s2-vast-host-20261101-v1/exporter-v1/samples.tsv",
+  "sources": [
+    {
+      "file": "sample-0.prom",
+      "path": "evidence/s2-vast-host-20261101-v1/exporter-v1/sample-0.prom",
+      "sha256": "742a199cb37ec3454de18986b9afc59bb0551b62992cccb39d1b04ec4cfce550"
+    },
+    {
+      "file": "sample-1.prom",
+      "path": "evidence/s2-vast-host-20261101-v1/exporter-v1/sample-1.prom",
+      "sha256": "627cc058037510d6835ff9d5180e5ec0a9c63a8f231e0743b422bf8983fbeddb"
+    }
+  ],
+  "notes": "The recorded scrapes carry no DCGM_FI_DEV_XID_ERRORS line (evidence/s2-vast-host-20261101-v1/exporter-metrics-summary.json lists it as []). Its HELP and TYPE are pinned from the vendored exporter 4.8.4 default counters CSV, not from a recorded scrape; XID delivery on a host stays unverified (L3).",
+  "vendored": [
+    {
+      "repository": "https://github.com/NVIDIA/dcgm-exporter",
+      "tag": "4.8.4",
+      "commit": "fafd151148052628061a80450b4ee037a5fa0c3c",
+      "retrieval": "gh api contents (raw) at the tag commit on 2026-11-09 into the session scratchpad; git blob SHA-1 recomputed locally and equal to the repository tree entry",
+      "release_reason": "evidence/s2-vast-host-20261101-v1/exporter-v1/exporter.log line 1: msg=\"Starting dcgm-exporter\" Version=4.8.4, and :9 Using metric file '/etc/dcgm-exporter/default-counters.csv' (the -f argument of scripts/vast_exporter_control.sh:131)",
+      "license": "Apache-2.0",
+      "license_check": "Apache-2.0 permits redistribution with the LICENSE file; copied alongside, unmodified.",
+      "license_file": "dcgm-exporter/LICENSE",
+      "license_file_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "license_file_git_blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "file": "dcgm-exporter/default-counters_4.8.4.csv",
+      "path": "etc/default-counters.csv",
+      "git_blob_sha": "6e6de4af81073b675d4bf764710877749f9709b9",
+      "sha256": "ddf9d12eb7c004a24241a84221843ce178c5ca075ffdf711e2d46046e7000006",
+      "size_bytes": 8190,
+      "source_url": "https://github.com/NVIDIA/dcgm-exporter/blob/fafd151148052628061a80450b4ee037a5fa0c3c/etc/default-counters.csv",
+      "level": "L2: the image's embedded /etc/dcgm-exporter/default-counters.csv was not captured; every HELP/TYPE pair in the recorded scrapes equals this file's trimmed columns"
+    }
+  ]
+}

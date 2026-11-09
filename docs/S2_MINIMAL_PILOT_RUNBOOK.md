@@ -6,7 +6,9 @@ The immediate deliverable is a checked CPU rehearsal, a setup inventory, and a b
 
 ## 1. Run the CPU rehearsal
 
-From the repository root, after the reduced-scope implementation is integrated:
+The full synthetic rehearsal of the whole pipeline (CPU-13, D-024) is `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B scripts/rehearse_s2.py --fixture complete --output evidence/s2-rehearsal-UNIQUE-ID`. The reduced pilot rehearsal below remains for the ten-job packet path.
+
+From the repository root:
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B scripts/rehearse_s2_pilot.py \
@@ -68,22 +70,56 @@ Preserve failed attempts and bind actual UUIDs from observed execution records.
 
 The preparer intentionally accepts only portable ASCII paths and scene IDs. Upstream later joins service commands into `bash -c`, so an argv list is not a qualification of arbitrary downstream shell input. Physics/controller/runtime explicitly use prebuilt external images to avoid an automatic build recipe for the immutable base image; renderer already does. Preserve and review the emitted configs on the admitted host. The [source fixture manifest](../tests/fixtures/alpasim_launch_upstream/manifest.json) binds the inspected public files, not the actual runtime or licensed asset bytes.
 
-Collect the complete actual argv and resolved configuration before scientific execution. Record the six-camera simulation request separately from the driver's four consumed cameras; the audited dev comment saying four rendered cameras is stale. Keep the stock graph-off path, batch one and the actual unseeded classification unless an independently qualified registered protocol specifies otherwise. This driver exposes no `force_determinism` or graph Hydra knob; a label does not implement one. A disabled wizard retry count/autoresume does not prove that every service has no internal retries.
+Collect the complete actual argv and resolved configuration before scientific execution. Record the six-camera simulation request separately from the driver's four consumed cameras; the audited dev comment saying four rendered cameras is stale. As configured, this mismatch is predicted to fail every rollout (the stock driver rejects unconfigured cameras; lane R2 L1): the unit runner now blocks before any GPU command until Huy's camera fix makes the generated renderer camera list equal the driver's `use_cameras`. Keep the stock graph-off path, batch one and the actual unseeded classification unless an independently qualified registered protocol specifies otherwise. This driver exposes no `force_determinism` or graph Hydra knob; a label does not implement one. A disabled wizard retry count/autoresume does not prove that every service has no internal retries.
 
 ## 4. Bounded execution after recorded authority
 
-1. **Before create:** inspect the current exact quote and action record, approved asset/private-host access arrangement, scientific registration/prediction, cutoff, retention and export destination. Pending scientific fields do not prevent CPU work; they block dependent runs. D-019's old allocation is closed.
-2. **Bind and arm:** create only the authorized allocation, record its unique label and exact ID, persist the original creation-request time/absolute cutoff, and wait for the external watchdog's durable `armed` receipt before bootstrap. If arming fails, stop via the control plane. An uncertain create response requires inventory reconciliation, never an automatic second rental.
-3. **Respect watchdog scope:** `scripts/vast_stop_watchdog.py` supports Vast and at most 60 minutes ahead. It stops only; storage can remain billable. It is not a provider-enforced cap. A longer approved pilot or another provider needs its own tested cutoff mechanism before create. Restarting must not renew the original allowance.
-4. **Check delivered resources:** GPU edition/VRAM, guest RAM/CPU/disk, driver, admin access, Docker/Compose/buildx and runtime visibility. Run the existing public synthetic checks within the allowance. Preserve missing XID/profiler status; a successful scrape does not establish fault delivery. Resolve mandatory monitoring failures or record their explicit acceptance amendment.
-5. **Acquire permitted assets:** only the approved exact subset, after terms/access and download authority. Record fetched bytes, immutable revisions and first delivery for restricted datasets. New dependencies or larger packaging stop acquisition until reviewed. Keep provider credentials off the guest and secrets out of command/profiler logs.
-6. **Qualify actual input:** verify simultaneous teacher/renderer/Harmonizer fit, actual raw capture, evaluator path, required metric coverage, requested/actual horizon and failure preservation. The synthetic ingestion pass does not satisfy this. Declare/budget extra diagnostic jobs separately; preserve any pilot job used for qualification with its role explicit.
-7. **Run ten jobs:** only after scientific preflight and actual evidence checks pass. Record every attempt, including pre-UUID crashes. No successful-retry selection rule is currently admitted; a retry is preserved and blocks current inference. Include setup/acquisition/warm-up/idle/retry/tail time in paid usage. Check next-unit cost and cleanup headroom before each bounded unit.
-8. **Export and verify:** incrementally copy permitted evidence to the private destination; compare full relative file set, lengths and SHA-256 hashes against the source manifest. Seal only after the required files and local verification pass. Preserve partial-export status on failure; do not mark success from the transport exit alone.
-9. **Stop, destroy, reconcile:** stop the exact bound task resource; verify its structured terminal state, then destroy only authorized task compute/storage after verified export on the normal path. Verify absence from compute and volume inventories. Failed inventory/API calls never prove absence. Record settlement pending separately from final charges.
-10. **At a hard cutoff:** stop GPU work even if export is incomplete. Retain storage only within the recorded retention authority; report the incomplete export and any evidence-loss risk. Do not extend time, increase resources, create another VM or release the full study automatically.
+Updated 2026-11-09 for the D-024 build. Every command below exists and was checked against its `--help`; none is runnable until the owner inputs exist. `CTRL` is the controller (this Mac, repository root, `.venv/bin/python -B`); `GUEST` is the rented VM (inside the unpacked bundle, `uv run --frozen --no-dev python`). Synthetic success never qualifies a host.
 
-Keep cash paid, accrued usage, remaining credit and liabilities separate. A credit deposit followed by consumption is one cash payment. Stop is not deletion; retained storage, transfer and unsettled charges still count. Preserve teardown headroom and any recorded independent-evaluation reserve.
+**How authority works now.** Executing paths do not read prose. A decision entry in `docs/DECISIONS.md` authorizes an artifact only when it contains the exact line printed by:
+
+```sh
+.venv/bin/python -B -m gate.s2 authority-line --kind KIND ARTIFACT.json
+```
+
+for `KIND` in `s2_action_record`, `s2_bootstrap_plan`, `s2_pilot_packet` (or `s2_full_sweep_packet`), `s2_readiness_report`, `s2_full_release`, `s4_bootstrap_plan`, `s4_launch_plan` and `s4_registration`. Licence and acquisition steps need lines of the form `records: terms:ROLE` and `records: acquire:ROLE`; the guest bootstrap prints the exact set it needs as `authority_request` when run without `--execute`. Huy writes these lines into his own new decision entry when he approves; agents never write them. A decision closed by a later `closes_authority: D-NNN` line, or D-019 (closed by D-020), authorizes nothing. The real log authorizes nothing today.
+
+1. **Before create (CTRL).**
+   - Rehearse: `.venv/bin/python -B scripts/rehearse_s2.py --fixture complete --output evidence/s2-rehearsal-NEW-ID`.
+   - Record the owner decisions in [the completeness audit's open list](research/2026-11-08-codebase-build/completeness-audit.md#owner-inputs-still-open), led by the camera fix (§3), the Harmonizer source, the licences (now including `nvidia/Cosmos-Reason2-8B`, required by the teacher config) and the pilot registration.
+   - Admit the action record: `.venv/bin/python -B scripts/s2_lifecycle.py validate-action-record ACTION.json`. The record names one provider (only Vast is implemented), exact resources (disk at least 300 GB), the maximum rate, an absolute window of at most 12 hours, retention and the export destination.
+   - Compile the plan: `.venv/bin/python -B -m gate.s2 compile-bootstrap INVENTORY.json ACTION.json --phases A B C D E`.
+   - Prepare the packet: `.venv/bin/python -B -m gate.s2 prepare-pilot PACKET_REQUEST.json`.
+   - Build the readiness report: `.venv/bin/python -B -m gate.s2 readiness REQUEST.json --root ROOT`.
+   - Print the authority lines for the action record, plan, packet and readiness report. Huy writes them, plus the `records:` lines, into one new decision entry.
+2. **Create, bind and arm (CTRL).**
+   - Get an intent ID: `scripts/s2_lifecycle.py intent-id`.
+   - Create: `scripts/s2_lifecycle.py step --journal J --record ACTION.json --intent-id ID --watchdog-events W --execute --authority-ref D-NNN`. It refuses unless that decision carries the record's hash line; an uncertain create is reconciled by its unique label and never repeated.
+   - Arm the watchdog: `scripts/vast_stop_watchdog.py --instance-id N --expected-label LABEL --deadline-utc T --max-window-seconds S --events W --first-arm`. `S` equals the approved window. On a restart use `--prior-events W` instead of `--first-arm`; the deadline is never renewed.
+   - Then run `scripts/s2_lifecycle.py observe-watchdog ...`. No bootstrap starts without the durable `armed` receipt.
+3. **Watchdog scope.** It is stop-only and external, not a provider-enforced cap. After the deadline it stops by exact ID even when the inventory fails, and exits 3 (`stop_unconfirmed`) if a stop is never confirmed. Storage stays billable after stop.
+4. **Check the delivered host (GUEST then CTRL).**
+   - Seal the source on CTRL: `.venv/bin/python -B scripts/s2_prepare_bundle.py build --root . --out-dir OUT --scope actual`. Verify it after transfer with `scripts/s2_prepare_bundle.py verify --bundle-sha256 H ARCHIVE`.
+   - Phase A runs on the guest's system Python 3.10: `python3 scripts/s2_guest_bootstrap.py PLAN --action-record ACTION.json --inventory INVENTORY.json --journal-dir JD --decision-id D-NNN --decisions DECISIONS.md --execute`.
+   - Phase A installs the pinned uv and the uv-managed CPython 3.12, runs the host probe (`bash scripts/vast_s2_host_probe.sh /abs/new/evidence-dir REPOSITORY@sha256:DIGEST /abs/data-root`, digest-only pulls) and the host-fit check against the action record (`gate/s2_host_fit.py`).
+   - A shortfall stops without a replacement host. XID delivery remains unverified unless qualified or accepted by amendment.
+5. **Acquire permitted assets (GUEST, phases D–E).** Gated stages compile only with their `records:` lines. Downloads are pinned, and every file gets a byte and SHA-256 receipt. The HF token and the NGC key come from `--secret-file NAME=PATH` and are redacted. Packaging larger than priced stops acquisition.
+6. **Qualify actual input.** Run any declared diagnostic qualification unit first, before the ten jobs and outside them. For example: `uv run --frozen --no-dev python scripts/s2_run_units.py PACKET --authority A --run-config RC --budget-file B --journal-dir JD --unit-selection diagnostics_only --clock-uncertainty-us U --decisions DECISIONS.md --decision-id D-NNN --execute`. This needs `engineering_only_diagnostic: true` in the decision. The runner blocks before any GPU command if the generated renderer cameras differ from the driver's `use_cameras`, or if Compose differs from the packet expectations.
+7. **Run ten jobs (GUEST).**
+   - Run the same command with `--unit-selection all --readiness-report R`.
+   - Before each unit, headroom is recomputed from the cost ledger; a full sweep additionally needs `--release-record` and `--release-decision-id`.
+   - Captures happen before teardown. Internal retries become separate attempts. Exit 0 is never success evidence. No retry is selected.
+   - Optional telemetry runs alongside: `scripts/s2_gpu_sampler.py OUT --scope actual --device-key uuid --device ID --clock-id C --interval-s I --duration-s D --timeout-s T` and `scripts/s2_dcgm_scraper.py OUT --scope actual --clock-id C --interval-s I --duration-s D --timeout-s T`.
+8. **Export and verify.**
+   - Guest manifest: `scripts/s2_guest_manifest.py ROOT --scope actual --output M`.
+   - After the copy, verify on CTRL and record the export with `scripts/s2_lifecycle.py observe ... --observation OBS --export-root EXPORT`. The verification report is re-checked against the bytes on disk.
+   - Seal: `.venv/bin/python -B -m gate.s2 seal INDEX --root EXPORT`, then `verify-bundle --root EXPORT`.
+   - A transport exit code alone is never success.
+9. **Stop, destroy and reconcile (CTRL).**
+   - Run `scripts/s2_lifecycle.py step ... --execute --authority-ref D-NNN` until the journal reaches `absent_verified`.
+   - An armed instance is never destroyed without a verified export: it is held under retention or escalated to manual review. Absence needs exact-ID NotFound twice.
+   - Reconcile: `scripts/s2_lifecycle.py charges ... --execute --authority-ref D-NNN`, then `reconcile-cost --events E --quote Q --scope S`. Keep cash, usage, credit and liabilities separate, with settlement pending until the invoice.
+10. **At a hard cutoff.** Stop GPU work even if export is incomplete. Retain storage only within the retention authority, and report the incomplete export. Never extend time, add resources, create another VM or release the full study automatically.
 
 ## 5. Handoff after the pilot
 
@@ -103,7 +139,7 @@ This uses a new environment and empty cache, and fetches only the public CPU
 dependencies in the frozen lock. It does not download Python, models or datasets.
 Read the result before treating the rebuild as verified: a failing installer
 does not run fresh-environment tests or become a pass because the existing venv
-works. On this host, the installed uv 0.8.17 has a macOS SystemConfiguration
-initialization failure; the diagnosis and retained attempts are separate from
-the source test results. Use a working installer/network environment to close
-that boundary before calling the CPU preparation reproducible from scratch.
+works. The 11-07 uv 0.8.17 SystemConfiguration failure was environmental: the same
+binary passed a clean frozen rebuild on 2026-11-08 (`evidence/s2-clean-rebuild-20261108-v1/`).
+The D-024 lock changes (`s4` group, PyYAML) need the final D-024 rebuild record; read
+its verification.json before calling the current lock reproducible from scratch.

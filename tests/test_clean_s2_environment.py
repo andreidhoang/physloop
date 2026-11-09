@@ -241,3 +241,75 @@ def test_stale_project_cannot_pass_with_matching_installed_lock(change):
     expected = module.locked_graph(lock, "example", lambda marker: True)
     assert module.compare_inventory(expected, expected)["matched"]
     assert not module.declaration_check(project, lock)["matched"]
+
+
+def _split_lock():
+    """A lock shaped like uv's output for a marker-split [tool.uv.sources] requirement."""
+    pypi = {"registry": "https://pypi.org/simple"}
+    cpu = {"registry": "https://download.pytorch.org/whl/cpu"}
+    return {
+        "package": [
+            {"name": "example", "version": "0", "dev-dependencies": {"s4": [
+                {"name": "torch", "version": "2.8.0", "source": pypi,
+                 "marker": "sys_platform != 'linux'"},
+                {"name": "torch", "version": "2.8.0+cpu", "source": cpu,
+                 "marker": "sys_platform == 'linux'"},
+            ]}},
+            {"name": "torch", "version": "2.8.0", "source": pypi,
+             "resolution-markers": ["sys_platform != 'linux'"]},
+            {"name": "torch", "version": "2.8.0+cpu", "source": cpu,
+             "resolution-markers": ["sys_platform == 'linux'"]},
+        ]
+    }
+
+
+def test_marker_split_lock_selects_the_platform_entry():
+    module = verifier()
+    lock = _split_lock()
+    mac = lambda marker: marker == "sys_platform != 'linux'"
+    linux = lambda marker: marker == "sys_platform == 'linux'"
+    assert module.locked_graph(lock, "example", mac) == {"torch": "2.8.0"}
+    assert module.locked_graph(lock, "example", linux) == {"torch": "2.8.0+cpu"}
+
+
+def test_marker_split_lock_without_distinguishing_edge_fails_closed():
+    module = verifier()
+    lock = _split_lock()
+    for edge in lock["package"][0]["dev-dependencies"]["s4"]:
+        edge.pop("version"), edge.pop("source")
+    both = lambda marker: True  # both resolution markers match: ambiguous
+    with pytest.raises(ValueError, match="ambiguous"):
+        module.locked_graph(lock, "example", both)
+
+
+def test_source_split_declarations_collapse_and_fail_closed():
+    module = verifier()
+    splits = {"torch": [("https://download.pytorch.org/whl/cpu", "sys_platform == 'linux'")]}
+    same = lambda marker: marker
+    mac = lambda marker: marker in ("", "sys_platform != 'linux'")
+    items = [
+        {"name": "torch", "specifier": "==2.8.0", "marker": "sys_platform != 'linux'"},
+        {"name": "torch", "specifier": "==2.8.0", "marker": "sys_platform == 'linux'",
+         "index": "https://download.pytorch.org/whl/cpu"},
+        {"name": "safetensors", "specifier": "==0.7.0"},
+    ]
+    collapsed = module.collapse_source_splits(items, splits, same, mac)
+    assert sorted(item["name"] for item in collapsed) == ["safetensors", "torch"]
+    assert {"name": "torch", "specifier": "==2.8.0"} in collapsed
+    with pytest.raises(ValueError, match="Inconsistent source split"):
+        module.collapse_source_splits(items[:1] + items[2:], splits, same, mac)  # index item gone
+    with pytest.raises(ValueError, match="partition"):
+        module.collapse_source_splits(items, splits, same, lambda marker: True)
+    with pytest.raises(ValueError, match="Unsupported locked requirement metadata"):
+        module.collapse_source_splits([{"name": "numpy", "index": "x"}], splits, same, mac)
+
+
+def test_repository_lock_declarations_match():
+    """The real pyproject/uv.lock (s4 torch split by platform) pass the declaration check."""
+    import tomllib
+
+    module = verifier()
+    root = Path(__file__).resolve().parents[1]
+    project = tomllib.loads((root / "pyproject.toml").read_text())
+    lock = tomllib.loads((root / "uv.lock").read_text())
+    assert module.declaration_check(project, lock) == {"matched": True, "issues": []}

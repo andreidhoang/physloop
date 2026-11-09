@@ -24,7 +24,7 @@ from importlib import metadata
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_TREES = ("gate", "tests", "scripts", "experiments", "configs")
+SOURCE_TREES = ("gate", "teacher_rl", "tests", "scripts", "experiments", "configs")
 ENVIRONMENT_KEYS = (
     "PATH", "HOME", "USERPROFILE", "SYSTEMROOT", "COMSPEC", "TMPDIR", "TEMP", "TMP",
     "LANG", "LC_ALL", "LC_CTYPE", "SSL_CERT_FILE", "SSL_CERT_DIR",
@@ -71,15 +71,101 @@ def snapshot_hashes(snapshot):
     return {name: hashlib.sha256(value).hexdigest() for name, value in snapshot.items()}
 
 
+def lock_candidates(lock):
+    """Every lock entry per canonical package name (a name may have several, see below)."""
+    candidates = {}
+    for package in lock["package"]:
+        candidates.setdefault(canonical(package["name"]), []).append(package)
+    return candidates
+
+
+def select_locked_package(candidates, name, edge, marker_matches):
+    """Return the one lock entry an edge resolves to; any remaining ambiguity fails closed.
+
+    uv writes one entry per source when ``[tool.uv.sources]`` splits a requirement by a
+    marker (D-024: torch from PyPI off Linux and from the PyTorch CPU index on Linux). The
+    edge then names ``version`` and ``source``, and each entry carries
+    ``resolution-markers``. Entries are narrowed by the edge's version and source, then, if
+    several remain, to those whose resolution markers match this environment; anything but
+    exactly one entry raises.
+    """
+    options = list(candidates.get(name, ()))
+    if not options:
+        raise ValueError(f"Missing locked package: {name}")
+    if "version" in edge:
+        options = [package for package in options if package.get("version") == edge["version"]]
+        if not options:
+            raise ValueError(f"Inconsistent locked dependency: {name}")
+    if "source" in edge:
+        options = [package for package in options if package.get("source") == edge["source"]]
+    if len(options) > 1:
+        options = [package for package in options if package.get("resolution-markers")
+                   and any(marker_matches(marker) for marker in package["resolution-markers"])]
+    if len(options) != 1:
+        raise ValueError(f"Unsupported ambiguous locked package: {name}")
+    return options[0]
+
+
+def source_splits(project):
+    """``{canonical name: [(index URL, marker)]}`` for marker-split ``[tool.uv.sources]``."""
+    tool = project.get("tool", {}).get("uv", {})
+    urls = {entry["name"]: entry["url"] for entry in tool.get("index", [])}
+    splits = {}
+    for name, entries in tool.get("sources", {}).items():
+        entries = [entries] if isinstance(entries, dict) else entries
+        if not isinstance(entries, list) or not entries:
+            raise ValueError(f"Unsupported uv source: {name}")
+        rows = []
+        for entry in entries:
+            if not isinstance(entry, dict) or set(entry) != {"index", "marker"} \
+                    or entry["index"] not in urls:
+                raise ValueError(f"Unsupported uv source: {name}")
+            rows.append((urls[entry["index"]], entry["marker"]))
+        splits[canonical(name)] = rows
+    return splits
+
+
+def collapse_source_splits(items, splits, normalize_marker, marker_matches):
+    """Map lock requirement metadata back to the declared requirements; fail closed.
+
+    A marker-split source becomes one lock item per declared source (with ``index``) plus
+    one complement item. Each split group must share one specifier, contain exactly the
+    declared source items, exactly one complement, and exactly one item applicable here; it
+    then stands for the single declared requirement ``{name, specifier}``. Items of names
+    without a split are returned unchanged and may not carry ``index``.
+    """
+    plain, groups = [], {}
+    for item in items:
+        if not isinstance(item, dict) or set(item) - {"name", "specifier", "marker", "index"}:
+            raise ValueError("Unsupported locked requirement metadata")
+        name = canonical(item["name"])
+        if name in splits:
+            groups.setdefault(name, []).append(item)
+        elif "index" in item:
+            raise ValueError("Unsupported locked requirement metadata")
+        else:
+            plain.append(item)
+    for name, group in sorted(groups.items()):
+        specifiers = {item.get("specifier", "") for item in group}
+        indexed = sorted((item["index"], normalize_marker(item.get("marker", "")))
+                         for item in group if "index" in item)
+        wanted = sorted((url, normalize_marker(marker)) for url, marker in splits[name])
+        complements = [item for item in group if "index" not in item]
+        if len(specifiers) != 1 or indexed != wanted or len(complements) != 1:
+            raise ValueError(f"Inconsistent source split: {name}")
+        if sum(bool(marker_matches(item.get("marker", ""))) for item in group) != 1:
+            raise ValueError(f"Source split does not partition this platform: {name}")
+        plain.append({"name": group[0]["name"], "specifier": specifiers.pop()})
+    return plain
+
+
 def locked_graph(lock, project_name, marker_matches):
     """Traverse all runtime/dev edges; unsupported ambiguous locks fail closed."""
-    packages = {}
-    for package in lock["package"]:
-        name = canonical(package["name"])
-        if name in packages:
-            raise ValueError(f"Unsupported ambiguous locked package: {name}")
-        packages[name] = package
-    root = packages[canonical(project_name)]
+    candidates = lock_candidates(lock)
+    roots = candidates.get(canonical(project_name), [])
+    if len(roots) != 1:
+        raise ValueError(f"Unsupported ambiguous locked package: {canonical(project_name)}")
+    root = roots[0]
     pending = list(root.get("dependencies", []))
     for group in root.get("dev-dependencies", {}).values():
         pending.extend(group)
@@ -91,12 +177,13 @@ def locked_graph(lock, project_name, marker_matches):
         if edge.get("extra") or edge.get("extras"):
             raise ValueError("Optional-extra lock edges need explicit verifier support")
         name = canonical(edge["name"])
-        package = packages[name]
-        if edge.get("version", package["version"]) != package["version"]:
-            raise ValueError(f"Inconsistent locked dependency: {name}")
-        if name not in expected:
-            expected[name] = package["version"]
-            pending.extend(package.get("dependencies", []))
+        package = select_locked_package(candidates, name, edge, marker_matches)
+        if name in expected:
+            if expected[name] != package["version"]:
+                raise ValueError(f"Inconsistent locked dependency: {name}")
+            continue
+        expected[name] = package["version"]
+        pending.extend(package.get("dependencies", []))
     return dict(sorted(expected.items()))
 
 
@@ -140,13 +227,24 @@ def declaration_check(project, lock):
                 str(requirement.marker) if requirement.marker else "",
             )
 
+        splits = source_splits(project)
+
+        def applies(marker):
+            return Marker(marker).evaluate() if marker else True
+
+        def normalized(marker):
+            return str(Marker(marker)) if marker else ""
+
         def locked(items):
+            items = collapse_source_splits(items, splits, normalized, applies)
             if any(set(item) - {"name", "specifier", "marker"} for item in items):
                 raise ValueError("Unsupported locked requirement metadata")
             return sorted(parsed(
                 item["name"] + item.get("specifier", "")
                 + ("; " + item["marker"] if item.get("marker") else "")
             ) for item in items)
+
+        candidates = lock_candidates(lock)
 
         def compare_group(label, requirements, metadata_items, resolved_edges):
             declared = sorted(parsed(value) for value in requirements)
@@ -156,11 +254,12 @@ def declaration_check(project, lock):
                 canonical(edge["name"]) for edge in resolved_edges
             }:
                 issues.append(f"{label}_resolved_dependency_set_differs")
-            packages = {canonical(item["name"]): item for item in lock["package"]}
             for name, specifier, marker in declared:
                 if marker and not Marker(marker).evaluate():
                     continue
-                if packages[name]["version"] not in SpecifierSet(specifier):
+                # Every lock entry of the name (one per split source) must satisfy it.
+                versions = [package["version"] for package in candidates.get(name, ())]
+                if not versions or any(v not in SpecifierSet(specifier) for v in versions):
                     issues.append(f"{label}_resolved_version_violates_requirement:{name}")
 
         metadata = root["metadata"]
@@ -314,7 +413,7 @@ def verify(root, output, uv, python, install_timeout=300, check_timeout=900):
             fresh_tests_executed = records[-1].get(
                 "launched", records[-1]["returncode"] is not None or records[-1]["timed_out"]
             )
-            run("lint", [str(target_python), "-B", "-m", "ruff", "check", "--no-cache", "gate", "tests", "scripts"], check_timeout)
+            run("lint", [str(target_python), "-B", "-m", "ruff", "check", "--no-cache", "gate", "teacher_rl", "tests", "scripts"], check_timeout)
     source_error = None
     try:
         after_hashes = snapshot_hashes(source_snapshot(root))

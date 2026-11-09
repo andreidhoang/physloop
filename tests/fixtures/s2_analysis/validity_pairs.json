@@ -1,0 +1,29 @@
+{
+  "description": "Invented synthetic known answer for CPU-04: five A/B comparison pairs (ten arm-specific logical jobs). Not measured, licensed or simulator data. The supplied validity definition is a synthetic test input, not a registered owner definition.",
+  "validity_definition": {
+    "schema_version": 1,
+    "definition_id": "synthetic-envelope-only",
+    "source_ref": "tests/fixtures/s2_analysis/validity_pairs.json",
+    "invalid_when": ["out_of_envelope"]
+  },
+  "pairs": [
+    {"scene_id": "scene-1", "A": 0.5, "B": 0.5, "expected": "A_valid_B_valid"},
+    {"scene_id": "scene-2", "A": 0.5, "B": 4.5, "expected": "A_valid_B_invalid"},
+    {"scene_id": "scene-3", "A": 5.0, "B": 1.0, "expected": "A_invalid_B_valid"},
+    {"scene_id": "scene-4", "A": 4.0, "B": 6.0, "expected": "A_invalid_B_invalid"},
+    {"scene_id": "scene-5", "A": 0.5, "B": null, "expected": "unknown"}
+  ],
+  "expected": {
+    "logical_jobs": 10,
+    "pairs_total": 5,
+    "table": {
+      "A_valid_B_valid": 1,
+      "A_valid_B_invalid": 1,
+      "A_invalid_B_valid": 1,
+      "A_invalid_B_invalid": 1
+    },
+    "table_total": 4,
+    "outside_table": {"unknown_pairs": 1, "unpaired_jobs": 0},
+    "deviation_bins": {"[0,1)": 4, "[1,2)": 1, "[2,4)": 0, "[4,inf)": 4, "unknown": 1}
+  }
+}

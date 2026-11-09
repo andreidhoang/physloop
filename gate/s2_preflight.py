@@ -20,11 +20,52 @@ approved_rate_per_gpu_hour_cap. All phases need a frozen experiment_prediction.
 Full sweeps need owner full_sweep_release with pilot_evidence_ref, forecast_ref,
 and remaining_stage_cap_usd. Resources.other_cap_usd reserves setup/tax/other
 noncompute charges; an unused reserve does not increase the compute ceiling.
+planned.resources is an exact allowlist (RESOURCE_FIELDS): any other key blocks, named
+(``unknown_cost_field`` for a ``*_usd`` key, ``unknown_resource_field`` otherwise).
+
+Attestation dates (R4 C11): every ``recorded_at`` must fall on or after PROJECT_START_DATE and
+on or after its gate date in ATTESTATION_GATE_DATES (``attestation_date_out_of_range``).
+Owner text values (experiment_prediction, stabilization_rule, strata_definition entries)
+reject whole-value placeholders (``_placeholder``). No wall clock is read, so future dates are not checked.
+
+Tickets: S2.1 planning admission; R4 C6 (exact resources allowlist), R4 C11 (date ordering and
+placeholder rejection). Verification level: L1 for every function (pure, literal known answers
+and negative controls). Never: reads files, calls a network or provider, authenticates an
+attestation, fills an owner value, or authorizes a launch, download or publication.
 """
 
 import math
 import re
-from datetime import datetime
+from datetime import date, datetime
+
+# agent technical default (D-018): no PhysLoop attestation predates the project start.
+PROJECT_START_DATE = date(2026, 9, 22)
+# Gate dates the schema defines: the AlpaSim challenge closed on 2026-10-31, so neither its
+# closure nor a post-challenge upstream release can be attested earlier (plan fact; applying
+# it to latest_upstream_release_checked is an agent technical default, D-018).
+ATTESTATION_GATE_DATES = {
+    "challenge_closed_verified": date(2026, 10, 31),
+    "latest_upstream_release_checked": date(2026, 10, 31),
+}
+COST_FIELDS = (
+    "gpu_count",
+    "rate_per_gpu_hour_usd",
+    "wall_hours_cap",
+    "storage_cap_usd",
+    "egress_cap_usd",
+    "other_cap_usd",
+    "total_cap_usd",
+)
+RESOURCE_FIELDS = (*COST_FIELDS, "quoted_at", "gpu_edition")
+# agent technical default (D-018): an owner text value is a placeholder only when its whole
+# trimmed, case-insensitive text is placeholder words ("xxx" meaning three or more x), underscores
+# and punctuation, e.g. "TBD", "n/a", "?", "____", "tbd later" (A1R). Words inside prose or a URL
+# never match. Applied (A1-R2) to owner predictions/rules/strata, sampling and measurement
+# definitions, and every registration, owner-choice and attestation actor/source_ref.
+PLACEHOLDER_WORDS = ("tbd", "todo", "later", "placeholder", "xxx", "n/a")
+# Words are runs of Unicode letters/digits; a standalone "n/a" run is kept as one word (A1R2), so
+# "/" otherwise separates words and "TBD/later" or "n/a/tbd" are placeholder words only.
+_WORD = re.compile(r"n/a(?![^\W_])|[^\W_]+")
 
 
 def _text(value):
@@ -33,6 +74,18 @@ def _text(value):
         and bool(value.strip())
         and value.strip().lower() not in {"pending", "unknown", "tbd", "____", "none"}
     )
+
+
+def _placeholder(value):
+    """True when an owner text value is only placeholder words and punctuation (R4 C11, A1R)."""
+    return isinstance(value, str) and all(
+        word in PLACEHOLDER_WORDS or re.fullmatch("x{3,}", word)
+        for word in _WORD.findall(value.strip().casefold())
+    )
+
+
+def _owner_text(value):
+    return _text(value) and not _placeholder(value)
 
 
 def _number(value, positive=False, integer=False):
@@ -50,26 +103,37 @@ def _number(value, positive=False, integer=False):
 
 
 def _date(value):
+    return _calendar_date(value) is not None
+
+
+def _calendar_date(value):
+    """The stated calendar date of an ISO date/time string, or None."""
     if not isinstance(value, str):
-        return False
+        return None
     try:
-        datetime.fromisoformat(value)
+        parsed = datetime.fromisoformat(value)
     except ValueError:
-        return False
-    return True
+        return None
+    return parsed.date()
+
+
+def _date_floor(key):
+    return max(PROJECT_START_DATE, ATTESTATION_GATE_DATES.get(key, PROJECT_START_DATE))
 
 
 def _sha(value, length):
     return isinstance(value, str) and re.fullmatch(rf"[0-9a-fA-F]{{{length}}}", value) is not None
 
 
-def _attested(value, owner=False):
+def _attested(value, owner=False, not_before=PROJECT_START_DATE):
+    recorded = _calendar_date(value.get("recorded_at")) if isinstance(value, dict) else None
     return (
         isinstance(value, dict)
         and value.get("status") == "recorded"
-        and _text(value.get("actor"))
-        and _text(value.get("source_ref"))
-        and _date(value.get("recorded_at"))
+        and _owner_text(value.get("actor"))
+        and _owner_text(value.get("source_ref"))
+        and recorded is not None
+        and recorded >= not_before
         and (not owner or value.get("actor") == value.get("approved_by") == "Huy")
     )
 
@@ -123,7 +187,7 @@ def validate_s2_preflight(manifest):
     if (
         registration.get("owner") != "Huy"
         or registration.get("frozen") is not True
-        or not _text(registration.get("source_ref"))
+        or not _owner_text(registration.get("source_ref"))
     ):
         issue("owner_choice_unfrozen", "registration", "Record Huy's frozen protocol reference.")
     prereq = section(manifest, "prerequisites", "prerequisites")
@@ -133,8 +197,18 @@ def validate_s2_preflight(manifest):
         issue(
             "s1_evidence_missing", "prerequisites.S1_evidence", "Reference qualified S1 evidence."
         )
+    for key in sorted(prereq, key=repr):
+        record = prereq[key]
+        recorded = _calendar_date(record.get("recorded_at")) if isinstance(record, dict) else None
+        if recorded is not None and recorded < _date_floor(key):
+            issue(
+                "attestation_date_out_of_range",
+                f"prerequisites.{key}.recorded_at",
+                f"Recorded {recorded.isoformat()} precedes {_date_floor(key).isoformat()}, the "
+                "earliest date this attestation can be true.",
+            )
     for key in ("challenge_closed_verified", "latest_upstream_release_checked"):
-        if not _attested(prereq.get(key)):
+        if not _attested(prereq.get(key), not_before=_date_floor(key)):
             issue(
                 "prerequisite_unrecorded",
                 f"prerequisites.{key}",
@@ -239,8 +313,10 @@ def validate_s2_preflight(manifest):
         (driver, "driver", ("policy_clock_source",)),
         (measurement, "measurement", ("score_definition", "deviation_convention")),
     ):
+        # A1-R2: owner-defined sampling/measurement text also rejects placeholder tokens.
+        check = _owner_text if prefix in ("sampling", "measurement") else _text
         for name in names:
-            if not _text(parent.get(name)):
+            if not check(parent.get(name)):
                 issue(
                     "missing_planned_field",
                     f"planned.{prefix}.{name}",
@@ -425,7 +501,7 @@ def validate_s2_preflight(manifest):
             not isinstance(choice, dict)
             or choice.get("owner") != "Huy"
             or choice.get("frozen") is not True
-            or not _text(choice.get("source_ref"))
+            or not _owner_text(choice.get("source_ref"))
         ):
             issue(
                 "owner_choice_unfrozen",
@@ -438,11 +514,11 @@ def validate_s2_preflight(manifest):
             _number(value, positive=name != "noise_floor_prediction")
             and (value < 1 if name == "margin" else value <= 1)
             if name in ("margin", "reliability_floor", "noise_floor_prediction")
-            else _text(value)
+            else _owner_text(value)
             if name in ("stabilization_rule", "experiment_prediction")
             else isinstance(value, list)
             and bool(value)
-            and all(_text(x) for x in value)
+            and all(_owner_text(x) for x in value)
             and len(set(value)) == len(value)
         )
         if not valid:
@@ -470,22 +546,17 @@ def validate_s2_preflight(manifest):
             "Full-sweep sequential mode needs a frozen S1-qualified schedule.",
         )
 
-    cost_fields = (
-        "gpu_count",
-        "rate_per_gpu_hour_usd",
-        "wall_hours_cap",
-        "storage_cap_usd",
-        "egress_cap_usd",
-        "other_cap_usd",
-        "total_cap_usd",
-    )
-    for name in resources:
-        if isinstance(name, str) and name.endswith("_cap_usd") and name not in cost_fields:
-            issue(
-                "unknown_cost_field",
-                f"planned.resources.{name}",
-                "Use other_cap_usd for setup, tax and other noncompute reserves; unknown cost caps are not ignored.",
-            )
+    cost_fields = COST_FIELDS
+    for name in sorted(resources, key=repr):
+        if name in RESOURCE_FIELDS:
+            continue
+        cost_like = isinstance(name, str) and name.endswith("_usd")
+        issue(
+            "unknown_cost_field" if cost_like else "unknown_resource_field",
+            f"planned.resources.{name}",
+            "planned.resources is an exact allowlist; use other_cap_usd for setup, tax and other "
+            "noncompute reserves. Unknown resource fields are never ignored.",
+        )
     for name in cost_fields:
         if not _number(
             resources.get(name),

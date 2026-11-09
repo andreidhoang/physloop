@@ -3,6 +3,11 @@
 No provisioning, stopping, deletion, asset download or authorization occurs here.
 Cost inputs are recorded USD usage/liabilities, not cash deposits; do not count
 prepaid consumption twice. A successful export is integrity, not authenticity.
+
+Tickets: S2.7 pilot accounting; R4 C7 (usage and liability must nest pilot <= stage <=
+project, since each wider scope contains the narrower one). Verification level: L1 for
+``next_unit_check`` and ``verify_export``/``copy_verified_export`` (CPU known answers over local
+files). Never: calls a provider, reads billing, spends, deletes, or authorizes a launch.
 """
 
 import math
@@ -32,6 +37,9 @@ def next_unit_check(request):
     Require strictly positive remaining headroom after next work and reserves.
     All fees/unsettled charges must have a conservative bound in liability_usd;
     null is unknown and blocks. Approval and truthful accounting are external.
+    Caps, ``used_usd`` and ``liability_usd`` must each satisfy pilot <= stage <= project
+    (``caps_not_nested`` / ``budget_usage_not_nested``): a wider scope that records less
+    usage than a narrower one is inconsistent input, never extra headroom.
     """
     issues, balances = [], {}
     try:
@@ -41,14 +49,16 @@ def next_unit_check(request):
         if type(scopes) is not dict or set(scopes) != {"pilot", "stage", "project"}:
             raise ValueError("Require pilot, stage and project budgets")
         next_cost = _usd(request.get("next_unit_usd"))
-        caps = {}
-        for name, scope in scopes.items():
+        caps, used, liability = {}, {}, {}
+        for name in ("pilot", "stage", "project"):
+            scope = scopes[name]
             if type(scope) is not dict or set(scope) != {
                 "cap_usd", "used_usd", "liability_usd", "reserve_usd"
             }:
                 raise ValueError("Require complete usage, liability and reserve fields")
             amounts = {key: _usd(value) for key, value in scope.items()}
             caps[name] = amounts["cap_usd"]
+            used[name], liability[name] = amounts["used_usd"], amounts["liability_usd"]
             remaining = (amounts["cap_usd"] - amounts["used_usd"]
                          - amounts["liability_usd"] - amounts["reserve_usd"])
             balances[name] = str(remaining)
@@ -56,6 +66,8 @@ def next_unit_check(request):
                 issues.append(f"{name}_headroom_exhausted")
         if not caps["pilot"] <= caps["stage"] <= caps["project"]:
             issues.append("caps_not_nested")
+        if not all(v["pilot"] <= v["stage"] <= v["project"] for v in (used, liability)):
+            issues.append("budget_usage_not_nested")
         for key in ("now_epoch", "deadline_epoch", "next_unit_seconds", "cleanup_seconds"):
             value = request.get(key)
             if type(value) not in (int, float) or not math.isfinite(value) or value < 0:

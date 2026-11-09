@@ -1,0 +1,7 @@
+Attaching to runtime-0-1
+runtime-0-1  | 10:00:01.123 [W0] INFO:	Session STARTING: uuid=00000000-0000-4000-8000-000000000001 scene=synthetic-scene-0 steps=3
+runtime-0-1  | 10:00:02.123 [W0] INFO:	Session COMPLETED: uuid=00000000-0000-4000-8000-000000000001 scene=synthetic-scene-0 simulated 0.30 sim seconds in 1.00 wall clock seconds for 0.30x real time (total rollout 2.00s incl. setup/warmup)
+runtime-0-1  | 10:00:03.123 [W0] INFO:	Session STARTING: uuid=00000000-0000-4000-8000-000000000002 scene=synthetic-scene-0 steps=2
+runtime-0-1  | 10:00:04.123 [W0] WARNING:	Rollout FAILED: job=0123456789abcdef0123456789abcdef scene=synthetic-scene-0 uuid=00000000-0000-4000-8000-000000000002 retryable=False error=boom
+runtime-0-1  | Traceback (most recent call last):
+runtime-0-1  |   raise Boom

@@ -1,0 +1,2 @@
+[2026-11-08 10:00:00,000][__main__][INFO] - Loading model
+[2026-11-08 10:00:05,000][__main__][INFO] - Starting alpamayo1_5 driver on 0.0.0.0:6789 (external IP: 10.0.0.2:6789)

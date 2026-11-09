@@ -133,9 +133,10 @@ when an external run UUID differs. Raw quaternions remain unchanged; compatibili
 checks use the pinned upstream consumer's numerical conditions, not a newly
 adopted scientific tolerance. Service payloads remain semantically uninspected
 beyond their explicit source-defined session bindings. The operator may supply
-`inspect-capture --max-asl-bytes N`; the default is 256 MiB per file. Receipts
-exceeding the chosen bound are rejected before reading. The reader materializes
-bytes and decoded data in RAM, so a larger bound requires corresponding memory.
+`inspect-capture --max-asl-bytes N`; the default is 2 GiB per file, an agent
+technical default (D-018) provisional until the first measured ASL. Receipts
+exceeding the chosen bound are rejected before reading. Files are streamed in
+1 MiB chunks and hash-verified, never loaded whole; the decoded report is kept in memory.
 
 The exporter probe must bind metrics to its exact running task container and
 listener processes. An occupied port, missing process visibility, exited
@@ -206,9 +207,9 @@ must never be mistaken for registered scene selections or fetched asset identiti
    admission plus valid receipts/schema/identity checks. It never supplies score
    records. ASL `session_uuid` binds to `rollout_id`, `scene_id` to `clipgt_id` and
    scheduled scene; the external `run_uuid` cannot be recovered from these fields.
-   Local-to-AABB poses remain untransformed. The wrapper reads in memory, limiting
-   declared ASL size to 256 MiB and events JSON to 16 MiB before opening files;
-   these limits have not been qualified against actual simulator log sizes.
+   Local-to-AABB poses remain untransformed. The wrapper streams the ASL with a
+   provisional 2 GiB declared-size bound and limits events JSON to 16 MiB before
+   opening files; these limits have not been qualified against actual simulator log sizes.
 5. **Rehearse and verify:**
 
    ```sh

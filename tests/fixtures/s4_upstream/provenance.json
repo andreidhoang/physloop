@@ -1,0 +1,220 @@
+{
+  "checked_date": "2026-11-09",
+  "repositories": {
+    "alpagym": {
+      "commit": "972d160eed0e23d388497851504a3a233fec5879",
+      "files": [
+        {
+          "bytes": 7743,
+          "fixture": "alpagym/packages/runtime/src/alpagym_runtime/cosmos/entrypoint.py.txt",
+          "git_blob_sha": "f3b998b49478f2043118a1208a750571c1a1f5f9",
+          "path": "packages/runtime/src/alpagym_runtime/cosmos/entrypoint.py",
+          "sha256": "31cd44e50f3394cb616ae8c02510a26773392a38f2e57c7857612f9d5979d953",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/runtime/src/alpagym_runtime/cosmos/entrypoint.py"
+        },
+        {
+          "bytes": 13973,
+          "fixture": "alpagym/packages/runtime/src/alpagym_runtime/cosmos/rollout_backend.py.txt",
+          "git_blob_sha": "c9135aa2533ed17ec9c60e833ff79ff29b6162c6",
+          "path": "packages/runtime/src/alpagym_runtime/cosmos/rollout_backend.py",
+          "sha256": "41806f2c3c97193ed0ab948f1e903ecf4de52e0a38d2437521b832bc5219d457",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/runtime/src/alpagym_runtime/cosmos/rollout_backend.py"
+        },
+        {
+          "bytes": 27241,
+          "fixture": "alpagym/packages/runtime/src/alpagym_runtime/cosmos/trainer.py.txt",
+          "git_blob_sha": "71edf3ea97a290bcdf83d2b3302529881bd19754",
+          "path": "packages/runtime/src/alpagym_runtime/cosmos/trainer.py",
+          "sha256": "c6f60325207503cac286a0a70da7edc8b70e9d4c278375a262e09b542599f7b3",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/runtime/src/alpagym_runtime/cosmos/trainer.py"
+        },
+        {
+          "bytes": 3495,
+          "fixture": "alpagym/packages/runtime/src/alpagym_runtime/cosmos/rollout_filter.py.txt",
+          "git_blob_sha": "2e1b9bb10ef7621962d604ecc2a1c7bb8729702d",
+          "path": "packages/runtime/src/alpagym_runtime/cosmos/rollout_filter.py",
+          "sha256": "854e5c8358a0013c3794a0f96dcb8c6085db277fd2d6d3b304d603a405f4206d",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/runtime/src/alpagym_runtime/cosmos/rollout_filter.py"
+        },
+        {
+          "bytes": 14383,
+          "fixture": "alpagym/packages/runtime/src/alpagym_runtime/episode_runner/streaming_worker.py.txt",
+          "git_blob_sha": "c4a8e25abfd2576cd0c294ed72dc067328bcba34",
+          "path": "packages/runtime/src/alpagym_runtime/episode_runner/streaming_worker.py",
+          "sha256": "13fcd0c89407faa87ce55a7a8daf6b49f62bdafcd2a01c02683a1d96eb9f6ca5",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/runtime/src/alpagym_runtime/episode_runner/streaming_worker.py"
+        },
+        {
+          "bytes": 12614,
+          "fixture": "alpagym/packages/runtime/src/alpagym_runtime/alpasim/driver_server.py.txt",
+          "git_blob_sha": "04057af8a2321bee3372598f438cb784d6a2ce54",
+          "path": "packages/runtime/src/alpagym_runtime/alpasim/driver_server.py",
+          "sha256": "28def86243e5293be236275a8683b3d0dfbcdfeb0e07fbed8c39e57cfa17dc32",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/runtime/src/alpagym_runtime/alpasim/driver_server.py"
+        },
+        {
+          "bytes": 8562,
+          "fixture": "alpagym/packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/bundle.py.txt",
+          "git_blob_sha": "f7886eff3da5ff5b62186a839c04722b46a7f727",
+          "path": "packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/bundle.py",
+          "sha256": "e6ef731c214925b78cfdc37bf4cd5c5ee593e35633444a00b2da8d4c4d073110",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/bundle.py"
+        },
+        {
+          "bytes": 954,
+          "fixture": "alpagym/packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/policy/alpamayo_r1.yaml.txt",
+          "git_blob_sha": "e5da70dc6eb724ea2c3324458e46ad27ca76cbca",
+          "path": "packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/policy/alpamayo_r1.yaml",
+          "sha256": "219a10e2fd1d59131818722b98dbc919e20581731639fcc38f664fbb9443bd1f",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/policy/alpamayo_r1.yaml"
+        },
+        {
+          "bytes": 1295,
+          "fixture": "alpagym/packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/experiment/alpamayo_1_5_local_2gpu_smoke.yaml.txt",
+          "git_blob_sha": "75108c0ba27173d1af72b3a79025c63da277238f",
+          "path": "packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/experiment/alpamayo_1_5_local_2gpu_smoke.yaml",
+          "sha256": "c486aa986eff239517369a026241e77b7da2dc9cd9e45ad04a1bd20c902ab822",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/experiment/alpamayo_1_5_local_2gpu_smoke.yaml"
+        },
+        {
+          "bytes": 1206,
+          "fixture": "alpagym/packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/experiment/alpamayo_1_5_clrl_test_run.yaml.txt",
+          "git_blob_sha": "7fd96221920a08edd7b2b924e4701623cfd43a7f",
+          "path": "packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/experiment/alpamayo_1_5_clrl_test_run.yaml",
+          "sha256": "1b1de3ecf8d167c6b086ae755b58358640cb30795837704f6eea67d9d310fee2",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/policies/alpamayo_r1/src/alpagym_alpamayo_r1/configs/experiment/alpamayo_1_5_clrl_test_run.yaml"
+        },
+        {
+          "bytes": 18602,
+          "fixture": "alpagym/packages/host/src/alpagym_host/run_lifecycle.py.txt",
+          "git_blob_sha": "3fef9cda21f59b6edf992ccfab995e2afdb4a9fb",
+          "path": "packages/host/src/alpagym_host/run_lifecycle.py",
+          "sha256": "273a85d0e07e9ffb8742adbfda9e5aad907c864908c2fae35d611928b09ca82c",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/host/src/alpagym_host/run_lifecycle.py"
+        },
+        {
+          "bytes": 8902,
+          "fixture": "alpagym/packages/host/src/alpagym_host/run_artifacts.py.txt",
+          "git_blob_sha": "191b3eb60cc1b51e86c00671e4866640d394fdf5",
+          "path": "packages/host/src/alpagym_host/run_artifacts.py",
+          "sha256": "e32c0590d93dc43d8d6571406f06dc61b0fadaa4fec51a3cfed7b8af81a998b7",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/host/src/alpagym_host/run_artifacts.py"
+        },
+        {
+          "bytes": 2824,
+          "fixture": "alpagym/packages/host/src/alpagym_host/cli.py.txt",
+          "git_blob_sha": "db6132290a98bc0bb0bcf7260d712cab48ecc2a6",
+          "path": "packages/host/src/alpagym_host/cli.py",
+          "sha256": "141ce255b0ad7425bacaa9b31f34940d3cd26a5f66c6e12a70a52b1f7b1369a4",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/host/src/alpagym_host/cli.py"
+        },
+        {
+          "bytes": 22281,
+          "fixture": "alpagym/packages/host/src/alpagym_host/config.py.txt",
+          "git_blob_sha": "4147297b728a1bc573f99e4f9d3d91328a7bc8e4",
+          "path": "packages/host/src/alpagym_host/config.py",
+          "sha256": "f2fe8253a895fc59be4795ee563bf96a1bebccc316ec88df1d79c0fc5933748d",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/host/src/alpagym_host/config.py"
+        },
+        {
+          "bytes": 7102,
+          "fixture": "alpagym/packages/host/src/alpagym_host/conf/default.yaml.txt",
+          "git_blob_sha": "fc0e8e26302b97a7cb50fe44632600983be74e9d",
+          "path": "packages/host/src/alpagym_host/conf/default.yaml",
+          "sha256": "e220f4507392755e33e509573ccbd524e9f47ecd00d16c61ffa8db11655f2444",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/host/src/alpagym_host/conf/default.yaml"
+        },
+        {
+          "bytes": 249,
+          "fixture": "alpagym/packages/host/src/alpagym_host/conf/reward/progress_safety.yaml.txt",
+          "git_blob_sha": "72a0eefe4db31959c299eee542f2567cc7d03f4d",
+          "path": "packages/host/src/alpagym_host/conf/reward/progress_safety.yaml",
+          "sha256": "8b197a187a3c461633f3753505be188a2946db4350a8f3fc4e2bfbad4bf3f01e",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/host/src/alpagym_host/conf/reward/progress_safety.yaml"
+        },
+        {
+          "bytes": 23873,
+          "fixture": "alpagym/packages/host/src/alpagym_host/config_validation.py.txt",
+          "git_blob_sha": "4e89265bbb7683260356057780a2246951236fd5",
+          "path": "packages/host/src/alpagym_host/config_validation.py",
+          "sha256": "40290cc2eb964aa7eda68a37b42a2ba3029d9f22e7af0b7fafdbfd8ab16f33ff",
+          "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/packages/host/src/alpagym_host/config_validation.py"
+        }
+      ],
+      "license": "Apache-2.0",
+      "license_file": {
+        "fixture": "alpagym/LICENSE",
+        "git_blob_sha": "bc7af1e20a7c4f56383bcb3446b8b8b0f8bf362e",
+        "sha256": "85d0bf7032265ecf3647a293362c7ac55930d253d6a78dfcbce245c98eba2a72",
+        "source_url": "https://github.com/NVlabs/alpagym/blob/972d160eed0e23d388497851504a3a233fec5879/LICENSE"
+      },
+      "repository": "https://github.com/NVlabs/alpagym"
+    },
+    "alpamayo-recipes": {
+      "commit": "1d99fc50370c96637157455da386323a44663c9d",
+      "files": [
+        {
+          "bytes": 8515,
+          "fixture": "alpamayo-recipes/recipes/alpamayo1_x_rl/models/expert_model/cosmos_wrapper.py.txt",
+          "git_blob_sha": "2d98ccb1bb5843ec21c21cfe2e655d6c1ca8bb83",
+          "path": "recipes/alpamayo1_x_rl/models/expert_model/cosmos_wrapper.py",
+          "sha256": "8b01be4b1802fd3badd70215f2468f3d4b3c30d78f6dfdd70a5ded67ca9d603a",
+          "source_url": "https://github.com/NVlabs/alpamayo-recipes/blob/1d99fc50370c96637157455da386323a44663c9d/recipes/alpamayo1_x_rl/models/expert_model/cosmos_wrapper.py"
+        }
+      ],
+      "license": "Apache-2.0",
+      "license_file": {
+        "fixture": "alpamayo-recipes/LICENSE",
+        "git_blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "source_url": "https://github.com/NVlabs/alpamayo-recipes/blob/1d99fc50370c96637157455da386323a44663c9d/LICENSE"
+      },
+      "repository": "https://github.com/NVlabs/alpamayo-recipes"
+    },
+    "alpasim-gympin": {
+      "commit": "46b401beaec27977cbb86826df8e39cec2d49e49",
+      "files": [
+        {
+          "bytes": 15856,
+          "fixture": "alpasim-gympin/src/wizard/configs/base_config.yaml.txt",
+          "git_blob_sha": "cd68d88a7af8efc062865bb6de1c7c5e22c71c19",
+          "path": "src/wizard/configs/base_config.yaml",
+          "sha256": "9bdecd9ee30f2322a84ee64c4d327611c2a06c7e3cd8639bbfa914c43cb29ba9",
+          "source_url": "https://github.com/NVlabs/alpasim/blob/46b401beaec27977cbb86826df8e39cec2d49e49/src/wizard/configs/base_config.yaml"
+        }
+      ],
+      "license": "Apache-2.0",
+      "license_file": {
+        "fixture": "alpasim-gympin/LICENSE",
+        "git_blob_sha": "c6ff73fab08d36444991400fc0aeb8d660f2d098",
+        "sha256": "50201750cc0542d4656d8d95f002f78357021b7c3c975b53924000b7ddc5a24e",
+        "source_url": "https://github.com/NVlabs/alpasim/blob/46b401beaec27977cbb86826df8e39cec2d49e49/LICENSE"
+      },
+      "repository": "https://github.com/NVlabs/alpasim"
+    },
+    "cosmos-rl": {
+      "commit": "d2a2c57c4bd6496482bc42da19a59b4432705eda",
+      "files": [
+        {
+          "bytes": 83408,
+          "fixture": "cosmos-rl/cosmos_rl/policy/config/__init__.py.txt",
+          "git_blob_sha": "52876231f26cf8f8a46fed506f21e45796ff0df6",
+          "path": "cosmos_rl/policy/config/__init__.py",
+          "sha256": "b6a7d3d3020ab5f2bc8af074e650c0ad91c2a7fdbe91f4455b2556fe26bc85ba",
+          "source_url": "https://github.com/nvidia-cosmos/cosmos-rl/blob/d2a2c57c4bd6496482bc42da19a59b4432705eda/cosmos_rl/policy/config/__init__.py"
+        }
+      ],
+      "license": "Apache-2.0",
+      "license_file": {
+        "fixture": "cosmos-rl/LICENSE",
+        "git_blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "source_url": "https://github.com/nvidia-cosmos/cosmos-rl/blob/d2a2c57c4bd6496482bc42da19a59b4432705eda/LICENSE"
+      },
+      "repository": "https://github.com/nvidia-cosmos/cosmos-rl"
+    }
+  },
+  "retrieval": "Read-only copies from the R3 lane clones (session scratchpad) at the pinned commits; clean working trees; no upstream code executed.",
+  "schema_version": 1,
+  "suffix_rule": "Each file is stored byte-identical with '.txt' appended so formatters, importers and test collectors ignore it."
+}

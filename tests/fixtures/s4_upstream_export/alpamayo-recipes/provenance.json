@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-09",
+  "repository": "https://github.com/NVlabs/alpamayo-recipes",
+  "commit": "1d99fc50370c96637157455da386323a44663c9d",
+  "retrieval": "Byte copy from the R3 lane read-only clone at the pinned commit (PR #18 head, clean worktree); no weights, datasets or LFS objects.",
+  "license": "Apache-2.0",
+  "license_check": "Apache-2.0 permits redistribution with the LICENSE file; copied alongside, unmodified.",
+  "license_file": "LICENSE",
+  "license_file_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+  "license_file_git_blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+  "sources": [
+    {
+      "file": "expert_weight_mapper_1d99fc50.py.txt",
+      "path": "recipes/alpamayo1_x_rl/models/expert_model/weight_mapper.py",
+      "commit": "1d99fc50370c96637157455da386323a44663c9d",
+      "git_blob_sha": "04304cb3a88f1e0211b8b039c751fdf3f54234de",
+      "sha256": "30ed5ee7f8351d91ec1f0c176968434336beddad09f2543bbb85e1c1dfeacf5c",
+      "source_url": "https://github.com/NVlabs/alpamayo-recipes/blob/1d99fc50370c96637157455da386323a44663c9d/recipes/alpamayo1_x_rl/models/expert_model/weight_mapper.py",
+      "executed_nodes": ["ExpertModelWeightMapper._EXPERT_PREFIXES", "ExpertModelWeightMapper.policy_map_local_key_to_hf_key"]
+    }
+  ]
+}

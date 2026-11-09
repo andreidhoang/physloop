@@ -17,9 +17,13 @@ import sys
 import tomllib
 from contextlib import redirect_stdout
 from pathlib import Path
-from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
+# Variables a child check may inherit; everything else (tokens, keys) is dropped.
+CHILD_ENV_ALLOWLIST = (
+    "PATH", "HOME", "TMPDIR", "LANG", "LC_ALL", "LC_CTYPE",
+    "SSL_CERT_FILE", "SSL_CERT_DIR", "PHYSLOOP_REQUIRE_TORCH",
+)
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
@@ -56,7 +60,11 @@ def receipts_for(root):
 
 
 def watchdog_demo(output):
-    """Exercise the real stop predicate with fake time and provider responses."""
+    """Exercise the real stop predicate with fake time and an injected fake CLI runner.
+
+    No real ``vastai`` process is started: the watchdog's injected ``runner`` returns
+    canned ``CompletedProcess`` objects shaped like the provider's ``--raw`` output.
+    """
     class Clock:
         wall = 100.0
 
@@ -73,25 +81,35 @@ def watchdog_demo(output):
                "intended_status": "running", "next_state": "running"}
     stopped = {**running, "actual_status": "exited", "intended_status": "stopped",
                "next_state": "stopped"}
-    responses = iter([[running], [running], {"success": True}, [stopped]])
     calls = []
+    state = {"stop_requested": False}
 
-    def fake_call(cli, args, timeout):
+    def fake_runner(argv, timeout):
+        args = argv[2:]  # argv = [cli, "--raw", *args]
         calls.append(args)
-        return next(responses)
+        if args == ["show", "instances"]:
+            out = json.dumps([running])
+        elif args == ["show", "instance", "123"]:
+            out = json.dumps(stopped if state["stop_requested"] else running)
+        elif args == ["stop", "instance", "123"]:
+            state["stop_requested"] = True
+            out = "stopping instance 123.\ntrue"
+        else:
+            raise AssertionError(f"unexpected synthetic CLI call: {args}")
+        return subprocess.CompletedProcess(argv, 0, out, "")
 
     with (
-        patch.object(watchdog, "_call", fake_call),
         redirect_stdout(io.StringIO()),
         watchdog.EventLog(output / "watchdog-events.jsonl") as log,
     ):
         result = watchdog.watch(
-            123, "synthetic-pilot", 101, log, clock=Clock(), poll_seconds=1
+            123, "synthetic-pilot", 101, log, max_window_seconds=3600, clock=Clock(),
+            runner=fake_runner, poll_seconds=1,
         )
     events = [json.loads(line) for line in (output / "watchdog-events.jsonl").read_text().splitlines()]
     return result == 0 and calls == [
-        ["show", "instances"], ["show", "instances"],
-        ["stop", "instance", "123"], ["show", "instances"],
+        ["show", "instances"], ["show", "instance", "123"],
+        ["stop", "instance", "123"], ["show", "instance", "123"],
     ] and events[0]["event"] == "armed" and events[-1]["event"] == "stopped_verified"
 
 
@@ -269,7 +287,18 @@ def declaration_check(snapshot):
                 raise ValueError("Unsupported requirement form")
             return re.sub(r"[-_.]+", "-", match[1]).lower(), match[2] or ""
 
+        from packaging.markers import Marker
+
+        from scripts.verify_clean_s2_environment import collapse_source_splits, source_splits
+
+        splits = source_splits(project)
+
         def locked_requirements(items):
+            # D-024: a marker-split [tool.uv.sources] requirement (torch) is written as one
+            # item per source; collapse it back to the declared requirement, fail closed.
+            items = collapse_source_splits(
+                items, splits, lambda m: str(Marker(m)) if m else "",
+                lambda m: Marker(m).evaluate() if m else True)
             if any(set(item) - {"name", "specifier"} for item in items):
                 raise ValueError("Unsupported lock requirement form")
             return sorted(requirement(item["name"] + item.get("specifier", ""))
@@ -299,7 +328,7 @@ def declaration_check(snapshot):
         python = project["project"]["requires-python"]
         if python != lock["requires-python"] or python != "==3.12.*" or sys.version_info[:2] != (3, 12):
             issues.append("python_constraint_unmatched_or_unsupported")
-    except (KeyError, ValueError, TypeError, StopIteration):
+    except (KeyError, ValueError, TypeError, StopIteration, ImportError):
         issues.append("unsupported_or_incomplete_environment_declaration")
     return {"matched": not issues, "issues": issues, "frozen_sync_verified": False}
 
@@ -326,14 +355,17 @@ def run_frozen_checks(output):
         ["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True,
         timeout=10, check=False,
     )
-    env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1", "PYTHONPATH": str(frozen)}
+    # Contract §2.5: child processes get an allowlisted environment, never the caller's
+    # full environment (which may hold credentials).
+    env = {key: os.environ[key] for key in CHILD_ENV_ALLOWLIST if key in os.environ}
+    env.update({"PYTHONDONTWRITEBYTECODE": "1", "PYTHONPATH": str(frozen)})
     checks = []
     commands = (
         ("demo", [sys.executable, "-B", "scripts/rehearse_s2_pilot.py", "--demo-only",
                   "--output", str(output / "demo")]),
         ("tests", [sys.executable, "-B", "-m", "pytest", "-p", "no:cacheprovider", "-q"]),
         ("lint", [sys.executable, "-B", "-m", "ruff", "check", "--no-cache",
-                  "gate", "tests", "scripts"]),
+                  "gate", "teacher_rl", "tests", "scripts"]),
     )
     for name, command in commands:
         try:

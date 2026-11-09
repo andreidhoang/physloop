@@ -12,10 +12,11 @@ declared transitive dependencies. The source-lock SHA-256 was
 and the copied package-block SHA-256 was
 `80c6cb2299a10087a6ef53c80d7c6fab3d30cfc6b0f13dc236d459d4f6a9989b`.
 Other locked package entries were unchanged. Local Parquet round-trip and
-installed-versus-locked version checks passed. The host's `uv 0.8.17` crashes in
-macOS SystemConfiguration before resolution, including offline mode, so a clean
-`uv sync --frozen` with a working newer uv remains unverified. No fresh resolver
-run or clean environment rebuild is inferred from the metadata checks.
+installed-versus-locked version checks passed. The 11-07 `uv 0.8.17` crash in
+macOS SystemConfiguration was environmental: the same binary completed a clean
+`uv sync --frozen` in a new environment with an empty cache on 2026-11-08
+(`evidence/s2-clean-rebuild-20261108-v1/`). That rebuild predates the D-024 lock
+changes (`s4` group, PyYAML); the final D-024 rebuild record supersedes it.
 
 The subsequent [CPU handoff](S2_CPU_HANDOFF_SPEC.md) adds a **separate** pinned
 ASL inspection command and protobuf runtime. It does not change this synthetic
@@ -93,10 +94,14 @@ Every event has `event_id`, `job_id`, `attempt_id`, `type` and integer `timestam
 | Event type | Additional exact fields and conditions |
 |---|---|
 | `started` | `parent_attempt_id`, `retry_reason`, `upstream_identity`; parent/reason are both null for the first attempt |
-| `completed` | `reason="exact_horizon"`, non-null `upstream_identity` |
+| `completed` | v1: `reason="exact_horizon"`; v2: `reason="process_completed"` (`exact_horizon` is invalid in v2); non-null `upstream_identity` in both |
 | `failed`, `cancelled` | Nonempty `reason`, `upstream_identity` which may be null |
 
+Version 2 events (D-024, emitted by `gate/s2_executor.py` for the guest unit runner) also carry `schema_version: 2` and `evidence_refs` (unique nonempty texts naming the captured logs and files behind the event). A v2 `completed` event records that the upstream process completed with log-backed attempt evidence; it does not claim the requested horizon, which only inspected evidence can establish. Version 1 events are unchanged and still accepted.
+
 An upstream identity has exactly `run_uuid`, `clipgt_id` and `rollout_id`. A first start can precede UUID allocation; a failure then remains a scheduled failed attempt. A started attempt without a terminal event remains incomplete. Repeated event IDs are idempotent only for identical canonical JSON values; conflicting duplicates block.
+
+**Scene ↔ clip binding (R4 C2, agent-authored 2026-11-08).** A scheduled job's `scene_id` is the value the launch passes in the wizard's `scenes.scene_ids`, and at AlpaSim `e121e59141dc391f6c295513d6dadc840a419149` the runtime writes that value as `clipgt_id`: the wizard queries artifacts by those IDs (`src/wizard/alpasim_wizard/context.py:97-98`; `scenes/sceneset.py:272-292` filters the `scene_id` column and raises on any missing ID) and writes `runtime_config["scenes"] = [{"scene_id": s.scene_id}]` (`configuration.py:102`); the runtime turns each into `RolloutSpec(scenario_id=scene.scene_id)` (`src/runtime/alpasim_runtime/simulate/__main__.py:162`), then `PendingRolloutJob(scene_id=spec.scenario_id)` (`daemon/engine.py:198`) and `UnboundRollout.create(scene_id=job.scene_id)` (`worker/main.py:130`), which saves under `rollouts/<scene_id>` (`unbound_rollout.py:338`) and logs `SessionMetadata(scene_id=self.scene_id)` (`unbound_rollout.py:368-370`, `event_loop.py:537`); the evaluator records `clipgt_id = session_metadata.scene_id` (`src/eval/src/eval/scenario_evaluator.py:104`, passed on at `:136`) into the metrics column `clipgt_id` (`data.py:2064`), and failed rollouts carry `clipgt_id=rollout_spec.scenario_id` (`simulate/__main__.py:59`). Ingestion therefore requires `clipgt_id == job.scene_id` for every attempt with an upstream identity (blocking `scene_clip_mismatch`), and one simulator session `(clipgt_id, rollout_id)` may back only one attempt of one job (blocking `session_reused`; distinct `run_uuid` values do not disambiguate it), matching `gate/s2_capture.py`. These are pinned-source (L2) facts, not host-verified behaviour.
 
 Retries retain parent, reason and all prior attempts. **Every multiple-attempt job blocks current selection**, including a failed attempt followed by a successful one. No best-score or last-success rule is supplied. Admission requires one completed first attempt for every scheduled job and no ledger issue. A ledger failure returns the retained schedule/events and diagnostics before raw-file normalization.
 

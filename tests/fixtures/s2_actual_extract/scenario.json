@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "scope": "public_source_fixture",
+  "author": "agent (D-018/D-024); hand-written in the pinned AlpaSim e121e591 output shapes",
+  "requested_steps": 3,
+  "protocol_hash": "abababababababababababababababababababababababababababababababab",
+  "timestamps_us": [100000, 200000, 300000, 400000],
+  "base_streams": {
+    "progress_rel_to_total": {"aggregation": "last", "values": [0.1, 0.3, 0.5, 0.64]},
+    "progress_rel": {"aggregation": "min", "values": [0.64, 0.64, 0.64, 0.64]},
+    "gt_dist_traveled_m": {"aggregation": "last", "values": [20.0, 20.0, 20.0, 20.0]},
+    "collision_front": {"aggregation": "max", "values": [0.0, 0.0, 0.0, 0.0]},
+    "collision_lateral": {"aggregation": "max", "values": [0.0, 0.0, 0.0, 0.0]},
+    "collision_any": {"aggregation": "max", "values": [0.0, 0.0, 0.0, 0.0]},
+    "offroad": {"aggregation": "max", "values": [0.0, 0.0, 0.0, 0.0]},
+    "left_corridor_laterally": {"aggregation": "max", "values": [0.0, 0.0, 0.0, 0.0]},
+    "dist_to_gt_trajectory": {"aggregation": "max", "values": [0.1, 0.3, 0.8, 0.5]},
+    "lateral_dist_to_gt_trajectory": {"aggregation": "max", "values": [0.1, 0.2, 0.4, 0.3]},
+    "img_is_black": {"aggregation": "max", "values": [0.0, 0.0, 0.0, 0.0]}
+  },
+  "base_summary_metrics": {
+    "progress_clipped_rel": 0.64,
+    "progress_rel": 0.64,
+    "progress_rel_to_total": 0.64,
+    "gt_dist_traveled_m": 20.0,
+    "collision_front": 0.0,
+    "collision_lateral": 0.0,
+    "collision_any": 0.0,
+    "collision_at_fault": 0.0,
+    "offroad": 0.0,
+    "left_corridor_laterally": 0.0,
+    "dist_to_gt_trajectory": 0.8,
+    "lateral_dist_to_gt_trajectory": 0.4
+  },
+  "units": {
+    "pair_a": {
+      "job": {"job_id": "job-pair-a", "arm": "A", "policy_id": "fixture-policy-a",
+              "scene_id": "clip-s1", "road_id": "road-1", "stratum": "urban",
+              "replicate_id": 0},
+      "run_uuid": "11111111-1111-4111-8111-1111111111a1",
+      "run_name": "e2e_challenge_dev",
+      "compose_exit_code": 0,
+      "log": [
+        "Attaching to runtime-0-1",
+        "runtime-0-1  | 10:00:01.123 [W0] INFO:\tSession STARTING: uuid=20000000-0000-4000-8000-0000000000a1 scene=clip-s1 steps=3",
+        "runtime-0-1  | 10:00:02.123 [W0] INFO:\tSession COMPLETED: uuid=20000000-0000-4000-8000-0000000000a1 scene=clip-s1 simulated 0.30 sim seconds in 1.00 wall clock seconds for 0.30x real time (total rollout 2.00s incl. setup/warmup)"
+      ],
+      "rollouts": {
+        "20000000-0000-4000-8000-0000000000a1": {"complete": true, "asl": true,
+                                                  "streams": {"drop": [], "override": {}}}
+      },
+      "summary_rows": [
+        {"kind": "scored", "rollout_id": "20000000-0000-4000-8000-0000000000a1",
+         "status": "pass", "score": 0.8, "progress_score": 0.8, "failure_reason": null,
+         "metrics_override": {}}
+      ]
+    },
+    "pair_b_late": {
+      "job": {"job_id": "job-pair-b", "arm": "B", "policy_id": "fixture-policy-b",
+              "scene_id": "clip-s1", "road_id": "road-1", "stratum": "urban",
+              "replicate_id": 0},
+      "run_uuid": "11111111-1111-4111-8111-1111111111b1",
+      "run_name": "e2e_challenge_dev",
+      "compose_exit_code": 0,
+      "log": [
+        "runtime-0-1  | 11:00:01.123 [W0] INFO:\tSession STARTING: uuid=20000000-0000-4000-8000-0000000000b1 scene=clip-s1 steps=3",
+        "runtime-0-1  | 11:00:02.123 [W0] INFO:\tSession COMPLETED: uuid=20000000-0000-4000-8000-0000000000b1 scene=clip-s1 simulated 0.30 sim seconds in 1.00 wall clock seconds for 0.30x real time (total rollout 2.00s incl. setup/warmup)"
+      ],
+      "rollouts": {
+        "20000000-0000-4000-8000-0000000000b1": {"complete": true, "asl": true, "streams": {
+          "drop": [],
+          "override": {
+            "progress_rel_to_total": {"values": [0.1, 0.3, 0.5, 0.7]},
+            "collision_front": {"values": [0.0, 1.0, 0.0, 0.0]},
+            "collision_any": {"values": [0.0, 1.0, 0.0, 0.0]},
+            "dist_to_gt_trajectory": {"values": [0.5, 1.0, 2.0, 4.2]},
+            "lateral_dist_to_gt_trajectory": {"values": [0.2, 0.5, 1.0, 2.1]}
+          }}}
+      },
+      "summary_rows": [
+        {"kind": "scored", "rollout_id": "20000000-0000-4000-8000-0000000000b1",
+         "status": "fail", "score": 0.0, "progress_score": 0.375,
+         "failure_reason": "collision_at_fault",
+         "metrics_override": {"progress_clipped_rel": 0.3, "progress_rel_to_total": 0.3,
+                              "collision_front": 1.0, "collision_any": 1.0,
+                              "collision_at_fault": 1.0, "dist_to_gt_trajectory": 1.0,
+                              "lateral_dist_to_gt_trajectory": 0.5}}
+      ]
+    },
+    "invalid_samples": {
+      "job": {"job_id": "job-invalid", "arm": "A", "policy_id": "fixture-policy-a",
+              "scene_id": "clip-s2", "road_id": "road-2", "stratum": "urban",
+              "replicate_id": 0},
+      "run_uuid": "11111111-1111-4111-8111-1111111111c1",
+      "run_name": "e2e_challenge_dev",
+      "compose_exit_code": 0,
+      "log": [
+        "runtime-0-1  | 12:00:01.123 [W0] INFO:\tSession STARTING: uuid=20000000-0000-4000-8000-0000000000c1 scene=clip-s2 steps=3",
+        "runtime-0-1  | 12:00:02.123 [W0] INFO:\tSession COMPLETED: uuid=20000000-0000-4000-8000-0000000000c1 scene=clip-s2 simulated 0.30 sim seconds in 1.00 wall clock seconds for 0.30x real time (total rollout 2.00s incl. setup/warmup)"
+      ],
+      "rollouts": {
+        "20000000-0000-4000-8000-0000000000c1": {"complete": true, "asl": true, "streams": {
+          "drop": [],
+          "override": {
+            "collision_front": {"valid": [true, false, true, true]},
+            "img_is_black": {"valid": [true, true, false, true]}
+          }}}
+      },
+      "summary_rows": [
+        {"kind": "scored", "rollout_id": "20000000-0000-4000-8000-0000000000c1",
+         "status": "pass", "score": 0.8, "progress_score": 0.8, "failure_reason": null,
+         "metrics_override": {}}
+      ]
+    },
+    "missing_offroad": {
+      "job": {"job_id": "job-no-offroad", "arm": "A", "policy_id": "fixture-policy-a",
+              "scene_id": "clip-s3", "road_id": "road-3", "stratum": "urban",
+              "replicate_id": 0},
+      "run_uuid": "11111111-1111-4111-8111-1111111111d1",
+      "run_name": "e2e_challenge_dev",
+      "compose_exit_code": 0,
+      "log": [
+        "runtime-0-1  | 13:00:01.123 [W0] INFO:\tSession STARTING: uuid=20000000-0000-4000-8000-0000000000d1 scene=clip-s3 steps=3",
+        "runtime-0-1  | 13:00:02.123 [W0] INFO:\tSession COMPLETED: uuid=20000000-0000-4000-8000-0000000000d1 scene=clip-s3 simulated 0.30 sim seconds in 1.00 wall clock seconds for 0.30x real time (total rollout 2.00s incl. setup/warmup)"
+      ],
+      "rollouts": {
+        "20000000-0000-4000-8000-0000000000d1": {"complete": true, "asl": true,
+                                                  "streams": {"drop": ["offroad"], "override": {}}}
+      },
+      "summary_rows": [
+        {"kind": "scored", "rollout_id": "20000000-0000-4000-8000-0000000000d1",
+         "status": "pass", "score": 0.8, "progress_score": 0.8, "failure_reason": null,
+         "metrics_override": {}}
+      ]
+    },
+    "failed_pre_uuid": {
+      "job": {"job_id": "job-pre-uuid", "arm": "A", "policy_id": "fixture-policy-a",
+              "scene_id": "clip-s4", "road_id": "road-4", "stratum": "urban",
+              "replicate_id": 0},
+      "run_uuid": "11111111-1111-4111-8111-1111111111e1",
+      "run_name": "e2e_challenge_dev",
+      "compose_exit_code": 0,
+      "log": [
+        "runtime-0-1  | 14:00:01.123 [W0] WARNING:\tRollout FAILED: job=0123456789abcdef0123456789abcde4 scene=clip-s4 uuid=N/A retryable=False error=No complete policy step fits in the recording after policy start"
+      ],
+      "rollouts": {},
+      "summary_rows": [
+        {"kind": "runtime_failure", "rollout_id": "failed-0",
+         "error": "No complete policy step fits in the recording after policy start"}
+      ]
+    },
+    "incomplete_folder": {
+      "job": {"job_id": "job-incomplete", "arm": "A", "policy_id": "fixture-policy-a",
+              "scene_id": "clip-s5", "road_id": "road-5", "stratum": "urban",
+              "replicate_id": 0},
+      "run_uuid": "11111111-1111-4111-8111-1111111111f1",
+      "run_name": "e2e_challenge_dev",
+      "compose_exit_code": 0,
+      "log": [
+        "runtime-0-1  | 15:00:01.123 [W0] INFO:\tSession STARTING: uuid=20000000-0000-4000-8000-0000000000f1 scene=clip-s5 steps=3",
+        "runtime-0-1  | 15:00:02.123 [W0] WARNING:\tRollout FAILED: job=0123456789abcdef0123456789abcde5 scene=clip-s5 uuid=20000000-0000-4000-8000-0000000000f1 retryable=False error=Camera camera_rear_left_70fov not in desired cameras",
+        "runtime-0-1  | Traceback (most recent call last):",
+        "runtime-0-1  |   ValueError: Camera camera_rear_left_70fov not in desired cameras"
+      ],
+      "rollouts": {
+        "20000000-0000-4000-8000-0000000000f1": {"complete": false, "asl": true, "streams": null}
+      },
+      "summary_rows": [
+        {"kind": "runtime_failure", "rollout_id": "20000000-0000-4000-8000-0000000000f1",
+         "error": "Camera camera_rear_left_70fov not in desired cameras"}
+      ]
+    },
+    "internal_retry": {
+      "job": {"job_id": "job-retry", "arm": "A", "policy_id": "fixture-policy-a",
+              "scene_id": "clip-s6", "road_id": "road-6", "stratum": "urban",
+              "replicate_id": 0},
+      "run_uuid": "11111111-1111-4111-8111-111111111101",
+      "run_name": "e2e_challenge_dev",
+      "compose_exit_code": 0,
+      "log": [
+        "runtime-0-1  | 16:00:01.123 [W0] INFO:\tSession STARTING: uuid=20000000-0000-4000-8000-000000000061 scene=clip-s6 steps=3",
+        "runtime-0-1  | 16:00:02.123 [W0] WARNING:\tRollout FAILED: job=0123456789abcdef0123456789abcd61 scene=clip-s6 uuid=20000000-0000-4000-8000-000000000061 retryable=True error=renderer unavailable",
+        "runtime-0-1  | 16:00:02.223 WARNING:\tRetrying rollout after retryable infrastructure failure: scene=clip-s6 failed_job=0123456789abcdef0123456789abcd61 retry_job=0123456789abcdef0123456789abcd62 attempt=1/1 error=renderer unavailable",
+        "runtime-0-1  | 16:00:03.123 [W0] INFO:\tSession STARTING: uuid=20000000-0000-4000-8000-000000000062 scene=clip-s6 steps=3",
+        "runtime-0-1  | 16:00:04.123 [W0] INFO:\tSession COMPLETED: uuid=20000000-0000-4000-8000-000000000062 scene=clip-s6 simulated 0.30 sim seconds in 1.00 wall clock seconds for 0.30x real time (total rollout 2.00s incl. setup/warmup)"
+      ],
+      "rollouts": {
+        "20000000-0000-4000-8000-000000000061": {"complete": false, "asl": true, "streams": null},
+        "20000000-0000-4000-8000-000000000062": {"complete": true, "asl": true,
+                                                  "streams": {"drop": [], "override": {}}}
+      },
+      "summary_rows": [
+        {"kind": "scored", "rollout_id": "20000000-0000-4000-8000-000000000062",
+         "status": "pass", "score": 0.8, "progress_score": 0.8, "failure_reason": null,
+         "metrics_override": {}}
+      ]
+    }
+  }
+}

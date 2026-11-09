@@ -202,9 +202,11 @@
       "egress_cap_usd": 10,
       "other_cap_usd": 50,
       "total_cap_usd": 100,
-      "quoted_at": null,
-      "rate_basis": "Proposed maximum rate, not an itemized account quote or approved phase rate",
-      "cost_reserve_note": "500GiB7day storage baseline8.17; noncompute caps are reservations, not permission for extra services"
+      "quoted_at": null
+    },
+    "resource_notes": {
+      "cost_reserve_note": "500GiB7day storage baseline8.17; noncompute caps are reservations, not permission for extra services",
+      "rate_basis": "Proposed maximum rate, not an itemized account quote or approved phase rate"
     }
   },
   "realized": {},

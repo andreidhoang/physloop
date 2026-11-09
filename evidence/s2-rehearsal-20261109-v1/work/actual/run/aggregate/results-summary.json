@@ -1,0 +1,57 @@
+{
+ "rollouts": [
+  {
+   "clipgt_id": "synthetic-scene-0",
+   "failure_reason": null,
+   "metrics": {
+    "clipgt_id": "synthetic-scene-0",
+    "rollout_id": "00000000-0000-4000-8000-000000000001",
+    "run_uuid": "00000000-1111-4111-8111-111111111111"
+   },
+   "passed": true,
+   "rollout_id": "00000000-0000-4000-8000-000000000001",
+   "run_name": "e2e_challenge_dev",
+   "run_uuid": "00000000-1111-4111-8111-111111111111",
+   "score": 0.8,
+   "score_metrics": {},
+   "status": "pass"
+  },
+  {
+   "clipgt_id": "synthetic-scene-0",
+   "failure_reason": "boom",
+   "metrics": {
+    "clipgt_id": "synthetic-scene-0",
+    "error": "boom",
+    "rollout_id": "00000000-0000-4000-8000-000000000002",
+    "run_name": "e2e_challenge_dev",
+    "run_uuid": null
+   },
+   "passed": false,
+   "rollout_id": "00000000-0000-4000-8000-000000000002",
+   "run_name": "e2e_challenge_dev",
+   "run_uuid": null,
+   "score": 0.0,
+   "score_metrics": {},
+   "status": "fail"
+  },
+  {
+   "clipgt_id": "synthetic-scene-0",
+   "failure_reason": "boom",
+   "metrics": {
+    "clipgt_id": "synthetic-scene-0",
+    "error": "boom",
+    "rollout_id": "failed-1",
+    "run_name": "e2e_challenge_dev",
+    "run_uuid": null
+   },
+   "passed": false,
+   "rollout_id": "failed-1",
+   "run_name": "e2e_challenge_dev",
+   "run_uuid": null,
+   "score": 0.0,
+   "score_metrics": {},
+   "status": "fail"
+  }
+ ],
+ "schema_version": 1
+}

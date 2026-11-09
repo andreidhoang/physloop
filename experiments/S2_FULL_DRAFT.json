@@ -202,7 +202,9 @@
       "egress_cap_usd": null,
       "other_cap_usd": null,
       "total_cap_usd": 1100,
-      "quoted_at": null,
+      "quoted_at": null
+    },
+    "resource_notes": {
       "allocation_note": "1100 is a proposed reservation after maximum100pilot; no pilot spending or full-sweep release has occurred"
     }
   },
